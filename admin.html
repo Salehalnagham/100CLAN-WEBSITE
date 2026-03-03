@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Panel — 100CLAN</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --yellow: #F5B800; --yellow-dark: #D9A200; --yellow-glow: rgba(245,184,0,0.2);
+      --black: #0D0D0D; --dark: #111111; --dark-2: #161616; --dark-3: #1C1C1C;
+      --dark-4: #222222; --dark-card: #181818;
+      --white: #FFFFFF; --gray: #888888; --gray-light: #C8C8C8;
+      --green: #48c78e; --red: #ff6b6b; --blue: #6495ed; --orange: #ffa500;
+      --font: 'Montserrat', sans-serif; --radius: 12px;
+      --transition: 0.25s cubic-bezier(0.4,0,0.2,1); --sidebar-w: 256px;
+    }
+    html, body { height: 100%; font-family: var(--font); background: var(--black); color: var(--white); line-height: 1.6; overflow-x: hidden; }
+    ::-webkit-scrollbar { width: 4px; height: 4px; }
+    ::-webkit-scrollbar-track { background: var(--dark); }
+    ::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
+
+    /* ── Login ── */
+    .login-screen {
+      position: fixed; inset: 0; z-index: 9999; background: var(--black);
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 28px;
+    }
+    .login-logo { display: flex; align-items: center; gap: 12px; }
+    .login-logo img { height: 42px; }
+    .admin-pill {
+      background: rgba(245,184,0,0.12); border: 1px solid rgba(245,184,0,0.3);
+      color: var(--yellow); font-size: 9px; font-weight: 800; letter-spacing: 0.14em;
+      text-transform: uppercase; padding: 4px 10px; border-radius: 6px;
+    }
+    .login-box {
+      background: var(--dark-2); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px; padding: 38px; width: 360px; max-width: 92vw;
+    }
+    .login-box h2 { font-size: 21px; font-weight: 900; margin-bottom: 5px; }
+    .login-box p  { font-size: 13px; color: var(--gray); margin-bottom: 26px; }
+    .lf { margin-bottom: 14px; }
+    .lf label { display: block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray-light); margin-bottom: 7px; }
+    .l-input {
+      width: 100%; padding: 12px 15px; background: var(--dark-4);
+      border: 1.5px solid rgba(255,255,255,0.1); border-radius: 9px;
+      color: var(--white); font-family: var(--font); font-size: 14px; outline: none; transition: border-color 0.2s;
+    }
+    .l-input:focus { border-color: var(--yellow); }
+    .login-btn {
+      width: 100%; padding: 13px; background: var(--yellow); color: #111;
+      font-family: var(--font); font-weight: 800; font-size: 14px;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      border: none; border-radius: 9px; cursor: pointer; transition: var(--transition); margin-top: 6px;
+    }
+    .login-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 24px var(--yellow-glow); }
+    .login-err { font-size: 12px; color: var(--red); margin-top: 10px; display: none; }
+
+    /* ── App Shell ── */
+    .app { display: none; }
+    .app.visible { display: block; }
+
+    /* ── Top Nav ── */
+    .top-nav {
+      position: fixed; top: 0; left: 0; right: 0; height: 60px; z-index: 200;
+      background: rgba(13,13,13,0.97); backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex; align-items: center; justify-content: space-between; padding: 0 24px 0 0;
+    }
+    .nav-brand {
+      width: var(--sidebar-w); display: flex; align-items: center; gap: 10px;
+      padding: 0 22px; border-right: 1px solid rgba(255,255,255,0.06); height: 100%;
+    }
+    .nav-brand img { height: 34px; }
+    .nav-badge {
+      font-size: 9px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+      background: var(--yellow); color: #111; padding: 3px 8px; border-radius: 4px;
+    }
+    .nav-right { display: flex; align-items: center; gap: 14px; }
+    .nav-admin { font-size: 13px; font-weight: 600; color: var(--gray-light); }
+    .btn-logout {
+      font-size: 11px; font-weight: 700; color: var(--gray); background: none;
+      border: 1px solid rgba(255,255,255,0.12); border-radius: 7px; padding: 7px 14px;
+      cursor: pointer; font-family: var(--font); transition: var(--transition); text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .btn-logout:hover { color: var(--red); border-color: rgba(255,107,107,0.4); }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      position: fixed; top: 60px; left: 0; bottom: 0; width: var(--sidebar-w);
+      background: var(--dark-2); border-right: 1px solid rgba(255,255,255,0.06);
+      display: flex; flex-direction: column; overflow-y: auto; padding: 16px 0 24px;
+    }
+    .sb-label {
+      font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.14em;
+      color: #3a3a3a; padding: 0 20px; margin: 14px 0 5px;
+    }
+    .sb-link {
+      display: flex; align-items: center; gap: 10px; padding: 10px 20px;
+      font-size: 13px; font-weight: 600; color: var(--gray); cursor: pointer;
+      transition: var(--transition); border: none; background: none; width: 100%;
+      text-align: left; font-family: var(--font); position: relative;
+    }
+    .sb-link:hover { background: rgba(255,255,255,0.04); color: var(--white); }
+    .sb-link.active { background: rgba(245,184,0,0.08); color: var(--yellow); }
+    .sb-link.active::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+      width: 3px; background: var(--yellow); border-radius: 0 2px 2px 0;
+    }
+    .sb-icon { font-size: 15px; width: 20px; text-align: center; flex-shrink: 0; }
+    .sb-badge {
+      margin-left: auto; background: var(--red); color: #fff;
+      font-size: 9px; font-weight: 800; border-radius: 8px; padding: 2px 6px; min-width: 18px; text-align: center;
+    }
+    .sb-badge.y { background: var(--yellow); color: #111; }
+
+    /* ── Main ── */
+    .main { margin-left: var(--sidebar-w); margin-top: 60px; padding: 32px 36px; min-height: calc(100vh - 60px); }
+
+    .section { display: none; }
+    .section.active { display: block; }
+
+    /* ── Page Header ── */
+    .ph { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 28px; flex-wrap: wrap; gap: 12px; }
+    .ph h1 { font-size: 23px; font-weight: 900; letter-spacing: -0.02em; }
+    .ph p  { font-size: 13px; color: var(--gray); margin-top: 3px; }
+
+    /* ── Stats Grid ── */
+    .sg { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; margin-bottom: 28px; }
+    .sc {
+      background: var(--dark-card); border: 1px solid rgba(255,255,255,0.07);
+      border-radius: var(--radius); padding: 20px 22px; position: relative; overflow: hidden; transition: var(--transition);
+    }
+    .sc:hover { border-color: rgba(245,184,0,0.2); transform: translateY(-1px); }
+    .sc::after {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg,transparent,var(--yellow),transparent);
+      opacity: 0; transition: opacity var(--transition);
+    }
+    .sc:hover::after { opacity: 1; }
+    .sc-icon { font-size: 20px; margin-bottom: 10px; }
+    .sc-lbl { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--gray); margin-bottom: 5px; }
+    .sc-val { font-size: 28px; font-weight: 900; color: var(--yellow); letter-spacing: -0.03em; line-height: 1; }
+    .sc-sub { font-size: 11px; color: var(--gray); margin-top: 5px; }
+    .tu { color: var(--green); } .td { color: var(--red); }
+
+    /* ── Table Card ── */
+    .tc { background: var(--dark-card); border: 1px solid rgba(255,255,255,0.07); border-radius: var(--radius); overflow: hidden; margin-bottom: 22px; }
+    .tc-hd {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 20px; border-bottom: 1px solid rgba(255,255,255,0.06); gap: 10px; flex-wrap: wrap;
+    }
+    .tc-hd h3 { font-size: 14px; font-weight: 800; }
+    .tc-ctrl { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .s-input {
+      padding: 8px 13px; background: var(--dark-4); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 7px; color: var(--white); font-family: var(--font); font-size: 12px;
+      outline: none; width: 190px; transition: border-color 0.2s;
+    }
+    .s-input:focus { border-color: var(--yellow); }
+    .s-input::placeholder { color: var(--gray); }
+    .f-sel {
+      padding: 8px 11px; background: var(--dark-4); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 7px; color: var(--gray-light); font-family: var(--font); font-size: 12px;
+      outline: none; cursor: pointer; appearance: none;
+    }
+    table { width: 100%; border-collapse: collapse; }
+    thead th {
+      padding: 11px 16px; text-align: left; font-size: 9px; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.12em; color: var(--gray);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    tbody td { padding: 12px 16px; font-size: 13px; border-bottom: 1px solid rgba(255,255,255,0.04); vertical-align: middle; }
+    tbody tr:last-child td { border-bottom: none; }
+    tbody tr:hover td { background: rgba(255,255,255,0.02); }
+
+    /* ── Badges ── */
+    .badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 4px 10px; border-radius: 20px; font-size: 10px; font-weight: 800;
+      letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap;
+    }
+    .b-active   { background: rgba(72,199,142,0.15);  color: var(--green); border: 1px solid rgba(72,199,142,0.3); }
+    .b-pending  { background: rgba(245,184,0,0.12);   color: var(--yellow); border: 1px solid rgba(245,184,0,0.3); }
+    .b-suspended{ background: rgba(255,107,107,0.12); color: var(--red);   border: 1px solid rgba(255,107,107,0.3); }
+    .b-accepted { background: rgba(72,199,142,0.15);  color: var(--green); border: 1px solid rgba(72,199,142,0.3); }
+    .b-declined { background: rgba(255,255,255,0.06); color: var(--gray);  border: 1px solid rgba(255,255,255,0.1); }
+    .b-flagged  { background: rgba(255,107,107,0.15); color: var(--red);   border: 1px solid rgba(255,107,107,0.3); }
+    .b-resolved { background: rgba(72,199,142,0.12);  color: var(--green); border: 1px solid rgba(72,199,142,0.25); }
+    .b-pro      { background: rgba(245,184,0,0.15);   color: var(--yellow); border: 1px solid rgba(245,184,0,0.35); }
+    .b-free     { background: rgba(255,255,255,0.06); color: var(--gray);  border: 1px solid rgba(255,255,255,0.1); }
+    .b-expired  { background: rgba(255,107,107,0.1);  color: var(--red);   border: 1px solid rgba(255,107,107,0.2); }
+
+    /* ── Action Buttons ── */
+    .ab { display: flex; align-items: center; gap: 5px; flex-wrap: wrap; }
+    .btn {
+      padding: 6px 11px; border-radius: 6px; font-size: 10px; font-weight: 800;
+      letter-spacing: 0.05em; text-transform: uppercase; cursor: pointer;
+      border: none; font-family: var(--font); transition: var(--transition); white-space: nowrap;
+    }
+    .btn-v  { background: rgba(100,149,237,0.15); color: var(--blue); }
+    .btn-v:hover  { background: rgba(100,149,237,0.28); }
+    .btn-e  { background: rgba(245,184,0,0.12); color: var(--yellow); }
+    .btn-e:hover  { background: rgba(245,184,0,0.22); }
+    .btn-a  { background: rgba(72,199,142,0.15); color: var(--green); }
+    .btn-a:hover  { background: rgba(72,199,142,0.28); }
+    .btn-r  { background: rgba(255,107,107,0.12); color: var(--red); }
+    .btn-r:hover  { background: rgba(255,107,107,0.22); }
+    .btn-s  { background: rgba(255,165,0,0.12); color: var(--orange); }
+    .btn-s:hover  { background: rgba(255,165,0,0.22); }
+    .btn-d  { background: rgba(255,107,107,0.08); color: var(--red); border: 1px solid rgba(255,107,107,0.2); }
+    .btn-d:hover  { background: rgba(255,107,107,0.18); }
+
+    /* ── Primary Button ── */
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: var(--yellow); color: #111; font-family: var(--font); font-weight: 800;
+      font-size: 12px; letter-spacing: 0.07em; text-transform: uppercase;
+      padding: 10px 20px; border-radius: 9px; border: none; cursor: pointer; transition: var(--transition);
+    }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 5px 20px var(--yellow-glow); }
+
+    /* ── User Mini ── */
+    .um { display: flex; align-items: center; gap: 9px; }
+    .ua {
+      width: 32px; height: 32px; border-radius: 50%; background: var(--yellow);
+      color: #111; font-weight: 800; font-size: 10px;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .un { font-weight: 700; font-size: 13px; }
+    .uh { font-size: 10px; color: var(--gray); }
+
+    /* ── Content Cards ── */
+    .cg { display: grid; grid-template-columns: repeat(2,1fr); gap: 18px; margin-bottom: 20px; }
+    .cc { background: var(--dark-card); border: 1px solid rgba(255,255,255,0.07); border-radius: var(--radius); padding: 20px; }
+    .cc-title { font-size: 12px; font-weight: 800; margin-bottom: 3px; }
+    .cc-desc  { font-size: 11px; color: var(--gray); margin-bottom: 11px; }
+    .c-in, .c-ta {
+      width: 100%; padding: 10px 13px; background: var(--dark-4);
+      border: 1.5px solid rgba(255,255,255,0.1); border-radius: 8px;
+      color: var(--white); font-family: var(--font); font-size: 13px;
+      outline: none; transition: border-color 0.2s; margin-bottom: 8px;
+    }
+    .c-in:focus, .c-ta:focus { border-color: var(--yellow); }
+    .c-ta { resize: vertical; min-height: 76px; line-height: 1.5; }
+
+    /* ── Analytics Charts ── */
+    .ag { display: grid; grid-template-columns: repeat(2,1fr); gap: 18px; margin-bottom: 22px; }
+    .chart-c { background: var(--dark-card); border: 1px solid rgba(255,255,255,0.07); border-radius: var(--radius); padding: 20px; }
+    .chart-c h3 { font-size: 13px; font-weight: 800; margin-bottom: 18px; }
+    .bar-chart { display: flex; align-items: flex-end; gap: 6px; height: 90px; }
+    .bw { display: flex; flex-direction: column; align-items: center; gap: 4px; flex: 1; }
+    .bar { width: 100%; background: rgba(245,184,0,0.2); border-radius: 3px 3px 0 0; transition: background 0.2s; min-height: 3px; }
+    .bar:hover { background: var(--yellow); }
+    .bar-lbl { font-size: 8px; color: var(--gray); font-weight: 600; }
+    .nb-row { display: flex; align-items: center; gap: 9px; margin-bottom: 8px; }
+    .nb-name { font-size: 11px; font-weight: 600; color: var(--gray-light); width: 76px; flex-shrink: 0; }
+    .nb-track { flex: 1; height: 5px; background: rgba(255,255,255,0.06); border-radius: 3px; overflow: hidden; }
+    .nb-fill { height: 100%; background: var(--yellow); border-radius: 3px; }
+    .nb-pct { font-size: 11px; font-weight: 700; color: var(--yellow); width: 32px; text-align: right; }
+
+    /* ── Form Elements ── */
+    .f-row { margin-bottom: 13px; }
+    .f-lbl { display: block; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray-light); margin-bottom: 6px; }
+    .f-sel2, .m-sel {
+      width: 100%; padding: 10px 13px; background: var(--dark-4);
+      border: 1.5px solid rgba(255,255,255,0.1); border-radius: 8px;
+      color: var(--white); font-family: var(--font); font-size: 13px;
+      outline: none; appearance: none; cursor: pointer;
+    }
+    .f-sel2:focus, .m-sel:focus { border-color: var(--yellow); }
+
+    /* ── Notifications ── */
+    .nf { background: var(--dark-card); border: 1px solid rgba(255,255,255,0.07); border-radius: var(--radius); padding: 22px; margin-bottom: 20px; }
+    .nf h3 { font-size: 14px; font-weight: 800; margin-bottom: 16px; }
+
+    /* ── Settings ── */
+    .settings-g { display: grid; grid-template-columns: repeat(2,1fr); gap: 18px; }
+    .set-card { background: var(--dark-card); border: 1px solid rgba(255,255,255,0.07); border-radius: var(--radius); padding: 22px; }
+    .set-card h3 { font-size: 13px; font-weight: 800; margin-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 11px; }
+    .set-row { display: flex; align-items: center; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+    .set-row:last-child { border-bottom: none; }
+    .set-lbl { font-size: 13px; font-weight: 600; }
+    .set-desc { font-size: 10px; color: var(--gray); margin-top: 1px; }
+    .toggle {
+      position: relative; width: 38px; height: 21px; background: rgba(255,255,255,0.1);
+      border-radius: 11px; cursor: pointer; transition: background 0.3s; flex-shrink: 0; border: none;
+    }
+    .toggle::after {
+      content: ''; position: absolute; top: 3px; left: 3px; width: 15px; height: 15px;
+      border-radius: 50%; background: var(--gray); transition: transform 0.3s, background 0.3s;
+    }
+    .toggle.on { background: rgba(245,184,0,0.25); }
+    .toggle.on::after { transform: translateX(17px); background: var(--yellow); }
+
+    /* ── Modals ── */
+    .mo {
+      position: fixed; inset: 0; z-index: 3000; background: rgba(0,0,0,0.72); backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none; transition: opacity 0.28s ease; padding: 20px;
+    }
+    .mo.open { opacity: 1; pointer-events: all; }
+    .modal {
+      background: var(--dark-2); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 18px; padding: 30px; width: 460px; max-width: 100%;
+      transform: translateY(18px); transition: transform 0.3s ease;
+      max-height: 90vh; overflow-y: auto;
+    }
+    .mo.open .modal { transform: translateY(0); }
+    .modal h3 { font-size: 17px; font-weight: 900; margin-bottom: 4px; }
+    .modal p  { font-size: 13px; color: var(--gray); margin-bottom: 20px; }
+    .modal-acts { display: flex; gap: 9px; justify-content: flex-end; margin-top: 22px; }
+    .mf { margin-bottom: 14px; }
+    .m-lbl { display: block; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray-light); margin-bottom: 6px; }
+    .m-in {
+      width: 100%; padding: 10px 13px; background: var(--dark-4);
+      border: 1.5px solid rgba(255,255,255,0.1); border-radius: 8px;
+      color: var(--white); font-family: var(--font); font-size: 13px; outline: none; transition: border-color 0.2s;
+    }
+    .m-in:focus { border-color: var(--yellow); }
+    .btn-danger {
+      padding: 10px 20px; border-radius: 9px; background: rgba(255,107,107,0.15);
+      color: var(--red); border: 1px solid rgba(255,107,107,0.3);
+      font-family: var(--font); font-weight: 800; font-size: 12px; cursor: pointer; transition: var(--transition);
+      letter-spacing: 0.05em; text-transform: uppercase;
+    }
+    .btn-danger:hover { background: rgba(255,107,107,0.28); }
+    .btn-cancel {
+      padding: 10px 20px; border-radius: 9px; background: transparent; color: var(--gray);
+      border: 1px solid rgba(255,255,255,0.12);
+      font-family: var(--font); font-weight: 700; font-size: 12px; cursor: pointer; transition: var(--transition);
+      letter-spacing: 0.05em; text-transform: uppercase;
+    }
+    .btn-cancel:hover { color: var(--white); border-color: rgba(255,255,255,0.25); }
+
+    /* ── Approval Cards ── */
+    .ap-card {
+      background: var(--dark-card); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius); padding: 20px; margin-bottom: 14px;
+      display: flex; align-items: center; justify-content: space-between; gap: 14px;
+    }
+
+    /* ── Toast ── */
+    .toast {
+      position: fixed; bottom: 26px; right: 26px; z-index: 5000;
+      background: var(--dark-3); border: 1px solid rgba(245,184,0,0.3); border-radius: 11px;
+      padding: 12px 18px; display: flex; align-items: center; gap: 9px;
+      font-size: 13px; font-weight: 600; color: var(--white);
+      opacity: 0; transform: translateY(10px); pointer-events: none;
+      transition: opacity 0.28s ease, transform 0.28s ease;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.err { border-color: rgba(255,107,107,0.4); }
+
+    /* ── Danger Zone ── */
+    .danger-zone { background: var(--dark-card); border: 1px solid rgba(255,107,107,0.22); border-radius: var(--radius); padding: 22px; margin-top: 18px; }
+    .danger-zone h3 { font-size: 13px; font-weight: 800; color: var(--red); margin-bottom: 14px; border-bottom: 1px solid rgba(255,107,107,0.15); padding-bottom: 10px; }
+
+    /* ── Empty state ── */
+    .empty { text-align: center; padding: 52px 24px; background: var(--dark-card); border-radius: var(--radius); border: 1px dashed rgba(255,255,255,0.08); }
+    .empty-icon { font-size: 34px; margin-bottom: 10px; opacity: 0.35; }
+    .empty p { font-size: 13px; color: var(--gray); }
+
+    /* ── Responsive ── */
+    @media (max-width: 1100px) { .sg { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width: 900px)  { .cg, .ag, .settings-g { grid-template-columns: 1fr; } }
+    @media (max-width: 760px)  {
+      :root { --sidebar-w: 0px; }
+      .sidebar { display: none; } .main { margin-left: 0; }
+      .nav-brand { width: auto; border-right: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Login ── -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-logo">
+    <img src="brand_assets/Logo-100clan.png" alt="100CLAN" />
+    <span class="admin-pill">Admin Panel</span>
+  </div>
+  <div class="login-box">
+    <h2>Restricted Access</h2>
+    <p>Authorized personnel only. Enter your admin credentials.</p>
+    <div class="lf">
+      <label>Username</label>
+      <input type="text" class="l-input" id="au" placeholder="admin" autocomplete="off" />
+    </div>
+    <div class="lf">
+      <label>Password</label>
+      <input type="password" class="l-input" id="ap" placeholder="••••••••" />
+    </div>
+    <button class="login-btn" id="loginBtn">Access Dashboard</button>
+    <div class="login-err" id="loginErr">Incorrect credentials. Try again.</div>
+  </div>
+</div>
+
+<!-- ── App ── -->
+<div class="app" id="app">
+
+  <!-- Top Nav -->
+  <nav class="top-nav">
+    <div class="nav-brand">
+      <img src="brand_assets/Logo-100clan.png" alt="100CLAN" />
+      <span class="nav-badge">Admin</span>
+    </div>
+    <div class="nav-right">
+      <span class="nav-admin">Super Admin</span>
+      <button class="btn-logout" id="logoutBtn">Log Out</button>
+    </div>
+  </nav>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sb-label">Main</div>
+    <button class="sb-link active" data-sec="overview"><span class="sb-icon">📊</span> Overview</button>
+
+    <div class="sb-label">Management</div>
+    <button class="sb-link" data-sec="users">
+      <span class="sb-icon">👥</span> Users
+      <span class="sb-badge y" id="sb-users">12</span>
+    </button>
+    <button class="sb-link" data-sec="approvals">
+      <span class="sb-icon">✅</span> Approvals
+      <span class="sb-badge" id="sb-approvals">0</span>
+    </button>
+    <button class="sb-link" data-sec="collabs"><span class="sb-icon">🤝</span> Collab Requests</button>
+    <button class="sb-link" data-sec="reports">
+      <span class="sb-icon">🚩</span> Reports
+      <span class="sb-badge" id="sb-reports">0</span>
+    </button>
+
+    <div class="sb-label">Platform</div>
+    <button class="sb-link" data-sec="content"><span class="sb-icon">✏️</span> Content Editor</button>
+    <button class="sb-link" data-sec="subscriptions"><span class="sb-icon">💳</span> Subscriptions</button>
+    <button class="sb-link" data-sec="analytics"><span class="sb-icon">📈</span> Analytics</button>
+    <button class="sb-link" data-sec="notifications"><span class="sb-icon">🔔</span> Notifications</button>
+    <button class="sb-link" data-sec="settings"><span class="sb-icon">⚙️</span> Settings</button>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main">
+
+    <!-- ═══ OVERVIEW ═══ -->
+    <div class="section active" id="s-overview">
+      <div class="ph">
+        <div><h1>Overview</h1><p>Platform summary and live metrics</p></div>
+        <button class="btn-primary" onclick="renderOverview()">↻ Refresh</button>
+      </div>
+      <div class="sg">
+        <div class="sc"><div class="sc-icon">👥</div><div class="sc-lbl">Total Users</div><div class="sc-val" id="ov-users">—</div><div class="sc-sub"><span class="tu">↑ 14%</span> this month</div></div>
+        <div class="sc"><div class="sc-icon">🤝</div><div class="sc-lbl">Active Collabs</div><div class="sc-val">247</div><div class="sc-sub"><span class="tu">↑ 8%</span> this week</div></div>
+        <div class="sc"><div class="sc-icon">⏳</div><div class="sc-lbl">Pending Approvals</div><div class="sc-val" id="ov-pend">—</div><div class="sc-sub">Awaiting review</div></div>
+        <div class="sc"><div class="sc-icon">🚩</div><div class="sc-lbl">Open Reports</div><div class="sc-val" id="ov-rep">—</div><div class="sc-sub"><span class="td">Needs attention</span></div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
+        <div class="tc">
+          <div class="tc-hd"><h3>Recent Sign-ups</h3><button class="btn btn-v" onclick="showSec('users')">View All</button></div>
+          <table><thead><tr><th>User</th><th>Niche</th><th>Status</th></tr></thead><tbody id="ov-rusers"></tbody></table>
+        </div>
+        <div class="tc">
+          <div class="tc-hd"><h3>Recent Collab Requests</h3><button class="btn btn-v" onclick="showSec('collabs')">View All</button></div>
+          <table><thead><tr><th>From</th><th>To</th><th>Status</th></tr></thead><tbody id="ov-rcollabs"></tbody></table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ USERS ═══ -->
+    <div class="section" id="s-users">
+      <div class="ph">
+        <div><h1>User Management</h1><p>View, edit, suspend, or remove creators</p></div>
+        <button class="btn-primary" onclick="openModal('addUserMo')">+ Add User</button>
+      </div>
+      <div class="tc">
+        <div class="tc-hd">
+          <h3>All Users</h3>
+          <div class="tc-ctrl">
+            <input type="text" class="s-input" id="uSearch" placeholder="Search users…" oninput="renderUsers()" />
+            <select class="f-sel" id="uFilter" onchange="renderUsers()">
+              <option value="">All Status</option>
+              <option value="active">Active</option>
+              <option value="pending">Pending</option>
+              <option value="suspended">Suspended</option>
+            </select>
+          </div>
+        </div>
+        <table>
+          <thead><tr><th>User</th><th>Email</th><th>Niche</th><th>Followers</th><th>Joined</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody id="usersTb"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ═══ APPROVALS ═══ -->
+    <div class="section" id="s-approvals">
+      <div class="ph"><div><h1>Profile Approvals</h1><p>Review and approve new creator profiles</p></div></div>
+      <div id="approvalsCont"></div>
+    </div>
+
+    <!-- ═══ COLLABS ═══ -->
+    <div class="section" id="s-collabs">
+      <div class="ph"><div><h1>Collaboration Requests</h1><p>Monitor all collaboration activity</p></div></div>
+      <div class="tc">
+        <div class="tc-hd">
+          <h3>All Requests</h3>
+          <select class="f-sel" id="collabFilter" onchange="renderCollabs()">
+            <option value="">All Status</option>
+            <option value="pending">Pending</option>
+            <option value="accepted">Accepted</option>
+            <option value="declined">Declined</option>
+          </select>
+        </div>
+        <table>
+          <thead><tr><th>From</th><th>To</th><th>Message</th><th>Sent</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody id="collabsTb"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ═══ CONTENT EDITOR ═══ -->
+    <div class="section" id="s-content">
+      <div class="ph">
+        <div><h1>Content Editor</h1><p>Update website texts and copy in real time</p></div>
+        <button class="btn-primary" onclick="saveContent()">💾 Save All Changes</button>
+      </div>
+      <div class="cg">
+        <div class="cc">
+          <div class="cc-title">Hero Headline — Line 1</div><div class="cc-desc">First line of the main hero</div>
+          <input type="text" class="c-in" id="c-h1" placeholder="Where Creators" />
+          <div class="cc-title" style="margin-top:10px">Hero Headline — Line 2</div><div class="cc-desc">Line with animated underline</div>
+          <input type="text" class="c-in" id="c-h2" placeholder="Don't Compete" />
+          <div class="cc-title" style="margin-top:10px">Hero Headline — Line 3</div>
+          <input type="text" class="c-in" id="c-h3" placeholder="They Collaborate." />
+        </div>
+        <div class="cc">
+          <div class="cc-title">Hero Subheadline</div><div class="cc-desc">Paragraph below the headline</div>
+          <textarea class="c-ta" id="c-sub" rows="3" placeholder="The platform where creators unite…"></textarea>
+          <div class="cc-title" style="margin-top:10px">CTA Button Text</div><div class="cc-desc">Primary call-to-action label</div>
+          <input type="text" class="c-in" id="c-cta" placeholder="Join Free Today" />
+        </div>
+        <div class="cc">
+          <div class="cc-title">Announcement Banner</div><div class="cc-desc">Sitewide banner (leave empty to hide)</div>
+          <input type="text" class="c-in" id="c-ann" placeholder="🎉 Beta launch — join free!" />
+          <div class="cc-title" style="margin-top:10px">Maintenance Message</div><div class="cc-desc">Shown during maintenance mode</div>
+          <input type="text" class="c-in" id="c-maint" placeholder="We'll be back shortly…" />
+        </div>
+        <div class="cc">
+          <div class="cc-title">About Section Title</div>
+          <input type="text" class="c-in" id="c-abt" placeholder="Built for Creators, By Creators" />
+          <div class="cc-title" style="margin-top:10px">About Section Body</div>
+          <textarea class="c-ta" id="c-abody" rows="3" placeholder="100CLAN is the platform where…"></textarea>
+        </div>
+        <div class="cc" style="grid-column:span 2">
+          <div class="cc-title">Footer Tagline</div>
+          <input type="text" class="c-in" id="c-ftag" placeholder="Where creators don't compete — they collaborate." />
+          <div class="cc-title" style="margin-top:10px">Copyright Text</div>
+          <input type="text" class="c-in" id="c-copy" placeholder="© 2026 100CLAN. All rights reserved." />
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ SUBSCRIPTIONS ═══ -->
+    <div class="section" id="s-subscriptions">
+      <div class="ph"><div><h1>Subscriptions</h1><p>Manage plans and billing</p></div></div>
+      <div class="sg" style="grid-template-columns:repeat(3,1fr)">
+        <div class="sc"><div class="sc-icon">🆓</div><div class="sc-lbl">Free Users</div><div class="sc-val" id="sub-free">—</div></div>
+        <div class="sc"><div class="sc-icon">⭐</div><div class="sc-lbl">Pro Users</div><div class="sc-val" id="sub-pro">—</div><div class="sc-sub"><span class="tu">↑ 12%</span></div></div>
+        <div class="sc"><div class="sc-icon">💰</div><div class="sc-lbl">Est. MRR</div><div class="sc-val">$4,230</div><div class="sc-sub">Monthly recurring</div></div>
+      </div>
+      <div class="tc">
+        <div class="tc-hd"><h3>User Subscriptions</h3></div>
+        <table><thead><tr><th>User</th><th>Plan</th><th>Started</th><th>Renewal</th><th>Status</th><th>Actions</th></tr></thead>
+        <tbody id="subsTb"></tbody></table>
+      </div>
+    </div>
+
+    <!-- ═══ ANALYTICS ═══ -->
+    <div class="section" id="s-analytics">
+      <div class="ph"><div><h1>Analytics</h1><p>Platform performance and growth metrics</p></div></div>
+      <div class="sg">
+        <div class="sc"><div class="sc-lbl">Page Views (7d)</div><div class="sc-val">48.2K</div><div class="sc-sub"><span class="tu">↑ 22%</span></div></div>
+        <div class="sc"><div class="sc-lbl">New Sign-ups (7d)</div><div class="sc-val">183</div><div class="sc-sub"><span class="tu">↑ 11%</span></div></div>
+        <div class="sc"><div class="sc-lbl">Collabs Sent (7d)</div><div class="sc-val">612</div><div class="sc-sub"><span class="tu">↑ 34%</span></div></div>
+        <div class="sc"><div class="sc-lbl">Avg. Session</div><div class="sc-val">4.2m</div><div class="sc-sub"><span class="tu">↑ 6%</span></div></div>
+      </div>
+      <div class="ag">
+        <div class="chart-c"><h3>User Growth (Last 8 Months)</h3><div class="bar-chart" id="growthChart"></div></div>
+        <div class="chart-c"><h3>Top Niches</h3><div id="nicheChart"></div></div>
+        <div class="chart-c"><h3>Collab Requests (Last 8 Months)</h3><div class="bar-chart" id="collabChart"></div></div>
+        <div class="chart-c"><h3>Platform Distribution</h3><div id="platformChart"></div></div>
+      </div>
+    </div>
+
+    <!-- ═══ NOTIFICATIONS ═══ -->
+    <div class="section" id="s-notifications">
+      <div class="ph"><div><h1>Notifications &amp; Announcements</h1><p>Push messages to the platform</p></div></div>
+      <div class="nf">
+        <h3>Send Announcement</h3>
+        <div class="f-row"><label class="f-lbl">Audience</label>
+          <select class="f-sel2" id="nf-aud"><option value="all">All Users</option><option value="pro">Pro Only</option><option value="free">Free Only</option></select>
+        </div>
+        <div class="f-row"><label class="f-lbl">Title</label><input type="text" class="c-in" id="nf-title" placeholder="Announcement title…" style="margin:0" /></div>
+        <div class="f-row" style="margin-top:10px"><label class="f-lbl">Message</label><textarea class="c-ta" id="nf-body" rows="3" placeholder="Your message to users…" style="margin:0"></textarea></div>
+        <div class="f-row" style="margin-top:10px"><label class="f-lbl">Type</label>
+          <select class="f-sel2" id="nf-type"><option value="info">ℹ️ Info</option><option value="success">✅ Success</option><option value="warning">⚠️ Warning</option><option value="promo">🎁 Promo</option></select>
+        </div>
+        <button class="btn-primary" style="margin-top:12px" onclick="sendAnnouncement()">📢 Send Announcement</button>
+      </div>
+      <div class="tc">
+        <div class="tc-hd"><h3>Sent Announcements</h3></div>
+        <table><thead><tr><th>Title</th><th>Audience</th><th>Type</th><th>Sent</th><th>Actions</th></tr></thead>
+        <tbody id="annTb"></tbody></table>
+      </div>
+    </div>
+
+    <!-- ═══ REPORTS ═══ -->
+    <div class="section" id="s-reports">
+      <div class="ph"><div><h1>Reports &amp; Flagged Content</h1><p>Review and action user reports</p></div></div>
+      <div class="tc">
+        <div class="tc-hd">
+          <h3>All Reports</h3>
+          <select class="f-sel" id="repFilter" onchange="renderReports()">
+            <option value="">All</option><option value="open">Open</option><option value="resolved">Resolved</option>
+          </select>
+        </div>
+        <table><thead><tr><th>Reported User</th><th>Reported By</th><th>Reason</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead>
+        <tbody id="repTb"></tbody></table>
+      </div>
+    </div>
+
+    <!-- ═══ SETTINGS ═══ -->
+    <div class="section" id="s-settings">
+      <div class="ph">
+        <div><h1>Platform Settings</h1><p>Control core platform configuration</p></div>
+        <button class="btn-primary" onclick="saveSettings()">💾 Save Settings</button>
+      </div>
+      <div class="settings-g">
+        <div class="set-card">
+          <h3>Features</h3>
+          <div class="set-row"><div><div class="set-lbl">User Registration</div><div class="set-desc">Allow new users to sign up</div></div><button class="toggle on" id="t-reg" onclick="this.classList.toggle('on')"></button></div>
+          <div class="set-row"><div><div class="set-lbl">Profile Approval Required</div><div class="set-desc">New profiles need admin review</div></div><button class="toggle on" id="t-app" onclick="this.classList.toggle('on')"></button></div>
+          <div class="set-row"><div><div class="set-lbl">Collab Requests</div><div class="set-desc">Allow creators to send requests</div></div><button class="toggle on" id="t-col" onclick="this.classList.toggle('on')"></button></div>
+          <div class="set-row"><div><div class="set-lbl">Explore Page</div><div class="set-desc">Show creator discovery to all</div></div><button class="toggle on" id="t-exp" onclick="this.classList.toggle('on')"></button></div>
+        </div>
+        <div class="set-card">
+          <h3>Platform Mode</h3>
+          <div class="set-row"><div><div class="set-lbl">Maintenance Mode</div><div class="set-desc">Show maintenance page to visitors</div></div><button class="toggle" id="t-mnt" onclick="this.classList.toggle('on')"></button></div>
+          <div class="set-row"><div><div class="set-lbl">Beta Banner</div><div class="set-desc">Show "Beta" badge sitewide</div></div><button class="toggle on" id="t-bet" onclick="this.classList.toggle('on')"></button></div>
+          <div class="set-row"><div><div class="set-lbl">Arabic Language</div><div class="set-desc">Enable AR language switcher</div></div><button class="toggle on" id="t-ar" onclick="this.classList.toggle('on')"></button></div>
+        </div>
+        <div class="set-card">
+          <h3>Change Admin Password</h3>
+          <div class="mf"><label class="m-lbl">Current Password</label><input type="password" class="m-in" id="cp" placeholder="••••••••" /></div>
+          <div class="mf"><label class="m-lbl">New Password</label><input type="password" class="m-in" id="np" placeholder="••••••••" /></div>
+          <div class="mf"><label class="m-lbl">Confirm New Password</label><input type="password" class="m-in" id="cnp" placeholder="••••••••" /></div>
+          <button class="btn-primary" style="margin-top:4px" onclick="changePass()">Update Password</button>
+        </div>
+        <div class="set-card">
+          <h3>Limits &amp; Quotas</h3>
+          <div class="mf"><label class="m-lbl">Max Collab Requests / Day (Free)</label><input type="number" class="m-in" id="s-mr" value="5" min="1" /></div>
+          <div class="mf"><label class="m-lbl">Max Profile Photo Size (MB)</label><input type="number" class="m-in" id="s-mp" value="10" min="1" /></div>
+          <div class="mf"><label class="m-lbl">Max Bio Length (chars)</label><input type="number" class="m-in" id="s-mb" value="160" min="50" /></div>
+        </div>
+      </div>
+      <div class="danger-zone">
+        <h3>⚠️ Danger Zone</h3>
+        <div class="set-row"><div><div class="set-lbl">Clear All Collab Requests</div><div class="set-desc">Permanently delete all request data</div></div><button class="btn btn-d" onclick="dangerAction('clearReqs')">Clear All</button></div>
+        <div class="set-row"><div><div class="set-lbl">Reset Platform Content</div><div class="set-desc">Restore all homepage content to defaults</div></div><button class="btn btn-d" onclick="dangerAction('resetContent')">Reset</button></div>
+        <div class="set-row"><div><div class="set-lbl">Wipe All User Data</div><div class="set-desc">Remove all users from storage — irreversible</div></div><button class="btn btn-d" onclick="dangerAction('wipeUsers')">Wipe Users</button></div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ── Modals ── -->
+<div class="mo" id="editUserMo">
+  <div class="modal">
+    <h3>Edit User</h3><p>Update this user's information</p>
+    <input type="hidden" id="eu-id" />
+    <div class="mf"><label class="m-lbl">Display Name</label><input type="text" class="m-in" id="eu-n" /></div>
+    <div class="mf"><label class="m-lbl">Username</label><input type="text" class="m-in" id="eu-h" /></div>
+    <div class="mf"><label class="m-lbl">Email</label><input type="text" class="m-in" id="eu-e" /></div>
+    <div class="mf"><label class="m-lbl">Status</label>
+      <select class="m-sel" id="eu-s"><option value="active">Active</option><option value="pending">Pending</option><option value="suspended">Suspended</option></select>
+    </div>
+    <div class="modal-acts">
+      <button class="btn-cancel" onclick="closeModal('editUserMo')">Cancel</button>
+      <button class="btn-primary" onclick="saveUserEdit()">Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<div class="mo" id="viewUserMo">
+  <div class="modal">
+    <h3 id="vu-name">User</h3><p id="vu-handle">@handle</p>
+    <div id="vu-body"></div>
+    <div class="modal-acts"><button class="btn-cancel" onclick="closeModal('viewUserMo')">Close</button></div>
+  </div>
+</div>
+
+<div class="mo" id="addUserMo">
+  <div class="modal">
+    <h3>Add User</h3><p>Manually create a creator account</p>
+    <div class="mf"><label class="m-lbl">Display Name</label><input type="text" class="m-in" id="au-n" placeholder="Full name" /></div>
+    <div class="mf"><label class="m-lbl">Username</label><input type="text" class="m-in" id="au-h" placeholder="username (no @)" /></div>
+    <div class="mf"><label class="m-lbl">Email</label><input type="text" class="m-in" id="au-e" placeholder="email@example.com" /></div>
+    <div class="mf"><label class="m-lbl">Niche</label>
+      <select class="m-sel" id="au-ni">
+        <option>Fashion</option><option>Tech</option><option>Food</option><option>Fitness</option>
+        <option>Beauty</option><option>Music</option><option>Travel</option><option>Finance</option>
+        <option>Art</option><option>Comedy</option><option>Cooking</option><option>Sports</option><option>Lifestyle</option>
+      </select>
+    </div>
+    <div class="modal-acts">
+      <button class="btn-cancel" onclick="closeModal('addUserMo')">Cancel</button>
+      <button class="btn-primary" onclick="addUser()">Create User</button>
+    </div>
+  </div>
+</div>
+
+<div class="mo" id="confirmMo">
+  <div class="modal">
+    <h3 id="cf-title">Are you sure?</h3><p id="cf-desc">This cannot be undone.</p>
+    <div class="modal-acts">
+      <button class="btn-cancel" onclick="closeModal('confirmMo')">Cancel</button>
+      <button class="btn-danger" id="cf-btn">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"><span id="t-icon">✓</span><span id="t-msg">Done!</span></div>
+
+<script>
+  // ── Credentials ──
+  const ADMIN_USER = 'admin';
+  const PASS_KEY   = 'clan-admin-pass';
+  let adminPass    = localStorage.getItem(PASS_KEY) || 'clan@admin2026';
+
+  // ── Login ──
+  document.getElementById('loginBtn').onclick = tryLogin;
+  document.getElementById('ap').onkeydown = e => { if (e.key === 'Enter') tryLogin(); };
+  document.getElementById('au').onkeydown = e => { if (e.key === 'Enter') document.getElementById('ap').focus(); };
+
+  function tryLogin() {
+    const u = document.getElementById('au').value.trim();
+    const p = document.getElementById('ap').value;
+    if (u === ADMIN_USER && p === adminPass) {
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('app').classList.add('visible');
+      initApp();
+    } else {
+      document.getElementById('loginErr').style.display = 'block';
+      document.getElementById('ap').value = '';
+    }
+  }
+
+  document.getElementById('logoutBtn').onclick = () => {
+    document.getElementById('app').classList.remove('visible');
+    document.getElementById('loginScreen').style.display = 'flex';
+    document.getElementById('au').value = '';
+    document.getElementById('ap').value = '';
+    document.getElementById('loginErr').style.display = 'none';
+  };
+
+  // ── Navigation ──
+  document.querySelectorAll('.sb-link').forEach(b => b.onclick = () => showSec(b.dataset.sec));
+
+  function showSec(id) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.sb-link').forEach(b => b.classList.remove('active'));
+    document.getElementById('s-' + id)?.classList.add('active');
+    document.querySelector(`[data-sec="${id}"]`)?.classList.add('active');
+    const renders = { users: renderUsers, approvals: renderApprovals, collabs: renderCollabs,
+      subscriptions: renderSubs, reports: renderReports, analytics: renderAnalytics,
+      notifications: renderAnn, content: loadContent };
+    renders[id]?.();
+  }
+
+  // ── Seed Data ──
+  const SEED_USERS = [
+    { id:'u1',  name:'Maya Kowalski',    handle:'@mayakowalski',  email:'maya@example.com',    niche:'Fashion',  followers:'45K',  status:'active',    joined:'2026-02-15' },
+    { id:'u2',  name:'Ahmed Al-Rashidi', handle:'@ahmedtech',     email:'ahmed@example.com',   niche:'Tech',     followers:'120K', status:'active',    joined:'2026-02-18' },
+    { id:'u3',  name:'Sofia Martinez',   handle:'@sofiaeats',     email:'sofia@example.com',   niche:'Food',     followers:'78K',  status:'active',    joined:'2026-02-20' },
+    { id:'u4',  name:'James Chen',       handle:'@jameslifts',    email:'james@example.com',   niche:'Fitness',  followers:'200K', status:'active',    joined:'2026-02-22' },
+    { id:'u5',  name:'Layla Hassan',     handle:'@laylabeauty',   email:'layla@example.com',   niche:'Beauty',   followers:'55K',  status:'active',    joined:'2026-02-25' },
+    { id:'u6',  name:'Marcus Williams',  handle:'@marcusbeats',   email:'marcus@example.com',  niche:'Music',    followers:'95K',  status:'active',    joined:'2026-02-28' },
+    { id:'u7',  name:'Emma Larsson',     handle:'@emmatravels',   email:'emma@example.com',    niche:'Travel',   followers:'88K',  status:'pending',   joined:'2026-03-01' },
+    { id:'u8',  name:'Khalid Al-Sayed',  handle:'@khalidfinance', email:'khalid@example.com',  niche:'Finance',  followers:'150K', status:'active',    joined:'2026-03-01' },
+    { id:'u9',  name:'Priya Sharma',     handle:'@priyaart',      email:'priya@example.com',   niche:'Art',      followers:'62K',  status:'pending',   joined:'2026-03-02' },
+    { id:'u10', name:'Tom Bradley',      handle:'@tombradley',    email:'tom@example.com',     niche:'Comedy',   followers:'300K', status:'active',    joined:'2026-03-02' },
+    { id:'u11', name:'Nour Mahmoud',     handle:'@nourcooks',     email:'nour@example.com',    niche:'Cooking',  followers:'42K',  status:'suspended', joined:'2026-03-02' },
+    { id:'u12', name:'Diego Santos',     handle:'@diegosports',   email:'diego@example.com',   niche:'Sports',   followers:'175K', status:'active',    joined:'2026-03-03' },
+  ];
+
+  const SEED_REPORTS = [
+    { id:'r1', rUser:'@nourcooks',    rName:'Nour Mahmoud',    rBy:'@tombradley', reason:'Spam / fake content',          date:'2026-03-01', status:'open' },
+    { id:'r2', rUser:'@mayakowalski', rName:'Maya Kowalski',   rBy:'@sofiaeats',  reason:'Misleading follower count',    date:'2026-03-02', status:'open' },
+    { id:'r3', rUser:'@jameslifts',   rName:'James Chen',      rBy:'@ahmedtech',  reason:'Inappropriate collaboration',  date:'2026-02-28', status:'resolved' },
+  ];
+
+  const SEED_SUBS = [
+    { id:'u2',  name:'Ahmed Al-Rashidi', handle:'@ahmedtech',     plan:'Pro',  start:'2026-01-15', renew:'2026-04-15', status:'active' },
+    { id:'u4',  name:'James Chen',       handle:'@jameslifts',    plan:'Pro',  start:'2026-02-01', renew:'2026-05-01', status:'active' },
+    { id:'u8',  name:'Khalid Al-Sayed',  handle:'@khalidfinance', plan:'Pro',  start:'2026-01-20', renew:'2026-04-20', status:'active' },
+    { id:'u10', name:'Tom Bradley',      handle:'@tombradley',    plan:'Pro',  start:'2025-12-01', renew:'2026-03-01', status:'expired' },
+    { id:'u1',  name:'Maya Kowalski',    handle:'@mayakowalski',  plan:'Free', start:'2026-02-15', renew:'—',          status:'active' },
+    { id:'u3',  name:'Sofia Martinez',   handle:'@sofiaeats',     plan:'Free', start:'2026-02-20', renew:'—',          status:'active' },
+  ];
+
+  const DEFAULT_CONTENT = {
+    h1:'Where Creators', h2:"Don't Compete", h3:'They Collaborate.',
+    sub:'The platform where creators unite, collaborate, and grow together.',
+    cta:'Join Free Today', ann:'', maint:"We'll be back shortly.",
+    abt:'Built for Creators, By Creators',
+    abody:'100CLAN is the platform where content creators across all niches come together.',
+    ftag:"Where creators don't compete — they collaborate.",
+    copy:'© 2026 100CLAN. All rights reserved.'
+  };
+
+  function getUsers()   { const d = localStorage.getItem('clan-admin-users'); return d ? JSON.parse(d) : (saveUsers(SEED_USERS), SEED_USERS); }
+  function saveUsers(u) { localStorage.setItem('clan-admin-users', JSON.stringify(u)); }
+  function getReports() { const d = localStorage.getItem('clan-admin-reports'); return d ? JSON.parse(d) : (saveReps(SEED_REPORTS), SEED_REPORTS); }
+  function saveReps(r)  { localStorage.setItem('clan-admin-reports', JSON.stringify(r)); }
+  function getAnn()     { return JSON.parse(localStorage.getItem('clan-admin-ann') || '[]'); }
+  function saveAnn(a)   { localStorage.setItem('clan-admin-ann', JSON.stringify(a)); }
+  function getCont()    { return JSON.parse(localStorage.getItem('clan-content') || JSON.stringify(DEFAULT_CONTENT)); }
+  function saveCont(c)  { localStorage.setItem('clan-content', JSON.stringify(c)); }
+
+  // ── Init ──
+  function initApp() {
+    updateBadges();
+    renderOverview();
+  }
+
+  function updateBadges() {
+    const users   = getUsers();
+    const pending = users.filter(u => u.status === 'pending').length;
+    const reports = getReports().filter(r => r.status === 'open').length;
+    document.getElementById('sb-users').textContent    = users.length;
+    document.getElementById('sb-approvals').textContent = pending;
+    document.getElementById('sb-reports').textContent   = reports;
+  }
+
+  // ── Overview ──
+  function renderOverview() {
+    const users   = getUsers();
+    const reqs    = JSON.parse(localStorage.getItem('clan-requests') || '[]');
+    const pending = users.filter(u => u.status === 'pending').length;
+    const open    = getReports().filter(r => r.status === 'open').length;
+
+    document.getElementById('ov-users').textContent = users.length;
+    document.getElementById('ov-pend').textContent  = pending;
+    document.getElementById('ov-rep').textContent   = open;
+
+    document.getElementById('ov-rusers').innerHTML = users.slice(-5).reverse().map(u =>
+      `<tr><td>${uMini(u)}</td><td><span style="font-size:11px;color:var(--gray)">${u.niche}</span></td><td>${badge(u.status)}</td></tr>`
+    ).join('');
+
+    const recent = reqs.slice(-5).reverse();
+    document.getElementById('ov-rcollabs').innerHTML = recent.length
+      ? recent.map(r => `<tr><td style="font-size:12px;font-weight:700">${r.fromHandle||'—'}</td><td style="font-size:11px;color:var(--gray)">${r.toHandle||'—'}</td><td>${badge(r.status)}</td></tr>`).join('')
+      : `<tr><td colspan="3" style="text-align:center;color:var(--gray);padding:20px;font-size:12px">No requests yet</td></tr>`;
+  }
+
+  // ── Users ──
+  function renderUsers() {
+    const q  = (document.getElementById('uSearch')?.value || '').toLowerCase();
+    const sf = document.getElementById('uFilter')?.value || '';
+    const list = getUsers().filter(u =>
+      (!q || u.name.toLowerCase().includes(q) || u.handle.toLowerCase().includes(q) || u.email.toLowerCase().includes(q)) &&
+      (!sf || u.status === sf)
+    );
+    document.getElementById('usersTb').innerHTML = list.map(u => `
+      <tr>
+        <td>${uMini(u)}</td>
+        <td style="font-size:12px;color:var(--gray)">${u.email}</td>
+        <td style="font-size:12px">${u.niche}</td>
+        <td style="font-size:12px;font-weight:800;color:var(--yellow)">${u.followers}</td>
+        <td style="font-size:11px;color:var(--gray)">${u.joined}</td>
+        <td>${badge(u.status)}</td>
+        <td><div class="ab">
+          <button class="btn btn-v" onclick="viewUser('${u.id}')">View</button>
+          <button class="btn btn-e" onclick="editUser('${u.id}')">Edit</button>
+          <button class="btn btn-s" onclick="toggleSuspend('${u.id}')">${u.status === 'suspended' ? 'Restore' : 'Suspend'}</button>
+          <button class="btn btn-d" onclick="delUserConfirm('${u.id}')">Delete</button>
+        </div></td>
+      </tr>`).join('');
+  }
+
+  function viewUser(id) {
+    const u = getUsers().find(x => x.id === id); if (!u) return;
+    document.getElementById('vu-name').textContent   = u.name;
+    document.getElementById('vu-handle').textContent = u.handle;
+    document.getElementById('vu-body').innerHTML = `
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px">
+        ${det('Email',u.email)} ${det('Niche',u.niche)}
+        ${det('Followers',u.followers)} ${det('Status',u.status)}
+        ${det('Joined',u.joined)} ${det('ID',u.id)}
+      </div>`;
+    openModal('viewUserMo');
+  }
+
+  function det(l, v) {
+    return `<div style="background:var(--dark-4);padding:11px;border-radius:7px">
+      <div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--gray);margin-bottom:3px">${l}</div>
+      <div style="font-size:13px;font-weight:600">${v}</div></div>`;
+  }
+
+  function editUser(id) {
+    const u = getUsers().find(x => x.id === id); if (!u) return;
+    document.getElementById('eu-id').value = id;
+    document.getElementById('eu-n').value  = u.name;
+    document.getElementById('eu-h').value  = u.handle.replace('@','');
+    document.getElementById('eu-e').value  = u.email;
+    document.getElementById('eu-s').value  = u.status;
+    openModal('editUserMo');
+  }
+
+  function saveUserEdit() {
+    const id    = document.getElementById('eu-id').value;
+    const users = getUsers();
+    const idx   = users.findIndex(u => u.id === id); if (idx < 0) return;
+    users[idx].name   = document.getElementById('eu-n').value.trim();
+    users[idx].handle = '@' + document.getElementById('eu-h').value.trim().replace('@','');
+    users[idx].email  = document.getElementById('eu-e').value.trim();
+    users[idx].status = document.getElementById('eu-s').value;
+    saveUsers(users); closeModal('editUserMo'); renderUsers(); updateBadges(); toast('User updated');
+  }
+
+  function toggleSuspend(id) {
+    const users = getUsers();
+    const idx   = users.findIndex(u => u.id === id); if (idx < 0) return;
+    users[idx].status = users[idx].status === 'suspended' ? 'active' : 'suspended';
+    saveUsers(users); renderUsers(); updateBadges();
+    toast(users[idx].status === 'suspended' ? 'User suspended' : 'User restored');
+  }
+
+  let _delId = '';
+  function delUserConfirm(id) {
+    _delId = id;
+    const u = getUsers().find(x => x.id === id);
+    confirm_(`Delete ${u?.name || 'user'}?`, 'This will permanently remove the user.', () => {
+      saveUsers(getUsers().filter(u => u.id !== _delId));
+      renderUsers(); updateBadges(); toast('User deleted');
+    });
+  }
+
+  function addUser() {
+    const n  = document.getElementById('au-n').value.trim();
+    const h  = document.getElementById('au-h').value.trim();
+    const e  = document.getElementById('au-e').value.trim();
+    const ni = document.getElementById('au-ni').value;
+    if (!n || !h || !e) { toast('Fill all fields', '⚠️'); return; }
+    const users = getUsers();
+    users.push({ id:'u'+Date.now(), name:n, handle:'@'+h, email:e, niche:ni, followers:'—', status:'active', joined:new Date().toISOString().slice(0,10) });
+    saveUsers(users); updateBadges(); closeModal('addUserMo'); renderUsers(); toast('User created');
+    ['au-n','au-h','au-e'].forEach(id => document.getElementById(id).value = '');
+  }
+
+  // ── Approvals ──
+  function renderApprovals() {
+    const pending = getUsers().filter(u => u.status === 'pending');
+    const c = document.getElementById('approvalsCont');
+    if (!pending.length) {
+      c.innerHTML = `<div class="empty"><div class="empty-icon">✅</div><p>No pending approvals — all profiles are reviewed.</p></div>`;
+      return;
+    }
+    c.innerHTML = pending.map(u => `
+      <div class="ap-card">
+        <div style="display:flex;align-items:center;gap:13px">
+          <div class="ua" style="width:46px;height:46px;font-size:15px">${initials(u.name)}</div>
+          <div>
+            <div style="font-weight:800;font-size:14px">${u.name}</div>
+            <div style="font-size:11px;color:var(--gray)">${u.handle} &nbsp;·&nbsp; ${u.niche} &nbsp;·&nbsp; ${u.followers} followers</div>
+            <div style="font-size:10px;color:var(--gray);margin-top:2px">Registered ${u.joined}</div>
+          </div>
+        </div>
+        <div class="ab">
+          <button class="btn btn-v"    onclick="viewUser('${u.id}')">View Profile</button>
+          <button class="btn btn-a"    onclick="approveUser('${u.id}')">✓ Approve</button>
+          <button class="btn btn-r"    onclick="rejectUser('${u.id}')">✕ Reject</button>
+        </div>
+      </div>`).join('');
+  }
+
+  function approveUser(id) {
+    const u = getUsers(); const i = u.findIndex(x => x.id === id); if (i<0) return;
+    u[i].status = 'active'; saveUsers(u); renderApprovals(); updateBadges(); toast('Profile approved ✓');
+  }
+  function rejectUser(id) {
+    const u = getUsers(); const i = u.findIndex(x => x.id === id); if (i<0) return;
+    u[i].status = 'suspended'; saveUsers(u); renderApprovals(); updateBadges(); toast('Profile rejected');
+  }
+
+  // ── Collabs ──
+  function renderCollabs() {
+    const filter = document.getElementById('collabFilter')?.value || '';
+    const all    = JSON.parse(localStorage.getItem('clan-requests') || '[]');
+    const list   = filter ? all.filter(r => r.status === filter) : all;
+    const tb     = document.getElementById('collabsTb');
+    if (!list.length) { tb.innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--gray);padding:28px;font-size:13px">No collaboration requests found</td></tr>`; return; }
+    tb.innerHTML = list.map(r => `
+      <tr>
+        <td style="font-size:13px;font-weight:700">${r.fromName||r.fromHandle||'—'}<br><span style="font-size:10px;color:var(--gray)">${r.fromHandle||''}</span></td>
+        <td style="font-size:12px;color:var(--gray)">${r.toHandle||'—'}</td>
+        <td style="font-size:11px;color:var(--gray-light);max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${r.message||'—'}</td>
+        <td style="font-size:10px;color:var(--gray)">${r.sentAt ? new Date(r.sentAt).toLocaleDateString('en-US',{month:'short',day:'numeric'}) : '—'}</td>
+        <td>${badge(r.status)}</td>
+        <td><button class="btn btn-d" onclick="delCollab('${r.id}')">Remove</button></td>
+      </tr>`).join('');
+  }
+
+  function delCollab(id) {
+    let r = JSON.parse(localStorage.getItem('clan-requests') || '[]');
+    localStorage.setItem('clan-requests', JSON.stringify(r.filter(x => x.id !== id)));
+    renderCollabs(); toast('Request removed');
+  }
+
+  // ── Subscriptions ──
+  function renderSubs() {
+    const users = getUsers();
+    const proCount  = SEED_SUBS.filter(s => s.plan === 'Pro').length;
+    const freeCount = users.length - proCount;
+    document.getElementById('sub-pro').textContent  = proCount;
+    document.getElementById('sub-free').textContent = freeCount;
+    document.getElementById('subsTb').innerHTML = SEED_SUBS.map(s => `
+      <tr>
+        <td>${uMiniRaw(s.name, s.handle)}</td>
+        <td><span class="badge ${s.plan==='Pro'?'b-pro':'b-free'}">${s.plan}</span></td>
+        <td style="font-size:11px;color:var(--gray)">${s.start}</td>
+        <td style="font-size:11px;color:var(--gray)">${s.renew}</td>
+        <td><span class="badge ${s.status==='active'?'b-active':'b-expired'}">${s.status}</span></td>
+        <td><button class="btn btn-e" onclick="toast('Plan editor coming soon')">Edit Plan</button></td>
+      </tr>`).join('');
+  }
+
+  // ── Analytics ──
+  function renderAnalytics() {
+    const gd = [42,58,71,89,103,120,145,183];
+    const gm = Math.max(...gd);
+    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug'];
+    document.getElementById('growthChart').innerHTML = gd.map((v,i) =>
+      `<div class="bw"><div class="bar" style="height:${Math.round(v/gm*100)}%" title="${v} users"></div><div class="bar-lbl">${months[i]}</div></div>`).join('');
+
+    const cd = [12,28,45,67,89,134,198,247];
+    const cm = Math.max(...cd);
+    document.getElementById('collabChart').innerHTML = cd.map((v,i) =>
+      `<div class="bw"><div class="bar" style="height:${Math.round(v/cm*100)}%;background:rgba(100,149,237,.3)" title="${v}"></div><div class="bar-lbl">${months[i]}</div></div>`).join('');
+
+    const niches = [{n:'Fashion',p:22},{n:'Fitness',p:18},{n:'Tech',p:14},{n:'Food',p:12},{n:'Beauty',p:10},{n:'Music',p:8}];
+    document.getElementById('nicheChart').innerHTML = niches.map(n =>
+      `<div class="nb-row"><div class="nb-name">${n.n}</div><div class="nb-track"><div class="nb-fill" style="width:${n.p}%"></div></div><div class="nb-pct">${n.p}%</div></div>`).join('');
+
+    const platforms = [{n:'Instagram',p:88},{n:'TikTok',p:76},{n:'YouTube',p:61},{n:'X/Twitter',p:34},{n:'Twitch',p:18},{n:'LinkedIn',p:12}];
+    document.getElementById('platformChart').innerHTML = platforms.map(pl =>
+      `<div class="nb-row"><div class="nb-name">${pl.n}</div><div class="nb-track"><div class="nb-fill" style="width:${pl.p}%;background:var(--blue)"></div></div><div class="nb-pct" style="color:var(--blue)">${pl.p}%</div></div>`).join('');
+  }
+
+  // ── Content Editor ──
+  function loadContent() {
+    const c = getCont();
+    document.getElementById('c-h1').value    = c.h1  || '';
+    document.getElementById('c-h2').value    = c.h2  || '';
+    document.getElementById('c-h3').value    = c.h3  || '';
+    document.getElementById('c-sub').value   = c.sub || '';
+    document.getElementById('c-cta').value   = c.cta || '';
+    document.getElementById('c-ann').value   = c.ann || '';
+    document.getElementById('c-maint').value = c.maint || '';
+    document.getElementById('c-abt').value   = c.abt  || '';
+    document.getElementById('c-abody').value = c.abody|| '';
+    document.getElementById('c-ftag').value  = c.ftag || '';
+    document.getElementById('c-copy').value  = c.copy || '';
+  }
+  function saveContent() {
+    saveCont({
+      h1: document.getElementById('c-h1').value.trim(),
+      h2: document.getElementById('c-h2').value.trim(),
+      h3: document.getElementById('c-h3').value.trim(),
+      sub:document.getElementById('c-sub').value.trim(),
+      cta:document.getElementById('c-cta').value.trim(),
+      ann:document.getElementById('c-ann').value.trim(),
+      maint:document.getElementById('c-maint').value.trim(),
+      abt:document.getElementById('c-abt').value.trim(),
+      abody:document.getElementById('c-abody').value.trim(),
+      ftag:document.getElementById('c-ftag').value.trim(),
+      copy:document.getElementById('c-copy').value.trim(),
+    });
+    toast('Content saved ✓');
+  }
+
+  // ── Notifications ──
+  function sendAnnouncement() {
+    const title = document.getElementById('nf-title').value.trim();
+    const body  = document.getElementById('nf-body').value.trim();
+    if (!title || !body) { toast('Fill in title and message', '⚠️'); return; }
+    const ann = getAnn();
+    ann.unshift({ id:'a'+Date.now(), title, body,
+      audience: document.getElementById('nf-aud').value,
+      type:     document.getElementById('nf-type').value,
+      sent:     new Date().toISOString() });
+    saveAnn(ann); renderAnn();
+    document.getElementById('nf-title').value = '';
+    document.getElementById('nf-body').value  = '';
+    toast('Announcement sent ✓');
+  }
+
+  function renderAnn() {
+    const ann  = getAnn();
+    const icons = { info:'ℹ️', success:'✅', warning:'⚠️', promo:'🎁' };
+    document.getElementById('annTb').innerHTML = ann.length
+      ? ann.map(a => `
+          <tr>
+            <td style="font-weight:700;font-size:13px">${a.title}</td>
+            <td style="font-size:11px;color:var(--gray)">${a.audience==='all'?'All Users':a.audience==='pro'?'Pro Only':'Free Only'}</td>
+            <td>${icons[a.type]||'ℹ️'} <span style="font-size:11px;color:var(--gray)">${a.type}</span></td>
+            <td style="font-size:10px;color:var(--gray)">${new Date(a.sent).toLocaleDateString('en-US',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'})}</td>
+            <td><button class="btn btn-d" onclick="delAnn('${a.id}')">Delete</button></td>
+          </tr>`).join('')
+      : `<tr><td colspan="5" style="text-align:center;color:var(--gray);padding:24px;font-size:12px">No announcements sent yet</td></tr>`;
+  }
+
+  function delAnn(id) {
+    saveAnn(getAnn().filter(a => a.id !== id)); renderAnn(); toast('Deleted');
+  }
+
+  // ── Reports ──
+  function renderReports() {
+    const filter = document.getElementById('repFilter')?.value || '';
+    const list   = getReports().filter(r => !filter || r.status === filter);
+    document.getElementById('repTb').innerHTML = list.map(r => `
+      <tr>
+        <td><div class="um"><div class="ua" style="width:28px;height:28px;font-size:9px">${r.rUser.slice(1,3).toUpperCase()}</div><div><div class="un">${r.rName}</div><div class="uh">${r.rUser}</div></div></div></td>
+        <td style="font-size:11px;color:var(--gray)">${r.rBy}</td>
+        <td style="font-size:12px">${r.reason}</td>
+        <td style="font-size:10px;color:var(--gray)">${r.date}</td>
+        <td><span class="badge ${r.status==='open'?'b-flagged':'b-resolved'}">${r.status}</span></td>
+        <td><div class="ab">${r.status==='open'
+          ? `<button class="btn btn-a" onclick="resolveRep('${r.id}')">Resolve</button>
+             <button class="btn btn-s" onclick="warnRep('${r.id}')">Warn User</button>`
+          : '<span style="font-size:10px;color:var(--gray)">Closed</span>'}
+        </div></td>
+      </tr>`).join('');
+  }
+
+  function resolveRep(id) {
+    const reps = getReports();
+    const i    = reps.findIndex(r => r.id === id); if (i<0) return;
+    reps[i].status = 'resolved'; saveReps(reps); renderReports(); updateBadges(); toast('Report resolved ✓');
+  }
+  function warnRep(id) { toast('Warning sent to user ⚠️', '⚠️'); resolveRep(id); }
+
+  // ── Settings ──
+  function saveSettings() {
+    localStorage.setItem('clan-settings', JSON.stringify({
+      registration: document.getElementById('t-reg').classList.contains('on'),
+      approval:     document.getElementById('t-app').classList.contains('on'),
+      collabs:      document.getElementById('t-col').classList.contains('on'),
+      explore:      document.getElementById('t-exp').classList.contains('on'),
+      maintenance:  document.getElementById('t-mnt').classList.contains('on'),
+      beta:         document.getElementById('t-bet').classList.contains('on'),
+      arabic:       document.getElementById('t-ar').classList.contains('on'),
+      maxReqs:      document.getElementById('s-mr').value,
+      maxPhoto:     document.getElementById('s-mp').value,
+      maxBio:       document.getElementById('s-mb').value,
+    }));
+    toast('Settings saved ✓');
+  }
+
+  function changePass() {
+    const curr = document.getElementById('cp').value;
+    const nw   = document.getElementById('np').value;
+    const cnf  = document.getElementById('cnp').value;
+    if (curr !== adminPass)  { toast('Current password incorrect', '⚠️'); return; }
+    if (nw.length < 8)       { toast('Min 8 characters required', '⚠️'); return; }
+    if (nw !== cnf)          { toast("Passwords don't match", '⚠️'); return; }
+    adminPass = nw;
+    localStorage.setItem(PASS_KEY, nw);
+    ['cp','np','cnp'].forEach(id => document.getElementById(id).value = '');
+    toast('Password updated ✓');
+  }
+
+  let _dangerAct = null;
+  function dangerAction(act) {
+    const map = {
+      clearReqs:    ['Clear All Collab Requests', 'All request data will be permanently deleted.'],
+      resetContent: ['Reset Platform Content',    'Homepage content will revert to defaults.'],
+      wipeUsers:    ['Wipe All User Data',        'All users will be removed. This CANNOT be undone.'],
+    };
+    _dangerAct = act;
+    confirm_(map[act][0], map[act][1], execDanger);
+  }
+
+  function execDanger() {
+    if (_dangerAct === 'clearReqs')    { localStorage.removeItem('clan-requests'); renderCollabs(); toast('All requests cleared'); }
+    if (_dangerAct === 'resetContent') { saveCont(DEFAULT_CONTENT); loadContent(); toast('Content reset'); }
+    if (_dangerAct === 'wipeUsers')    { localStorage.removeItem('clan-admin-users'); localStorage.removeItem('clan-user'); renderUsers(); updateBadges(); toast('Users wiped'); }
+    _dangerAct = null;
+  }
+
+  // ── Modals ──
+  function openModal(id)  { document.getElementById(id).classList.add('open'); }
+  function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+  document.querySelectorAll('.mo').forEach(o => o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); }));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') document.querySelectorAll('.mo.open').forEach(o => o.classList.remove('open')); });
+
+  let _cfCb = null;
+  function confirm_(title, desc, cb) {
+    document.getElementById('cf-title').textContent = title;
+    document.getElementById('cf-desc').textContent  = desc;
+    _cfCb = cb;
+    document.getElementById('cf-btn').onclick = () => { closeModal('confirmMo'); _cfCb?.(); };
+    openModal('confirmMo');
+  }
+
+  // ── Toast ──
+  function toast(msg, icon) {
+    const el = document.getElementById('toast');
+    document.getElementById('t-icon').textContent = icon || '✓';
+    document.getElementById('t-msg').textContent  = msg;
+    el.classList.remove('err');
+    if (icon === '⚠️') el.classList.add('err');
+    el.classList.add('show');
+    clearTimeout(el._t);
+    el._t = setTimeout(() => el.classList.remove('show'), 3200);
+  }
+
+  // ── Helpers ──
+  function initials(n) { return (n||'??').split(' ').filter(Boolean).map(w=>w[0]).join('').toUpperCase().slice(0,2); }
+
+  function badge(status) {
+    const map = { active:'b-active', pending:'b-pending', suspended:'b-suspended', accepted:'b-accepted', declined:'b-declined' };
+    return `<span class="badge ${map[status]||'b-pending'}">${status||'unknown'}</span>`;
+  }
+
+  function uMini(u) {
+    return `<div class="um"><div class="ua">${initials(u.name)}</div><div><div class="un">${u.name}</div><div class="uh">${u.handle}</div></div></div>`;
+  }
+  function uMiniRaw(name, handle) {
+    return `<div class="um"><div class="ua">${initials(name)}</div><div><div class="un">${name}</div><div class="uh">${handle}</div></div></div>`;
+  }
+</script>
+</body>
+</html>

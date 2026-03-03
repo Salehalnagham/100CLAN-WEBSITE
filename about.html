@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About 100CLAN — Our Mission, Story & Team</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Arabic Brand Font ─── */
+    @font-face {
+      font-family: 'ClanArabic';
+      src: url('brand_assets/100clanBold 2.ttf') format('truetype');
+      font-weight: 700;
+      font-display: swap;
+    }
+
+    /* ─── Language Switcher ─── */
+    .lang-switcher {
+      display: flex;
+      align-items: center;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 20px;
+      padding: 3px;
+      gap: 0;
+      position: relative;
+    }
+    .lang-slide {
+      position: absolute;
+      top: 3px;
+      left: 0;
+      height: calc(100% - 6px);
+      border-radius: 16px;
+      background: var(--yellow);
+      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), width 0.3s cubic-bezier(0.4,0,0.2,1);
+      pointer-events: none;
+    }
+    .lang-btn {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      padding: 5px 13px;
+      border-radius: 16px;
+      border: none;
+      background: transparent;
+      color: rgba(255,255,255,0.4);
+      cursor: pointer;
+      transition: color 0.25s ease;
+      font-family: 'Montserrat', sans-serif;
+      line-height: 1;
+      position: relative;
+      z-index: 1;
+    }
+    .lang-btn.active { background: transparent; color: #111111; }
+
+    /* ─── Arabic / RTL Global Overrides ─── */
+    html.lang-ar,
+    html.lang-ar body,
+    html.lang-ar h1, html.lang-ar h2, html.lang-ar h3,
+    html.lang-ar p, html.lang-ar a, html.lang-ar span,
+    html.lang-ar li, html.lang-ar button, html.lang-ar div,
+    html.lang-ar input { font-family: 'ClanArabic', sans-serif; }
+    html.lang-ar .lang-btn { font-family: 'Montserrat', sans-serif; }
+    html.lang-ar .nav-links            { flex-direction: row-reverse; }
+    html.lang-ar .nav-cta              { flex-direction: row-reverse; }
+    html.lang-ar .section-label        { flex-direction: row-reverse; }
+    html.lang-ar .section-title,
+    html.lang-ar .section-sub          { text-align: right; }
+    html.lang-ar .cta-inner            { text-align: right; }
+    html.lang-ar .footer-tagline       { text-align: right; }
+    html.lang-ar .footer-social        { flex-direction: row-reverse; }
+    html.lang-ar .footer-links         { text-align: right; }
+    html.lang-ar .footer-bottom        { flex-direction: row-reverse; }
+    html.lang-ar .footer-legal         { flex-direction: row-reverse; }
+    html.lang-ar .page-banner          { text-align: right; }
+    html.lang-ar .page-banner .section-label { justify-content: flex-end; }
+    html.lang-ar .mission-text         { text-align: right; }
+    html.lang-ar .value-card           { text-align: right; }
+    html.lang-ar .team-card            { text-align: right; }
+    html.lang-ar .stat-label           { text-align: center; }
+
+    /* ─── CSS Reset & Variables ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --yellow:   #F5B800;
+      --yellow-dark: #D9A200;
+      --yellow-glow: rgba(245, 184, 0, 0.25);
+      --black:    #111111;
+      --dark:     #1A1A1A;
+      --dark-2:   #222222;
+      --dark-3:   #2A2A2A;
+      --dark-card:#1E1E1E;
+      --white:    #FFFFFF;
+      --gray:     #9B9B9B;
+      --gray-light: #D4D4D4;
+      --font:     'Montserrat', sans-serif;
+      --radius:   12px;
+      --radius-lg: 20px;
+      --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: var(--black);
+      color: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ─── Scrollbar ─── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--black); }
+    ::-webkit-scrollbar-thumb { background: var(--yellow); border-radius: 2px; }
+
+    /* ─── Utilities ─── */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    .text-yellow { color: var(--yellow); }
+    .text-gray   { color: var(--gray); }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--yellow);
+      color: var(--black);
+      font-family: var(--font);
+      font-weight: 800;
+      font-size: 14px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 14px 32px;
+      border-radius: var(--radius);
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0.15);
+      transform: translateX(-100%);
+      transition: transform 0.4s ease;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px var(--yellow-glow); }
+    .btn-primary:hover::before { transform: translateX(0); }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--white);
+      font-family: var(--font);
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 13px 32px;
+      border-radius: var(--radius);
+      border: 1.5px solid rgba(255,255,255,0.25);
+      cursor: pointer;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    .btn-outline:hover {
+      border-color: var(--yellow);
+      color: var(--yellow);
+      transform: translateY(-2px);
+    }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: 16px;
+    }
+    .section-label::before {
+      content: '';
+      width: 24px;
+      height: 2px;
+      background: var(--yellow);
+      border-radius: 1px;
+    }
+
+    .section-title {
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+
+    .section-sub {
+      font-size: 17px;
+      color: var(--gray);
+      font-weight: 400;
+      line-height: 1.7;
+    }
+
+    /* fade-in animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+    .reveal-delay-5 { transition-delay: 0.5s; }
+
+    /* ─── Navigation ─── */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 20px 0;
+      transition: var(--transition);
+    }
+    .nav.scrolled {
+      background: rgba(17, 17, 17, 0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(245, 184, 0, 0.12);
+      padding: 14px 0;
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      height: 44px;
+      width: auto;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--gray-light);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+    .nav-links a:hover { color: var(--yellow); }
+    .nav-cta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .hamburger span { width: 24px; height: 2px; background: var(--white); border-radius: 1px; transition: var(--transition); }
+
+    /* ─── Mobile Navigation Menu ─── */
+    .mobile-menu {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: rgba(17,17,17,0.98);
+      backdrop-filter: blur(20px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+    }
+    .mobile-menu.open { transform: translateX(0); }
+    .mobile-menu a {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--white);
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      transition: color var(--transition);
+    }
+    .mobile-menu a:hover { color: var(--yellow); }
+    .mobile-close {
+      position: absolute;
+      top: 24px;
+      right: 28px;
+      font-size: 28px;
+      color: var(--gray);
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-family: var(--font);
+      transition: color var(--transition);
+    }
+    .mobile-close:hover { color: var(--white); }
+
+    /* ─── Page Banner ─── */
+    .page-banner {
+      background: var(--dark);
+      padding-top: 140px;
+      padding-bottom: 80px;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .page-banner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 80% at 50% 0%, rgba(245,184,0,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .page-banner .container { position: relative; z-index: 1; }
+    .page-banner h1 {
+      font-size: clamp(40px, 6vw, 72px);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+    }
+    .page-banner p {
+      font-size: 18px;
+      color: var(--gray);
+      max-width: 560px;
+      line-height: 1.7;
+    }
+
+    /* ─── About: Mission ─── */
+    .mission-section {
+      padding: 100px 0;
+    }
+    .mission-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .mission-text {}
+    .mission-text h2 {
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+    .mission-text p {
+      font-size: 16px;
+      color: var(--gray);
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+    .mission-visual {
+      background: var(--dark-card);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .mission-visual::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--yellow), transparent);
+    }
+    .mission-quote {
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 1.5;
+      color: var(--white);
+      margin-bottom: 24px;
+    }
+    .mission-quote span { color: var(--yellow); }
+    .mission-quote-attr {
+      font-size: 13px;
+      color: var(--gray);
+      font-weight: 500;
+    }
+
+    /* ─── Stats ─── */
+    .about-stats {
+      padding: 80px 0;
+      background: var(--dark);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+    .stat-block {
+      text-align: center;
+      padding: 24px 16px;
+      border-right: 1px solid rgba(255,255,255,0.06);
+    }
+    .stat-block:last-child { border-right: none; }
+    .stat-number {
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 900;
+      color: var(--yellow);
+      line-height: 1;
+      letter-spacing: -0.02em;
+      margin-bottom: 6px;
+    }
+    .stat-label {
+      font-size: 13px;
+      color: var(--gray);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* ─── Story ─── */
+    .story-section {
+      padding: 100px 0;
+    }
+    .story-header {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto 64px;
+    }
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      max-width: 720px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 20px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--yellow), rgba(245,184,0,0.1));
+    }
+    .timeline-item {
+      display: flex;
+      gap: 32px;
+      padding-bottom: 48px;
+      position: relative;
+    }
+    .timeline-dot {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--yellow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 900;
+      color: var(--black);
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+    }
+    .timeline-content {
+      flex: 1;
+      padding-top: 8px;
+    }
+    .timeline-year {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: 8px;
+    }
+    .timeline-title {
+      font-size: 19px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    .timeline-desc {
+      font-size: 15px;
+      color: var(--gray);
+      line-height: 1.7;
+    }
+
+    /* ─── Values ─── */
+    .values-section {
+      padding: 100px 0;
+      background: var(--dark);
+    }
+    .values-header {
+      text-align: center;
+      max-width: 580px;
+      margin: 0 auto 64px;
+    }
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    .value-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: var(--radius-lg);
+      padding: 36px;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .value-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--yellow);
+      transform: scaleX(0);
+      transition: transform 0.4s ease;
+      transform-origin: left;
+    }
+    .value-card:hover { border-color: rgba(245,184,0,0.3); transform: translateY(-4px); }
+    .value-card:hover::before { transform: scaleX(1); }
+    .value-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      background: rgba(245,184,0,0.1);
+      border: 1px solid rgba(245,184,0,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+    .value-title {
+      font-size: 19px;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+    .value-desc {
+      font-size: 15px;
+      color: var(--gray);
+      line-height: 1.7;
+    }
+
+    /* ─── Team ─── */
+    .team-section {
+      padding: 100px 0;
+    }
+    .team-header {
+      text-align: center;
+      max-width: 560px;
+      margin: 0 auto 64px;
+    }
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .team-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      text-align: center;
+      transition: var(--transition);
+    }
+    .team-card:hover { border-color: rgba(245,184,0,0.3); transform: translateY(-4px); }
+    .team-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      font-weight: 900;
+      color: var(--black);
+      margin: 0 auto 20px;
+      position: relative;
+    }
+    .team-avatar::after {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 50%;
+      border: 2px solid rgba(245,184,0,0.3);
+    }
+    .team-name {
+      font-size: 16px;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+    .team-role {
+      font-size: 13px;
+      color: var(--yellow);
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+    }
+    .team-bio {
+      font-size: 13px;
+      color: var(--gray);
+      line-height: 1.6;
+    }
+
+    /* ─── CTA Section ─── */
+    .cta-section {
+      padding: 120px 0;
+      background: var(--dark);
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 70% at 50% 50%, rgba(245,184,0,0.07) 0%, transparent 70%);
+    }
+    .cta-inner {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .cta-title {
+      font-size: clamp(36px, 6vw, 64px);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+    }
+    .cta-sub {
+      font-size: 18px;
+      color: var(--gray);
+      margin-bottom: 48px;
+      line-height: 1.6;
+    }
+    .cta-buttons {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .btn-primary-lg {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--yellow);
+      color: var(--black);
+      font-family: var(--font);
+      font-weight: 800;
+      font-size: 16px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 18px 44px;
+      border-radius: var(--radius);
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    .btn-primary-lg:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 48px rgba(245,184,0,0.35);
+    }
+    .cta-note {
+      font-size: 13px;
+      color: var(--gray);
+      margin-top: 20px;
+    }
+    .cta-note a { color: var(--yellow); text-decoration: none; }
+
+    /* ─── Footer ─── */
+    .footer {
+      padding: 64px 0 32px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.4fr repeat(3, 1fr);
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+    .footer-logo { height: 40px; margin-bottom: 16px; }
+    .footer-tagline { font-size: 14px; color: var(--gray); line-height: 1.6; max-width: 260px; }
+    .footer-social { display: flex; gap: 10px; margin-top: 20px; }
+    .social-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      border: 1px solid rgba(245,184,0,0.3);
+      color: var(--yellow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s ease, color 0.3s ease;
+    }
+    .social-btn::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 100%; height: 0%;
+      background: var(--yellow);
+      transition: height 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+      z-index: 0;
+    }
+    .social-btn svg { position: relative; z-index: 1; }
+    .social-btn:hover { border-color: var(--yellow); color: #111111; }
+    .social-btn:hover::before { height: 100%; }
+    .footer-col-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a {
+      font-size: 14px;
+      color: var(--gray);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+    .footer-links a:hover { color: var(--yellow); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-copy { font-size: 13px; color: var(--gray); }
+    .footer-legal { display: flex; gap: 20px; }
+    .footer-legal a { font-size: 13px; color: var(--gray); text-decoration: none; }
+    .footer-legal a:hover { color: var(--yellow); }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 1024px) {
+      .team-grid    { grid-template-columns: repeat(2, 1fr); }
+      .mission-inner { grid-template-columns: 1fr; gap: 48px; }
+      .footer-top   { grid-template-columns: 1fr 1fr; gap: 32px; }
+    }
+    @media (max-width: 768px) {
+      .container         { padding: 0 20px; }
+      .nav-links         { display: none; }
+      .nav-cta .btn-primary { display: none; }
+      .hamburger         { display: flex; }
+      .stats-grid        { grid-template-columns: repeat(2, 1fr); }
+      .stat-block:nth-child(2) { border-right: none; }
+      .stat-block:nth-child(3) { border-top: 1px solid rgba(255,255,255,0.06); }
+      .stat-block:nth-child(4) { border-top: 1px solid rgba(255,255,255,0.06); }
+      .values-grid       { grid-template-columns: 1fr; }
+      .team-grid         { grid-template-columns: 1fr 1fr; }
+      .footer-top        { grid-template-columns: 1fr; }
+      .footer-bottom     { flex-direction: column; text-align: center; }
+      .timeline::before  { left: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Mobile Menu Overlay -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-close" id="mobileClose">&#10005;</button>
+    <a href="index.html#features" onclick="closeMobile()">Features</a>
+    <a href="index.html#how"      onclick="closeMobile()">How It Works</a>
+    <a href="index.html#community" onclick="closeMobile()">Community</a>
+    <a href="signup.html" class="btn-primary" onclick="closeMobile()" style="font-size:15px;margin-top:12px;">Join the Clan</a>
+  </div>
+
+  <!-- ─── Navigation ─── -->
+  <nav class="nav scrolled" id="mainNav">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="index.html">
+          <img src="brand_assets/Logo-100clan.png" alt="100CLAN" class="nav-logo" />
+        </a>
+        <ul class="nav-links">
+          <li><a href="index.html#features" data-i18n="navFeatures">Features</a></li>
+          <li><a href="index.html#how"      data-i18n="navHow">How It Works</a></li>
+          <li><a href="index.html#community" data-i18n="navCommunity">Community</a></li>
+          <li><a href="index.html#join"     data-i18n="navPricing">Pricing</a></li>
+        </ul>
+        <div class="nav-cta">
+          <div class="lang-switcher" role="group" aria-label="Language">
+            <span class="lang-slide"></span>
+            <button class="lang-btn active" data-lang="en">EN</button>
+            <button class="lang-btn" data-lang="ar">AR</button>
+          </div>
+          <a href="login.html" class="btn-outline" data-i18n="navLogin">Log In</a>
+          <a href="signup.html" class="btn-primary" data-i18n="navJoin">Join the Clan</a>
+          <div class="hamburger" id="hamburger">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ─── Page Banner ─── -->
+  <section class="page-banner">
+    <div class="container">
+      <div class="section-label reveal" data-i18n="bannerLabel">Our Story</div>
+      <h1 class="reveal reveal-delay-1"><span data-i18n="bannerTitle">About</span> <span class="text-yellow">100CLAN</span></h1>
+      <p class="reveal reveal-delay-2" data-i18n="bannerSub">We exist to close the gap between creative potential and real-world growth — one collaboration at a time.</p>
+    </div>
+  </section>
+
+  <!-- ─── Mission ─── -->
+  <section class="mission-section">
+    <div class="container">
+      <div class="mission-inner">
+        <div class="mission-text reveal">
+          <div class="section-label" data-i18n="missionLabel">Our Mission</div>
+          <h2 data-i18n="missionTitle">Connect creators.<br />Amplify reach.<br />Build real collaboration.</h2>
+          <p data-i18n="missionP1">100CLAN was built on a single belief: creators are stronger together. In an industry that often pits creators against each other in a race for views, we chose to build a home where collaboration is the strategy — and community is the currency.</p>
+          <p data-i18n="missionP2">We provide the infrastructure, the connections, and the tools that let creators of every size find their people, structure meaningful partnerships, and grow audiences that stick — not just spike.</p>
+        </div>
+        <div class="mission-visual reveal reveal-delay-2">
+          <div class="mission-quote">
+            "<span data-i18n="missionQuote">The next era of content doesn't belong to the loudest voice — it belongs to the most connected ones.</span>"
+          </div>
+          <div class="mission-quote-attr" data-i18n="missionQuoteAttr">— Founder, 100CLAN</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Stats ─── -->
+  <section class="about-stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-block reveal">
+          <div class="stat-number">12K+</div>
+          <div class="stat-label" data-i18n="stat1">Creators Joined</div>
+        </div>
+        <div class="stat-block reveal reveal-delay-1">
+          <div class="stat-number">45+</div>
+          <div class="stat-label" data-i18n="stat2">Countries Represented</div>
+        </div>
+        <div class="stat-block reveal reveal-delay-2">
+          <div class="stat-number">890K</div>
+          <div class="stat-label" data-i18n="stat3">Combined Reach</div>
+        </div>
+        <div class="stat-block reveal reveal-delay-3">
+          <div class="stat-number">94%</div>
+          <div class="stat-label" data-i18n="stat4">Satisfaction Rate</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Story / Timeline ─── -->
+  <section class="story-section">
+    <div class="container">
+      <div class="story-header">
+        <div class="section-label reveal" data-i18n="storyLabel">How We Got Here</div>
+        <h2 class="section-title reveal reveal-delay-1" data-i18n="storyTitle">The 100CLAN <span class="text-yellow">story</span></h2>
+        <p class="section-sub reveal reveal-delay-2" style="margin-top:16px" data-i18n="storySub">From a Telegram group to a global creator platform — built by creators, for creators.</p>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item reveal">
+          <div class="timeline-dot">24</div>
+          <div class="timeline-content">
+            <div class="timeline-year" data-i18n="tl1Year">Early 2024</div>
+            <div class="timeline-title" data-i18n="tl1Title">It Started in a Telegram Group</div>
+            <p class="timeline-desc" data-i18n="tl1Desc">A small group of content creators in the Arab world started a private Telegram group to share collab opportunities. Within weeks, it had grown to over 300 members from across the region — creators who were hungry to work together but had no real infrastructure to do it.</p>
+          </div>
+        </div>
+        <div class="timeline-item reveal reveal-delay-1">
+          <div class="timeline-dot">24</div>
+          <div class="timeline-content">
+            <div class="timeline-year" data-i18n="tl2Year">Mid 2024</div>
+            <div class="timeline-title" data-i18n="tl2Title">The Platform Takes Shape</div>
+            <p class="timeline-desc" data-i18n="tl2Desc">The founders recognized that group chats couldn't scale the real problems: finding the right partners, structuring agreements, tracking results. Development began on a purpose-built platform with creator matching, a collaboration hub, and built-in analytics.</p>
+          </div>
+        </div>
+        <div class="timeline-item reveal reveal-delay-2">
+          <div class="timeline-dot">25</div>
+          <div class="timeline-content">
+            <div class="timeline-year" data-i18n="tl3Year">2025</div>
+            <div class="timeline-title" data-i18n="tl3Title">Launch &amp; Global Growth</div>
+            <p class="timeline-desc" data-i18n="tl3Desc">100CLAN officially launched to the public. Creators from 45+ countries joined in the first six months. The platform facilitated thousands of successful collaborations, with creators reporting an average 34% increase in audience growth within 90 days of joining.</p>
+          </div>
+        </div>
+        <div class="timeline-item reveal reveal-delay-3">
+          <div class="timeline-dot">26</div>
+          <div class="timeline-content">
+            <div class="timeline-year" data-i18n="tl4Year">2026 — Today</div>
+            <div class="timeline-title" data-i18n="tl4Title">12,000+ Creators Strong</div>
+            <p class="timeline-desc" data-i18n="tl4Desc">Today, 100CLAN is the leading creator collaboration platform in the Arab world and growing globally. We've expanded to include deal management, brand partnership tools, and a full creator resources library — with much more on the way.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Values ─── -->
+  <section class="values-section">
+    <div class="container">
+      <div class="values-header">
+        <div class="section-label reveal" data-i18n="valuesLabel">What We Stand For</div>
+        <h2 class="section-title reveal reveal-delay-1" data-i18n="valuesTitle">Our <span class="text-yellow">core values</span></h2>
+        <p class="section-sub reveal reveal-delay-2" style="margin-top:16px" data-i18n="valuesSub">Everything we build is an expression of these four principles.</p>
+      </div>
+      <div class="values-grid">
+        <div class="value-card reveal">
+          <div class="value-icon">&#128101;</div>
+          <div class="value-title" data-i18n="v1Title">Community First</div>
+          <p class="value-desc" data-i18n="v1Desc">Every product decision starts with a single question: does this make the community stronger? We don't build features to grow revenue — we build them to deepen real creative connections.</p>
+        </div>
+        <div class="value-card reveal reveal-delay-1">
+          <div class="value-icon">&#127807;</div>
+          <div class="value-title" data-i18n="v2Title">Authentic Growth</div>
+          <p class="value-desc" data-i18n="v2Desc">We believe in growing audiences that are genuinely interested, not inflated numbers. Every tool we offer is designed to build real engagement and lasting relationships between creators and their followers.</p>
+        </div>
+        <div class="value-card reveal reveal-delay-2">
+          <div class="value-icon">&#9889;</div>
+          <div class="value-title" data-i18n="v3Title">Creator Empowerment</div>
+          <p class="value-desc" data-i18n="v3Desc">Creators deserve more control over how they collaborate, how they earn, and how they grow. We put the power back in the hands of the people who make the content the world watches.</p>
+        </div>
+        <div class="value-card reveal reveal-delay-3">
+          <div class="value-icon">&#128270;</div>
+          <div class="value-title" data-i18n="v4Title">Transparency</div>
+          <p class="value-desc" data-i18n="v4Desc">From deal splits to platform fees to how our matching algorithm works — we believe in radical transparency. If you're using 100CLAN, you should understand exactly how it works and why.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Team ─── -->
+  <section class="team-section">
+    <div class="container">
+      <div class="team-header">
+        <div class="section-label reveal" data-i18n="teamLabel">The Builders</div>
+        <h2 class="section-title reveal reveal-delay-1" data-i18n="teamTitle">Meet the <span class="text-yellow">team</span></h2>
+        <p class="section-sub reveal reveal-delay-2" style="margin-top:16px" data-i18n="teamSub">A small team of creators, builders, and believers who are obsessed with making creators win.</p>
+      </div>
+      <div class="team-grid">
+        <div class="team-card reveal">
+          <div class="team-avatar" style="background:linear-gradient(135deg,#F5B800,#D9A200)">AK</div>
+          <div class="team-name" data-i18n="tm1Name">Adam Khalil</div>
+          <div class="team-role" data-i18n="tm1Role">Co-Founder &amp; CEO</div>
+          <p class="team-bio" data-i18n="tm1Bio">Former content creator with 800K followers. Obsessed with building infrastructure for the next generation of Arab creators.</p>
+        </div>
+        <div class="team-card reveal reveal-delay-1">
+          <div class="team-avatar" style="background:linear-gradient(135deg,#4FC3F7,#0277BD)">SR</div>
+          <div class="team-name" data-i18n="tm2Name">Sara Rashid</div>
+          <div class="team-role" data-i18n="tm2Role">Co-Founder &amp; CPO</div>
+          <p class="team-bio" data-i18n="tm2Bio">Product designer and former brand partnerships lead. Built creator programs at scale before joining 100CLAN.</p>
+        </div>
+        <div class="team-card reveal reveal-delay-2">
+          <div class="team-avatar" style="background:linear-gradient(135deg,#66BB6A,#2E7D32)">OB</div>
+          <div class="team-name" data-i18n="tm3Name">Omar Bassam</div>
+          <div class="team-role" data-i18n="tm3Role">Head of Engineering</div>
+          <p class="team-bio" data-i18n="tm3Bio">Full-stack engineer with 10 years of experience building platforms for creative communities and social networks.</p>
+        </div>
+        <div class="team-card reveal reveal-delay-3">
+          <div class="team-avatar" style="background:linear-gradient(135deg,#CE93D8,#7B1FA2)">LM</div>
+          <div class="team-name" data-i18n="tm4Name">Lina Mansour</div>
+          <div class="team-role" data-i18n="tm4Role">Head of Community</div>
+          <p class="team-bio" data-i18n="tm4Bio">Community builder and content strategist. Ran creator communities with 50K+ members before leading 100CLAN's network.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CTA ─── -->
+  <section class="cta-section">
+    <div class="cta-bg"></div>
+    <div class="container">
+      <div class="cta-inner">
+        <div class="section-label reveal" style="justify-content:center" data-i18n="ctaLabel">Join the Movement</div>
+        <h2 class="cta-title reveal reveal-delay-1">
+          <span data-i18n="ctaTitle1">Ready to build with</span><br /><span class="text-yellow" data-i18n="ctaTitle2">your clan?</span>
+        </h2>
+        <p class="cta-sub reveal reveal-delay-2" data-i18n="ctaSub">
+          12,000+ creators have already found their community. Your next collaboration partner is already on 100CLAN.
+        </p>
+        <div class="cta-buttons reveal reveal-delay-3">
+          <a href="signup.html" class="btn-primary-lg" data-i18n="ctaBtn">
+            Join 100CLAN Free
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9h12M11 5l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="contact.html" class="btn-outline" data-i18n="ctaContact">Get in Touch</a>
+        </div>
+        <p class="cta-note reveal reveal-delay-4" data-i18n="ctaNote">No credit card required. Free forever for core features.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Footer ─── -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="brand_assets/Logo-100clan.png" alt="100CLAN" class="footer-logo" />
+          <p class="footer-tagline" data-i18n="footerTagline">The platform where content creators find their tribe, collaborate, and grow together.</p>
+          <div class="footer-social">
+            <a href="https://www.instagram.com/100clan" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Instagram">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+            <a href="https://www.tiktok.com/@100clan" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="TikTok">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.22 8.22 0 0 0 4.81 1.54V6.79a4.85 4.85 0 0 1-1.04-.1z"/></svg>
+            </a>
+            <a href="https://www.youtube.com/@100clanshorts" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="YouTube">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
+            </a>
+            <a href="https://www.x.com/100clan" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="X">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-col-title" data-i18n="footerCol1">Platform</div>
+          <ul class="footer-links">
+            <li><a href="index.html#features" data-i18n="fl1_1">Features</a></li>
+            <li><a href="index.html#how" data-i18n="fl1_2">How It Works</a></li>
+            <li><a href="index.html#join" data-i18n="fl1_3">Pricing</a></li>
+            <li><a href="creator-matching.html" data-i18n="fl1_4">Creator Matching</a></li>
+            <li><a href="collaboration-hub.html" data-i18n="fl1_5">Collaboration Hub</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title" data-i18n="footerCol2">Community</div>
+          <ul class="footer-links">
+            <li><a href="creator-stories.html" data-i18n="fl2_1">Creator Stories</a></li>
+            <li><a href="blog.html" data-i18n="fl2_2">Blog</a></li>
+            <li><a href="events.html" data-i18n="fl2_3">Events</a></li>
+            <li><a href="creator-resources.html" data-i18n="fl2_4">Creator Resources</a></li>
+            <li><a href="newsletter.html" data-i18n="fl2_5">Newsletter</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title" data-i18n="footerCol3">Company</div>
+          <ul class="footer-links">
+            <li><a href="about.html" data-i18n="fl3_1">About 100CLAN</a></li>
+            <li><a href="careers.html" data-i18n="fl3_2">Careers</a></li>
+            <li><a href="press.html" data-i18n="fl3_3">Press Kit</a></li>
+            <li><a href="contact.html" data-i18n="fl3_4">Contact</a></li>
+            <li><a href="partnerships.html" data-i18n="fl3_5">Partnerships</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy" data-i18n="footerCopy">&#169; 2026 100CLAN. All rights reserved.</p>
+        <div class="footer-legal">
+          <a href="privacy.html" data-i18n="footerPrivacy">Privacy Policy</a>
+          <a href="terms.html" data-i18n="footerTerms">Terms of Service</a>
+          <a href="cookies.html" data-i18n="footerCookies">Cookie Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ─── Navigation scroll effect (inner page — always scrolled) ───
+    const nav = document.getElementById('mainNav');
+    function updateNav() {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    }
+    window.addEventListener('scroll', updateNav);
+    updateNav();
+
+    // ─── Mobile menu ───
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileClose = document.getElementById('mobileClose');
+    hamburger.addEventListener('click', () => mobileMenu.classList.add('open'));
+    mobileClose.addEventListener('click', closeMobile);
+    function closeMobile() { mobileMenu.classList.remove('open'); }
+
+    // ─── Scroll reveal ───
+    const revealEls = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          revealObserver.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => revealObserver.observe(el));
+
+    // ─── Language / i18n System ───
+    const i18n = {
+      en: {
+        navFeatures: 'Features', navHow: 'How It Works', navCommunity: 'Community', navPricing: 'Pricing',
+        navLogin: 'Log In', navJoin: 'Join the Clan',
+        bannerLabel: 'Our Story',
+        bannerTitle: 'About',
+        bannerSub: 'We exist to close the gap between creative potential and real-world growth — one collaboration at a time.',
+        missionLabel: 'Our Mission',
+        missionTitle: 'Connect creators.\nAmplify reach.\nBuild real collaboration.',
+        missionP1: '100CLAN was built on a single belief: creators are stronger together. In an industry that often pits creators against each other in a race for views, we chose to build a home where collaboration is the strategy — and community is the currency.',
+        missionP2: 'We provide the infrastructure, the connections, and the tools that let creators of every size find their people, structure meaningful partnerships, and grow audiences that stick — not just spike.',
+        missionQuote: 'The next era of content doesn\'t belong to the loudest voice — it belongs to the most connected ones.',
+        missionQuoteAttr: '— Founder, 100CLAN',
+        stat1: 'Creators Joined', stat2: 'Countries Represented', stat3: 'Combined Reach', stat4: 'Satisfaction Rate',
+        storyLabel: 'How We Got Here',
+        storyTitle: 'The 100CLAN story',
+        storySub: 'From a Telegram group to a global creator platform — built by creators, for creators.',
+        tl1Year: 'Early 2024', tl1Title: 'It Started in a Telegram Group',
+        tl1Desc: 'A small group of content creators in the Arab world started a private Telegram group to share collab opportunities. Within weeks, it had grown to over 300 members from across the region.',
+        tl2Year: 'Mid 2024', tl2Title: 'The Platform Takes Shape',
+        tl2Desc: 'The founders recognized that group chats couldn\'t scale the real problems: finding the right partners, structuring agreements, tracking results. Development began on a purpose-built platform.',
+        tl3Year: '2025', tl3Title: 'Launch & Global Growth',
+        tl3Desc: '100CLAN officially launched to the public. Creators from 45+ countries joined in the first six months, reporting an average 34% increase in audience growth within 90 days.',
+        tl4Year: '2026 — Today', tl4Title: '12,000+ Creators Strong',
+        tl4Desc: 'Today, 100CLAN is the leading creator collaboration platform in the Arab world and growing globally, with deal management, brand partnership tools, and a full creator resources library.',
+        valuesLabel: 'What We Stand For', valuesTitle: 'Our core values',
+        valuesSub: 'Everything we build is an expression of these four principles.',
+        v1Title: 'Community First', v1Desc: 'Every product decision starts with a single question: does this make the community stronger? We don\'t build features to grow revenue — we build them to deepen real creative connections.',
+        v2Title: 'Authentic Growth', v2Desc: 'We believe in growing audiences that are genuinely interested, not inflated numbers. Every tool we offer is designed to build real engagement and lasting relationships.',
+        v3Title: 'Creator Empowerment', v3Desc: 'Creators deserve more control over how they collaborate, how they earn, and how they grow. We put the power back in the hands of the people who make the content the world watches.',
+        v4Title: 'Transparency', v4Desc: 'From deal splits to platform fees to how our matching algorithm works — we believe in radical transparency. If you\'re using 100CLAN, you should understand exactly how it works.',
+        teamLabel: 'The Builders', teamTitle: 'Meet the team',
+        teamSub: 'A small team of creators, builders, and believers who are obsessed with making creators win.',
+        tm1Name: 'Adam Khalil', tm1Role: 'Co-Founder & CEO',
+        tm1Bio: 'Former content creator with 800K followers. Obsessed with building infrastructure for the next generation of Arab creators.',
+        tm2Name: 'Sara Rashid', tm2Role: 'Co-Founder & CPO',
+        tm2Bio: 'Product designer and former brand partnerships lead. Built creator programs at scale before joining 100CLAN.',
+        tm3Name: 'Omar Bassam', tm3Role: 'Head of Engineering',
+        tm3Bio: 'Full-stack engineer with 10 years of experience building platforms for creative communities and social networks.',
+        tm4Name: 'Lina Mansour', tm4Role: 'Head of Community',
+        tm4Bio: 'Community builder and content strategist. Ran creator communities with 50K+ members before leading 100CLAN\'s network.',
+        ctaLabel: 'Join the Movement',
+        ctaTitle1: 'Ready to build with', ctaTitle2: 'your clan?',
+        ctaSub: '12,000+ creators have already found their community. Your next collaboration partner is already on 100CLAN.',
+        ctaBtn: 'Join 100CLAN Free', ctaContact: 'Get in Touch',
+        ctaNote: 'No credit card required. Free forever for core features.',
+        footerTagline: 'The platform where content creators find their tribe, collaborate, and grow together.',
+        footerCol1: 'Platform', footerCol2: 'Community', footerCol3: 'Company',
+        fl1_1: 'Features', fl1_2: 'How It Works', fl1_3: 'Pricing', fl1_4: 'Creator Matching', fl1_5: 'Collaboration Hub',
+        fl2_1: 'Creator Stories', fl2_2: 'Blog', fl2_3: 'Events', fl2_4: 'Creator Resources', fl2_5: 'Newsletter',
+        fl3_1: 'About 100CLAN', fl3_2: 'Careers', fl3_3: 'Press Kit', fl3_4: 'Contact', fl3_5: 'Partnerships',
+        footerCopy: '© 2026 100CLAN. All rights reserved.',
+        footerPrivacy: 'Privacy Policy', footerTerms: 'Terms of Service', footerCookies: 'Cookie Policy',
+      },
+      ar: {
+        navFeatures: 'المميزات', navHow: 'كيف يعمل', navCommunity: 'المجتمع', navPricing: 'الأسعار',
+        navLogin: 'تسجيل الدخول', navJoin: 'انضم للكلان',
+        bannerLabel: 'قصتنا',
+        bannerTitle: 'عن',
+        bannerSub: 'نحن هنا لنسد الفجوة بين الإمكانات الإبداعية والنمو الحقيقي — تعاون واحد في كل مرة.',
+        missionLabel: 'مهمتنا',
+        missionTitle: 'ربط المبدعين.\nتضخيم الوصول.\nبناء تعاون حقيقي.',
+        missionP1: 'بُني 100CLAN على اعتقاد واحد: المبدعون أقوى معاً. في صناعة تضع المبدعين في منافسة على المشاهدات، اخترنا بناء مكان يكون فيه التعاون هو الاستراتيجية — والمجتمع هو العملة.',
+        missionP2: 'نوفر البنية التحتية والاتصالات والأدوات التي تتيح للمبدعين من كل الأحجام إيجاد مجتمعهم وبناء شراكات هادفة وتنمية جماهير تبقى — لا مجرد ارتفاع مؤقت.',
+        missionQuote: 'الحقبة القادمة من المحتوى لا تنتمي للصوت الأعلى — بل للأكثر اتصالاً.',
+        missionQuoteAttr: '— المؤسس، 100CLAN',
+        stat1: 'مبدع انضم', stat2: 'دولة ممثّلة', stat3: 'وصول مشترك', stat4: 'معدل الرضا',
+        storyLabel: 'كيف وصلنا إلى هنا',
+        storyTitle: 'قصة 100CLAN',
+        storySub: 'من مجموعة تيليغرام إلى منصة مبدعين عالمية — مبنية من المبدعين وللمبدعين.',
+        tl1Year: 'مطلع 2024', tl1Title: 'بدأت في مجموعة تيليغرام',
+        tl1Desc: 'أنشأت مجموعة صغيرة من صنّاع المحتوى في العالم العربي مجموعة تيليغرام خاصة لتبادل فرص التعاون. في غضون أسابيع، تجاوز عدد أعضائها 300 مبدع من المنطقة.',
+        tl2Year: 'منتصف 2024', tl2Title: 'المنصة تأخذ شكلها',
+        tl2Desc: 'أدرك المؤسسون أن المحادثات الجماعية لا تحل المشكلات الحقيقية: إيجاد الشركاء المناسبين وهيكلة الاتفاقيات وتتبع النتائج. بدأ تطوير منصة متخصصة.',
+        tl3Year: '2025', tl3Title: 'الإطلاق والنمو العالمي',
+        tl3Desc: 'أُطلق 100CLAN رسمياً للعموم. انضم مبدعون من أكثر من 45 دولة في الأشهر الستة الأولى، مع متوسط نمو 34٪ في الجمهور خلال 90 يوماً.',
+        tl4Year: '2026 — اليوم', tl4Title: '+12,000 مبدع وأكثر',
+        tl4Desc: 'اليوم، 100CLAN هو المنصة الرائدة للتعاون بين المبدعين في العالم العربي وينمو عالمياً، مع إدارة الصفقات وأدوات شراكات العلامات التجارية.',
+        valuesLabel: 'ما نؤمن به', valuesTitle: 'قيمنا الأساسية',
+        valuesSub: 'كل ما نبنيه هو تعبير عن هذه المبادئ الأربعة.',
+        v1Title: 'المجتمع أولاً', v1Desc: 'كل قرار منتج يبدأ بسؤال واحد: هل هذا يجعل المجتمع أقوى؟ لا نبني ميزات لزيادة الإيرادات — بل لتعميق الروابط الإبداعية الحقيقية.',
+        v2Title: 'النمو الأصيل', v2Desc: 'نؤمن بتنمية جماهير مهتمة حقاً، وليس أرقاماً منفوخة. كل أداة نقدمها مصممة لبناء تفاعل حقيقي وعلاقات دائمة.',
+        v3Title: 'تمكين المبدع', v3Desc: 'يستحق المبدعون مزيداً من التحكم في كيفية تعاونهم وكسبهم ونموهم. نعيد السلطة إلى أيدي الأشخاص الذين يصنعون المحتوى الذي يشاهده العالم.',
+        v4Title: 'الشفافية', v4Desc: 'من توزيع الصفقات إلى رسوم المنصة وكيفية عمل خوارزمية المطابقة — نؤمن بالشفافية الكاملة. إذا كنت تستخدم 100CLAN، يجب أن تفهم كيف يعمل.',
+        teamLabel: 'البنّاؤون', teamTitle: 'تعرف على الفريق',
+        teamSub: 'فريق صغير من المبدعين والبنّائين والمؤمنين المهووسين بجعل المبدعين يفوزون.',
+        tm1Name: 'آدم خليل', tm1Role: 'المؤسس المشارك والرئيس التنفيذي',
+        tm1Bio: 'صانع محتوى سابق بـ800 ألف متابع. مهووس ببناء البنية التحتية لجيل المبدعين العرب القادم.',
+        tm2Name: 'سارة راشد', tm2Role: 'المؤسسة المشاركة ورئيسة المنتج',
+        tm2Bio: 'مصممة منتجات ورئيسة شراكات علامات تجارية سابقة. بنت برامج مبدعين على نطاق واسع قبل انضمامها.',
+        tm3Name: 'عمر بسام', tm3Role: 'رئيس الهندسة',
+        tm3Bio: 'مهندس full-stack بخبرة 10 سنوات في بناء منصات المجتمعات الإبداعية والشبكات الاجتماعية.',
+        tm4Name: 'لينا منصور', tm4Role: 'رئيسة المجتمع',
+        tm4Bio: 'بانية مجتمع واستراتيجية محتوى. أدارت مجتمعات مبدعين بأكثر من 50 ألف عضو قبل قيادة شبكة 100CLAN.',
+        ctaLabel: 'انضم للحركة',
+        ctaTitle1: 'مستعد للبناء مع', ctaTitle2: 'كلانك؟',
+        ctaSub: 'أكثر من 12,000 مبدع وجدوا مجتمعهم بالفعل. شريك تعاونك التالي موجود على 100CLAN.',
+        ctaBtn: 'انضم إلى 100CLAN مجاناً', ctaContact: 'تواصل معنا',
+        ctaNote: 'لا يلزم بطاقة ائتمانية. مجاني للأبد للمميزات الأساسية.',
+        footerTagline: 'المنصة التي يجد فيها صنّاع المحتوى قبيلتهم ويتعاونون وينمون معاً.',
+        footerCol1: 'المنصة', footerCol2: 'المجتمع', footerCol3: 'الشركة',
+        fl1_1: 'المميزات', fl1_2: 'كيف يعمل', fl1_3: 'الأسعار', fl1_4: 'مطابقة المبدعين', fl1_5: 'مركز التعاون',
+        fl2_1: 'قصص المبدعين', fl2_2: 'المدونة', fl2_3: 'الفعاليات', fl2_4: 'موارد المبدعين', fl2_5: 'النشرة الإخبارية',
+        fl3_1: 'عن 100CLAN', fl3_2: 'وظائف', fl3_3: 'المجموعة الصحفية', fl3_4: 'اتصل بنا', fl3_5: 'الشراكات',
+        footerCopy: '© 2026 100CLAN. جميع الحقوق محفوظة.',
+        footerPrivacy: 'سياسة الخصوصية', footerTerms: 'شروط الخدمة', footerCookies: 'سياسة ملفات تعريف الارتباط',
+      }
+    };
+
+    function applyLang(lang) {
+      const t = i18n[lang];
+      document.documentElement.lang = lang;
+      document.documentElement.dir  = lang === 'ar' ? 'rtl' : 'ltr';
+      document.documentElement.classList.toggle('lang-ar', lang === 'ar');
+      document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+      requestAnimationFrame(updateLangSlide);
+
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[key] !== undefined) {
+          if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+            el.placeholder = t[key];
+          } else {
+            el.textContent = t[key];
+          }
+        }
+      });
+
+      // Special: story title needs yellow span
+      const stEl = document.querySelector('.story-header .section-title');
+      if (stEl) {
+        if (lang === 'ar') stEl.innerHTML = 'قصة <span class="text-yellow">100CLAN</span>';
+        else stEl.innerHTML = 'The 100CLAN <span class="text-yellow">story</span>';
+      }
+      const vtEl = document.querySelector('.values-header .section-title');
+      if (vtEl) {
+        if (lang === 'ar') vtEl.innerHTML = 'قيمنا <span class="text-yellow">الأساسية</span>';
+        else vtEl.innerHTML = 'Our <span class="text-yellow">core values</span>';
+      }
+      const tmEl = document.querySelector('.team-header .section-title');
+      if (tmEl) {
+        if (lang === 'ar') tmEl.innerHTML = 'تعرف على <span class="text-yellow">الفريق</span>';
+        else tmEl.innerHTML = 'Meet the <span class="text-yellow">team</span>';
+      }
+
+      localStorage.setItem('clan-lang', lang);
+    }
+
+    function updateLangSlide() {
+      document.querySelectorAll('.lang-switcher').forEach(switcher => {
+        const slide = switcher.querySelector('.lang-slide');
+        const activeBtn = switcher.querySelector('.lang-btn.active');
+        if (!slide || !activeBtn) return;
+        slide.style.width = activeBtn.offsetWidth + 'px';
+        slide.style.transform = `translateX(${activeBtn.offsetLeft}px)`;
+      });
+    }
+
+    applyLang(localStorage.getItem('clan-lang') || 'en');
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => applyLang(btn.dataset.lang));
+    });
+    window.addEventListener('resize', updateLangSlide);
+  </script>
+</body>
+</html>

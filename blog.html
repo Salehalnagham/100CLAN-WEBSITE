@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog — Creator Insights & Strategies | 100CLAN</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Arabic Brand Font ─── */
+    @font-face {
+      font-family: 'ClanArabic';
+      src: url('brand_assets/100clanBold 2.ttf') format('truetype');
+      font-weight: 700;
+      font-display: swap;
+    }
+
+    /* ─── Language Switcher ─── */
+    .lang-switcher {
+      display: flex;
+      align-items: center;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 20px;
+      padding: 3px;
+      gap: 0;
+      position: relative;
+    }
+    .lang-slide {
+      position: absolute;
+      top: 3px;
+      left: 0;
+      height: calc(100% - 6px);
+      border-radius: 16px;
+      background: var(--yellow);
+      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), width 0.3s cubic-bezier(0.4,0,0.2,1);
+      pointer-events: none;
+    }
+    .lang-btn {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      padding: 5px 13px;
+      border-radius: 16px;
+      border: none;
+      background: transparent;
+      color: rgba(255,255,255,0.4);
+      cursor: pointer;
+      transition: color 0.25s ease;
+      font-family: 'Montserrat', sans-serif;
+      line-height: 1;
+      position: relative;
+      z-index: 1;
+    }
+    .lang-btn.active { background: transparent; color: #111111; }
+
+    /* ─── Arabic / RTL Global Overrides ─── */
+    html.lang-ar,
+    html.lang-ar body,
+    html.lang-ar h1, html.lang-ar h2, html.lang-ar h3,
+    html.lang-ar p, html.lang-ar a, html.lang-ar span,
+    html.lang-ar li, html.lang-ar button, html.lang-ar div,
+    html.lang-ar input { font-family: 'ClanArabic', sans-serif; }
+    html.lang-ar .lang-btn { font-family: 'Montserrat', sans-serif; }
+    html.lang-ar .nav-links            { flex-direction: row-reverse; }
+    html.lang-ar .nav-cta              { flex-direction: row-reverse; }
+    html.lang-ar .section-label        { flex-direction: row-reverse; }
+    html.lang-ar .section-title,
+    html.lang-ar .section-sub          { text-align: right; }
+    html.lang-ar .cta-inner            { text-align: right; }
+    html.lang-ar .footer-tagline       { text-align: right; }
+    html.lang-ar .footer-social        { flex-direction: row-reverse; }
+    html.lang-ar .footer-links         { text-align: right; }
+    html.lang-ar .footer-bottom        { flex-direction: row-reverse; }
+    html.lang-ar .footer-legal         { flex-direction: row-reverse; }
+    html.lang-ar .page-banner          { text-align: right; }
+    html.lang-ar .page-banner .section-label { justify-content: flex-end; }
+    html.lang-ar .filter-bar           { flex-direction: row-reverse; }
+    html.lang-ar .featured-post        { text-align: right; }
+    html.lang-ar .blog-card            { text-align: right; }
+    html.lang-ar .newsletter-strip     { text-align: right; }
+
+    /* ─── CSS Reset & Variables ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --yellow:   #F5B800;
+      --yellow-dark: #D9A200;
+      --yellow-glow: rgba(245, 184, 0, 0.25);
+      --black:    #111111;
+      --dark:     #1A1A1A;
+      --dark-2:   #222222;
+      --dark-3:   #2A2A2A;
+      --dark-card:#1E1E1E;
+      --white:    #FFFFFF;
+      --gray:     #9B9B9B;
+      --gray-light: #D4D4D4;
+      --font:     'Montserrat', sans-serif;
+      --radius:   12px;
+      --radius-lg: 20px;
+      --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: var(--black);
+      color: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ─── Scrollbar ─── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--black); }
+    ::-webkit-scrollbar-thumb { background: var(--yellow); border-radius: 2px; }
+
+    /* ─── Utilities ─── */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    .text-yellow { color: var(--yellow); }
+    .text-gray   { color: var(--gray); }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--yellow);
+      color: var(--black);
+      font-family: var(--font);
+      font-weight: 800;
+      font-size: 14px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 14px 32px;
+      border-radius: var(--radius);
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0.15);
+      transform: translateX(-100%);
+      transition: transform 0.4s ease;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px var(--yellow-glow); }
+    .btn-primary:hover::before { transform: translateX(0); }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--white);
+      font-family: var(--font);
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 13px 32px;
+      border-radius: var(--radius);
+      border: 1.5px solid rgba(255,255,255,0.25);
+      cursor: pointer;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    .btn-outline:hover {
+      border-color: var(--yellow);
+      color: var(--yellow);
+      transform: translateY(-2px);
+    }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: 16px;
+    }
+    .section-label::before {
+      content: '';
+      width: 24px;
+      height: 2px;
+      background: var(--yellow);
+      border-radius: 1px;
+    }
+
+    .section-title {
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+
+    .section-sub {
+      font-size: 17px;
+      color: var(--gray);
+      font-weight: 400;
+      line-height: 1.7;
+    }
+
+    /* fade-in animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+    .reveal-delay-5 { transition-delay: 0.5s; }
+
+    /* ─── Navigation ─── */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 20px 0;
+      transition: var(--transition);
+    }
+    .nav.scrolled {
+      background: rgba(17, 17, 17, 0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(245, 184, 0, 0.12);
+      padding: 14px 0;
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      height: 44px;
+      width: auto;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--gray-light);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+    .nav-links a:hover { color: var(--yellow); }
+    .nav-cta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .hamburger span { width: 24px; height: 2px; background: var(--white); border-radius: 1px; transition: var(--transition); }
+
+    /* ─── Mobile Navigation Menu ─── */
+    .mobile-menu {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: rgba(17,17,17,0.98);
+      backdrop-filter: blur(20px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+    }
+    .mobile-menu.open { transform: translateX(0); }
+    .mobile-menu a {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--white);
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      transition: color var(--transition);
+    }
+    .mobile-menu a:hover { color: var(--yellow); }
+    .mobile-close {
+      position: absolute;
+      top: 24px;
+      right: 28px;
+      font-size: 28px;
+      color: var(--gray);
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-family: var(--font);
+      transition: color var(--transition);
+    }
+    .mobile-close:hover { color: var(--white); }
+
+    /* ─── Page Banner ─── */
+    .page-banner {
+      background: var(--dark);
+      padding-top: 140px;
+      padding-bottom: 80px;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .page-banner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 80% at 50% 0%, rgba(245,184,0,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .page-banner .container { position: relative; z-index: 1; }
+    .page-banner h1 {
+      font-size: clamp(40px, 6vw, 72px);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+    }
+    .page-banner p {
+      font-size: 18px;
+      color: var(--gray);
+      max-width: 560px;
+      line-height: 1.7;
+    }
+
+    /* ─── Filter Bar ─── */
+    .filter-section {
+      padding: 48px 0 0;
+    }
+    .filter-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .filter-btn {
+      font-family: var(--font);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 8px 18px;
+      border-radius: 100px;
+      border: 1.5px solid rgba(255,255,255,0.12);
+      background: transparent;
+      color: var(--gray);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .filter-btn:hover {
+      border-color: var(--yellow);
+      color: var(--yellow);
+    }
+    .filter-btn.active {
+      background: var(--yellow);
+      border-color: var(--yellow);
+      color: var(--black);
+    }
+
+    /* ─── Featured Post ─── */
+    .featured-section {
+      padding: 48px 0;
+    }
+    .featured-post {
+      background: var(--dark-card);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      transition: var(--transition);
+    }
+    .featured-post:hover {
+      border-color: rgba(245,184,0,0.3);
+      transform: translateY(-4px);
+    }
+    .featured-thumb {
+      background: linear-gradient(135deg, #1A1A1A 0%, #2A2A2A 40%, #F5B800 100%);
+      min-height: 340px;
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      padding: 28px;
+    }
+    .featured-thumb::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(17,17,17,0.6) 0%, transparent 60%);
+    }
+    .category-badge {
+      position: relative;
+      z-index: 1;
+      display: inline-block;
+      background: var(--yellow);
+      color: var(--black);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 100px;
+    }
+    .featured-body {
+      padding: 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .post-date {
+      font-size: 12px;
+      color: var(--gray);
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+    }
+    .featured-body h2 {
+      font-size: clamp(22px, 3vw, 30px);
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+    .featured-body p {
+      font-size: 15px;
+      color: var(--gray);
+      line-height: 1.75;
+      margin-bottom: 28px;
+    }
+    .read-more {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      text-decoration: none;
+      transition: gap var(--transition);
+    }
+    .read-more:hover { gap: 10px; }
+
+    /* ─── Blog Grid ─── */
+    .blog-section {
+      padding: 0 0 80px;
+    }
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .blog-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+    }
+    .blog-card:hover {
+      border-color: rgba(245,184,0,0.3);
+      transform: translateY(-4px);
+    }
+    .blog-thumb {
+      height: 180px;
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      padding: 16px;
+    }
+    .blog-thumb-1 { background: linear-gradient(135deg, #1A1A1A 0%, #3A2A1A 50%, #F5B800 100%); }
+    .blog-thumb-2 { background: linear-gradient(135deg, #111 0%, #1A2A1A 50%, #2A8A2A 100%); }
+    .blog-thumb-3 { background: linear-gradient(135deg, #111 0%, #1A1A2A 50%, #2A2ABB 100%); }
+    .blog-thumb-4 { background: linear-gradient(135deg, #111 0%, #2A1A2A 50%, #AA2ABB 100%); }
+    .blog-thumb-5 { background: linear-gradient(135deg, #111 0%, #2A2A1A 50%, #BBAA2A 100%); }
+    .blog-thumb-6 { background: linear-gradient(135deg, #111 0%, #2A1A1A 50%, #BB2A2A 100%); }
+    .blog-body {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .blog-body .post-date { margin-bottom: 8px; }
+    .blog-body h3 {
+      font-size: 17px;
+      font-weight: 800;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+      margin-bottom: 10px;
+    }
+    .blog-body p {
+      font-size: 14px;
+      color: var(--gray);
+      line-height: 1.7;
+      margin-bottom: 20px;
+      flex: 1;
+    }
+
+    /* ─── Newsletter Strip ─── */
+    .newsletter-section {
+      padding: 0 0 80px;
+    }
+    .newsletter-strip {
+      background: var(--dark-card);
+      border: 1px solid rgba(245,184,0,0.15);
+      border-radius: var(--radius-lg);
+      padding: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+      position: relative;
+      overflow: hidden;
+    }
+    .newsletter-strip::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--yellow), transparent);
+    }
+    .newsletter-text h3 {
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+    .newsletter-text p {
+      font-size: 15px;
+      color: var(--gray);
+    }
+    .newsletter-form {
+      display: flex;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+    .newsletter-form input {
+      font-family: var(--font);
+      font-size: 14px;
+      padding: 13px 20px;
+      border-radius: var(--radius);
+      border: 1.5px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.05);
+      color: var(--white);
+      outline: none;
+      width: 260px;
+      transition: border-color var(--transition);
+    }
+    .newsletter-form input::placeholder { color: var(--gray); }
+    .newsletter-form input:focus { border-color: var(--yellow); }
+
+    /* ─── CTA Section ─── */
+    .cta-section {
+      padding: 120px 0;
+      background: var(--dark);
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 70% at 50% 50%, rgba(245,184,0,0.07) 0%, transparent 70%);
+    }
+    .cta-inner {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .cta-title {
+      font-size: clamp(36px, 6vw, 64px);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+    }
+    .cta-sub {
+      font-size: 18px;
+      color: var(--gray);
+      margin-bottom: 48px;
+      line-height: 1.6;
+    }
+    .cta-buttons {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .btn-primary-lg {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--yellow);
+      color: var(--black);
+      font-family: var(--font);
+      font-weight: 800;
+      font-size: 16px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 18px 44px;
+      border-radius: var(--radius);
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    .btn-primary-lg:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 48px rgba(245,184,0,0.35);
+    }
+    .cta-note {
+      font-size: 13px;
+      color: var(--gray);
+      margin-top: 20px;
+    }
+    .cta-note a { color: var(--yellow); text-decoration: none; }
+
+    /* ─── Footer ─── */
+    .footer {
+      padding: 64px 0 32px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.4fr repeat(3, 1fr);
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+    .footer-logo { height: 40px; margin-bottom: 16px; }
+    .footer-tagline { font-size: 14px; color: var(--gray); line-height: 1.6; max-width: 260px; }
+    .footer-social { display: flex; gap: 10px; margin-top: 20px; }
+    .social-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      border: 1px solid rgba(245,184,0,0.3);
+      color: var(--yellow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s ease, color 0.3s ease;
+    }
+    .social-btn::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 100%; height: 0%;
+      background: var(--yellow);
+      transition: height 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+      z-index: 0;
+    }
+    .social-btn svg { position: relative; z-index: 1; }
+    .social-btn:hover { border-color: var(--yellow); color: #111111; }
+    .social-btn:hover::before { height: 100%; }
+    .footer-col-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a {
+      font-size: 14px;
+      color: var(--gray);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+    .footer-links a:hover { color: var(--yellow); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-copy { font-size: 13px; color: var(--gray); }
+    .footer-legal { display: flex; gap: 20px; }
+    .footer-legal a { font-size: 13px; color: var(--gray); text-decoration: none; }
+    .footer-legal a:hover { color: var(--yellow); }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 1024px) {
+      .featured-post { grid-template-columns: 1fr; }
+      .featured-thumb { min-height: 240px; }
+      .blog-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+    }
+    @media (max-width: 768px) {
+      .container { padding: 0 20px; }
+      .nav-links { display: none; }
+      .nav-cta .btn-primary { display: none; }
+      .hamburger { display: flex; }
+      .blog-grid { grid-template-columns: 1fr; }
+      .newsletter-strip { flex-direction: column; align-items: flex-start; }
+      .newsletter-form { flex-direction: column; width: 100%; }
+      .newsletter-form input { width: 100%; }
+      .footer-top { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Mobile Menu Overlay -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-close" id="mobileClose">&#10005;</button>
+    <a href="index.html#features" onclick="closeMobile()">Features</a>
+    <a href="index.html#how"      onclick="closeMobile()">How It Works</a>
+    <a href="index.html#community" onclick="closeMobile()">Community</a>
+    <a href="signup.html" class="btn-primary" onclick="closeMobile()" style="font-size:15px;margin-top:12px;">Join the Clan</a>
+  </div>
+
+  <!-- ─── Navigation ─── -->
+  <nav class="nav scrolled" id="mainNav">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="index.html">
+          <img src="brand_assets/Logo-100clan.png" alt="100CLAN" class="nav-logo" />
+        </a>
+        <ul class="nav-links">
+          <li><a href="index.html#features" data-i18n="navFeatures">Features</a></li>
+          <li><a href="index.html#how"      data-i18n="navHow">How It Works</a></li>
+          <li><a href="index.html#community" data-i18n="navCommunity">Community</a></li>
+          <li><a href="index.html#join"     data-i18n="navPricing">Pricing</a></li>
+        </ul>
+        <div class="nav-cta">
+          <div class="lang-switcher" role="group" aria-label="Language">
+            <span class="lang-slide"></span>
+            <button class="lang-btn active" data-lang="en">EN</button>
+            <button class="lang-btn" data-lang="ar">AR</button>
+          </div>
+          <a href="login.html" class="btn-outline" data-i18n="navLogin">Log In</a>
+          <a href="signup.html" class="btn-primary" data-i18n="navJoin">Join the Clan</a>
+          <div class="hamburger" id="hamburger">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ─── Page Banner ─── -->
+  <section class="page-banner">
+    <div class="container">
+      <div class="section-label reveal" data-i18n="bannerLabel">BLOG</div>
+      <h1 class="reveal reveal-delay-1"><span data-i18n="bannerTitle">Creator Insights</span> <span class="text-yellow">&amp; Strategies</span></h1>
+      <p class="reveal reveal-delay-2" data-i18n="bannerSub">Tips, trends, and tactics from the frontlines of creator growth.</p>
+    </div>
+  </section>
+
+  <!-- ─── Filter Bar ─── -->
+  <section class="filter-section">
+    <div class="container">
+      <div class="filter-bar reveal">
+        <button class="filter-btn active" data-i18n="filterAll">All</button>
+        <button class="filter-btn" data-i18n="filterStrategy">Strategy</button>
+        <button class="filter-btn" data-i18n="filterGrowth">Growth</button>
+        <button class="filter-btn" data-i18n="filterMonetization">Monetization</button>
+        <button class="filter-btn" data-i18n="filterCollaboration">Collaboration</button>
+        <button class="filter-btn" data-i18n="filterPlatform">Platform Tips</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Featured Post ─── -->
+  <section class="featured-section">
+    <div class="container">
+      <div class="featured-post reveal">
+        <div class="featured-thumb">
+          <span class="category-badge" data-i18n="featuredBadge">STRATEGY</span>
+        </div>
+        <div class="featured-body">
+          <p class="post-date" data-i18n="featuredDate">February 28, 2026</p>
+          <h2 data-i18n="featuredTitle">The Complete Guide to Creator Collaboration in 2026</h2>
+          <p data-i18n="featuredExcerpt">Cross-posting and strategic shout-outs are no longer optional — they're the most reliable way to 3× your audience growth without spending on ads. We break down every format that's working right now.</p>
+          <a href="#" class="read-more" data-i18n="readMore">Read More →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Blog Grid ─── -->
+  <section class="blog-section">
+    <div class="container">
+      <div class="blog-grid">
+
+        <div class="blog-card reveal">
+          <div class="blog-thumb blog-thumb-1">
+            <span class="category-badge" data-i18n="card1Badge">PLATFORM TIPS</span>
+          </div>
+          <div class="blog-body">
+            <p class="post-date" data-i18n="card1Date">March 2, 2026</p>
+            <h3 data-i18n="card1Title">TikTok's New Algorithm: What Creators Need to Know</h3>
+            <p data-i18n="card1Excerpt">The latest TikTok update reshuffles how content gets distributed. Here's what changed, what stayed the same, and exactly how to adjust your posting strategy.</p>
+            <a href="#" class="read-more" data-i18n="readMore">Read More →</a>
+          </div>
+        </div>
+
+        <div class="blog-card reveal reveal-delay-1">
+          <div class="blog-thumb blog-thumb-2">
+            <span class="category-badge" data-i18n="card2Badge">MONETIZATION</span>
+          </div>
+          <div class="blog-body">
+            <p class="post-date" data-i18n="card2Date">February 25, 2026</p>
+            <h3 data-i18n="card2Title">How to Negotiate Your First Brand Deal</h3>
+            <p data-i18n="card2Excerpt">Landing your first paid partnership is a milestone — but knowing your worth and asking for it is a skill. Here's a step-by-step guide to negotiating like a pro.</p>
+            <a href="#" class="read-more" data-i18n="readMore">Read More →</a>
+          </div>
+        </div>
+
+        <div class="blog-card reveal reveal-delay-2">
+          <div class="blog-thumb blog-thumb-3">
+            <span class="category-badge" data-i18n="card3Badge">COLLABORATION</span>
+          </div>
+          <div class="blog-body">
+            <p class="post-date" data-i18n="card3Date">February 20, 2026</p>
+            <h3 data-i18n="card3Title">5 Collab Formats That Actually Drive Followers</h3>
+            <p data-i18n="card3Excerpt">Not all collaborations are created equal. These five proven formats consistently deliver real follower growth — not just one-time exposure — for both parties involved.</p>
+            <a href="#" class="read-more" data-i18n="readMore">Read More →</a>
+          </div>
+        </div>
+
+        <div class="blog-card reveal reveal-delay-1">
+          <div class="blog-thumb blog-thumb-4">
+            <span class="category-badge" data-i18n="card4Badge">GROWTH</span>
+          </div>
+          <div class="blog-body">
+            <p class="post-date" data-i18n="card4Date">February 15, 2026</p>
+            <h3 data-i18n="card4Title">Growing from 10K to 100K: A Realistic Roadmap</h3>
+            <p data-i18n="card4Excerpt">The jump from 10K to 100K is where most creators stall. We mapped out the exact milestones, mindset shifts, and tactical moves that make the difference.</p>
+            <a href="#" class="read-more" data-i18n="readMore">Read More →</a>
+          </div>
+        </div>
+
+        <div class="blog-card reveal reveal-delay-2">
+          <div class="blog-thumb blog-thumb-5">
+            <span class="category-badge" data-i18n="card5Badge">PLATFORM TIPS</span>
+          </div>
+          <div class="blog-body">
+            <p class="post-date" data-i18n="card5Date">February 10, 2026</p>
+            <h3 data-i18n="card5Title">Instagram Reels vs TikTok: Where to Post in 2026</h3>
+            <p data-i18n="card5Excerpt">Both platforms reward short-form video — but in very different ways. We analyzed reach, engagement rates, and monetization options to help you prioritize your energy.</p>
+            <a href="#" class="read-more" data-i18n="readMore">Read More →</a>
+          </div>
+        </div>
+
+        <div class="blog-card reveal reveal-delay-3">
+          <div class="blog-thumb blog-thumb-6">
+            <span class="category-badge" data-i18n="card6Badge">STRATEGY</span>
+          </div>
+          <div class="blog-body">
+            <p class="post-date" data-i18n="card6Date">February 5, 2026</p>
+            <h3 data-i18n="card6Title">Building Your Creator Brand Identity</h3>
+            <p data-i18n="card6Excerpt">Your brand is more than a logo — it's the feeling you leave with every viewer. Learn how to define, articulate, and consistently deliver a creator identity that attracts the right audience.</p>
+            <a href="#" class="read-more" data-i18n="readMore">Read More →</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Newsletter Strip ─── -->
+  <section class="newsletter-section">
+    <div class="container">
+      <div class="newsletter-strip reveal">
+        <div class="newsletter-text">
+          <h3 data-i18n="newsletterTitle">Get new posts in your inbox</h3>
+          <p data-i18n="newsletterSub">Fresh creator strategies delivered every week. No spam, ever.</p>
+        </div>
+        <div class="newsletter-form">
+          <input type="email" data-i18n="newsletterPlaceholder" placeholder="Your email address" />
+          <a href="#" class="btn-primary" data-i18n="newsletterBtn">Subscribe</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CTA ─── -->
+  <section class="cta-section">
+    <div class="cta-bg"></div>
+    <div class="container">
+      <div class="cta-inner">
+        <div class="section-label reveal" style="justify-content:center" data-i18n="ctaLabel">Join the Movement</div>
+        <h2 class="cta-title reveal reveal-delay-1">
+          <span data-i18n="ctaTitle1">Ready to build with</span><br /><span class="text-yellow" data-i18n="ctaTitle2">your clan?</span>
+        </h2>
+        <p class="cta-sub reveal reveal-delay-2" data-i18n="ctaSub">
+          12,000+ creators have already found their community. Your next collaboration partner is waiting on 100CLAN.
+        </p>
+        <div class="cta-buttons reveal reveal-delay-3">
+          <a href="signup.html" class="btn-primary-lg" data-i18n="ctaBtn">
+            Join 100CLAN Free
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9h12M11 5l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="contact.html" class="btn-outline" data-i18n="ctaContact">Get in Touch</a>
+        </div>
+        <p class="cta-note reveal reveal-delay-4" data-i18n="ctaNote">No credit card required. Free forever for core features.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Footer ─── -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="brand_assets/Logo-100clan.png" alt="100CLAN" class="footer-logo" />
+          <p class="footer-tagline" data-i18n="footerTagline">The platform where content creators find their tribe, collaborate, and grow together.</p>
+          <div class="footer-social">
+            <a href="https://www.instagram.com/100clan" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Instagram">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+            <a href="https://www.tiktok.com/@100clan" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="TikTok">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.22 8.22 0 0 0 4.81 1.54V6.79a4.85 4.85 0 0 1-1.04-.1z"/></svg>
+            </a>
+            <a href="https://www.youtube.com/@100clanshorts" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="YouTube">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
+            </a>
+            <a href="https://www.x.com/100clan" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="X">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-col-title" data-i18n="footerCol1">Platform</div>
+          <ul class="footer-links">
+            <li><a href="index.html#features" data-i18n="fl1_1">Features</a></li>
+            <li><a href="index.html#how" data-i18n="fl1_2">How It Works</a></li>
+            <li><a href="index.html#join" data-i18n="fl1_3">Pricing</a></li>
+            <li><a href="creator-matching.html" data-i18n="fl1_4">Creator Matching</a></li>
+            <li><a href="collaboration-hub.html" data-i18n="fl1_5">Collaboration Hub</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title" data-i18n="footerCol2">Community</div>
+          <ul class="footer-links">
+            <li><a href="creator-stories.html" data-i18n="fl2_1">Creator Stories</a></li>
+            <li><a href="blog.html" data-i18n="fl2_2">Blog</a></li>
+            <li><a href="events.html" data-i18n="fl2_3">Events</a></li>
+            <li><a href="creator-resources.html" data-i18n="fl2_4">Creator Resources</a></li>
+            <li><a href="newsletter.html" data-i18n="fl2_5">Newsletter</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title" data-i18n="footerCol3">Company</div>
+          <ul class="footer-links">
+            <li><a href="about.html" data-i18n="fl3_1">About 100CLAN</a></li>
+            <li><a href="careers.html" data-i18n="fl3_2">Careers</a></li>
+            <li><a href="press.html" data-i18n="fl3_3">Press Kit</a></li>
+            <li><a href="contact.html" data-i18n="fl3_4">Contact</a></li>
+            <li><a href="partnerships.html" data-i18n="fl3_5">Partnerships</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy" data-i18n="footerCopy">&#169; 2026 100CLAN. All rights reserved.</p>
+        <div class="footer-legal">
+          <a href="privacy.html" data-i18n="footerPrivacy">Privacy Policy</a>
+          <a href="terms.html" data-i18n="footerTerms">Terms of Service</a>
+          <a href="cookies.html" data-i18n="footerCookies">Cookie Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ─── Navigation scroll effect ───
+    const nav = document.getElementById('mainNav');
+    function updateNav() {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    }
+    window.addEventListener('scroll', updateNav);
+    updateNav();
+
+    // ─── Mobile menu ───
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileClose = document.getElementById('mobileClose');
+    hamburger.addEventListener('click', () => mobileMenu.classList.add('open'));
+    mobileClose.addEventListener('click', closeMobile);
+    function closeMobile() { mobileMenu.classList.remove('open'); }
+
+    // ─── Scroll reveal ───
+    const revealEls = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          revealObserver.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => revealObserver.observe(el));
+
+    // ─── Filter Bar ───
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+
+    // ─── Language / i18n System ───
+    const i18n = {
+      en: {
+        navFeatures: 'Features', navHow: 'How It Works', navCommunity: 'Community', navPricing: 'Pricing',
+        navLogin: 'Log In', navJoin: 'Join the Clan',
+        bannerLabel: 'BLOG',
+        bannerTitle: 'Creator Insights',
+        bannerSub: 'Tips, trends, and tactics from the frontlines of creator growth.',
+        filterAll: 'All', filterStrategy: 'Strategy', filterGrowth: 'Growth',
+        filterMonetization: 'Monetization', filterCollaboration: 'Collaboration', filterPlatform: 'Platform Tips',
+        featuredBadge: 'STRATEGY',
+        featuredDate: 'February 28, 2026',
+        featuredTitle: 'The Complete Guide to Creator Collaboration in 2026',
+        featuredExcerpt: 'Cross-posting and strategic shout-outs are no longer optional — they\'re the most reliable way to 3× your audience growth without spending on ads. We break down every format that\'s working right now.',
+        readMore: 'Read More →',
+        card1Badge: 'PLATFORM TIPS', card1Date: 'March 2, 2026',
+        card1Title: 'TikTok\'s New Algorithm: What Creators Need to Know',
+        card1Excerpt: 'The latest TikTok update reshuffles how content gets distributed. Here\'s what changed, what stayed the same, and exactly how to adjust your posting strategy.',
+        card2Badge: 'MONETIZATION', card2Date: 'February 25, 2026',
+        card2Title: 'How to Negotiate Your First Brand Deal',
+        card2Excerpt: 'Landing your first paid partnership is a milestone — but knowing your worth and asking for it is a skill. Here\'s a step-by-step guide to negotiating like a pro.',
+        card3Badge: 'COLLABORATION', card3Date: 'February 20, 2026',
+        card3Title: '5 Collab Formats That Actually Drive Followers',
+        card3Excerpt: 'Not all collaborations are created equal. These five proven formats consistently deliver real follower growth — not just one-time exposure — for both parties involved.',
+        card4Badge: 'GROWTH', card4Date: 'February 15, 2026',
+        card4Title: 'Growing from 10K to 100K: A Realistic Roadmap',
+        card4Excerpt: 'The jump from 10K to 100K is where most creators stall. We mapped out the exact milestones, mindset shifts, and tactical moves that make the difference.',
+        card5Badge: 'PLATFORM TIPS', card5Date: 'February 10, 2026',
+        card5Title: 'Instagram Reels vs TikTok: Where to Post in 2026',
+        card5Excerpt: 'Both platforms reward short-form video — but in very different ways. We analyzed reach, engagement rates, and monetization options to help you prioritize your energy.',
+        card6Badge: 'STRATEGY', card6Date: 'February 5, 2026',
+        card6Title: 'Building Your Creator Brand Identity',
+        card6Excerpt: 'Your brand is more than a logo — it\'s the feeling you leave with every viewer. Learn how to define, articulate, and consistently deliver a creator identity that attracts the right audience.',
+        newsletterTitle: 'Get new posts in your inbox',
+        newsletterSub: 'Fresh creator strategies delivered every week. No spam, ever.',
+        newsletterPlaceholder: 'Your email address',
+        newsletterBtn: 'Subscribe',
+        ctaLabel: 'Join the Movement',
+        ctaTitle1: 'Ready to build with', ctaTitle2: 'your clan?',
+        ctaSub: '12,000+ creators have already found their community. Your next collaboration partner is waiting on 100CLAN.',
+        ctaBtn: 'Join 100CLAN Free', ctaContact: 'Get in Touch',
+        ctaNote: 'No credit card required. Free forever for core features.',
+        footerTagline: 'The platform where content creators find their tribe, collaborate, and grow together.',
+        footerCol1: 'Platform', footerCol2: 'Community', footerCol3: 'Company',
+        fl1_1: 'Features', fl1_2: 'How It Works', fl1_3: 'Pricing', fl1_4: 'Creator Matching', fl1_5: 'Collaboration Hub',
+        fl2_1: 'Creator Stories', fl2_2: 'Blog', fl2_3: 'Events', fl2_4: 'Creator Resources', fl2_5: 'Newsletter',
+        fl3_1: 'About 100CLAN', fl3_2: 'Careers', fl3_3: 'Press Kit', fl3_4: 'Contact', fl3_5: 'Partnerships',
+        footerCopy: '© 2026 100CLAN. All rights reserved.',
+        footerPrivacy: 'Privacy Policy', footerTerms: 'Terms of Service', footerCookies: 'Cookie Policy',
+      },
+      ar: {
+        navFeatures: 'المميزات', navHow: 'كيف يعمل', navCommunity: 'المجتمع', navPricing: 'الأسعار',
+        navLogin: 'تسجيل الدخول', navJoin: 'انضم للكلان',
+        bannerLabel: 'المدونة',
+        bannerTitle: 'رؤى المبدعين',
+        bannerSub: 'نصائح واتجاهات وتكتيكات من الخطوط الأمامية لنمو المبدعين.',
+        filterAll: 'الكل', filterStrategy: 'الاستراتيجية', filterGrowth: 'النمو',
+        filterMonetization: 'التحقيق المالي', filterCollaboration: 'التعاون', filterPlatform: 'نصائح المنصة',
+        featuredBadge: 'استراتيجية',
+        featuredDate: '٢٨ فبراير ٢٠٢٦',
+        featuredTitle: 'الدليل الشامل للتعاون بين المبدعين في 2026',
+        featuredExcerpt: 'النشر المتقاطع والصيحات الاستراتيجية لم تعد اختيارية — إنها الطريقة الأكثر موثوقية لمضاعفة نمو جمهورك 3 أضعاف دون إنفاق على الإعلانات.',
+        readMore: 'اقرأ المزيد →',
+        card1Badge: 'نصائح المنصة', card1Date: '٢ مارس ٢٠٢٦',
+        card1Title: 'خوارزمية تيك توك الجديدة: ما يحتاج المبدعون معرفته',
+        card1Excerpt: 'يعيد آخر تحديث لتيك توك توزيع المحتوى. إليك ما تغير وما بقي كما هو وكيف تعدّل استراتيجية نشرك.',
+        card2Badge: 'التحقيق المالي', card2Date: '٢٥ فبراير ٢٠٢٦',
+        card2Title: 'كيف تتفاوض على أول صفقة علامة تجارية',
+        card2Excerpt: 'الحصول على أول شراكة مدفوعة إنجاز — لكن معرفة قيمتك والمطالبة بها مهارة. دليل خطوة بخطوة للتفاوض كالمحترفين.',
+        card3Badge: 'التعاون', card3Date: '٢٠ فبراير ٢٠٢٦',
+        card3Title: '5 أشكال تعاون تجلب متابعين فعليين',
+        card3Excerpt: 'ليست كل أشكال التعاون متساوية. هذه الأشكال الخمسة المجرّبة تحقق نمواً حقيقياً في المتابعين — لا مجرد ظهور لمرة واحدة.',
+        card4Badge: 'النمو', card4Date: '١٥ فبراير ٢٠٢٦',
+        card4Title: 'النمو من 10K إلى 100K: خارطة طريق واقعية',
+        card4Excerpt: 'القفزة من 10K إلى 100K هي حيث يتوقف معظم المبدعين. رسمنا المعالم الدقيقة وتحولات العقلية والخطوات التكتيكية التي تصنع الفارق.',
+        card5Badge: 'نصائح المنصة', card5Date: '١٠ فبراير ٢٠٢٦',
+        card5Title: 'Instagram Reels مقابل TikTok: أين تنشر في 2026',
+        card5Excerpt: 'تكافئ كلتا المنصتين الفيديو القصير — لكن بطرق مختلفة جداً. حللنا مدى الوصول ومعدلات التفاعل وخيارات التحقيق المالي.',
+        card6Badge: 'الاستراتيجية', card6Date: '٥ فبراير ٢٠٢٦',
+        card6Title: 'بناء هوية علامتك كمبدع',
+        card6Excerpt: 'علامتك أكثر من مجرد شعار — إنها الشعور الذي تتركه مع كل مشاهد. تعلم كيف تحدد هوية المبدع وتجسّدها باستمرار لتجذب الجمهور المناسب.',
+        newsletterTitle: 'احصل على المقالات الجديدة في صندوق بريدك',
+        newsletterSub: 'استراتيجيات المبدعين الطازجة تُرسل كل أسبوع. بدون رسائل مزعجة أبداً.',
+        newsletterPlaceholder: 'عنوان بريدك الإلكتروني',
+        newsletterBtn: 'اشترك',
+        ctaLabel: 'انضم للحركة',
+        ctaTitle1: 'مستعد للبناء مع', ctaTitle2: 'كلانك؟',
+        ctaSub: 'أكثر من 12,000 مبدع وجدوا مجتمعهم بالفعل. شريك تعاونك التالي ينتظرك على 100CLAN.',
+        ctaBtn: 'انضم إلى 100CLAN مجاناً', ctaContact: 'تواصل معنا',
+        ctaNote: 'لا يلزم بطاقة ائتمانية. مجاني للأبد للمميزات الأساسية.',
+        footerTagline: 'المنصة التي يجد فيها صنّاع المحتوى قبيلتهم ويتعاونون وينمون معاً.',
+        footerCol1: 'المنصة', footerCol2: 'المجتمع', footerCol3: 'الشركة',
+        fl1_1: 'المميزات', fl1_2: 'كيف يعمل', fl1_3: 'الأسعار', fl1_4: 'مطابقة المبدعين', fl1_5: 'مركز التعاون',
+        fl2_1: 'قصص المبدعين', fl2_2: 'المدونة', fl2_3: 'الفعاليات', fl2_4: 'موارد المبدعين', fl2_5: 'النشرة الإخبارية',
+        fl3_1: 'عن 100CLAN', fl3_2: 'وظائف', fl3_3: 'المجموعة الصحفية', fl3_4: 'اتصل بنا', fl3_5: 'الشراكات',
+        footerCopy: '© 2026 100CLAN. جميع الحقوق محفوظة.',
+        footerPrivacy: 'سياسة الخصوصية', footerTerms: 'شروط الخدمة', footerCookies: 'سياسة ملفات تعريف الارتباط',
+      }
+    };
+
+    function applyLang(lang) {
+      const t = i18n[lang];
+      document.documentElement.lang = lang;
+      document.documentElement.dir  = lang === 'ar' ? 'rtl' : 'ltr';
+      document.documentElement.classList.toggle('lang-ar', lang === 'ar');
+      document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+      requestAnimationFrame(updateLangSlide);
+
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[key] !== undefined) {
+          if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+            el.placeholder = t[key];
+          } else {
+            el.textContent = t[key];
+          }
+        }
+      });
+
+      localStorage.setItem('clan-lang', lang);
+    }
+
+    function updateLangSlide() {
+      document.querySelectorAll('.lang-switcher').forEach(switcher => {
+        const slide = switcher.querySelector('.lang-slide');
+        const activeBtn = switcher.querySelector('.lang-btn.active');
+        if (!slide || !activeBtn) return;
+        slide.style.width = activeBtn.offsetWidth + 'px';
+        slide.style.transform = `translateX(${activeBtn.offsetLeft}px)`;
+      });
+    }
+
+    applyLang(localStorage.getItem('clan-lang') || 'en');
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => applyLang(btn.dataset.lang));
+    });
+    window.addEventListener('resize', updateLangSlide);
+  </script>
+</body>
+</html>

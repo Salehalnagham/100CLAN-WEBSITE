@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Creator Stories — 100CLAN</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    @font-face {
+      font-family: 'ClanArabic';
+      src: url('brand_assets/100clanBold 2.ttf') format('truetype');
+      font-weight: 700; font-display: swap;
+    }
+    .lang-switcher { display: flex; align-items: center; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.14); border-radius: 20px; padding: 3px; gap: 0; position: relative; }
+    .lang-slide { position: absolute; top: 3px; left: 0; height: calc(100% - 6px); border-radius: 16px; background: var(--yellow); transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), width 0.3s cubic-bezier(0.4,0,0.2,1); pointer-events: none; }
+    .lang-btn { font-size: 11px; font-weight: 700; letter-spacing: 0.06em; padding: 5px 13px; border-radius: 16px; border: none; background: transparent; color: rgba(255,255,255,0.4); cursor: pointer; transition: color 0.25s ease; font-family: 'Montserrat', sans-serif; line-height: 1; position: relative; z-index: 1; }
+    .lang-btn.active { background: transparent; color: #111111; }
+    html.lang-ar, html.lang-ar body, html.lang-ar h1, html.lang-ar h2, html.lang-ar h3,
+    html.lang-ar p, html.lang-ar a, html.lang-ar span, html.lang-ar li, html.lang-ar button, html.lang-ar div,
+    html.lang-ar input { font-family: 'ClanArabic', sans-serif; }
+    html.lang-ar .lang-btn { font-family: 'Montserrat', sans-serif; }
+    html.lang-ar .nav-links { flex-direction: row-reverse; }
+    html.lang-ar .nav-cta { flex-direction: row-reverse; }
+    html.lang-ar .section-label { flex-direction: row-reverse; }
+    html.lang-ar .section-title, html.lang-ar .section-sub { text-align: right; }
+    html.lang-ar .footer-tagline { text-align: right; }
+    html.lang-ar .footer-social { flex-direction: row-reverse; }
+    html.lang-ar .footer-links { text-align: right; }
+    html.lang-ar .footer-bottom { flex-direction: row-reverse; }
+    html.lang-ar .footer-legal { flex-direction: row-reverse; }
+    html.lang-ar .cta-inner { text-align: right; }
+    html.lang-ar .page-banner { text-align: right; }
+    html.lang-ar .filter-bar { flex-direction: row-reverse; justify-content: flex-end; }
+    html.lang-ar .story-card { text-align: right; }
+    html.lang-ar .featured-meta { flex-direction: row-reverse; }
+    html.lang-ar .story-stats { flex-direction: row-reverse; }
+    html.lang-ar .sc-author { flex-direction: row-reverse; }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --yellow: #F5B800; --yellow-dark: #D9A200; --yellow-glow: rgba(245,184,0,0.25);
+      --black: #111111; --dark: #1A1A1A; --dark-2: #222222; --dark-3: #2A2A2A; --dark-card: #1E1E1E;
+      --white: #FFFFFF; --gray: #9B9B9B; --gray-light: #D4D4D4;
+      --font: 'Montserrat', sans-serif; --radius: 12px; --radius-lg: 20px;
+      --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: var(--black); color: var(--white); line-height: 1.6; overflow-x: hidden; }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--black); }
+    ::-webkit-scrollbar-thumb { background: var(--yellow); border-radius: 2px; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+    .text-yellow { color: var(--yellow); }
+    .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--yellow); color: var(--black); font-family: var(--font); font-weight: 800; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; padding: 14px 32px; border-radius: var(--radius); border: none; cursor: pointer; text-decoration: none; transition: var(--transition); position: relative; overflow: hidden; }
+    .btn-primary::before { content: ''; position: absolute; inset: 0; background: rgba(255,255,255,0.15); transform: translateX(-100%); transition: transform 0.4s ease; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px var(--yellow-glow); }
+    .btn-primary:hover::before { transform: translateX(0); }
+    .btn-outline { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: var(--white); font-family: var(--font); font-weight: 700; font-size: 14px; letter-spacing: 0.06em; text-transform: uppercase; padding: 13px 32px; border-radius: var(--radius); border: 1.5px solid rgba(255,255,255,0.25); cursor: pointer; text-decoration: none; transition: var(--transition); }
+    .btn-outline:hover { border-color: var(--yellow); color: var(--yellow); transform: translateY(-2px); }
+    .btn-primary-lg { display: inline-flex; align-items: center; gap: 10px; background: var(--yellow); color: var(--black); font-family: var(--font); font-weight: 800; font-size: 16px; letter-spacing: 0.05em; text-transform: uppercase; padding: 18px 44px; border-radius: var(--radius); border: none; cursor: pointer; text-decoration: none; transition: var(--transition); }
+    .btn-primary-lg:hover { transform: translateY(-3px); box-shadow: 0 12px 48px rgba(245,184,0,0.35); }
+    .section-label { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--yellow); margin-bottom: 16px; }
+    .section-label::before { content: ''; width: 24px; height: 2px; background: var(--yellow); border-radius: 1px; }
+    .section-title { font-size: clamp(32px,5vw,52px); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; }
+    .section-sub { font-size: 17px; color: var(--gray); font-weight: 400; line-height: 1.7; }
+    .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; } .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; } .reveal-delay-4 { transition-delay: 0.4s; }
+    .reveal-delay-5 { transition-delay: 0.5s; }
+
+    /* Nav */
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 20px 0; transition: var(--transition); }
+    .nav.scrolled { background: rgba(17,17,17,0.92); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid rgba(245,184,0,0.12); padding: 14px 0; }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { height: 44px; width: auto; }
+    .nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
+    .nav-links a { font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--gray-light); text-decoration: none; transition: color var(--transition); }
+    .nav-links a:hover { color: var(--yellow); }
+    .nav-cta { display: flex; align-items: center; gap: 12px; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .hamburger span { width: 24px; height: 2px; background: var(--white); border-radius: 1px; transition: var(--transition); }
+    .mobile-menu { position: fixed; inset: 0; z-index: 999; background: rgba(17,17,17,0.98); backdrop-filter: blur(20px); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 32px; transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.4,0,0.2,1); }
+    .mobile-menu.open { transform: translateX(0); }
+    .mobile-menu a { font-size: 24px; font-weight: 800; color: var(--white); text-decoration: none; text-transform: uppercase; letter-spacing: 0.06em; transition: color var(--transition); }
+    .mobile-menu a:hover { color: var(--yellow); }
+    .mobile-close { position: absolute; top: 24px; right: 28px; font-size: 28px; color: var(--gray); cursor: pointer; background: none; border: none; font-family: var(--font); transition: color var(--transition); }
+    .mobile-close:hover { color: var(--white); }
+
+    /* Banner */
+    .page-banner { background: var(--dark); padding-top: 140px; padding-bottom: 80px; min-height: 320px; display: flex; align-items: center; position: relative; overflow: hidden; }
+    .page-banner::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 80% at 50% 120%, rgba(245,184,0,0.08) 0%, transparent 70%); }
+    .page-banner-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px); background-size: 56px 56px; }
+    .page-banner-inner { position: relative; z-index: 2; }
+    .page-banner h1 { font-size: clamp(36px,5.5vw,64px); font-weight: 900; line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 16px; margin-top: 12px; }
+    .page-banner .subtitle { font-size: 18px; color: var(--gray); max-width: 560px; line-height: 1.7; }
+
+    /* Filter Bar */
+    .filter-section { padding: 48px 0 0; }
+    .filter-bar {
+      display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+      padding: 6px; background: var(--dark-card); border-radius: var(--radius-lg);
+      border: 1px solid rgba(255,255,255,0.07); width: fit-content;
+    }
+    .filter-btn {
+      font-size: 13px; font-weight: 600; padding: 8px 20px; border-radius: 10px;
+      border: none; background: transparent; color: var(--gray); cursor: pointer;
+      transition: var(--transition); font-family: var(--font);
+    }
+    .filter-btn.active { background: var(--yellow); color: var(--black); }
+    .filter-btn:hover:not(.active) { color: var(--white); background: rgba(255,255,255,0.07); }
+
+    /* Featured Story */
+    .featured-section { padding: 64px 0 48px; }
+    .featured-card {
+      background: var(--dark-card); border: 1px solid rgba(245,184,0,0.2);
+      border-radius: var(--radius-lg); padding: 48px; display: grid;
+      grid-template-columns: 1fr 1.4fr; gap: 48px; align-items: center;
+      position: relative; overflow: hidden;
+    }
+    .featured-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--yellow), transparent);
+    }
+    .featured-label {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--yellow); background: rgba(245,184,0,0.12); border-radius: 4px;
+      padding: 5px 10px; margin-bottom: 20px;
+    }
+    .featured-label::before { content: '★'; font-size: 10px; }
+    .featured-avatar-wrap { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+    .featured-avatar {
+      width: 120px; height: 120px; border-radius: 50%; display: flex;
+      align-items: center; justify-content: center; font-weight: 900;
+      font-size: 40px; border: 3px solid var(--yellow);
+      box-shadow: 0 0 40px rgba(245,184,0,0.2);
+    }
+    .featured-name { font-size: 20px; font-weight: 800; text-align: center; }
+    .featured-handle { font-size: 14px; color: var(--gray); text-align: center; }
+    .featured-niche-badge {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      background: rgba(245,184,0,0.1); color: var(--yellow); border-radius: 6px;
+      padding: 5px 12px; border: 1px solid rgba(245,184,0,0.2);
+    }
+    .featured-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+    .featured-quote {
+      font-size: 18px; line-height: 1.75; color: var(--gray-light); margin-bottom: 32px;
+      position: relative; padding-left: 20px; border-left: 3px solid var(--yellow);
+    }
+    html.lang-ar .featured-quote { padding-left: 0; padding-right: 20px; border-left: none; border-right: 3px solid var(--yellow); }
+    .story-stats {
+      display: flex; gap: 32px; flex-wrap: wrap;
+    }
+    .story-stat {}
+    .story-stat-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray); margin-bottom: 4px; }
+    .story-stat-row { display: flex; align-items: center; gap: 12px; }
+    .story-stat-before { font-size: 14px; color: var(--gray); font-weight: 600; }
+    .story-stat-arrow { color: var(--yellow); font-size: 16px; }
+    .story-stat-after { font-size: 20px; font-weight: 900; color: var(--white); }
+    .story-stat-growth { font-size: 12px; font-weight: 700; color: #4CAF50; background: rgba(76,175,80,0.1); border-radius: 4px; padding: 2px 7px; }
+
+    /* Stories Grid */
+    .stories-section { padding: 48px 0 100px; }
+    .stories-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+    .story-card {
+      background: var(--dark-card); border: 1px solid rgba(255,255,255,0.07);
+      border-radius: var(--radius-lg); padding: 28px;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .story-card:hover { transform: translateY(-4px); border-color: rgba(245,184,0,0.35); box-shadow: 0 16px 48px rgba(245,184,0,0.1); }
+    .sc-top { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+    .sc-avatar { width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 16px; flex-shrink: 0; }
+    .sc-name { font-size: 15px; font-weight: 800; margin-bottom: 2px; }
+    .sc-niche {
+      display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--yellow); background: rgba(245,184,0,0.1);
+      border-radius: 4px; padding: 2px 7px;
+    }
+    .sc-quote { font-size: 14px; color: var(--gray-light); line-height: 1.7; margin: 14px 0 20px; font-style: italic; }
+    .sc-author { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; }
+    .sc-author-name { font-size: 12px; font-weight: 700; }
+    .sc-author-platform { font-size: 11px; color: var(--gray); }
+    .sc-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 16px; }
+    .sc-stat-item {}
+    .sc-stat-key { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray); margin-bottom: 4px; }
+    .sc-stat-vals { display: flex; align-items: center; gap: 6px; }
+    .sc-val-before { font-size: 12px; color: var(--gray); text-decoration: line-through; }
+    .sc-val-after { font-size: 16px; font-weight: 900; color: var(--white); }
+    .sc-val-growth { font-size: 10px; font-weight: 700; color: #4CAF50; }
+
+    /* Load more */
+    .load-more { text-align: center; margin-top: 56px; }
+
+    /* CTA */
+    .cta-section { padding: 120px 0; background: var(--dark); position: relative; overflow: hidden; }
+    .cta-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 70% 70% at 50% 50%, rgba(245,184,0,0.07) 0%, transparent 70%); }
+    .cta-inner { position: relative; z-index: 2; text-align: center; max-width: 720px; margin: 0 auto; }
+    .cta-title { font-size: clamp(36px,6vw,64px); font-weight: 900; line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 20px; }
+    .cta-sub { font-size: 18px; color: var(--gray); margin-bottom: 48px; line-height: 1.6; }
+    .cta-buttons { display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; }
+    .cta-note { font-size: 13px; color: var(--gray); margin-top: 20px; }
+    .cta-note a { color: var(--yellow); text-decoration: none; }
+
+    /* Footer */
+    .footer { padding: 64px 0 32px; border-top: 1px solid rgba(255,255,255,0.06); }
+    .footer-top { display: grid; grid-template-columns: 1.4fr repeat(3,1fr); gap: 48px; margin-bottom: 48px; }
+    .footer-logo { height: 40px; margin-bottom: 16px; }
+    .footer-tagline { font-size: 14px; color: var(--gray); line-height: 1.6; max-width: 260px; }
+    .footer-social { display: flex; gap: 10px; margin-top: 20px; }
+    .social-btn { width: 36px; height: 36px; border-radius: 8px; border: 1px solid rgba(245,184,0,0.3); color: var(--yellow); display: flex; align-items: center; justify-content: center; text-decoration: none; position: relative; overflow: hidden; transition: border-color 0.3s ease, color 0.3s ease; }
+    .social-btn::before { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 0%; background: var(--yellow); transition: height 0.4s cubic-bezier(0.22,1,0.36,1); z-index: 0; }
+    .social-btn svg { position: relative; z-index: 1; }
+    .social-btn:hover { border-color: var(--yellow); color: #111111; }
+    .social-btn:hover::before { height: 100%; }
+    .footer-col-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: var(--white); margin-bottom: 20px; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a { font-size: 14px; color: var(--gray); text-decoration: none; transition: color var(--transition); }
+    .footer-links a:hover { color: var(--yellow); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.06); padding-top: 28px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .footer-copy { font-size: 13px; color: var(--gray); }
+    .footer-legal { display: flex; gap: 20px; }
+    .footer-legal a { font-size: 13px; color: var(--gray); text-decoration: none; }
+    .footer-legal a:hover { color: var(--yellow); }
+
+    @media (max-width: 1024px) {
+      .featured-card { grid-template-columns: 1fr; }
+      .featured-avatar-wrap { flex-direction: row; align-items: center; gap: 20px; justify-content: flex-start; }
+      .featured-name, .featured-handle { text-align: left; }
+      html.lang-ar .featured-name, html.lang-ar .featured-handle { text-align: right; }
+      .stories-grid { grid-template-columns: repeat(2,1fr); }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+    }
+    @media (max-width: 768px) {
+      .container { padding: 0 20px; }
+      .nav-links { display: none; }
+      .nav-cta .btn-primary { display: none; }
+      .hamburger { display: flex; }
+      .featured-card { padding: 28px; }
+      .stories-grid { grid-template-columns: 1fr; }
+      .story-stats { flex-direction: column; gap: 16px; }
+      .footer-top { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-close" id="mobileClose">✕</button>
+    <a href="index.html#features" onclick="closeMobile()" data-i18n="navFeatures">Features</a>
+    <a href="index.html#how" onclick="closeMobile()" data-i18n="navHow">How It Works</a>
+    <a href="index.html#community" onclick="closeMobile()" data-i18n="navCommunity">Community</a>
+    <a href="signup.html" class="btn-primary" onclick="closeMobile()" style="font-size:15px;margin-top:12px;" data-i18n="navJoin">Join the Clan</a>
+  </div>
+
+  <nav class="nav scrolled" id="mainNav">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="index.html"><img src="brand_assets/Logo-100clan.png" alt="100CLAN" class="nav-logo" /></a>
+        <ul class="nav-links">
+          <li><a href="index.html#features" data-i18n="navFeatures">Features</a></li>
+          <li><a href="index.html#how" data-i18n="navHow">How It Works</a></li>
+          <li><a href="index.html#community" data-i18n="navCommunity">Community</a></li>
+          <li><a href="index.html#join" data-i18n="navPricing">Pricing</a></li>
+        </ul>
+        <div class="nav-cta">
+          <div class="lang-switcher" role="group" aria-label="Language">
+            <span class="lang-slide"></span>
+            <button class="lang-btn active" data-lang="en">EN</button>
+            <button class="lang-btn" data-lang="ar">AR</button>
+          </div>
+          <a href="login.html" class="btn-outline" data-i18n="navLogin">Log In</a>
+          <a href="signup.html" class="btn-primary" data-i18n="navJoin">Join the Clan</a>
+          <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Banner -->
+  <section class="page-banner">
+    <div class="page-banner-grid"></div>
+    <div class="container">
+      <div class="page-banner-inner">
+        <div class="section-label reveal" data-i18n="bannerLabel">Community Spotlight</div>
+        <h1 class="reveal reveal-delay-1" data-i18n="bannerH1">Real Creators.<br /><span class="text-yellow">Real Growth.</span></h1>
+        <p class="subtitle reveal reveal-delay-2" data-i18n="bannerSub">These are the numbers behind the names — genuine growth achieved through genuine collaboration. No bots, no bought followers, no shortcuts.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Filters -->
+  <section class="filter-section">
+    <div class="container">
+      <div class="filter-bar reveal">
+        <button class="filter-btn active" data-filter="all" data-i18n="filterAll">All Stories</button>
+        <button class="filter-btn" data-filter="niche" data-i18n="filterNiche">By Niche</button>
+        <button class="filter-btn" data-filter="platform" data-i18n="filterPlatform">By Platform</button>
+        <button class="filter-btn" data-filter="growth" data-i18n="filterGrowth">By Growth</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Story -->
+  <section class="featured-section">
+    <div class="container">
+      <div class="featured-card reveal">
+        <div class="featured-avatar-wrap">
+          <div class="featured-avatar" style="background:linear-gradient(135deg,#FF6B6B,#E8533A)">MK</div>
+          <div>
+            <div class="featured-name">Maya Kowalski</div>
+            <div class="featured-handle">@mayalife</div>
+          </div>
+        </div>
+        <div>
+          <div class="featured-label" data-i18n="featuredLabel">Featured Story</div>
+          <div class="featured-meta">
+            <span class="featured-niche-badge" data-i18n="featuredNiche">Lifestyle</span>
+            <span style="font-size:12px;color:var(--gray)" data-i18n="featuredPlatform">YouTube · Instagram</span>
+          </div>
+          <p class="featured-quote" data-i18n="featuredQuote">"I'd been trying to find the right collab partners for months — scrolling Reddit threads, cold DM-ing creators who never responded. Two weeks on 100CLAN changed everything. I connected with three creators whose audiences actually overlapped mine in the right way. We dropped a lifestyle video series together and I gained 60K subscribers in 45 days. My engagement didn't just go up — it tripled. 100CLAN found what I couldn't find on my own."</p>
+          <div class="story-stats">
+            <div class="story-stat">
+              <div class="story-stat-label" data-i18n="featStat1label">YouTube Subscribers</div>
+              <div class="story-stat-row">
+                <span class="story-stat-before">1.14M</span>
+                <span class="story-stat-arrow">→</span>
+                <span class="story-stat-after">1.2M</span>
+                <span class="story-stat-growth">+60K</span>
+              </div>
+            </div>
+            <div class="story-stat">
+              <div class="story-stat-label" data-i18n="featStat2label">Engagement Rate</div>
+              <div class="story-stat-row">
+                <span class="story-stat-before">2.1%</span>
+                <span class="story-stat-arrow">→</span>
+                <span class="story-stat-after">6.4%</span>
+                <span class="story-stat-growth">+205%</span>
+              </div>
+            </div>
+            <div class="story-stat">
+              <div class="story-stat-label" data-i18n="featStat3label">Timeframe</div>
+              <div class="story-stat-row">
+                <span class="story-stat-after" data-i18n="featStatTime">45 Days</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stories Grid -->
+  <section class="stories-section">
+    <div class="container">
+      <div style="margin-bottom:40px">
+        <div class="section-label reveal" data-i18n="gridLabel">More Success Stories</div>
+        <h2 class="section-title reveal reveal-delay-1" data-i18n="gridTitle">Every niche.<br /><span class="text-yellow">Every platform.</span></h2>
+      </div>
+      <div class="stories-grid">
+
+        <!-- Fashion -->
+        <div class="story-card reveal">
+          <div class="sc-top">
+            <div class="sc-avatar" style="background:linear-gradient(135deg,#F48FB1,#C2185B)">ZA</div>
+            <div>
+              <div class="sc-name">Zara Ahmed</div>
+              <span class="sc-niche" data-i18n="niche1">Fashion</span>
+            </div>
+          </div>
+          <p class="sc-quote" data-i18n="quote1">"I was stuck at 95K for eight months. One collab with a fashion photographer I met on 100CLAN, and my Reels finally started breaking through the algorithm. Crossed 200K in six weeks."</p>
+          <div class="sc-author">
+            <div style="width:6px;height:6px;border-radius:50%;background:var(--yellow);flex-shrink:0"></div>
+            <div>
+              <div class="sc-author-name">@zaraahmeddstyle</div>
+              <div class="sc-author-platform">Instagram · Fashion</div>
+            </div>
+          </div>
+          <div class="sc-stats">
+            <div class="sc-stat-item">
+              <div class="sc-stat-key" data-i18n="scStatFollowers">Followers</div>
+              <div class="sc-stat-vals">
+                <span class="sc-val-before">95K</span>
+                <span class="sc-val-after">218K</span>
+                <span class="sc-val-growth">+129%</span>
+              </div>
+            </div>
+            <div class="sc-stat-item">
+              <div class="sc-stat-key" data-i18n="scStatEngagement">Engagement</div>
+              <div class="sc-stat-vals">
+                <span class="sc-val-before">1.8%</span>
+                <span class="sc-val-after">5.3%</span>
+                <span class="sc-val-growth">+194%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gaming -->
+        <div class="story-card reveal reveal-delay-1">
+          <div class="sc-top">
+            <div class="sc-avatar" style="background:linear-gradient(135deg,#4FC3F7,#0277BD)">DM</div>
+            <div>
+              <div class="sc-name">Daniel Moreau</div>
+              <span class="sc-niche" data-i18n="niche2">Gaming</span>
+            </div>
+          </div>
+          <p class="sc-quote" data-i18n="quote2">"Gaming is competitive. Finding partners who don't just use you for a number is rare. 100CLAN matched me with creators who genuinely cared about building something together. My channel went from 120K to 410K subs."</p>
+          <div class="sc-author">
+            <div style="width:6px;height:6px;border-radius:50%;background:var(--yellow);flex-shrink:0"></div>
+            <div>
+              <div class="sc-author-name">@danielplays_yt</div>
+              <div class="sc-author-platform">YouTube · Gaming</div>
+            </div>
+          </div>
+          <div class="sc-stats">
+            <div class="sc-stat-item">
+              <div class="sc-stat-key" data-i18n="scStatFollowers">Subscribers</div>
+              <div class="sc-stat-vals">
+                <span class="sc-val-before">120K</span>
+                <span class="sc-val-after">410K</span>
+                <span class="sc-val-growth">+242%</span>
+              </div>
+            </div>
+            <div class="sc-stat-item">
+              <div class="sc-stat-key" data-i18n="scStatEngagement">Watch Time</div>
+              <div class="sc-stat-vals">
+                <span class="sc-val-before">2.1M h</span>
+                <span class="sc-val-after">8.4M h</span>
+                <span class="sc-val-growth">+300%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Food -->
+        <div class="story-card reveal reveal-delay-2">
+          <div class="sc-top">
+            <div class="sc-avatar" style="background:linear-gradient(135deg,#FFB74D,#E65100)">LT</div>
+            <div>
+              <div class="sc-name">Laila Tran</div>
+              <span class="sc-niche" data-i18n="niche3">Food</span>
+            </div>
+          </div>
+          <p class="sc-quote" data-i18n="quote3">"My food videos were getting decent views but zero brand deals. A collaboration with a travel creator on 100CLAN repositioned me as a 'food travel' voice and suddenly brands were reaching out. Signed three deals in one month."</p>
+          <div class="sc-author">
+            <div style="width:6px;height:6px;border-radius:50%;background:var(--yellow);flex-shrink:0"></div>
+            <div>
+              <div class="sc-author-name">@lailaeats</div>
+              <div class="sc-author-platform">TikTok · Food</div>
+            </div>
+          </div>
+          <div class="sc-stats">
+            <div class="sc-stat-item">
+              <div class="sc-stat-key" data-i18n="scStatFollowers">TikTok Followers</div>
+              <div class="sc-stat-vals">
+                <span class="sc-val-before">340K</span>
+                <span class="sc-val-after">680K</span>
+                <span class="sc-val-growth">+100%</span>
+              </div>
+            </div>
+            <div class="sc-stat-item">
+              <div class="sc-stat-key" data-i18n="scStatBrand">Brand Deals</div>
+              <div class="sc-stat-vals">
+                <span class="sc-val-before">0</span>
+                <span class="sc-val-after">3</span>
+                <span class="sc-val-growth">New</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tech -->
+        <div class="story-card reveal">
+          <div class="sc-top">
+            <div class="sc-avatar" style="background:linear-gradient(135deg,#90CAF9,#1565C0)">JS</div>
+            <div>
+              <div class="sc-name">Jake Santana</div>
+              <span class="sc-niche" data-i18n="niche4">Tech</span>
+            </div>
+          </div>
+          <p class="sc-quote" data-i18n="quote4">"The deal management feature is what got me. I co-negotiated a $25K brand deal with two other tech creators. The revenue split was automatic. I'd never been able to do something like that working alone."</p>
+          <div class="sc-author">
+            <div style="width:6px;height:6px;border-radius:50%;background:var(--yellow);flex-shrink:0"></div>
+            <div>
+              <div class="sc-author-name">@jakestech</div>
+              <div class="sc-author-platform">YouTube · Tech Reviews</div>
+            </div>
+          </div>
+          <div class="sc-stats">
+            <div class="sc-stat-item">
+              <div class="sc-stat-key" data-i18n="scStatFollowers">Subscribers</div>
+              <div class="sc-stat-vals">
+                <span class="sc-val-before">720K</span>
+                <span class="sc-val-after">890K</span>
+                <span class="sc-val-growth">+24%</span>
+              </div>
+            </div>
+            <div class="sc-stat-item">
+              <div class="sc-stat-key" data-i18n="scStatRevenue">Monthly Revenue</div>
+              <div class="sc-stat-vals">
+                <span class="sc-val-before">$3K</span>
+                <span class="sc-val-after">$18K</span>
+                <span class="sc-val-growth">+500%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fitness -->
+        <div class="story-card reveal reveal-delay-1">
+          <div class="sc-top">
+            <div class="sc-avatar" style="background:linear-gradient(135deg,#A5D6A7,#2E7D32)">RB</div>
+            <div>
+              <div class="sc-name">Rina Baptiste</div>
+              <span class="sc-niche" data-i18n="niche5">Fitness</span>
+            </div>
+          </div>
+          <p class="sc-quote" data-i18n="quote5">"100CLAN made me realise growth isn't a solo sport. I collaborated with a nutrition creator and a mindset coach — we had zero audience overlap and it was perfect. All three of us grew 40%+ in three months."</p>
+          <div class="sc-author">
+            <div style="width:6px;height:6px;border-radius:50%;background:var(--yellow);flex-shrink:0"></div>
+            <div>
+              <div class="sc-author-name">@rinab.creates</div>
+              <div class="sc-author-platform">Instagram · Fitness</div>
+            </div>
+          </div>
+          <div class="sc-stats">
+            <div class="sc-stat-item">
+              <div class="sc-stat-key" data-i18n="scStatFollowers">Followers</div>
+              <div class="sc-stat-vals">
+                <span class="sc-val-before">240K</span>
+                <span class="sc-val-after">340K</span>
+                <span class="sc-val-growth">+42%</span>
+              </div>
+            </div>
+            <div class="sc-stat-item">
+              <div class="sc-stat-key" data-i18n="scStatEngagement">Engagement</div>
+              <div class="sc-stat-vals">
+                <span class="sc-val-before">4.2%</span>
+                <span class="sc-val-after">6.8%</span>
+                <span class="sc-val-growth">+62%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Travel -->
+        <div class="story-card reveal reveal-delay-2">
+          <div class="sc-top">
+            <div class="sc-avatar" style="background:linear-gradient(135deg,#CE93D8,#6A1B9A)">NP</div>
+            <div>
+              <div class="sc-name">Nadia Petrova</div>
+              <span class="sc-niche" data-i18n="niche6">Travel</span>
+            </div>
+          </div>
+          <p class="sc-quote" data-i18n="quote6">"I had a massive Instagram following but my YouTube was dead. Through 100CLAN I found a video editor / travel vlogger duo who completely transformed my production quality. YouTube crossed 500K subs in 4 months."</p>
+          <div class="sc-author">
+            <div style="width:6px;height:6px;border-radius:50%;background:var(--yellow);flex-shrink:0"></div>
+            <div>
+              <div class="sc-author-name">@nadiawanders</div>
+              <div class="sc-author-platform">YouTube · Travel</div>
+            </div>
+          </div>
+          <div class="sc-stats">
+            <div class="sc-stat-item">
+              <div class="sc-stat-key" data-i18n="scStatFollowers">YouTube Subs</div>
+              <div class="sc-stat-vals">
+                <span class="sc-val-before">48K</span>
+                <span class="sc-val-after">500K</span>
+                <span class="sc-val-growth">+942%</span>
+              </div>
+            </div>
+            <div class="sc-stat-item">
+              <div class="sc-stat-key" data-i18n="scStatViews">Monthly Views</div>
+              <div class="sc-stat-vals">
+                <span class="sc-val-before">120K</span>
+                <span class="sc-val-after">4.2M</span>
+                <span class="sc-val-growth">+3400%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="load-more reveal">
+        <a href="signup.html" class="btn-outline" data-i18n="loadMore">Load More Stories</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-bg"></div>
+    <div class="container">
+      <div class="cta-inner">
+        <div class="section-label reveal" style="justify-content:center" data-i18n="ctaLabel">Write Your Story</div>
+        <h2 class="cta-title reveal reveal-delay-1" data-i18n="ctaTitle">Your growth story<br /><span class="text-yellow">starts today.</span></h2>
+        <p class="cta-sub reveal reveal-delay-2" data-i18n="ctaSub">Every creator you just read about was once where you are. The difference? They decided to stop growing alone. Join 100CLAN and start your own story.</p>
+        <div class="cta-buttons reveal reveal-delay-3">
+          <a href="signup.html" class="btn-primary-lg" data-i18n="ctaBtn">
+            Join 100CLAN Free
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9h12M11 5l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+        <p class="cta-note reveal reveal-delay-4" data-i18n="ctaNote">No credit card required. Free forever for core features.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="brand_assets/Logo-100clan.png" alt="100CLAN" class="footer-logo" />
+          <p class="footer-tagline" data-i18n="footerTagline">The platform where content creators find their tribe, collaborate, and grow together.</p>
+          <div class="footer-social">
+            <a href="https://www.instagram.com/100clan" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+            <a href="https://www.tiktok.com/@100clan" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="TikTok"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.22 8.22 0 0 0 4.81 1.54V6.79a4.85 4.85 0 0 1-1.04-.1z"/></svg></a>
+            <a href="https://www.youtube.com/@100clanshorts" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="YouTube"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg></a>
+            <a href="https://www.x.com/100clan" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="X"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-col-title" data-i18n="footerCol1">Platform</div>
+          <ul class="footer-links">
+            <li><a href="index.html#features" data-i18n="fLink1_1">Features</a></li>
+            <li><a href="index.html#how" data-i18n="fLink1_2">How It Works</a></li>
+            <li><a href="index.html#join" data-i18n="fLink1_3">Pricing</a></li>
+            <li><a href="creator-matching.html" data-i18n="fLink1_4">Creator Matching</a></li>
+            <li><a href="collaboration-hub.html" data-i18n="fLink1_5">Collaboration Hub</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title" data-i18n="footerCol2">Community</div>
+          <ul class="footer-links">
+            <li><a href="creator-stories.html" data-i18n="fLink2_1">Creator Stories</a></li>
+            <li><a href="blog.html" data-i18n="fLink2_2">Blog</a></li>
+            <li><a href="events.html" data-i18n="fLink2_3">Events</a></li>
+            <li><a href="creator-resources.html" data-i18n="fLink2_4">Creator Resources</a></li>
+            <li><a href="newsletter.html" data-i18n="fLink2_5">Newsletter</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title" data-i18n="footerCol3">Company</div>
+          <ul class="footer-links">
+            <li><a href="about.html" data-i18n="fLink3_1">About</a></li>
+            <li><a href="careers.html" data-i18n="fLink3_2">Careers</a></li>
+            <li><a href="press.html" data-i18n="fLink3_3">Press Kit</a></li>
+            <li><a href="contact.html" data-i18n="fLink3_4">Contact</a></li>
+            <li><a href="partnerships.html" data-i18n="fLink3_5">Partnerships</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy" data-i18n="footerCopy">© 2026 100CLAN. All rights reserved.</p>
+        <div class="footer-legal">
+          <a href="privacy.html" data-i18n="footerPrivacy">Privacy Policy</a>
+          <a href="terms.html" data-i18n="footerTerms">Terms of Service</a>
+          <a href="cookies.html" data-i18n="footerCookies">Cookie Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('mainNav');
+    function updateNav() { nav.classList.toggle('scrolled', window.scrollY > 40); }
+    window.addEventListener('scroll', updateNav);
+    updateNav();
+
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileClose = document.getElementById('mobileClose');
+    hamburger.addEventListener('click', () => mobileMenu.classList.add('open'));
+    mobileClose.addEventListener('click', closeMobile);
+    function closeMobile() { mobileMenu.classList.remove('open'); }
+
+    const revealEls = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObserver.unobserve(e.target); } });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => revealObserver.observe(el));
+
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+
+    const i18n = {
+      en: {
+        navFeatures: 'Features', navHow: 'How It Works', navCommunity: 'Community',
+        navPricing: 'Pricing', navLogin: 'Log In', navJoin: 'Join the Clan',
+        bannerLabel: 'Community Spotlight',
+        bannerH1: 'Real Creators.<br /><span class="text-yellow">Real Growth.</span>',
+        bannerSub: 'These are the numbers behind the names — genuine growth achieved through genuine collaboration. No bots, no bought followers, no shortcuts.',
+        filterAll: 'All Stories', filterNiche: 'By Niche', filterPlatform: 'By Platform', filterGrowth: 'By Growth',
+        featuredLabel: 'Featured Story', featuredNiche: 'Lifestyle', featuredPlatform: 'YouTube · Instagram',
+        featuredQuote: '"I\'d been trying to find the right collab partners for months — scrolling Reddit threads, cold DM-ing creators who never responded. Two weeks on 100CLAN changed everything. I connected with three creators whose audiences actually overlapped mine in the right way. We dropped a lifestyle video series together and I gained 60K subscribers in 45 days."',
+        featStat1label: 'YouTube Subscribers', featStat2label: 'Engagement Rate', featStat3label: 'Timeframe', featStatTime: '45 Days',
+        gridLabel: 'More Success Stories',
+        gridTitle: 'Every niche.<br /><span class="text-yellow">Every platform.</span>',
+        niche1: 'Fashion', niche2: 'Gaming', niche3: 'Food', niche4: 'Tech', niche5: 'Fitness', niche6: 'Travel',
+        quote1: '"I was stuck at 95K for eight months. One collab with a fashion photographer I met on 100CLAN, and my Reels finally started breaking through the algorithm. Crossed 200K in six weeks."',
+        quote2: '"Gaming is competitive. Finding partners who don\'t just use you for a number is rare. 100CLAN matched me with creators who genuinely cared about building something together."',
+        quote3: '"My food videos were getting decent views but zero brand deals. A collaboration with a travel creator repositioned me as a \'food travel\' voice and suddenly brands were reaching out."',
+        quote4: '"The deal management feature is what got me. I co-negotiated a $25K brand deal with two other tech creators. The revenue split was automatic."',
+        quote5: '"100CLAN made me realise growth isn\'t a solo sport. I collaborated with a nutrition creator and a mindset coach — all three of us grew 40%+ in three months."',
+        quote6: '"I had a massive Instagram following but my YouTube was dead. Through 100CLAN I found a video editor / travel vlogger duo who completely transformed my production quality."',
+        scStatFollowers: 'Followers', scStatEngagement: 'Engagement', scStatBrand: 'Brand Deals', scStatRevenue: 'Monthly Revenue', scStatViews: 'Monthly Views',
+        loadMore: 'Load More Stories',
+        ctaLabel: 'Write Your Story',
+        ctaTitle: 'Your growth story<br /><span class="text-yellow">starts today.</span>',
+        ctaSub: 'Every creator you just read about was once where you are. The difference? They decided to stop growing alone. Join 100CLAN and start your own story.',
+        ctaBtn: 'Join 100CLAN Free', ctaNote: 'No credit card required. Free forever for core features.',
+        footerTagline: 'The platform where content creators find their tribe, collaborate, and grow together.',
+        footerCol1: 'Platform', footerCol2: 'Community', footerCol3: 'Company',
+        fLink1_1: 'Features', fLink1_2: 'How It Works', fLink1_3: 'Pricing', fLink1_4: 'Creator Matching', fLink1_5: 'Collaboration Hub',
+        fLink2_1: 'Creator Stories', fLink2_2: 'Blog', fLink2_3: 'Events', fLink2_4: 'Creator Resources', fLink2_5: 'Newsletter',
+        fLink3_1: 'About', fLink3_2: 'Careers', fLink3_3: 'Press Kit', fLink3_4: 'Contact', fLink3_5: 'Partnerships',
+        footerCopy: '© 2026 100CLAN. All rights reserved.',
+        footerPrivacy: 'Privacy Policy', footerTerms: 'Terms of Service', footerCookies: 'Cookie Policy',
+      },
+      ar: {
+        navFeatures: 'المميزات', navHow: 'كيف يعمل', navCommunity: 'المجتمع',
+        navPricing: 'الأسعار', navLogin: 'تسجيل الدخول', navJoin: 'انضم للكلان',
+        bannerLabel: 'أضواء المجتمع',
+        bannerH1: 'مبدعون حقيقيون.<br /><span class="text-yellow">نمو حقيقي.</span>',
+        bannerSub: 'هذه هي الأرقام خلف الأسماء — نمو حقيقي تحقق عبر تعاون حقيقي. بلا بوتات ولا متابعين مشتريين ولا اختصارات.',
+        filterAll: 'جميع القصص', filterNiche: 'حسب المجال', filterPlatform: 'حسب المنصة', filterGrowth: 'حسب النمو',
+        featuredLabel: 'قصة مميزة', featuredNiche: 'لايف ستايل', featuredPlatform: 'يوتيوب · إنستغرام',
+        featuredQuote: '"كنت أحاول إيجاد شركاء تعاون مناسبين لأشهر — أتصفح مواضيع Reddit وأرسل رسائل مباشرة باردة لمبدعين لم يردوا أبداً. أسبوعان على 100CLAN غيّرا كل شيء. تواصلت مع ثلاثة مبدعين تتقاطع جماهيرهم مع جمهوري بالطريقة الصحيحة. أطلقنا سلسلة فيديوهات لايف ستايل معاً وحصلت على ٦٠ ألف مشترك في ٤٥ يوماً."',
+        featStat1label: 'مشتركو يوتيوب', featStat2label: 'معدل التفاعل', featStat3label: 'الإطار الزمني', featStatTime: '٤٥ يوماً',
+        gridLabel: 'قصص نجاح أخرى',
+        gridTitle: 'كل مجال.<br /><span class="text-yellow">كل منصة.</span>',
+        niche1: 'موضة', niche2: 'ألعاب', niche3: 'طعام', niche4: 'تقنية', niche5: 'لياقة', niche6: 'سفر',
+        quote1: '"كنت عالقة عند ٩٥ ألف لثمانية أشهر. تعاون واحد مع مصور أزياء التقيت به على 100CLAN، وأخيراً بدأت ريلز أتخطى الخوارزمية."',
+        quote2: '"عالم الألعاب تنافسي. إيجاد شركاء لا يستخدمونك كرقم فحسب أمر نادر. طابقني 100CLAN مع مبدعين يهتمون فعلاً ببناء شيء مشترك."',
+        quote3: '"كانت فيديوهات الطعام تحقق مشاهدات لا بأس بها لكن صفر صفقات براند. تعاون مع مبدع سفر أعاد تموضعي كصوت \'طعام وسفر\' وفجأة بدأت البراندات تتواصل معي."',
+        quote4: '"ميزة إدارة الصفقات هي ما أبهرني. تفاوضت مشتركاً مع مبدعَي تقنية آخرَين على صفقة براند بـ٢٥ ألف دولار. توزيع الإيرادات كان تلقائياً."',
+        quote5: '"100CLAN جعلني أدرك أن النمو ليس رياضة فردية. تعاونت مع مبدع تغذية ومدرب تفكير — نما كلنا الثلاثة ٤٠٪+ في ثلاثة أشهر."',
+        quote6: '"كان لدي جمهور ضخم على إنستغرام لكن يوتيوب كانت ميتاً. عبر 100CLAN وجدت ثنائياً من محرر الفيديو ومدوّن السفر حوّل جودة إنتاجي بالكامل."',
+        scStatFollowers: 'المتابعون', scStatEngagement: 'التفاعل', scStatBrand: 'صفقات البراند', scStatRevenue: 'الدخل الشهري', scStatViews: 'المشاهدات الشهرية',
+        loadMore: 'تحميل المزيد من القصص',
+        ctaLabel: 'اكتب قصتك',
+        ctaTitle: 'قصة نموك<br /><span class="text-yellow">تبدأ اليوم.</span>',
+        ctaSub: 'كل مبدع قرأت عنه للتو كان في مكانك مرة. الفرق؟ قرر أن يتوقف عن النمو وحيداً. انضم إلى 100CLAN وابدأ قصتك الخاصة.',
+        ctaBtn: 'انضم إلى 100CLAN مجاناً', ctaNote: 'لا يلزم بطاقة ائتمانية. مجاني للأبد للمميزات الأساسية.',
+        footerTagline: 'المنصة التي يجد فيها صنّاع المحتوى قبيلتهم ويتعاونون وينمون معاً.',
+        footerCol1: 'المنصة', footerCol2: 'المجتمع', footerCol3: 'الشركة',
+        fLink1_1: 'المميزات', fLink1_2: 'كيف يعمل', fLink1_3: 'الأسعار', fLink1_4: 'مطابقة المبدعين', fLink1_5: 'مركز التعاون',
+        fLink2_1: 'قصص المبدعين', fLink2_2: 'المدونة', fLink2_3: 'الفعاليات', fLink2_4: 'موارد المبدعين', fLink2_5: 'النشرة الإخبارية',
+        fLink3_1: 'عن 100CLAN', fLink3_2: 'وظائف', fLink3_3: 'المجموعة الصحفية', fLink3_4: 'اتصل بنا', fLink3_5: 'الشراكات',
+        footerCopy: '© 2026 100CLAN. جميع الحقوق محفوظة.',
+        footerPrivacy: 'سياسة الخصوصية', footerTerms: 'شروط الخدمة', footerCookies: 'سياسة ملفات تعريف الارتباط',
+      }
+    };
+
+    function applyLang(lang) {
+      const t = i18n[lang];
+      document.documentElement.lang = lang;
+      document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+      document.documentElement.classList.toggle('lang-ar', lang === 'ar');
+      document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+      requestAnimationFrame(updateLangSlide);
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.dataset.i18n;
+        if (t[key] !== undefined) el.innerHTML = t[key];
+      });
+      localStorage.setItem('clan-lang', lang);
+    }
+
+    function updateLangSlide() {
+      document.querySelectorAll('.lang-switcher').forEach(switcher => {
+        const slide = switcher.querySelector('.lang-slide');
+        const activeBtn = switcher.querySelector('.lang-btn.active');
+        if (!slide || !activeBtn) return;
+        slide.style.width = activeBtn.offsetWidth + 'px';
+        slide.style.transform = `translateX(${activeBtn.offsetLeft}px)`;
+      });
+    }
+
+    applyLang(localStorage.getItem('clan-lang') || 'en');
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => applyLang(btn.dataset.lang));
+    });
+    window.addEventListener('resize', updateLangSlide);
+  </script>
+</body>
+</html>

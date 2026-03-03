@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Join the Clan — 100CLAN Creator Registration</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Arabic Brand Font ─── */
+    @font-face {
+      font-family: 'ClanArabic';
+      src: url('brand_assets/100clanBold 2.ttf') format('truetype');
+      font-weight: 700;
+      font-display: swap;
+    }
+
+    /* ─── Language Switcher ─── */
+    .lang-switcher {
+      display: flex; align-items: center;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 20px; padding: 3px; gap: 0; position: relative;
+    }
+    .lang-slide {
+      position: absolute; top: 3px; left: 0;
+      height: calc(100% - 6px); border-radius: 16px;
+      background: var(--yellow);
+      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), width 0.3s cubic-bezier(0.4,0,0.2,1);
+      pointer-events: none;
+    }
+    .lang-btn {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.06em;
+      padding: 5px 13px; border-radius: 16px; border: none;
+      background: transparent; color: rgba(255,255,255,0.4);
+      cursor: pointer; transition: color 0.25s ease;
+      font-family: 'Montserrat', sans-serif; line-height: 1;
+      position: relative; z-index: 1;
+    }
+    .lang-btn.active { background: transparent; color: #111111; }
+
+    /* ─── Arabic RTL Overrides ─── */
+    html.lang-ar,
+    html.lang-ar body, html.lang-ar h1, html.lang-ar h2, html.lang-ar h3,
+    html.lang-ar p, html.lang-ar a, html.lang-ar span, html.lang-ar li,
+    html.lang-ar button, html.lang-ar div, html.lang-ar input,
+    html.lang-ar label, html.lang-ar select, html.lang-ar textarea
+    { font-family: 'ClanArabic', sans-serif; }
+    html.lang-ar .lang-btn      { font-family: 'Montserrat', sans-serif; }
+    html.lang-ar .nav-links     { flex-direction: row-reverse; }
+    html.lang-ar .nav-cta       { flex-direction: row-reverse; }
+    html.lang-ar .section-label { flex-direction: row-reverse; }
+    html.lang-ar .section-title,
+    html.lang-ar .section-sub   { text-align: right; }
+    html.lang-ar .page-banner   { text-align: right; }
+    html.lang-ar .page-banner .section-label { justify-content: flex-end; }
+    html.lang-ar .form-field    { direction: rtl; text-align: right; }
+    html.lang-ar .niche-tags    { flex-direction: row-wrap-reverse; }
+    html.lang-ar .step-indicator { flex-direction: row-reverse; }
+    html.lang-ar .footer-tagline { text-align: right; }
+    html.lang-ar .footer-social  { flex-direction: row-reverse; }
+    html.lang-ar .footer-links   { text-align: right; }
+    html.lang-ar .footer-bottom  { flex-direction: row-reverse; }
+    html.lang-ar .footer-legal   { flex-direction: row-reverse; }
+    html.lang-ar .platform-grid  { direction: rtl; }
+    html.lang-ar .cta-inner      { text-align: right; }
+    html.lang-ar .trust-row      { flex-direction: row-reverse; }
+
+    /* ─── CSS Reset & Variables ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --yellow:   #F5B800;
+      --yellow-dark: #D9A200;
+      --yellow-glow: rgba(245, 184, 0, 0.25);
+      --black:    #111111;
+      --dark:     #1A1A1A;
+      --dark-2:   #222222;
+      --dark-3:   #2A2A2A;
+      --dark-card:#1E1E1E;
+      --white:    #FFFFFF;
+      --gray:     #9B9B9B;
+      --gray-light: #D4D4D4;
+      --font:     'Montserrat', sans-serif;
+      --radius:   12px;
+      --radius-lg: 20px;
+      --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: var(--black);
+      color: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--black); }
+    ::-webkit-scrollbar-thumb { background: var(--yellow); border-radius: 2px; }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+    .text-yellow { color: var(--yellow); }
+    .text-gray   { color: var(--gray); }
+
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--yellow); color: var(--black);
+      font-family: var(--font); font-weight: 800; font-size: 14px;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 14px 32px; border-radius: var(--radius);
+      border: none; cursor: pointer; text-decoration: none;
+      transition: var(--transition); position: relative; overflow: hidden;
+    }
+    .btn-primary::before {
+      content: ''; position: absolute; inset: 0;
+      background: rgba(255,255,255,0.15);
+      transform: translateX(-100%); transition: transform 0.4s ease;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px var(--yellow-glow); }
+    .btn-primary:hover::before { transform: translateX(0); }
+
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent; color: var(--white);
+      font-family: var(--font); font-weight: 700; font-size: 14px;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 13px 32px; border-radius: var(--radius);
+      border: 1.5px solid rgba(255,255,255,0.25); cursor: pointer;
+      text-decoration: none; transition: var(--transition);
+    }
+    .btn-outline:hover { border-color: var(--yellow); color: var(--yellow); transform: translateY(-2px); }
+
+    .section-label {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--yellow); margin-bottom: 16px;
+    }
+    .section-label::before { content: ''; width: 24px; height: 2px; background: var(--yellow); border-radius: 1px; }
+
+    .section-title { font-size: clamp(32px, 5vw, 52px); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; }
+    .section-sub   { font-size: 17px; color: var(--gray); font-weight: 400; line-height: 1.7; }
+
+    .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ─── Navigation ─── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 1000; padding: 20px 0; transition: var(--transition);
+    }
+    .nav.scrolled {
+      background: rgba(17, 17, 17, 0.92);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(245, 184, 0, 0.12); padding: 14px 0;
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo  { height: 44px; width: auto; }
+    .nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
+    .nav-links a { font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--gray-light); text-decoration: none; transition: color var(--transition); }
+    .nav-links a:hover { color: var(--yellow); }
+    .nav-cta { display: flex; align-items: center; gap: 12px; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .hamburger span { width: 24px; height: 2px; background: var(--white); border-radius: 1px; transition: var(--transition); }
+
+    /* ─── Mobile Menu ─── */
+    .mobile-menu {
+      position: fixed; inset: 0; z-index: 999;
+      background: rgba(17,17,17,0.98); backdrop-filter: blur(20px);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 32px; transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+    }
+    .mobile-menu.open { transform: translateX(0); }
+    .mobile-menu a { font-size: 24px; font-weight: 800; color: var(--white); text-decoration: none; text-transform: uppercase; letter-spacing: 0.06em; transition: color var(--transition); }
+    .mobile-menu a:hover { color: var(--yellow); }
+    .mobile-close { position: absolute; top: 24px; right: 28px; font-size: 28px; color: var(--gray); cursor: pointer; background: none; border: none; font-family: var(--font); transition: color var(--transition); }
+    .mobile-close:hover { color: var(--white); }
+
+    /* ─── Page Banner ─── */
+    .page-banner {
+      background: var(--dark);
+      padding-top: 140px; padding-bottom: 80px;
+      position: relative; overflow: hidden;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .page-banner::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 80% at 50% 0%, rgba(245,184,0,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .page-banner .container { position: relative; z-index: 1; }
+    .page-banner h1 { font-size: clamp(40px, 6vw, 72px); font-weight: 900; line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 16px; }
+    .page-banner p  { font-size: 18px; color: var(--gray); max-width: 600px; line-height: 1.7; }
+
+    /* ─── Form Section ─── */
+    .signup-section {
+      padding: 80px 0 120px;
+    }
+    .signup-layout {
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 60px;
+      align-items: start;
+    }
+
+    /* ─── Join Form Card (matches index.html how-display aesthetic) ─── */
+    .join-form-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-lg);
+      padding: 44px;
+      position: relative;
+      overflow: hidden;
+    }
+    .join-form-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--yellow), transparent);
+    }
+
+    /* Step indicator */
+    .step-indicator {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 32px;
+    }
+    .step-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      transition: var(--transition);
+    }
+    .step-dot.active { background: var(--yellow); width: 24px; border-radius: 4px; }
+    .step-dot.done   { background: rgba(245,184,0,0.4); }
+    .step-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--gray); margin-left: 8px;
+    }
+
+    .form-section-title {
+      font-size: 20px; font-weight: 800; margin-bottom: 8px;
+    }
+    .form-section-sub {
+      font-size: 14px; color: var(--gray); margin-bottom: 28px; line-height: 1.6;
+    }
+
+    /* Form layout */
+    .join-form { display: flex; flex-direction: column; gap: 20px; }
+
+    .form-group { display: flex; flex-direction: column; gap: 8px; }
+    .form-group label { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray-light); }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+    .form-field {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius);
+      padding: 13px 16px;
+      font-size: 14px; color: var(--white);
+      font-family: var(--font); outline: none;
+      transition: border-color var(--transition); width: 100%;
+    }
+    .form-field:focus { border-color: var(--yellow); box-shadow: 0 0 0 3px rgba(245,184,0,0.1); }
+    .form-field::placeholder { color: var(--gray); }
+    select.form-field { cursor: pointer; appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239B9B9B' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; background-color: rgba(255,255,255,0.05); padding-right: 40px; }
+    select.form-field option { background: var(--dark); color: var(--white); }
+
+    /* Password */
+    .password-wrapper { position: relative; }
+    .password-wrapper .form-field { padding-right: 44px; }
+    .password-toggle { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--gray); cursor: pointer; padding: 2px; transition: color var(--transition); }
+    .password-toggle:hover { color: var(--yellow); }
+    html.lang-ar .password-wrapper .form-field { padding-right: 16px; padding-left: 44px; }
+    html.lang-ar .password-toggle { right: auto; left: 14px; }
+
+    /* Niche tags */
+    .niche-section-label {
+      font-size: 12px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--gray-light); margin-bottom: 10px;
+    }
+    .niche-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .niche-tag {
+      font-size: 12px; font-weight: 600; padding: 6px 14px;
+      border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);
+      color: var(--gray); cursor: pointer; transition: var(--transition);
+      user-select: none;
+    }
+    .niche-tag.active {
+      background: rgba(245,184,0,0.15);
+      border-color: rgba(245,184,0,0.4);
+      color: var(--yellow);
+    }
+    .niche-other-input {
+      display: none; margin-top: 10px;
+      animation: nicheInputIn 0.25s cubic-bezier(0.22,1,0.36,1) forwards;
+    }
+    @keyframes nicheInputIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Platform cards */
+    .platform-grid {
+      display: flex; flex-wrap: wrap; gap: 8px;
+    }
+    .platform-card {
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 14px;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px; cursor: pointer;
+      font-size: 13px; font-weight: 600; color: var(--gray);
+      transition: var(--transition); user-select: none;
+    }
+    .platform-card svg { flex-shrink: 0; }
+    .platform-card.active {
+      background: rgba(245,184,0,0.1);
+      border-color: rgba(245,184,0,0.4);
+      color: var(--yellow);
+    }
+    .platform-card:hover:not(.active) { border-color: rgba(255,255,255,0.2); color: var(--white); }
+
+    /* Follower range pills */
+    .follower-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+    .follower-pill {
+      padding: 7px 16px;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px; font-size: 13px; font-weight: 600;
+      color: var(--gray); cursor: pointer; transition: var(--transition);
+    }
+    .follower-pill.active { background: rgba(245,184,0,0.1); border-color: rgba(245,184,0,0.4); color: var(--yellow); }
+
+    /* Collab type checkboxes */
+    .collab-types { display: flex; flex-direction: column; gap: 10px; }
+    .collab-check {
+      display: flex; align-items: center; gap: 10px;
+      cursor: pointer; padding: 12px 14px;
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: var(--radius);
+      transition: var(--transition);
+    }
+    .collab-check:hover { border-color: rgba(255,255,255,0.15); }
+    .collab-check.checked { border-color: rgba(245,184,0,0.3); background: rgba(245,184,0,0.05); }
+    .collab-checkbox {
+      width: 18px; height: 18px; border-radius: 5px;
+      border: 1.5px solid rgba(255,255,255,0.2);
+      background: transparent; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      transition: var(--transition);
+    }
+    .collab-check.checked .collab-checkbox { background: var(--yellow); border-color: var(--yellow); }
+    .collab-checkbox::after { content: ''; display: none; }
+    .collab-check.checked .collab-checkbox::after {
+      content: '✓'; display: block;
+      font-size: 11px; font-weight: 900; color: #111;
+    }
+    .collab-label { font-size: 14px; font-weight: 600; color: var(--gray-light); }
+    .collab-check.checked .collab-label { color: var(--white); }
+
+    /* Submit area */
+    .form-submit-area { margin-top: 8px; }
+    .btn-submit {
+      width: 100%; justify-content: center;
+      font-size: 16px; padding: 17px;
+    }
+    .form-legal-note { font-size: 12px; color: var(--gray); text-align: center; margin-top: 14px; line-height: 1.6; }
+    .form-legal-note a { color: var(--gray); text-decoration: underline; }
+    .form-legal-note a:hover { color: var(--yellow); }
+
+    /* ─── Sidebar ─── */
+    .signup-sidebar {
+      display: flex; flex-direction: column; gap: 20px;
+    }
+
+    .sidebar-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+    }
+    .sidebar-card-title {
+      font-size: 14px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.12em; color: var(--gray); margin-bottom: 20px;
+    }
+
+    /* Perks list */
+    .perks-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .perk-item { display: flex; align-items: flex-start; gap: 10px; }
+    .perk-icon { color: var(--yellow); font-size: 14px; margin-top: 2px; flex-shrink: 0; }
+    .perk-text { font-size: 14px; color: var(--gray-light); line-height: 1.5; }
+    .perk-text strong { color: var(--white); }
+
+    /* Social proof */
+    .social-proof {
+      display: flex; align-items: center; gap: 10px;
+    }
+    .proof-avatars { display: flex; }
+    .proof-avatar {
+      width: 32px; height: 32px; border-radius: 50%;
+      border: 2px solid var(--dark-card);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 700;
+      margin-left: -8px; flex-shrink: 0;
+    }
+    .proof-avatar:first-child { margin-left: 0; }
+    .proof-text { font-size: 13px; color: var(--gray); line-height: 1.4; }
+    .proof-text strong { color: var(--yellow); }
+
+    /* Alt link */
+    .alt-link {
+      text-align: center; font-size: 14px; color: var(--gray); margin-top: 24px;
+    }
+    .alt-link a { color: var(--yellow); font-weight: 700; text-decoration: none; transition: opacity var(--transition); }
+    .alt-link a:hover { opacity: 0.75; }
+
+    /* ─── CTA Section ─── */
+    .cta-section {
+      padding: 100px 0; background: var(--dark);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      position: relative; overflow: hidden;
+    }
+    .cta-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 70% 70% at 50% 50%, rgba(245,184,0,0.07) 0%, transparent 70%); }
+    .cta-inner { position: relative; z-index: 2; text-align: center; max-width: 720px; margin: 0 auto; }
+    .cta-title { font-size: clamp(36px, 6vw, 64px); font-weight: 900; line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 20px; }
+    .cta-sub { font-size: 18px; color: var(--gray); margin-bottom: 48px; line-height: 1.6; }
+    .cta-buttons { display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; }
+    .btn-primary-lg {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--yellow); color: var(--black);
+      font-family: var(--font); font-weight: 800; font-size: 16px;
+      letter-spacing: 0.05em; text-transform: uppercase;
+      padding: 18px 44px; border-radius: var(--radius);
+      border: none; cursor: pointer; text-decoration: none; transition: var(--transition);
+    }
+    .btn-primary-lg:hover { transform: translateY(-3px); box-shadow: 0 12px 48px rgba(245,184,0,0.35); }
+
+    /* ─── Footer ─── */
+    .footer { padding: 64px 0 32px; border-top: 1px solid rgba(255,255,255,0.06); }
+    .footer-top { display: grid; grid-template-columns: 1.4fr repeat(3, 1fr); gap: 48px; margin-bottom: 48px; }
+    .footer-logo { height: 40px; margin-bottom: 16px; }
+    .footer-tagline { font-size: 14px; color: var(--gray); line-height: 1.6; max-width: 260px; }
+    .footer-social { display: flex; gap: 10px; margin-top: 20px; }
+    .social-btn {
+      width: 36px; height: 36px; border-radius: 8px;
+      border: 1px solid rgba(245,184,0,0.3); color: var(--yellow);
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none; position: relative; overflow: hidden;
+      transition: border-color 0.3s ease, color 0.3s ease;
+    }
+    .social-btn::before { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 0%; background: var(--yellow); transition: height 0.4s cubic-bezier(0.22, 1, 0.36, 1); z-index: 0; }
+    .social-btn svg { position: relative; z-index: 1; }
+    .social-btn:hover { border-color: var(--yellow); color: #111111; }
+    .social-btn:hover::before { height: 100%; }
+    .footer-col-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: var(--white); margin-bottom: 20px; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a { font-size: 14px; color: var(--gray); text-decoration: none; transition: color var(--transition); }
+    .footer-links a:hover { color: var(--yellow); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.06); padding-top: 28px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .footer-copy { font-size: 13px; color: var(--gray); }
+    .footer-legal { display: flex; gap: 20px; }
+    .footer-legal a { font-size: 13px; color: var(--gray); text-decoration: none; }
+    .footer-legal a:hover { color: var(--yellow); }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 1024px) {
+      .signup-layout { grid-template-columns: 1fr; }
+      .signup-sidebar { display: grid; grid-template-columns: 1fr 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+    }
+    @media (max-width: 768px) {
+      .container { padding: 0 20px; }
+      .nav-links  { display: none; }
+      .nav-cta .btn-primary { display: none; }
+      .hamburger  { display: flex; }
+      .form-row   { grid-template-columns: 1fr; }
+      .signup-sidebar { grid-template-columns: 1fr; }
+      .join-form-card { padding: 28px 24px; }
+      .footer-top { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Mobile Menu Overlay -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-close" id="mobileClose">&#10005;</button>
+    <a href="index.html#features" onclick="closeMobile()">Features</a>
+    <a href="index.html#how"      onclick="closeMobile()">How It Works</a>
+    <a href="index.html#community" onclick="closeMobile()">Community</a>
+    <a href="signup.html" class="btn-primary" onclick="closeMobile()" style="font-size:15px;margin-top:12px;">Join the Clan</a>
+  </div>
+
+  <!-- ─── Navigation ─── -->
+  <nav class="nav scrolled" id="mainNav">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="index.html">
+          <img src="brand_assets/Logo-100clan.png" alt="100CLAN" class="nav-logo" />
+        </a>
+        <ul class="nav-links">
+          <li><a href="index.html#features" data-i18n="navFeatures">Features</a></li>
+          <li><a href="index.html#how"       data-i18n="navHow">How It Works</a></li>
+          <li><a href="index.html#community" data-i18n="navCommunity">Community</a></li>
+          <li><a href="index.html#join"      data-i18n="navPricing">Pricing</a></li>
+        </ul>
+        <div class="nav-cta">
+          <div class="lang-switcher" role="group" aria-label="Language">
+            <span class="lang-slide"></span>
+            <button class="lang-btn active" data-lang="en">EN</button>
+            <button class="lang-btn" data-lang="ar">AR</button>
+          </div>
+          <a href="login.html" class="btn-outline" data-i18n="navLogin">Log In</a>
+          <a href="signup.html" class="btn-primary" data-i18n="navJoin">Join the Clan</a>
+          <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ─── Page Banner ─── -->
+  <section class="page-banner">
+    <div class="container">
+      <div class="section-label reveal" data-i18n="bannerLabel">Creator Registration</div>
+      <h1 class="reveal reveal-delay-1"><span data-i18n="bannerTitle1">Join the</span> <span class="text-yellow">Clan</span></h1>
+      <p class="reveal reveal-delay-2" data-i18n="bannerSub">Set up your creator profile in under 5 minutes and start finding your perfect collaboration partners today.</p>
+    </div>
+  </section>
+
+  <!-- ─── Signup Section ─── -->
+  <section class="signup-section">
+    <div class="container">
+      <div class="signup-layout">
+
+        <!-- ─── Main Registration Form ─── -->
+        <div class="reveal">
+          <div class="join-form-card">
+
+            <!-- Steps -->
+            <div class="step-indicator" id="stepIndicator">
+              <div class="step-dot active" id="dot0"></div>
+              <div class="step-dot" id="dot1"></div>
+              <div class="step-dot" id="dot2"></div>
+              <div class="step-dot" id="dot3"></div>
+              <span class="step-label" id="stepLabel" data-i18n="stepLabel">Step 1 of 4 — Your Details</span>
+            </div>
+
+            <form class="join-form" id="joinForm" onsubmit="handleJoin(event)">
+
+              <!-- ─ STEP 1: Personal Info ─ -->
+              <div id="step1" class="form-step">
+                <div class="form-section-title" data-i18n="step1Title">Tell us about yourself</div>
+                <p class="form-section-sub" data-i18n="step1Sub">Start with the basics. We'll use this to build your creator profile.</p>
+
+                <div class="form-group" style="margin-bottom:0">
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="firstName" data-i18n="labelFirst">First Name</label>
+                      <input id="firstName" type="text" class="form-field" data-i18n-ph="phFirst" placeholder="Maya" />
+                    </div>
+                    <div class="form-group">
+                      <label for="lastName" data-i18n="labelLast">Last Name</label>
+                      <input id="lastName" type="text" class="form-field" data-i18n-ph="phLast" placeholder="Kowalski" />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="regEmail" data-i18n="labelEmail">Email Address</label>
+                  <input id="regEmail" type="email" class="form-field" placeholder="you@example.com" />
+                </div>
+
+                <div class="form-group">
+                  <label for="regPassword" data-i18n="labelPassword">Create Password</label>
+                  <div class="password-wrapper">
+                    <input id="regPassword" type="password" class="form-field" data-i18n-ph="phPassword" placeholder="At least 8 characters" />
+                    <button type="button" class="password-toggle" onclick="togglePassword('regPassword', this)" aria-label="Toggle password">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="country" data-i18n="labelCountry">Country</label>
+                  <select id="country" class="form-field">
+                    <option value="" disabled selected data-i18n-opt="optCountry">Select your country</option>
+                    <option>United Arab Emirates</option>
+                    <option>Saudi Arabia</option>
+                    <option>Kuwait</option>
+                    <option>Qatar</option>
+                    <option>Bahrain</option>
+                    <option>Oman</option>
+                    <option>Egypt</option>
+                    <option>Jordan</option>
+                    <option>Lebanon</option>
+                    <option>Morocco</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+
+                <button type="button" class="btn-primary" style="width:100%;justify-content:center;padding:16px;font-size:15px;margin-top:8px" onclick="goStep(2)" data-i18n="btnNext1">
+                  Next: Your Platforms
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+              </div>
+
+              <!-- ─ STEP 2: Platforms & Audience ─ -->
+              <div id="step2" class="form-step" style="display:none">
+                <div class="form-section-title" data-i18n="step2Title">Your platforms</div>
+                <p class="form-section-sub" data-i18n="step2Sub">Where do you create? Select all that apply.</p>
+
+                <div class="form-group">
+                  <div class="niche-section-label" data-i18n="labelPlatforms">Select Platforms</div>
+                  <div class="platform-grid" id="platformGrid">
+                    <div class="platform-card" onclick="togglePlatform(this)">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                      Instagram
+                    </div>
+                    <div class="platform-card" onclick="togglePlatform(this)">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.22 8.22 0 0 0 4.81 1.54V6.79a4.85 4.85 0 0 1-1.04-.1z"/></svg>
+                      TikTok
+                    </div>
+                    <div class="platform-card" onclick="togglePlatform(this)">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
+                      YouTube
+                    </div>
+                    <div class="platform-card" onclick="togglePlatform(this)">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                      X (Twitter)
+                    </div>
+                    <div class="platform-card" onclick="togglePlatform(this)">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1C5.92 1 1 5.92 1 12s4.92 11 11 11 11-4.92 11-11S18.08 1 12 1zm5.5 7.5h-2c-.83 0-1 .42-1 1V11h3l-.5 3h-2.5v7.5h-3V14h-2v-3h2V9.5C11.5 7 13 5.5 15.5 5.5c.96 0 2.5.17 2.5.17V8.5z"/></svg>
+                      Facebook
+                    </div>
+                    <div class="platform-card" onclick="togglePlatform(this)">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12.166 8.94c-.524 1.962-1.492 6.07-1.873 7.963-.29 1.47-.58 2.25-1.16 2.25s-.96-.87-1.4-2.43c-.44-1.56-1.17-5.22-1.59-6.56-.42-1.34-.58-1.46-1.3-1.46h-.78V7.18h.78c1.44 0 1.87.42 2.43 2.05.56 1.64 1.05 4.19 1.34 5.47.29-1.28.9-3.83 1.3-5.47.4-1.64.87-2.05 1.59-2.05h.58l1.87 7.52h.03c.43-2.78.84-5.55 1.47-7.52h1.72l-2.4 9.46h-2.17z"/></svg>
+                      Snapchat
+                    </div>
+                    <div class="platform-card" onclick="togglePlatform(this)">
+                      &#127911; Podcast
+                    </div>
+                    <div class="platform-card" onclick="togglePlatform(this)">
+                      &#9997; Blog
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="handle" data-i18n="labelHandle">Primary Handle / Username</label>
+                  <input id="handle" type="text" class="form-field" data-i18n-ph="phHandle" placeholder="@yourhandle" />
+                </div>
+
+                <div class="form-group">
+                  <div class="niche-section-label" data-i18n="labelFollowers">Total Followers / Subscribers</div>
+                  <div class="follower-pills" id="followerPills">
+                    <div class="follower-pill" onclick="selectPill(this)">Under 1K</div>
+                    <div class="follower-pill" onclick="selectPill(this)">1K – 10K</div>
+                    <div class="follower-pill" onclick="selectPill(this)">10K – 50K</div>
+                    <div class="follower-pill" onclick="selectPill(this)">50K – 100K</div>
+                    <div class="follower-pill" onclick="selectPill(this)">100K – 500K</div>
+                    <div class="follower-pill" onclick="selectPill(this)">500K – 1M</div>
+                    <div class="follower-pill" onclick="selectPill(this)">1M+</div>
+                  </div>
+                </div>
+
+                <div style="display:flex;gap:10px;margin-top:8px">
+                  <button type="button" class="btn-outline" style="flex:1;justify-content:center;padding:14px" onclick="goStep(1)" data-i18n="btnBack">Back</button>
+                  <button type="button" class="btn-primary" style="flex:2;justify-content:center;padding:14px" onclick="goStep(3)" data-i18n="btnNext2">
+                    Next: Your Niche
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </button>
+                </div>
+              </div>
+
+              <!-- ─ STEP 3: Niche ─ -->
+              <div id="step3" class="form-step" style="display:none">
+                <div class="form-section-title" data-i18n="step3Title">Your niche &amp; content</div>
+                <p class="form-section-sub" data-i18n="step3Sub">What kind of content do you make? Select all that apply — this powers our matching engine.</p>
+
+                <div class="form-group">
+                  <div class="niche-section-label" data-i18n="labelNiche">Content Niche</div>
+                  <div class="niche-tags" id="nicheTags">
+                    <span class="niche-tag" onclick="toggleNiche(this)">Lifestyle</span>
+                    <span class="niche-tag" onclick="toggleNiche(this)">Tech</span>
+                    <span class="niche-tag" onclick="toggleNiche(this)">Fitness</span>
+                    <span class="niche-tag" onclick="toggleNiche(this)">Finance</span>
+                    <span class="niche-tag" onclick="toggleNiche(this)">Gaming</span>
+                    <span class="niche-tag" onclick="toggleNiche(this)">Travel</span>
+                    <span class="niche-tag" onclick="toggleNiche(this)">Food</span>
+                    <span class="niche-tag" onclick="toggleNiche(this)">Fashion</span>
+                    <span class="niche-tag" onclick="toggleNiche(this)">Beauty</span>
+                    <span class="niche-tag" onclick="toggleNiche(this)">Education</span>
+                    <span class="niche-tag" onclick="toggleNiche(this)">Comedy</span>
+                    <span class="niche-tag" onclick="toggleNiche(this)">Music</span>
+                    <span class="niche-tag" onclick="toggleNiche(this)">Art &amp; Design</span>
+                    <span class="niche-tag" onclick="toggleNiche(this)">Sports</span>
+                    <span class="niche-tag" id="nicheOtherTag" onclick="toggleNiche(this)">Other</span>
+                  </div>
+                  <input class="form-field niche-other-input" id="nicheOtherInput" type="text" data-i18n-ph="phNicheOther" placeholder="Describe your content type..." maxlength="80" />
+                </div>
+
+                <div class="form-group">
+                  <label for="bio" data-i18n="labelBio">Short Bio</label>
+                  <textarea id="bio" class="form-field" rows="3" data-i18n-ph="phBio" placeholder="Tell the community about yourself and what you create..."></textarea>
+                </div>
+
+                <div style="display:flex;gap:10px;margin-top:8px">
+                  <button type="button" class="btn-outline" style="flex:1;justify-content:center;padding:14px" onclick="goStep(2)" data-i18n="btnBack">Back</button>
+                  <button type="button" class="btn-primary" style="flex:2;justify-content:center;padding:14px" onclick="goStep(4)" data-i18n="btnNext3">
+                    Next: Collab Style
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </button>
+                </div>
+              </div>
+
+              <!-- ─ STEP 4: Collab Preferences ─ -->
+              <div id="step4" class="form-step" style="display:none">
+                <div class="form-section-title" data-i18n="step4Title">Collaboration style</div>
+                <p class="form-section-sub" data-i18n="step4Sub">What kinds of collaborations are you open to? Select all that apply.</p>
+
+                <div class="form-group">
+                  <div class="collab-types" id="collabTypes">
+                    <div class="collab-check" onclick="toggleCollab(this)">
+                      <div class="collab-checkbox"></div>
+                      <span class="collab-label" data-i18n="collab1">Cross-posting &amp; Shoutouts</span>
+                    </div>
+                    <div class="collab-check" onclick="toggleCollab(this)">
+                      <div class="collab-checkbox"></div>
+                      <span class="collab-label" data-i18n="collab2">Joint Content Series</span>
+                    </div>
+                    <div class="collab-check" onclick="toggleCollab(this)">
+                      <div class="collab-checkbox"></div>
+                      <span class="collab-label" data-i18n="collab3">Brand Deal Partnerships</span>
+                    </div>
+                    <div class="collab-check" onclick="toggleCollab(this)">
+                      <div class="collab-checkbox"></div>
+                      <span class="collab-label" data-i18n="collab4">Live Stream Collabs</span>
+                    </div>
+                    <div class="collab-check" onclick="toggleCollab(this)">
+                      <div class="collab-checkbox"></div>
+                      <span class="collab-label" data-i18n="collab5">Account Takeovers</span>
+                    </div>
+                    <div class="collab-check" onclick="toggleCollab(this)">
+                      <div class="collab-checkbox"></div>
+                      <span class="collab-label" data-i18n="collab6">Product Co-creation</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="referral" data-i18n="labelReferral">How did you hear about us? (optional)</label>
+                  <select id="referral" class="form-field">
+                    <option value="" disabled selected data-i18n-opt="optReferral">Select...</option>
+                    <option data-i18n-opt="ref1">Instagram</option>
+                    <option data-i18n-opt="ref2">TikTok</option>
+                    <option data-i18n-opt="ref3">A friend or creator</option>
+                    <option data-i18n-opt="ref4">Google search</option>
+                    <option data-i18n-opt="ref5">Telegram</option>
+                    <option data-i18n-opt="ref6">Other</option>
+                  </select>
+                </div>
+
+                <div style="display:flex;gap:10px;margin-top:8px">
+                  <button type="button" class="btn-outline" style="flex:1;justify-content:center;padding:14px" onclick="goStep(3)" data-i18n="btnBack">Back</button>
+                  <button type="submit" class="btn-primary" style="flex:2;justify-content:center;padding:14px;font-size:15px" data-i18n="btnJoin">
+                    Join 100CLAN Free
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </button>
+                </div>
+
+                <p class="form-legal-note" data-i18n-html="legalNote">By joining, you agree to our <a href="terms.html">Terms of Service</a> and <a href="privacy.html">Privacy Policy</a>. No credit card required.</p>
+              </div>
+
+            </form>
+          </div>
+
+          <p class="alt-link" data-i18n-html="altLink">Already have an account? <a href="login.html">Log In</a></p>
+        </div>
+
+        <!-- ─── Sidebar ─── -->
+        <div class="signup-sidebar">
+          <div class="sidebar-card reveal reveal-delay-1">
+            <div class="sidebar-card-title" data-i18n="perksTitle">What you get</div>
+            <ul class="perks-list">
+              <li class="perk-item">
+                <span class="perk-icon">&#9733;</span>
+                <span class="perk-text" data-i18n="perk1"><strong>Smart Matching</strong> — Get paired with creators who align with your niche, style, and audience.</span>
+              </li>
+              <li class="perk-item">
+                <span class="perk-icon">&#9733;</span>
+                <span class="perk-text" data-i18n="perk2"><strong>Collaboration Hub</strong> — Manage every collab from brief to publish in one clean workspace.</span>
+              </li>
+              <li class="perk-item">
+                <span class="perk-icon">&#9733;</span>
+                <span class="perk-text" data-i18n="perk3"><strong>Growth Analytics</strong> — See exactly how each collab is growing your audience in real time.</span>
+              </li>
+              <li class="perk-item">
+                <span class="perk-icon">&#9733;</span>
+                <span class="perk-text" data-i18n="perk4"><strong>Protected Deals</strong> — Every collaboration is backed by a digital agreement to protect your work.</span>
+              </li>
+              <li class="perk-item">
+                <span class="perk-icon">&#9733;</span>
+                <span class="perk-text" data-i18n="perk5"><strong>Creator Community</strong> — Access a vetted network of ambitious creators from 45+ countries.</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="sidebar-card reveal reveal-delay-2">
+            <div class="sidebar-card-title" data-i18n="socialTitle">Creators already inside</div>
+            <div class="social-proof">
+              <div class="proof-avatars">
+                <div class="proof-avatar" style="background:linear-gradient(135deg,#FF6B6B,#FF8E53)">MK</div>
+                <div class="proof-avatar" style="background:linear-gradient(135deg,#4FC3F7,#0288D1)">JS</div>
+                <div class="proof-avatar" style="background:linear-gradient(135deg,#66BB6A,#2E7D32)">AL</div>
+                <div class="proof-avatar" style="background:linear-gradient(135deg,#CE93D8,#7B1FA2)">RB</div>
+              </div>
+              <p class="proof-text" data-i18n-html="proofText">Join <strong>12,000+</strong> creators from 45+ countries already growing together.</p>
+            </div>
+          </div>
+
+          <div class="sidebar-card reveal reveal-delay-3" style="background:rgba(245,184,0,0.06);border-color:rgba(245,184,0,0.2)">
+            <div class="sidebar-card-title" style="color:var(--yellow)" data-i18n="freeTitle">100% Free to Join</div>
+            <p style="font-size:14px;color:var(--gray);line-height:1.7" data-i18n="freeDesc">Core features — creator matching, collaboration tools, and community access — are free forever. No credit card needed to get started.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Footer ─── -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="brand_assets/Logo-100clan.png" alt="100CLAN" class="footer-logo" />
+          <p class="footer-tagline" data-i18n="footerTagline">The platform where content creators find their tribe, collaborate, and grow together.</p>
+          <div class="footer-social">
+            <a href="https://www.instagram.com/100clan" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Instagram">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+            <a href="https://www.tiktok.com/@100clan" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="TikTok">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.22 8.22 0 0 0 4.81 1.54V6.79a4.85 4.85 0 0 1-1.04-.1z"/></svg>
+            </a>
+            <a href="https://www.youtube.com/@100clanshorts" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="YouTube">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
+            </a>
+            <a href="https://www.x.com/100clan" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="X">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-col-title" data-i18n="footerCol1">Platform</div>
+          <ul class="footer-links">
+            <li><a href="index.html#features" data-i18n="fl1_1">Features</a></li>
+            <li><a href="index.html#how" data-i18n="fl1_2">How It Works</a></li>
+            <li><a href="index.html#join" data-i18n="fl1_3">Pricing</a></li>
+            <li><a href="creator-matching.html" data-i18n="fl1_4">Creator Matching</a></li>
+            <li><a href="collaboration-hub.html" data-i18n="fl1_5">Collaboration Hub</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title" data-i18n="footerCol2">Community</div>
+          <ul class="footer-links">
+            <li><a href="creator-stories.html" data-i18n="fl2_1">Creator Stories</a></li>
+            <li><a href="blog.html" data-i18n="fl2_2">Blog</a></li>
+            <li><a href="events.html" data-i18n="fl2_3">Events</a></li>
+            <li><a href="creator-resources.html" data-i18n="fl2_4">Creator Resources</a></li>
+            <li><a href="newsletter.html" data-i18n="fl2_5">Newsletter</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title" data-i18n="footerCol3">Company</div>
+          <ul class="footer-links">
+            <li><a href="about.html" data-i18n="fl3_1">About 100CLAN</a></li>
+            <li><a href="careers.html" data-i18n="fl3_2">Careers</a></li>
+            <li><a href="press.html" data-i18n="fl3_3">Press Kit</a></li>
+            <li><a href="contact.html" data-i18n="fl3_4">Contact</a></li>
+            <li><a href="partnerships.html" data-i18n="fl3_5">Partnerships</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy" data-i18n="footerCopy">&#169; 2026 100CLAN. All rights reserved.</p>
+        <div class="footer-legal">
+          <a href="privacy.html" data-i18n="footerPrivacy">Privacy Policy</a>
+          <a href="terms.html" data-i18n="footerTerms">Terms of Service</a>
+          <a href="cookies.html" data-i18n="footerCookies">Cookie Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ─── Nav ───
+    const nav = document.getElementById('mainNav');
+    function updateNav() { nav.classList.toggle('scrolled', window.scrollY > 40); }
+    window.addEventListener('scroll', updateNav);
+    updateNav();
+
+    // ─── Mobile menu ───
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileClose = document.getElementById('mobileClose');
+    hamburger.addEventListener('click', () => mobileMenu.classList.add('open'));
+    mobileClose.addEventListener('click', closeMobile);
+    function closeMobile() { mobileMenu.classList.remove('open'); }
+
+    // ─── Scroll reveal ───
+    const revealEls = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObserver.unobserve(e.target); } });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => revealObserver.observe(el));
+
+    // ─── Password toggle ───
+    function togglePassword(fieldId, btn) {
+      const field = document.getElementById(fieldId);
+      field.type = field.type === 'text' ? 'password' : 'text';
+    }
+
+    // ─── Multi-step form ───
+    let currentStep = 1;
+    const stepLabels = {
+      en: ['Step 1 of 4 — Your Details', 'Step 2 of 4 — Your Platforms', 'Step 3 of 4 — Your Niche', 'Step 4 of 4 — Collab Style'],
+      ar: ['الخطوة 1 من 4 — تفاصيلك', 'الخطوة 2 من 4 — منصاتك', 'الخطوة 3 من 4 — مجالك', 'الخطوة 4 من 4 — أسلوب التعاون'],
+    };
+
+    function goStep(n) {
+      document.getElementById('step' + currentStep).style.display = 'none';
+      currentStep = n;
+      document.getElementById('step' + n).style.display = 'block';
+      updateStepIndicator();
+      window.scrollTo({ top: document.querySelector('.join-form-card').offsetTop - 120, behavior: 'smooth' });
+    }
+
+    function updateStepIndicator() {
+      const lang = document.documentElement.lang || 'en';
+      const dots = [0,1,2,3];
+      dots.forEach(i => {
+        const dot = document.getElementById('dot' + i);
+        dot.classList.remove('active','done');
+        if (i + 1 === currentStep) dot.classList.add('active');
+        else if (i + 1 < currentStep) dot.classList.add('done');
+      });
+      const lbl = document.getElementById('stepLabel');
+      if (lbl) lbl.textContent = (stepLabels[lang] || stepLabels.en)[currentStep - 1];
+    }
+
+    // ─── Platform toggle ───
+    function togglePlatform(card) { card.classList.toggle('active'); }
+
+    // ─── Follower pill ───
+    function selectPill(pill) {
+      document.querySelectorAll('.follower-pill').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+    }
+
+    // ─── Niche tag toggle ───
+    function toggleNiche(tag) {
+      tag.classList.toggle('active');
+      if (tag.id === 'nicheOtherTag') {
+        const input = document.getElementById('nicheOtherInput');
+        if (tag.classList.contains('active')) { input.style.display = 'block'; input.focus(); }
+        else { input.style.display = 'none'; input.value = ''; }
+      }
+    }
+
+    // ─── Collab checkbox toggle ───
+    function toggleCollab(item) { item.classList.toggle('checked'); }
+
+    // ─── Form submit ───
+    function handleJoin(e) {
+      e.preventDefault();
+
+      // ── Collect form data ──
+      const firstName  = (document.getElementById('firstName')?.value || '').trim();
+      const lastName   = (document.getElementById('lastName')?.value  || '').trim();
+      const fullName   = (firstName + ' ' + lastName).trim() || 'Creator';
+
+      // Generate handle from name
+      const rawHandle  = '@' + fullName.toLowerCase().replace(/\s+/g, '').replace(/[^a-z0-9]/g, '');
+
+      // Bio
+      const bio        = (document.getElementById('bio')?.value || '').trim();
+
+      // Niches (selected niche tags)
+      const nicheEls   = document.querySelectorAll('.niche-tag.active');
+      const niches     = Array.from(nicheEls).map(el => el.textContent.trim()).filter(Boolean);
+      if (niches.length === 0) niches.push('Lifestyle');
+
+      // Platforms
+      const platformEls = document.querySelectorAll('.platform-card.active');
+      const platforms   = Array.from(platformEls).map(el => el.textContent.trim().toLowerCase().split(/\s+/)[0]).filter(Boolean);
+      if (platforms.length === 0) platforms.push('instagram');
+
+      // Followers
+      const activePill  = document.querySelector('.follower-pill.active');
+      const followersLabel = activePill ? activePill.textContent.trim() : '10K';
+
+      // Avatar: first 2 letters of name uppercase
+      const nameParts  = fullName.split(' ');
+      const avatarStr  = nameParts.length >= 2
+        ? (nameParts[0][0] + nameParts[1][0]).toUpperCase()
+        : fullName.slice(0, 2).toUpperCase();
+
+      // Joined date
+      const joined = new Date().toISOString().split('T')[0];
+
+      const userData = {
+        name:           fullName,
+        handle:         rawHandle,
+        bio:            bio || 'Content creator on 100CLAN.',
+        niches:         niches,
+        platforms:      platforms,
+        followersLabel: followersLabel,
+        avatar:         avatarStr,
+        joined:         joined
+      };
+
+      // Save to localStorage
+      localStorage.setItem('clan-user', JSON.stringify(userData));
+
+      // Show success animation
+      document.querySelector('.join-form-card').innerHTML = `
+        <div style="text-align:center;padding:48px 20px">
+          <div style="width:72px;height:72px;border-radius:50%;background:rgba(245,184,0,0.1);border:2px solid var(--yellow);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 24px">&#10003;</div>
+          <h2 style="font-size:26px;font-weight:900;margin-bottom:12px">Welcome to 100CLAN!</h2>
+          <p style="font-size:15px;color:var(--gray);line-height:1.7;max-width:380px;margin:0 auto 28px">Your profile is ready. Taking you to your creator dashboard...</p>
+          <div style="width:32px;height:32px;border:3px solid rgba(245,184,0,0.2);border-top-color:var(--yellow);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto"></div>
+        </div>
+        <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
+      `;
+
+      // Redirect after 800ms
+      setTimeout(function() {
+        window.location.href = 'dashboard.html';
+      }, 800);
+    }
+
+    // ─── i18n ───
+    const i18n = {
+      en: {
+        navFeatures: 'Features', navHow: 'How It Works', navCommunity: 'Community', navPricing: 'Pricing',
+        navLogin: 'Log In', navJoin: 'Join the Clan',
+        bannerLabel: 'Creator Registration',
+        bannerTitle1: 'Join the',
+        bannerSub: 'Set up your creator profile in under 5 minutes and start finding your perfect collaboration partners today.',
+        stepLabel: 'Step 1 of 4 — Your Details',
+        step1Title: 'Tell us about yourself', step1Sub: 'Start with the basics. We\'ll use this to build your creator profile.',
+        labelFirst: 'First Name', labelLast: 'Last Name', labelEmail: 'Email Address', labelPassword: 'Create Password',
+        labelCountry: 'Country', phFirst: 'Maya', phLast: 'Kowalski', phPassword: 'At least 8 characters',
+        optCountry: 'Select your country',
+        btnNext1: 'Next: Your Platforms',
+        step2Title: 'Your platforms', step2Sub: 'Where do you create? Select all that apply.',
+        labelPlatforms: 'Select Platforms', labelHandle: 'Primary Handle / Username', labelFollowers: 'Total Followers / Subscribers',
+        phHandle: '@yourhandle',
+        btnBack: 'Back', btnNext2: 'Next: Your Niche',
+        step3Title: 'Your niche & content', step3Sub: 'What kind of content do you make? Select all that apply — this powers our matching engine.',
+        labelNiche: 'Content Niche', labelBio: 'Short Bio', phNicheOther: 'Describe your content type...',
+        phBio: 'Tell the community about yourself and what you create...',
+        btnNext3: 'Next: Collab Style',
+        step4Title: 'Collaboration style', step4Sub: 'What kinds of collaborations are you open to? Select all that apply.',
+        collab1: 'Cross-posting & Shoutouts', collab2: 'Joint Content Series', collab3: 'Brand Deal Partnerships',
+        collab4: 'Live Stream Collabs', collab5: 'Account Takeovers', collab6: 'Product Co-creation',
+        labelReferral: 'How did you hear about us? (optional)',
+        optReferral: 'Select...', ref1: 'Instagram', ref2: 'TikTok', ref3: 'A friend or creator', ref4: 'Google search', ref5: 'Telegram', ref6: 'Other',
+        btnJoin: 'Join 100CLAN Free',
+        legalNote: 'By joining, you agree to our <a href="terms.html">Terms of Service</a> and <a href="privacy.html">Privacy Policy</a>. No credit card required.',
+        altLink: 'Already have an account? <a href="login.html">Log In</a>',
+        perksTitle: 'What you get',
+        perk1: '<strong>Smart Matching</strong> — Get paired with creators who align with your niche, style, and audience.',
+        perk2: '<strong>Collaboration Hub</strong> — Manage every collab from brief to publish in one clean workspace.',
+        perk3: '<strong>Growth Analytics</strong> — See exactly how each collab is growing your audience in real time.',
+        perk4: '<strong>Protected Deals</strong> — Every collaboration is backed by a digital agreement to protect your work.',
+        perk5: '<strong>Creator Community</strong> — Access a vetted network of ambitious creators from 45+ countries.',
+        socialTitle: 'Creators already inside',
+        proofText: 'Join <strong>12,000+</strong> creators from 45+ countries already growing together.',
+        freeTitle: '100% Free to Join',
+        freeDesc: 'Core features — creator matching, collaboration tools, and community access — are free forever. No credit card needed to get started.',
+        footerTagline: 'The platform where content creators find their tribe, collaborate, and grow together.',
+        footerCol1: 'Platform', footerCol2: 'Community', footerCol3: 'Company',
+        fl1_1: 'Features', fl1_2: 'How It Works', fl1_3: 'Pricing', fl1_4: 'Creator Matching', fl1_5: 'Collaboration Hub',
+        fl2_1: 'Creator Stories', fl2_2: 'Blog', fl2_3: 'Events', fl2_4: 'Creator Resources', fl2_5: 'Newsletter',
+        fl3_1: 'About 100CLAN', fl3_2: 'Careers', fl3_3: 'Press Kit', fl3_4: 'Contact', fl3_5: 'Partnerships',
+        footerCopy: '© 2026 100CLAN. All rights reserved.',
+        footerPrivacy: 'Privacy Policy', footerTerms: 'Terms of Service', footerCookies: 'Cookie Policy',
+      },
+      ar: {
+        navFeatures: 'المميزات', navHow: 'كيف يعمل', navCommunity: 'المجتمع', navPricing: 'الأسعار',
+        navLogin: 'تسجيل الدخول', navJoin: 'انضم للكلان',
+        bannerLabel: 'تسجيل المبدعين',
+        bannerTitle1: 'انضم إلى',
+        bannerSub: 'أنشئ ملفك كمبدع في أقل من 5 دقائق وابدأ في إيجاد شركاء التعاون المثاليين اليوم.',
+        stepLabel: 'الخطوة 1 من 4 — تفاصيلك',
+        step1Title: 'أخبرنا عن نفسك', step1Sub: 'ابدأ بالأساسيات. سنستخدم هذا لبناء ملفك الشخصي كمبدع.',
+        labelFirst: 'الاسم الأول', labelLast: 'اسم العائلة', labelEmail: 'البريد الإلكتروني', labelPassword: 'إنشاء كلمة مرور',
+        labelCountry: 'الدولة', phFirst: 'مايا', phLast: 'كوالسكي', phPassword: '8 أحرف على الأقل',
+        optCountry: 'اختر دولتك',
+        btnNext1: 'التالي: منصاتك',
+        step2Title: 'منصاتك', step2Sub: 'أين تنشئ المحتوى؟ اختر كل ما ينطبق.',
+        labelPlatforms: 'اختر المنصات', labelHandle: 'المعرّف الرئيسي / اسم المستخدم', labelFollowers: 'إجمالي المتابعين / المشتركين',
+        phHandle: '@معرفك',
+        btnBack: 'السابق', btnNext2: 'التالي: مجالك',
+        step3Title: 'مجالك ومحتواك', step3Sub: 'ما نوع المحتوى الذي تنشئه؟ اختر كل ما ينطبق — هذا يشغّل محرك المطابقة لدينا.',
+        labelNiche: 'مجال المحتوى', labelBio: 'نبذة قصيرة', phNicheOther: 'صف نوع محتواك...',
+        phBio: 'أخبر المجتمع عن نفسك وما تنشئه...',
+        btnNext3: 'التالي: أسلوب التعاون',
+        step4Title: 'أسلوب التعاون', step4Sub: 'ما أنواع التعاون التي تقبلها؟ اختر كل ما ينطبق.',
+        collab1: 'مشاركة المحتوى والترشيحات', collab2: 'سلاسل محتوى مشتركة', collab3: 'شراكات صفقات علامات تجارية',
+        collab4: 'تعاون على البث المباشر', collab5: 'الاستيلاء على الحسابات', collab6: 'الإنتاج المشترك للمنتجات',
+        labelReferral: 'كيف سمعت عنا؟ (اختياري)',
+        optReferral: 'اختر...', ref1: 'إنستغرام', ref2: 'تيك توك', ref3: 'من صديق أو مبدع', ref4: 'بحث Google', ref5: 'تيليغرام', ref6: 'أخرى',
+        btnJoin: 'انضم إلى 100CLAN مجاناً',
+        legalNote: 'بالانضمام، أنت توافق على <a href="terms.html">شروط الخدمة</a> و<a href="privacy.html">سياسة الخصوصية</a>. لا يلزم بطاقة ائتمانية.',
+        altLink: 'لديك حساب بالفعل؟ <a href="login.html">تسجيل الدخول</a>',
+        perksTitle: 'ما ستحصل عليه',
+        perk1: '<strong>مطابقة ذكية</strong> — يتم تزويجك بمبدعين يتوافقون مع مجالك وأسلوبك وجمهورك.',
+        perk2: '<strong>مركز التعاون</strong> — أدر كل تعاون من الملخص إلى النشر في مساحة عمل واحدة.',
+        perk3: '<strong>تحليلات النمو</strong> — اعرف بالضبط كيف يُنمّي كل تعاون جمهورك في الوقت الفعلي.',
+        perk4: '<strong>صفقات محمية</strong> — كل تعاون مدعوم باتفاقية رقمية لحماية عملك.',
+        perk5: '<strong>مجتمع المبدعين</strong> — وصول إلى شبكة منتقاة من المبدعين الطموحين من أكثر من 45 دولة.',
+        socialTitle: 'مبدعون بداخل المنصة بالفعل',
+        proofText: 'انضم إلى أكثر من <strong>12,000</strong> مبدع من 45+ دولة ينمون معاً.',
+        freeTitle: 'انضمام مجاني 100%',
+        freeDesc: 'الميزات الأساسية — مطابقة المبدعين وأدوات التعاون والوصول إلى المجتمع — مجانية للأبد. لا حاجة لبطاقة ائتمانية للبدء.',
+        footerTagline: 'المنصة التي يجد فيها صنّاع المحتوى قبيلتهم ويتعاونون وينمون معاً.',
+        footerCol1: 'المنصة', footerCol2: 'المجتمع', footerCol3: 'الشركة',
+        fl1_1: 'المميزات', fl1_2: 'كيف يعمل', fl1_3: 'الأسعار', fl1_4: 'مطابقة المبدعين', fl1_5: 'مركز التعاون',
+        fl2_1: 'قصص المبدعين', fl2_2: 'المدونة', fl2_3: 'الفعاليات', fl2_4: 'موارد المبدعين', fl2_5: 'النشرة الإخبارية',
+        fl3_1: 'عن 100CLAN', fl3_2: 'وظائف', fl3_3: 'المجموعة الصحفية', fl3_4: 'اتصل بنا', fl3_5: 'الشراكات',
+        footerCopy: '© 2026 100CLAN. جميع الحقوق محفوظة.',
+        footerPrivacy: 'سياسة الخصوصية', footerTerms: 'شروط الخدمة', footerCookies: 'سياسة ملفات تعريف الارتباط',
+      }
+    };
+
+    function applyLang(lang) {
+      const t = i18n[lang];
+      document.documentElement.lang = lang;
+      document.documentElement.dir  = lang === 'ar' ? 'rtl' : 'ltr';
+      document.documentElement.classList.toggle('lang-ar', lang === 'ar');
+      document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+      requestAnimationFrame(updateLangSlide);
+
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[key] !== undefined) el.textContent = t[key];
+      });
+      document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+        const key = el.getAttribute('data-i18n-ph');
+        if (t[key] !== undefined) el.placeholder = t[key];
+      });
+      document.querySelectorAll('[data-i18n-html]').forEach(el => {
+        const key = el.getAttribute('data-i18n-html');
+        if (t[key] !== undefined) el.innerHTML = t[key];
+      });
+      document.querySelectorAll('[data-i18n-opt]').forEach(el => {
+        const key = el.getAttribute('data-i18n-opt');
+        if (t[key] !== undefined) el.textContent = t[key];
+      });
+
+      // Perk items use innerHTML
+      ['perk1','perk2','perk3','perk4','perk5'].forEach(k => {
+        const els = document.querySelectorAll('[data-i18n="' + k + '"]');
+        els.forEach(el => { if (t[k]) el.innerHTML = t[k]; });
+      });
+
+      // Update step label
+      updateStepIndicator();
+
+      localStorage.setItem('clan-lang', lang);
+    }
+
+    function updateLangSlide() {
+      document.querySelectorAll('.lang-switcher').forEach(switcher => {
+        const slide = switcher.querySelector('.lang-slide');
+        const activeBtn = switcher.querySelector('.lang-btn.active');
+        if (!slide || !activeBtn) return;
+        slide.style.width = activeBtn.offsetWidth + 'px';
+        slide.style.transform = `translateX(${activeBtn.offsetLeft}px)`;
+      });
+    }
+
+    applyLang(localStorage.getItem('clan-lang') || 'en');
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => applyLang(btn.dataset.lang));
+    });
+    window.addEventListener('resize', updateLangSlide);
+  </script>
+</body>
+</html>

@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cookie Policy | 100CLAN</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Arabic Brand Font ─── */
+    @font-face {
+      font-family: 'ClanArabic';
+      src: url('brand_assets/100clanBold 2.ttf') format('truetype');
+      font-weight: 700;
+      font-display: swap;
+    }
+
+    /* ─── Language Switcher ─── */
+    .lang-switcher {
+      display: flex;
+      align-items: center;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 20px;
+      padding: 3px;
+      gap: 0;
+      position: relative;
+    }
+    .lang-slide {
+      position: absolute;
+      top: 3px;
+      left: 0;
+      height: calc(100% - 6px);
+      border-radius: 16px;
+      background: var(--yellow);
+      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), width 0.3s cubic-bezier(0.4,0,0.2,1);
+      pointer-events: none;
+    }
+    .lang-btn {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      padding: 5px 13px;
+      border-radius: 16px;
+      border: none;
+      background: transparent;
+      color: rgba(255,255,255,0.4);
+      cursor: pointer;
+      transition: color 0.25s ease;
+      font-family: 'Montserrat', sans-serif;
+      line-height: 1;
+      position: relative;
+      z-index: 1;
+    }
+    .lang-btn.active { background: transparent; color: #111111; }
+
+    /* ─── Arabic / RTL Global Overrides ─── */
+    html.lang-ar,
+    html.lang-ar body,
+    html.lang-ar h1, html.lang-ar h2, html.lang-ar h3,
+    html.lang-ar p, html.lang-ar a, html.lang-ar span,
+    html.lang-ar li, html.lang-ar button, html.lang-ar div,
+    html.lang-ar input { font-family: 'ClanArabic', sans-serif; }
+    html.lang-ar .lang-btn { font-family: 'Montserrat', sans-serif; }
+    html.lang-ar .nav-links            { flex-direction: row-reverse; }
+    html.lang-ar .nav-cta              { flex-direction: row-reverse; }
+    html.lang-ar .section-label        { flex-direction: row-reverse; }
+    html.lang-ar .footer-tagline       { text-align: right; }
+    html.lang-ar .footer-social        { flex-direction: row-reverse; }
+    html.lang-ar .footer-links         { text-align: right; }
+    html.lang-ar .footer-bottom        { flex-direction: row-reverse; }
+    html.lang-ar .footer-legal         { flex-direction: row-reverse; }
+    html.lang-ar .page-banner          { text-align: right; }
+    html.lang-ar .page-banner .section-label { justify-content: flex-end; }
+
+    /* ─── CSS Reset & Variables ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --yellow:   #F5B800;
+      --yellow-dark: #D9A200;
+      --yellow-glow: rgba(245, 184, 0, 0.25);
+      --black:    #111111;
+      --dark:     #1A1A1A;
+      --dark-2:   #222222;
+      --dark-3:   #2A2A2A;
+      --dark-card:#1E1E1E;
+      --white:    #FFFFFF;
+      --gray:     #9B9B9B;
+      --gray-light: #D4D4D4;
+      --font:     'Montserrat', sans-serif;
+      --radius:   12px;
+      --radius-lg: 20px;
+      --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: var(--black);
+      color: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ─── Scrollbar ─── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--black); }
+    ::-webkit-scrollbar-thumb { background: var(--yellow); border-radius: 2px; }
+
+    /* ─── Utilities ─── */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    .text-yellow { color: var(--yellow); }
+    .text-gray   { color: var(--gray); }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--yellow);
+      color: var(--black);
+      font-family: var(--font);
+      font-weight: 800;
+      font-size: 14px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 14px 32px;
+      border-radius: var(--radius);
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0.15);
+      transform: translateX(-100%);
+      transition: transform 0.4s ease;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px var(--yellow-glow); }
+    .btn-primary:hover::before { transform: translateX(0); }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--white);
+      font-family: var(--font);
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 13px 32px;
+      border-radius: var(--radius);
+      border: 1.5px solid rgba(255,255,255,0.25);
+      cursor: pointer;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    .btn-outline:hover {
+      border-color: var(--yellow);
+      color: var(--yellow);
+      transform: translateY(-2px);
+    }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: 16px;
+    }
+    .section-label::before {
+      content: '';
+      width: 24px;
+      height: 2px;
+      background: var(--yellow);
+      border-radius: 1px;
+    }
+
+    /* fade-in animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+
+    /* ─── Navigation ─── */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 20px 0;
+      transition: var(--transition);
+    }
+    .nav.scrolled {
+      background: rgba(17, 17, 17, 0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(245, 184, 0, 0.12);
+      padding: 14px 0;
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      height: 44px;
+      width: auto;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--gray-light);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+    .nav-links a:hover { color: var(--yellow); }
+    .nav-cta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .hamburger span { width: 24px; height: 2px; background: var(--white); border-radius: 1px; transition: var(--transition); }
+
+    /* ─── Mobile Navigation Menu ─── */
+    .mobile-menu {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: rgba(17,17,17,0.98);
+      backdrop-filter: blur(20px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+    }
+    .mobile-menu.open { transform: translateX(0); }
+    .mobile-menu a {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--white);
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      transition: color var(--transition);
+    }
+    .mobile-menu a:hover { color: var(--yellow); }
+    .mobile-close {
+      position: absolute;
+      top: 24px;
+      right: 28px;
+      font-size: 28px;
+      color: var(--gray);
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-family: var(--font);
+      transition: color var(--transition);
+    }
+    .mobile-close:hover { color: var(--white); }
+
+    /* ─── Page Banner ─── */
+    .page-banner {
+      background: var(--dark);
+      padding-top: 140px;
+      padding-bottom: 80px;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .page-banner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 80% at 50% 0%, rgba(245,184,0,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .page-banner .container { position: relative; z-index: 1; }
+    .page-banner h1 {
+      font-size: clamp(40px, 6vw, 72px);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+    }
+    .page-banner p {
+      font-size: 18px;
+      color: var(--gray);
+      max-width: 560px;
+      line-height: 1.7;
+    }
+
+    /* ─── Legal Content ─── */
+    .legal-content {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 80px 0;
+    }
+
+    .legal-last-updated {
+      font-size: 13px;
+      color: var(--gray);
+      margin-bottom: 48px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    /* Table of Contents */
+    .legal-toc {
+      background: var(--dark-card);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: var(--radius-lg);
+      padding: 32px 36px;
+      margin-bottom: 64px;
+    }
+    .legal-toc-title {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: 20px;
+    }
+    .legal-toc ol {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      counter-reset: toc-counter;
+    }
+    .legal-toc ol li {
+      counter-increment: toc-counter;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .legal-toc ol li::before {
+      content: counter(toc-counter, decimal-leading-zero);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--yellow);
+      flex-shrink: 0;
+      width: 24px;
+    }
+    .legal-toc ol li a {
+      font-size: 14px;
+      color: var(--gray);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+    .legal-toc ol li a:hover { color: var(--white); }
+
+    /* Legal sections */
+    .legal-section {
+      margin-bottom: 56px;
+      scroll-margin-top: 100px;
+    }
+    .legal-section h2 {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--yellow);
+      margin-bottom: 20px;
+      letter-spacing: -0.01em;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(245,184,0,0.15);
+    }
+    .legal-section p {
+      font-size: 15px;
+      color: var(--gray);
+      line-height: 1.8;
+      margin-bottom: 14px;
+    }
+    .legal-section p:last-child { margin-bottom: 0; }
+    .legal-section a {
+      color: var(--yellow);
+      text-decoration: none;
+    }
+    .legal-section a:hover { text-decoration: underline; }
+
+    /* Cookie Table */
+    .cookie-table-wrap {
+      overflow-x: auto;
+      margin: 24px 0;
+      border-radius: var(--radius);
+    }
+    .cookie-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #1E1E1E;
+      border: 1px solid rgba(255,255,255,0.08);
+      font-size: 13px;
+    }
+    .cookie-table thead tr {
+      background: #2A2A2A;
+    }
+    .cookie-table thead th {
+      padding: 14px 18px;
+      text-align: left;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #F5B800;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      white-space: nowrap;
+    }
+    .cookie-table tbody tr {
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      transition: background var(--transition);
+    }
+    .cookie-table tbody tr:last-child { border-bottom: none; }
+    .cookie-table tbody tr:hover { background: rgba(255,255,255,0.03); }
+    .cookie-table tbody td {
+      padding: 14px 18px;
+      color: var(--gray);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+    .cookie-table tbody td:first-child {
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      color: var(--white);
+      white-space: nowrap;
+    }
+    .cookie-cat {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 100px;
+    }
+    .cookie-cat.essential   { background: rgba(245,184,0,0.15); color: var(--yellow); }
+    .cookie-cat.preferences { background: rgba(79,195,247,0.12); color: #4FC3F7; }
+    .cookie-cat.analytics   { background: rgba(102,187,106,0.12); color: #66BB6A; }
+    .cookie-cat.marketing   { background: rgba(206,147,216,0.12); color: #CE93D8; }
+    .cookie-cat.functional  { background: rgba(255,183,77,0.12); color: #FFB74D; }
+
+    /* ─── Footer ─── */
+    .footer {
+      padding: 64px 0 32px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.4fr repeat(3, 1fr);
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+    .footer-logo { height: 40px; margin-bottom: 16px; }
+    .footer-tagline { font-size: 14px; color: var(--gray); line-height: 1.6; max-width: 260px; }
+    .footer-social { display: flex; gap: 10px; margin-top: 20px; }
+    .social-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      border: 1px solid rgba(245,184,0,0.3);
+      color: var(--yellow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s ease, color 0.3s ease;
+    }
+    .social-btn::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 100%; height: 0%;
+      background: var(--yellow);
+      transition: height 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+      z-index: 0;
+    }
+    .social-btn svg { position: relative; z-index: 1; }
+    .social-btn:hover { border-color: var(--yellow); color: #111111; }
+    .social-btn:hover::before { height: 100%; }
+    .footer-col-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a {
+      font-size: 14px;
+      color: var(--gray);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+    .footer-links a:hover { color: var(--yellow); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-copy { font-size: 13px; color: var(--gray); }
+    .footer-legal { display: flex; gap: 20px; }
+    .footer-legal a { font-size: 13px; color: var(--gray); text-decoration: none; }
+    .footer-legal a:hover { color: var(--yellow); }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 1024px) {
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+    }
+    @media (max-width: 768px) {
+      .container { padding: 0 20px; }
+      .nav-links { display: none; }
+      .nav-cta .btn-primary { display: none; }
+      .hamburger { display: flex; }
+      .legal-content { padding: 48px 0; }
+      .legal-toc { padding: 24px; }
+      .cookie-table thead th,
+      .cookie-table tbody td { padding: 10px 12px; }
+      .footer-top { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Mobile Menu Overlay -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-close" id="mobileClose">&#10005;</button>
+    <a href="index.html#features" onclick="closeMobile()">Features</a>
+    <a href="index.html#how"      onclick="closeMobile()">How It Works</a>
+    <a href="index.html#community" onclick="closeMobile()">Community</a>
+    <a href="signup.html" class="btn-primary" onclick="closeMobile()" style="font-size:15px;margin-top:12px;">Join the Clan</a>
+  </div>
+
+  <!-- ─── Navigation ─── -->
+  <nav class="nav scrolled" id="mainNav">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="index.html">
+          <img src="brand_assets/Logo-100clan.png" alt="100CLAN" class="nav-logo" />
+        </a>
+        <ul class="nav-links">
+          <li><a href="index.html#features" data-i18n="navFeatures">Features</a></li>
+          <li><a href="index.html#how"      data-i18n="navHow">How It Works</a></li>
+          <li><a href="index.html#community" data-i18n="navCommunity">Community</a></li>
+          <li><a href="index.html#join"     data-i18n="navPricing">Pricing</a></li>
+        </ul>
+        <div class="nav-cta">
+          <div class="lang-switcher" role="group" aria-label="Language">
+            <span class="lang-slide"></span>
+            <button class="lang-btn active" data-lang="en">EN</button>
+            <button class="lang-btn" data-lang="ar">AR</button>
+          </div>
+          <a href="login.html" class="btn-outline" data-i18n="navLogin">Log In</a>
+          <a href="signup.html" class="btn-primary" data-i18n="navJoin">Join the Clan</a>
+          <div class="hamburger" id="hamburger">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ─── Page Banner ─── -->
+  <section class="page-banner">
+    <div class="container">
+      <div class="section-label reveal">LEGAL</div>
+      <h1 class="reveal reveal-delay-1">Cookie <span class="text-yellow">Policy</span></h1>
+      <p class="reveal reveal-delay-2">How we use cookies and similar technologies on 100CLAN.</p>
+    </div>
+  </section>
+
+  <!-- ─── Legal Content ─── -->
+  <div class="container">
+    <div class="legal-content">
+
+      <p class="legal-last-updated">Last updated: January 1, 2026</p>
+
+      <!-- Table of Contents -->
+      <div class="legal-toc reveal">
+        <div class="legal-toc-title">Table of Contents</div>
+        <ol>
+          <li><a href="#what-are-cookies">What Are Cookies</a></li>
+          <li><a href="#how-we-use">How We Use Cookies</a></li>
+          <li><a href="#types">Types of Cookies We Use</a></li>
+          <li><a href="#third-party">Third-Party Cookies</a></li>
+          <li><a href="#managing">Managing Cookies</a></li>
+          <li><a href="#changes">Changes to This Policy</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ol>
+      </div>
+
+      <!-- Section 1 -->
+      <div class="legal-section reveal" id="what-are-cookies">
+        <h2>1. What Are Cookies</h2>
+        <p>Cookies are small text files that are placed on your device — computer, smartphone, or tablet — when you visit a website. They are widely used to make websites work more efficiently, provide a better user experience, and give website owners information about how their site is being used. Cookies are stored locally on your device and can be read by the website that placed them when you return.</p>
+        <p>In addition to traditional cookies, we also use similar technologies such as web beacons (also known as pixel tags or clear GIFs), local storage objects, and session storage. Web beacons are tiny image files embedded in web pages or emails that allow us to determine whether an action has occurred. Local storage and session storage are web storage technologies that allow websites to store data in a browser, functioning similarly to cookies but with different size limits and persistence characteristics.</p>
+        <p>Cookies can be "session cookies" (deleted when you close your browser) or "persistent cookies" (remaining on your device for a defined period or until you delete them). They may be placed by us ("first-party cookies") or by third-party services we use ("third-party cookies"). By using the 100CLAN platform, you consent to the use of cookies and similar technologies as described in this Cookie Policy.</p>
+      </div>
+
+      <!-- Section 2 -->
+      <div class="legal-section reveal" id="how-we-use">
+        <h2>2. How We Use Cookies</h2>
+        <p>We use cookies and similar technologies for several important purposes. First, for authentication and security: cookies help us identify you when you log in, keep your session active as you navigate between pages, and protect your account from unauthorized access. Without these cookies, you would need to log in again with every page you visit. Security-related cookies also help us detect suspicious activity and protect both you and the platform.</p>
+        <p>Second, we use cookies to remember your preferences. This includes your preferred language (English or Arabic), display settings, notification preferences, and other personalization choices you have made on the platform. These preference cookies ensure that you do not have to reset your choices every time you visit 100CLAN, creating a more seamless and personalized experience.</p>
+        <p>Third, we use analytics cookies to understand how visitors use our platform. This data — aggregated and anonymized — tells us which pages are most popular, how users navigate through the site, where they encounter problems, and how we can improve the overall user experience. Finally, we use marketing cookies to measure the effectiveness of our advertising campaigns, serve relevant ads to potential users on third-party platforms, and track conversions from those ads back to our platform.</p>
+      </div>
+
+      <!-- Section 3 -->
+      <div class="legal-section reveal" id="types">
+        <h2>3. Types of Cookies We Use</h2>
+        <p>The table below details the specific cookies we set on your device, their purpose, the category they fall into, and how long they persist.</p>
+
+        <div class="cookie-table-wrap">
+          <table class="cookie-table">
+            <thead>
+              <tr>
+                <th>Cookie Name</th>
+                <th>Category</th>
+                <th>Purpose</th>
+                <th>Duration</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>clan_session</td>
+                <td><span class="cookie-cat essential">Essential</span></td>
+                <td>Maintains your login session and authentication state across page loads</td>
+                <td>Session</td>
+              </tr>
+              <tr>
+                <td>clan_lang</td>
+                <td><span class="cookie-cat preferences">Preferences</span></td>
+                <td>Stores your language preference (English or Arabic) so it persists between visits</td>
+                <td>1 year</td>
+              </tr>
+              <tr>
+                <td>clan_theme</td>
+                <td><span class="cookie-cat preferences">Preferences</span></td>
+                <td>Stores your UI display preferences and personalization settings</td>
+                <td>1 year</td>
+              </tr>
+              <tr>
+                <td>_ga</td>
+                <td><span class="cookie-cat analytics">Analytics</span></td>
+                <td>Google Analytics tracking cookie — distinguishes unique users for traffic analysis</td>
+                <td>2 years</td>
+              </tr>
+              <tr>
+                <td>_fbp</td>
+                <td><span class="cookie-cat marketing">Marketing</span></td>
+                <td>Facebook Pixel — used for ad measurement, optimization, and audience building</td>
+                <td>3 months</td>
+              </tr>
+              <tr>
+                <td>intercom-id</td>
+                <td><span class="cookie-cat functional">Functional</span></td>
+                <td>Intercom customer support chat — identifies returning users for a continuous support experience</td>
+                <td>9 months</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>Cookie categories are defined as follows: <strong style="color:var(--white)">Essential</strong> cookies are necessary for the platform to function and cannot be disabled. <strong style="color:var(--white)">Preferences</strong> cookies remember your settings. <strong style="color:var(--white)">Analytics</strong> cookies help us understand usage. <strong style="color:var(--white)">Marketing</strong> cookies support advertising. <strong style="color:var(--white)">Functional</strong> cookies enable third-party features like live chat.</p>
+      </div>
+
+      <!-- Section 4 -->
+      <div class="legal-section reveal" id="third-party">
+        <h2>4. Third-Party Cookies</h2>
+        <p>We use a number of third-party services on the 100CLAN platform that may set their own cookies on your device. These include Google Analytics, which we use to analyze platform traffic and user behavior in aggregate. Google Analytics places the <code style="font-family:monospace;color:var(--white);font-size:13px;background:rgba(255,255,255,0.07);padding:2px 6px;border-radius:4px;">_ga</code> cookie and may set additional cookies depending on your interaction with the platform. Google's use of this data is governed by Google's Privacy Policy, which can be reviewed at <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">policies.google.com/privacy</a>.</p>
+        <p>We also use the Facebook Pixel, a piece of code that allows us to measure the effectiveness of our advertising by understanding the actions people take on our website. Facebook may use this data to deliver targeted ads to users of the Facebook and Instagram platforms. Facebook's data practices are governed by Meta's Data Policy, available at <a href="https://www.facebook.com/policy.php" target="_blank" rel="noopener noreferrer">facebook.com/policy.php</a>. You can opt out of Facebook's personalized advertising through your Facebook Ad Preferences settings.</p>
+        <p>We use Intercom to provide in-app customer support and chat functionality. Intercom sets the <code style="font-family:monospace;color:var(--white);font-size:13px;background:rgba(255,255,255,0.07);padding:2px 6px;border-radius:4px;">intercom-id</code> cookie to identify users across support sessions and provide a continuous support experience. Intercom's privacy practices are described in their Privacy Policy at <a href="https://www.intercom.com/legal/privacy" target="_blank" rel="noopener noreferrer">intercom.com/legal/privacy</a>. We are not responsible for the privacy practices of these third-party services and encourage you to review their respective policies.</p>
+      </div>
+
+      <!-- Section 5 -->
+      <div class="legal-section reveal" id="managing">
+        <h2>5. Managing Cookies</h2>
+        <p>You have the right to decide whether to accept or reject cookies (other than strictly essential cookies, which are required for the platform to function). Most web browsers allow you to control cookies through their settings. You can usually find these settings in the "Privacy," "Security," or "Settings" menu of your browser. Common browser cookie controls include the ability to delete existing cookies, block third-party cookies, allow cookies from specific sites only, and be notified when new cookies are set.</p>
+        <p>To manage cookies in popular browsers: in Google Chrome, go to Settings → Privacy and Security → Cookies and Other Site Data. In Mozilla Firefox, go to Preferences → Privacy &amp; Security → Cookies and Site Data. In Safari, go to Preferences → Privacy → Manage Website Data. In Microsoft Edge, go to Settings → Privacy, Search, and Services → Cookies and Site Permissions. Note that restricting certain cookies may affect the functionality and personalization of the 100CLAN platform. For example, disabling session cookies will prevent you from staying logged in.</p>
+        <p>For analytics cookies specifically, you can opt out of Google Analytics tracking by installing the <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer">Google Analytics Opt-out Browser Add-on</a>. For interest-based advertising, you can opt out through the <a href="https://www.aboutads.info/choices/" target="_blank" rel="noopener noreferrer">Digital Advertising Alliance's opt-out page</a> or the <a href="https://www.youronlinechoices.com/" target="_blank" rel="noopener noreferrer">Your Online Choices</a> tool if you are located in Europe. Mobile device users can control ad tracking through device settings (Limit Ad Tracking on iOS, or Opt Out of Interest-Based Ads on Android).</p>
+      </div>
+
+      <!-- Section 6 -->
+      <div class="legal-section reveal" id="changes">
+        <h2>6. Changes to This Policy</h2>
+        <p>We may update this Cookie Policy from time to time to reflect changes in technology, regulation, or our business practices. When we make changes, we will update the "Last updated" date at the top of this page. If the changes are significant, we may provide additional notice through the platform — for example, by displaying a notice in your account dashboard or sending an email to the address associated with your account.</p>
+        <p>We encourage you to review this Cookie Policy periodically to stay informed about how we use cookies. Your continued use of the 100CLAN platform after any changes to this policy constitutes your acceptance of the updated terms. If you do not agree to the changes, you should update your cookie preferences using the controls described in the "Managing Cookies" section above, or stop using the platform.</p>
+      </div>
+
+      <!-- Section 7 -->
+      <div class="legal-section reveal" id="contact">
+        <h2>7. Contact</h2>
+        <p>If you have any questions, concerns, or requests regarding this Cookie Policy or our use of cookies and similar technologies, please contact our privacy and data team at <a href="mailto:cookies@100clan.com">cookies@100clan.com</a>. We will do our best to respond to your inquiry within five (5) business days.</p>
+        <p>For broader privacy and data protection inquiries, including requests to access, correct, or delete your personal data under applicable data protection laws, please contact <a href="mailto:privacy@100clan.com">privacy@100clan.com</a>. For legal matters relating to our Terms of Service, please contact <a href="mailto:legal@100clan.com">legal@100clan.com</a>.</p>
+        <p>You may also reach us through our <a href="contact.html">Contact page</a> for general platform inquiries. Our team is here to help ensure you understand how your data is used and to respect your privacy preferences.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ─── Footer ─── -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="brand_assets/Logo-100clan.png" alt="100CLAN" class="footer-logo" />
+          <p class="footer-tagline" data-i18n="footerTagline">The platform where content creators find their tribe, collaborate, and grow together.</p>
+          <div class="footer-social">
+            <a href="https://www.instagram.com/100clan" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Instagram">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+            <a href="https://www.tiktok.com/@100clan" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="TikTok">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.22 8.22 0 0 0 4.81 1.54V6.79a4.85 4.85 0 0 1-1.04-.1z"/></svg>
+            </a>
+            <a href="https://www.youtube.com/@100clanshorts" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="YouTube">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
+            </a>
+            <a href="https://www.x.com/100clan" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="X">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-col-title" data-i18n="footerCol1">Platform</div>
+          <ul class="footer-links">
+            <li><a href="index.html#features" data-i18n="fl1_1">Features</a></li>
+            <li><a href="index.html#how" data-i18n="fl1_2">How It Works</a></li>
+            <li><a href="index.html#join" data-i18n="fl1_3">Pricing</a></li>
+            <li><a href="creator-matching.html" data-i18n="fl1_4">Creator Matching</a></li>
+            <li><a href="collaboration-hub.html" data-i18n="fl1_5">Collaboration Hub</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title" data-i18n="footerCol2">Community</div>
+          <ul class="footer-links">
+            <li><a href="creator-stories.html" data-i18n="fl2_1">Creator Stories</a></li>
+            <li><a href="blog.html" data-i18n="fl2_2">Blog</a></li>
+            <li><a href="events.html" data-i18n="fl2_3">Events</a></li>
+            <li><a href="creator-resources.html" data-i18n="fl2_4">Creator Resources</a></li>
+            <li><a href="newsletter.html" data-i18n="fl2_5">Newsletter</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title" data-i18n="footerCol3">Company</div>
+          <ul class="footer-links">
+            <li><a href="about.html" data-i18n="fl3_1">About 100CLAN</a></li>
+            <li><a href="careers.html" data-i18n="fl3_2">Careers</a></li>
+            <li><a href="press.html" data-i18n="fl3_3">Press Kit</a></li>
+            <li><a href="contact.html" data-i18n="fl3_4">Contact</a></li>
+            <li><a href="partnerships.html" data-i18n="fl3_5">Partnerships</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy" data-i18n="footerCopy">&#169; 2026 100CLAN. All rights reserved.</p>
+        <div class="footer-legal">
+          <a href="privacy.html" data-i18n="footerPrivacy">Privacy Policy</a>
+          <a href="terms.html" data-i18n="footerTerms">Terms of Service</a>
+          <a href="cookies.html" data-i18n="footerCookies">Cookie Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ─── Navigation scroll effect ───
+    const nav = document.getElementById('mainNav');
+    function updateNav() {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    }
+    window.addEventListener('scroll', updateNav);
+    updateNav();
+
+    // ─── Mobile menu ───
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileClose = document.getElementById('mobileClose');
+    hamburger.addEventListener('click', () => mobileMenu.classList.add('open'));
+    mobileClose.addEventListener('click', closeMobile);
+    function closeMobile() { mobileMenu.classList.remove('open'); }
+
+    // ─── Scroll reveal ───
+    const revealEls = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          revealObserver.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => revealObserver.observe(el));
+
+    // ─── Language / i18n System (footer + nav only for legal page) ───
+    const i18n = {
+      en: {
+        navFeatures: 'Features', navHow: 'How It Works', navCommunity: 'Community', navPricing: 'Pricing',
+        navLogin: 'Log In', navJoin: 'Join the Clan',
+        footerTagline: 'The platform where content creators find their tribe, collaborate, and grow together.',
+        footerCol1: 'Platform', footerCol2: 'Community', footerCol3: 'Company',
+        fl1_1: 'Features', fl1_2: 'How It Works', fl1_3: 'Pricing', fl1_4: 'Creator Matching', fl1_5: 'Collaboration Hub',
+        fl2_1: 'Creator Stories', fl2_2: 'Blog', fl2_3: 'Events', fl2_4: 'Creator Resources', fl2_5: 'Newsletter',
+        fl3_1: 'About 100CLAN', fl3_2: 'Careers', fl3_3: 'Press Kit', fl3_4: 'Contact', fl3_5: 'Partnerships',
+        footerCopy: '© 2026 100CLAN. All rights reserved.',
+        footerPrivacy: 'Privacy Policy', footerTerms: 'Terms of Service', footerCookies: 'Cookie Policy',
+      },
+      ar: {
+        navFeatures: 'المميزات', navHow: 'كيف يعمل', navCommunity: 'المجتمع', navPricing: 'الأسعار',
+        navLogin: 'تسجيل الدخول', navJoin: 'انضم للكلان',
+        footerTagline: 'المنصة التي يجد فيها صنّاع المحتوى قبيلتهم ويتعاونون وينمون معاً.',
+        footerCol1: 'المنصة', footerCol2: 'المجتمع', footerCol3: 'الشركة',
+        fl1_1: 'المميزات', fl1_2: 'كيف يعمل', fl1_3: 'الأسعار', fl1_4: 'مطابقة المبدعين', fl1_5: 'مركز التعاون',
+        fl2_1: 'قصص المبدعين', fl2_2: 'المدونة', fl2_3: 'الفعاليات', fl2_4: 'موارد المبدعين', fl2_5: 'النشرة الإخبارية',
+        fl3_1: 'عن 100CLAN', fl3_2: 'وظائف', fl3_3: 'المجموعة الصحفية', fl3_4: 'اتصل بنا', fl3_5: 'الشراكات',
+        footerCopy: '© 2026 100CLAN. جميع الحقوق محفوظة.',
+        footerPrivacy: 'سياسة الخصوصية', footerTerms: 'شروط الخدمة', footerCookies: 'سياسة ملفات تعريف الارتباط',
+      }
+    };
+
+    function applyLang(lang) {
+      const t = i18n[lang];
+      document.documentElement.lang = lang;
+      document.documentElement.dir  = lang === 'ar' ? 'rtl' : 'ltr';
+      document.documentElement.classList.toggle('lang-ar', lang === 'ar');
+      document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+      requestAnimationFrame(updateLangSlide);
+
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[key] !== undefined) {
+          if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+            el.placeholder = t[key];
+          } else {
+            el.textContent = t[key];
+          }
+        }
+      });
+
+      localStorage.setItem('clan-lang', lang);
+    }
+
+    function updateLangSlide() {
+      document.querySelectorAll('.lang-switcher').forEach(switcher => {
+        const slide = switcher.querySelector('.lang-slide');
+        const activeBtn = switcher.querySelector('.lang-btn.active');
+        if (!slide || !activeBtn) return;
+        slide.style.width = activeBtn.offsetWidth + 'px';
+        slide.style.transform = `translateX(${activeBtn.offsetLeft}px)`;
+      });
+    }
+
+    applyLang(localStorage.getItem('clan-lang') || 'en');
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => applyLang(btn.dataset.lang));
+    });
+    window.addEventListener('resize', updateLangSlide);
+  </script>
+</body>
+</html>

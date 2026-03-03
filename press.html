@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Press Kit — 100CLAN</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Arabic Brand Font ─── */
+    @font-face {
+      font-family: 'ClanArabic';
+      src: url('brand_assets/100clanBold 2.ttf') format('truetype');
+      font-weight: 700;
+      font-display: swap;
+    }
+
+    /* ─── Language Switcher ─── */
+    .lang-switcher {
+      display: flex;
+      align-items: center;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 20px;
+      padding: 3px;
+      gap: 0;
+      position: relative;
+    }
+    .lang-slide {
+      position: absolute;
+      top: 3px;
+      left: 0;
+      height: calc(100% - 6px);
+      border-radius: 16px;
+      background: var(--yellow);
+      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), width 0.3s cubic-bezier(0.4,0,0.2,1);
+      pointer-events: none;
+    }
+    .lang-btn {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      padding: 5px 13px;
+      border-radius: 16px;
+      border: none;
+      background: transparent;
+      color: rgba(255,255,255,0.4);
+      cursor: pointer;
+      transition: color 0.25s ease;
+      font-family: 'Montserrat', sans-serif;
+      line-height: 1;
+      position: relative;
+      z-index: 1;
+    }
+    .lang-btn.active { background: transparent; color: #111111; }
+
+    /* ─── Arabic / RTL Global Overrides ─── */
+    html.lang-ar,
+    html.lang-ar body,
+    html.lang-ar h1, html.lang-ar h2, html.lang-ar h3,
+    html.lang-ar p, html.lang-ar a, html.lang-ar span,
+    html.lang-ar li, html.lang-ar button, html.lang-ar div,
+    html.lang-ar input { font-family: 'ClanArabic', sans-serif; }
+    html.lang-ar .lang-btn { font-family: 'Montserrat', sans-serif; }
+    html.lang-ar .nav-links            { flex-direction: row-reverse; }
+    html.lang-ar .nav-cta              { flex-direction: row-reverse; }
+    html.lang-ar .section-label        { flex-direction: row-reverse; }
+    html.lang-ar .section-title,
+    html.lang-ar .section-sub          { text-align: right; }
+    html.lang-ar .footer-tagline       { text-align: right; }
+    html.lang-ar .footer-social        { flex-direction: row-reverse; }
+    html.lang-ar .footer-links         { text-align: right; }
+    html.lang-ar .footer-bottom        { flex-direction: row-reverse; }
+    html.lang-ar .footer-legal         { flex-direction: row-reverse; }
+    html.lang-ar .page-banner          { text-align: right; }
+    html.lang-ar .press-stats          { direction: rtl; }
+    html.lang-ar .facts-list           { text-align: right; padding-right: 20px; }
+    html.lang-ar .press-contact-block  { text-align: right; }
+    html.lang-ar .cta-inner            { text-align: right; }
+
+    /* ─── CSS Reset & Variables ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --yellow:      #F5B800;
+      --yellow-dark: #D9A200;
+      --yellow-glow: rgba(245, 184, 0, 0.25);
+      --black:       #111111;
+      --dark:        #1A1A1A;
+      --dark-2:      #222222;
+      --dark-3:      #2A2A2A;
+      --dark-card:   #1E1E1E;
+      --white:       #FFFFFF;
+      --gray:        #9B9B9B;
+      --gray-light:  #D4D4D4;
+      --font:        'Montserrat', sans-serif;
+      --radius:      12px;
+      --radius-lg:   20px;
+      --transition:  0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: var(--black);
+      color: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--black); }
+    ::-webkit-scrollbar-thumb { background: var(--yellow); border-radius: 2px; }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    .text-yellow { color: var(--yellow); }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--yellow);
+      color: var(--black);
+      font-family: var(--font);
+      font-weight: 800;
+      font-size: 14px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 14px 32px;
+      border-radius: var(--radius);
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0.15);
+      transform: translateX(-100%);
+      transition: transform 0.4s ease;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px var(--yellow-glow); }
+    .btn-primary:hover::before { transform: translateX(0); }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--white);
+      font-family: var(--font);
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 13px 32px;
+      border-radius: var(--radius);
+      border: 1.5px solid rgba(255,255,255,0.25);
+      cursor: pointer;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    .btn-outline:hover {
+      border-color: var(--yellow);
+      color: var(--yellow);
+      transform: translateY(-2px);
+    }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: 16px;
+    }
+    .section-label::before {
+      content: '';
+      width: 24px;
+      height: 2px;
+      background: var(--yellow);
+      border-radius: 1px;
+    }
+
+    .section-title {
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+
+    .section-sub {
+      font-size: 17px;
+      color: var(--gray);
+      font-weight: 400;
+      line-height: 1.7;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ─── Navigation ─── */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 20px 0;
+      transition: var(--transition);
+    }
+    .nav.scrolled {
+      background: rgba(17,17,17,0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(245,184,0,0.12);
+      padding: 14px 0;
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo { height: 44px; width: auto; }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--gray-light);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+    .nav-links a:hover { color: var(--yellow); }
+    .nav-cta { display: flex; align-items: center; gap: 12px; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .hamburger span { width: 24px; height: 2px; background: var(--white); border-radius: 1px; transition: var(--transition); }
+
+    /* ─── Mobile Menu ─── */
+    .mobile-menu {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: rgba(17,17,17,0.98);
+      backdrop-filter: blur(20px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+    }
+    .mobile-menu.open { transform: translateX(0); }
+    .mobile-menu a {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--white);
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      transition: color var(--transition);
+    }
+    .mobile-menu a:hover { color: var(--yellow); }
+    .mobile-close {
+      position: absolute;
+      top: 24px; right: 28px;
+      font-size: 28px;
+      color: var(--gray);
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-family: var(--font);
+      transition: color var(--transition);
+    }
+    .mobile-close:hover { color: var(--white); }
+
+    /* ─── Page Banner ─── */
+    .page-banner {
+      background: var(--dark);
+      padding-top: 140px;
+      padding-bottom: 80px;
+      min-height: 320px;
+      display: flex;
+      align-items: flex-end;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-banner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 80% at 20% 50%, rgba(245,184,0,0.06) 0%, transparent 70%);
+    }
+    .page-banner-inner { position: relative; z-index: 2; }
+    .page-banner h1 {
+      font-size: clamp(36px, 6vw, 64px);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+    }
+    .page-banner-sub {
+      font-size: 18px;
+      color: var(--gray);
+      max-width: 580px;
+      line-height: 1.6;
+    }
+
+    /* ─── Press Stats ─── */
+    .press-stats-section {
+      padding: 80px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .press-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+    .press-stat {
+      text-align: center;
+      padding: 32px 16px;
+      border-right: 1px solid rgba(255,255,255,0.06);
+    }
+    .press-stat:last-child { border-right: none; }
+    .press-stat-value {
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 900;
+      color: var(--yellow);
+      line-height: 1;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+    .press-stat-label {
+      font-size: 13px;
+      color: var(--gray);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* ─── Sections ─── */
+    .press-section {
+      padding: 80px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .press-section-header {
+      margin-bottom: 48px;
+    }
+
+    /* ─── Asset Cards ─── */
+    .assets-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .asset-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .asset-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(245,184,0,0.4);
+      box-shadow: 0 12px 40px rgba(245,184,0,0.1);
+    }
+    .asset-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      background: rgba(245,184,0,0.1);
+      border: 1px solid rgba(245,184,0,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--yellow);
+      font-size: 20px;
+    }
+    .asset-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .asset-desc {
+      font-size: 13px;
+      color: var(--gray);
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    /* ─── Press Quotes ─── */
+    .press-quotes-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .press-quote-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-lg);
+      padding: 32px 28px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+    .press-quote-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(245,184,0,0.3);
+    }
+    .press-quote-card::before {
+      content: '\201C';
+      position: absolute;
+      top: 16px; right: 24px;
+      font-size: 80px;
+      color: rgba(245,184,0,0.08);
+      font-family: Georgia, serif;
+      line-height: 1;
+    }
+    .press-pub-placeholder {
+      width: 100%;
+      height: 36px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 20px;
+    }
+    .press-quote-text {
+      font-size: 15px;
+      color: var(--gray-light);
+      line-height: 1.7;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+    .press-quote-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .press-pub-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--yellow);
+    }
+    .press-pub-date {
+      font-size: 12px;
+      color: var(--gray);
+    }
+
+    /* ─── Key Facts ─── */
+    .facts-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+    .facts-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .facts-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 15px;
+      color: var(--gray-light);
+      line-height: 1.6;
+    }
+    .facts-list li::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--yellow);
+      flex-shrink: 0;
+      margin-top: 8px;
+    }
+
+    /* ─── Press Contact ─── */
+    .press-contact-block {
+      background: var(--dark-card);
+      border: 1px solid rgba(245,184,0,0.2);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .press-contact-block::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--yellow), transparent);
+    }
+    .press-contact-detail {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      font-size: 15px;
+      color: var(--gray-light);
+    }
+    .press-contact-detail:last-child { margin-bottom: 0; }
+    .press-contact-detail strong { color: var(--white); min-width: 120px; }
+    .press-contact-detail a { color: var(--yellow); text-decoration: none; }
+    .press-contact-detail a:hover { text-decoration: underline; }
+
+    /* ─── CTA Section ─── */
+    .cta-section {
+      padding: 120px 0;
+      background: var(--dark);
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 70% at 50% 50%, rgba(245,184,0,0.07) 0%, transparent 70%);
+    }
+    .cta-inner {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .cta-title {
+      font-size: clamp(36px, 6vw, 64px);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+    }
+    .cta-sub {
+      font-size: 18px;
+      color: var(--gray);
+      margin-bottom: 48px;
+      line-height: 1.6;
+    }
+    .cta-buttons { display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; }
+    .btn-primary-lg {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--yellow);
+      color: var(--black);
+      font-family: var(--font);
+      font-weight: 800;
+      font-size: 16px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 18px 44px;
+      border-radius: var(--radius);
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    .btn-primary-lg:hover { transform: translateY(-3px); box-shadow: 0 12px 48px rgba(245,184,0,0.35); }
+
+    /* ─── Footer ─── */
+    .footer {
+      padding: 64px 0 32px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.4fr repeat(3, 1fr);
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+    .footer-logo { height: 40px; margin-bottom: 16px; }
+    .footer-tagline { font-size: 14px; color: var(--gray); line-height: 1.6; max-width: 260px; }
+    .footer-social { display: flex; gap: 10px; margin-top: 20px; }
+    .social-btn {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      border: 1px solid rgba(245,184,0,0.3);
+      color: var(--yellow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s ease, color 0.3s ease;
+    }
+    .social-btn::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 100%; height: 0%;
+      background: var(--yellow);
+      transition: height 0.4s cubic-bezier(0.22,1,0.36,1);
+      z-index: 0;
+    }
+    .social-btn svg { position: relative; z-index: 1; }
+    .social-btn:hover { border-color: var(--yellow); color: #111111; }
+    .social-btn:hover::before { height: 100%; }
+    .footer-col-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a { font-size: 14px; color: var(--gray); text-decoration: none; transition: color var(--transition); }
+    .footer-links a:hover { color: var(--yellow); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-copy { font-size: 13px; color: var(--gray); }
+    .footer-legal { display: flex; gap: 20px; }
+    .footer-legal a { font-size: 13px; color: var(--gray); text-decoration: none; }
+    .footer-legal a:hover { color: var(--yellow); }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 1024px) {
+      .assets-grid { grid-template-columns: repeat(2, 1fr); }
+      .press-stats { grid-template-columns: repeat(2, 1fr); }
+      .press-stat:nth-child(2) { border-right: none; }
+      .press-stat:nth-child(3),
+      .press-stat:nth-child(4) { border-top: 1px solid rgba(255,255,255,0.06); }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+    }
+    @media (max-width: 768px) {
+      .container { padding: 0 20px; }
+      .nav-links { display: none; }
+      .nav-cta .btn-primary { display: none; }
+      .hamburger { display: flex; }
+      .assets-grid { grid-template-columns: 1fr; }
+      .press-quotes-grid { grid-template-columns: 1fr; }
+      .facts-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-close" id="mobileClose">&#x2715;</button>
+    <a href="index.html#features" onclick="closeMobile()" data-i18n="navFeatures">Features</a>
+    <a href="index.html#how" onclick="closeMobile()" data-i18n="navHow">How It Works</a>
+    <a href="index.html#community" onclick="closeMobile()" data-i18n="navCommunity">Community</a>
+    <a href="signup.html" class="btn-primary" onclick="closeMobile()" style="font-size:15px;margin-top:12px;" data-i18n="navJoin">Join the Clan</a>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="nav" id="mainNav">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="index.html">
+          <img src="brand_assets/Logo-100clan.png" alt="100CLAN" class="nav-logo" />
+        </a>
+        <ul class="nav-links">
+          <li><a href="index.html#features" data-i18n="navFeatures">Features</a></li>
+          <li><a href="index.html#how" data-i18n="navHow">How It Works</a></li>
+          <li><a href="index.html#community" data-i18n="navCommunity">Community</a></li>
+          <li><a href="index.html#join" data-i18n="navPricing">Pricing</a></li>
+        </ul>
+        <div class="nav-cta">
+          <div class="lang-switcher" role="group" aria-label="Language">
+            <span class="lang-slide"></span>
+            <button class="lang-btn active" data-lang="en">EN</button>
+            <button class="lang-btn" data-lang="ar">AR</button>
+          </div>
+          <a href="login.html" class="btn-outline" data-i18n="navLogin">Log In</a>
+          <a href="signup.html" class="btn-primary" data-i18n="navJoin">Join the Clan</a>
+          <div class="hamburger" id="hamburger">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Banner -->
+  <section class="page-banner">
+    <div class="container">
+      <div class="page-banner-inner">
+        <div class="section-label reveal" data-i18n="pressLabel">Press &amp; Media</div>
+        <h1 class="reveal reveal-delay-1" data-i18n="pressTitle">100CLAN in the Press</h1>
+        <p class="page-banner-sub reveal reveal-delay-2" data-i18n="pressSub">Everything you need to cover the world's fastest-growing creator collaboration platform. Download assets, read our story, and get in touch.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Company Stats -->
+  <section class="press-stats-section">
+    <div class="container">
+      <div class="press-stats">
+        <div class="press-stat reveal">
+          <div class="press-stat-value" data-i18n="stat1Val">2024</div>
+          <div class="press-stat-label" data-i18n="stat1Label">Year Founded</div>
+        </div>
+        <div class="press-stat reveal reveal-delay-1">
+          <div class="press-stat-value" data-i18n="stat2Val">12,000+</div>
+          <div class="press-stat-label" data-i18n="stat2Label">Creators on Platform</div>
+        </div>
+        <div class="press-stat reveal reveal-delay-2">
+          <div class="press-stat-value" data-i18n="stat3Val">45+</div>
+          <div class="press-stat-label" data-i18n="stat3Label">Countries Represented</div>
+        </div>
+        <div class="press-stat reveal reveal-delay-3">
+          <div class="press-stat-value" data-i18n="stat4Val">Series A</div>
+          <div class="press-stat-label" data-i18n="stat4Label">Fundraising Round</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Brand Assets -->
+  <section class="press-section">
+    <div class="container">
+      <div class="press-section-header">
+        <div class="section-label reveal" data-i18n="assetsLabel">Brand Assets</div>
+        <h2 class="section-title reveal reveal-delay-1" data-i18n="assetsTitle">Download our <span class="text-yellow">brand kit</span></h2>
+        <p class="section-sub reveal reveal-delay-2" style="margin-top:16px;" data-i18n="assetsSub">All assets are approved for editorial and press use. Please review our brand guidelines before publishing.</p>
+      </div>
+      <div class="assets-grid">
+        <div class="asset-card reveal">
+          <div class="asset-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <div>
+            <div class="asset-title" data-i18n="asset1Title">Logo Pack</div>
+            <p class="asset-desc" data-i18n="asset1Desc">Full logo suite in PNG and SVG formats — light, dark, and monochrome variants included.</p>
+          </div>
+          <a href="#" class="btn-outline" style="font-size:12px;padding:10px 20px;" data-i18n="downloadBtn">Download PNG/SVG</a>
+        </div>
+        <div class="asset-card reveal reveal-delay-1">
+          <div class="asset-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          </div>
+          <div>
+            <div class="asset-title" data-i18n="asset2Title">Brand Guidelines</div>
+            <p class="asset-desc" data-i18n="asset2Desc">Official color palette, typography, spacing rules, and correct usage examples for all brand marks.</p>
+          </div>
+          <a href="#" class="btn-outline" style="font-size:12px;padding:10px 20px;" data-i18n="downloadPdf">Download PDF</a>
+        </div>
+        <div class="asset-card reveal reveal-delay-2">
+          <div class="asset-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <div>
+            <div class="asset-title" data-i18n="asset3Title">Founder Headshots</div>
+            <p class="asset-desc" data-i18n="asset3Desc">High-resolution photography of the founding team, suitable for print and digital editorial use.</p>
+          </div>
+          <a href="#" class="btn-outline" style="font-size:12px;padding:10px 20px;" data-i18n="downloadPhotos">Download Photos</a>
+        </div>
+        <div class="asset-card reveal reveal-delay-3">
+          <div class="asset-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><polyline points="8 21 12 17 16 21"/></svg>
+          </div>
+          <div>
+            <div class="asset-title" data-i18n="asset4Title">Product Screenshots</div>
+            <p class="asset-desc" data-i18n="asset4Desc">Curated platform screenshots showing the creator dashboard, matching system, and collaboration tools.</p>
+          </div>
+          <a href="#" class="btn-outline" style="font-size:12px;padding:10px 20px;" data-i18n="downloadScreenshots">Download Screenshots</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Press Mentions -->
+  <section class="press-section">
+    <div class="container">
+      <div class="press-section-header">
+        <div class="section-label reveal" data-i18n="mentionsLabel">In the News</div>
+        <h2 class="section-title reveal reveal-delay-1" data-i18n="mentionsTitle">What they're <span class="text-yellow">saying</span></h2>
+      </div>
+      <div class="press-quotes-grid">
+        <div class="press-quote-card reveal">
+          <div class="press-pub-placeholder" data-i18n="pub1Name">TechCrunch</div>
+          <p class="press-quote-text" data-i18n="pub1Quote">"100CLAN is doing for creator collaboration what LinkedIn did for professional networking — building the infrastructure for an entirely new kind of working relationship between content creators."</p>
+          <div class="press-quote-meta">
+            <span class="press-pub-name" data-i18n="pub1Pub">TechCrunch</span>
+            <span class="press-pub-date" data-i18n="pub1Date">March 2025</span>
+          </div>
+        </div>
+        <div class="press-quote-card reveal reveal-delay-1">
+          <div class="press-pub-placeholder" data-i18n="pub2Name">Forbes</div>
+          <p class="press-quote-text" data-i18n="pub2Quote">"In a creator economy that has long rewarded solo hustle above all else, 100CLAN is making a compelling case that collaboration is the smarter, faster, and more sustainable path to growth."</p>
+          <div class="press-quote-meta">
+            <span class="press-pub-name" data-i18n="pub2Pub">Forbes</span>
+            <span class="press-pub-date" data-i18n="pub2Date">January 2025</span>
+          </div>
+        </div>
+        <div class="press-quote-card reveal reveal-delay-2">
+          <div class="press-pub-placeholder" data-i18n="pub3Name">Wired</div>
+          <p class="press-quote-text" data-i18n="pub3Quote">"The platform's AI-driven matching engine is genuinely impressive — we tested it with a dozen creators across different niches and the suggested collaborations were consistently relevant and actionable."</p>
+          <div class="press-quote-meta">
+            <span class="press-pub-name" data-i18n="pub3Pub">Wired</span>
+            <span class="press-pub-date" data-i18n="pub3Date">November 2024</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Key Facts -->
+  <section class="press-section">
+    <div class="container">
+      <div class="facts-grid">
+        <div>
+          <div class="section-label reveal" data-i18n="factsLabel">Key Facts Sheet</div>
+          <h2 class="section-title reveal reveal-delay-1" style="margin-bottom:32px;" data-i18n="factsTitle">100CLAN at a <span class="text-yellow">glance</span></h2>
+          <ul class="facts-list reveal reveal-delay-2">
+            <li data-i18n="fact1">Founded in 2024 and headquartered in Dubai, UAE, with a remote-first team across 12 countries.</li>
+            <li data-i18n="fact2">12,000+ verified content creators active on the platform across Instagram, TikTok, YouTube, X, and Snapchat.</li>
+            <li data-i18n="fact3">Creators in 45+ countries spanning the Middle East, Europe, North America, and Southeast Asia.</li>
+            <li data-i18n="fact4">Over 38,000 creator-to-creator collaborations facilitated since launch.</li>
+            <li data-i18n="fact5">Average audience growth of 34% reported by creators within their first 90 days on the platform.</li>
+            <li data-i18n="fact6">$2.8M+ in brand deal revenue managed through the platform's deal management tools.</li>
+            <li data-i18n="fact7">Currently raising a Series A round to expand matching capabilities and enter new markets.</li>
+            <li data-i18n="fact8">Supported content niches include lifestyle, tech, fitness, finance, gaming, travel, food, fashion, and beauty.</li>
+          </ul>
+        </div>
+        <div>
+          <div class="press-section-header" style="margin-bottom:32px;">
+            <div class="section-label reveal" data-i18n="contactLabel">Press Contact</div>
+            <h2 class="section-title reveal reveal-delay-1" style="font-size:clamp(24px,3vw,36px);margin-bottom:8px;" data-i18n="contactTitle">Get in <span class="text-yellow">touch</span></h2>
+            <p class="section-sub reveal reveal-delay-2" style="font-size:15px;margin-top:8px;" data-i18n="contactSub">We respond to all press inquiries within 24 business hours.</p>
+          </div>
+          <div class="press-contact-block reveal reveal-delay-2">
+            <div class="press-contact-detail">
+              <strong data-i18n="contactNameLabel">Name</strong>
+              <span data-i18n="contactName">Sarah Al-Rashidi, Head of Communications</span>
+            </div>
+            <div class="press-contact-detail">
+              <strong data-i18n="contactEmailLabel">Email</strong>
+              <a href="mailto:press@100clan.com">press@100clan.com</a>
+            </div>
+            <div class="press-contact-detail">
+              <strong data-i18n="contactResponseLabel">Response Time</strong>
+              <span data-i18n="contactResponse">Within 24 business hours</span>
+            </div>
+            <div class="press-contact-detail">
+              <strong data-i18n="contactPressKitLabel">Press Kit</strong>
+              <a href="#" data-i18n="contactPressKitLink">Download Full Kit (.zip)</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="cta-bg"></div>
+    <div class="container">
+      <div class="cta-inner">
+        <div class="section-label reveal" style="justify-content:center;" data-i18n="ctaLabel">Join 100CLAN</div>
+        <h2 class="cta-title reveal reveal-delay-1" data-i18n="ctaTitle">Ready to find<br /><span class="text-yellow">your clan?</span></h2>
+        <p class="cta-sub reveal reveal-delay-2" data-i18n="ctaSub">Join 12,000+ creators already collaborating, growing, and winning together.</p>
+        <div class="cta-buttons reveal reveal-delay-3">
+          <a href="signup.html" class="btn-primary-lg" data-i18n="ctaBtn">
+            Join 100CLAN Free
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9h12M11 5l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="brand_assets/Logo-100clan.png" alt="100CLAN" class="footer-logo" />
+          <p class="footer-tagline" data-i18n="footerTagline">The platform where content creators find their tribe, collaborate, and grow together.</p>
+          <div class="footer-social">
+            <a href="https://www.instagram.com/100clan" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Instagram">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+            <a href="https://www.tiktok.com/@100clan" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="TikTok">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.22 8.22 0 0 0 4.81 1.54V6.79a4.85 4.85 0 0 1-1.04-.1z"/></svg>
+            </a>
+            <a href="https://www.youtube.com/@100clanshorts" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="YouTube">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
+            </a>
+            <a href="https://www.x.com/100clan" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="X">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-col-title" data-i18n="footerCol1">Platform</div>
+          <ul class="footer-links">
+            <li><a href="index.html#features" data-i18n="fLink1_1">Features</a></li>
+            <li><a href="index.html#how" data-i18n="fLink1_2">How It Works</a></li>
+            <li><a href="index.html#join" data-i18n="fLink1_3">Pricing</a></li>
+            <li><a href="creator-matching.html" data-i18n="fLink1_4">Creator Matching</a></li>
+            <li><a href="collaboration-hub.html" data-i18n="fLink1_5">Collaboration Hub</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title" data-i18n="footerCol2">Community</div>
+          <ul class="footer-links">
+            <li><a href="creator-stories.html" data-i18n="fLink2_1">Creator Stories</a></li>
+            <li><a href="blog.html" data-i18n="fLink2_2">Blog</a></li>
+            <li><a href="events.html" data-i18n="fLink2_3">Events</a></li>
+            <li><a href="creator-resources.html" data-i18n="fLink2_4">Creator Resources</a></li>
+            <li><a href="newsletter.html" data-i18n="fLink2_5">Newsletter</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title" data-i18n="footerCol3">Company</div>
+          <ul class="footer-links">
+            <li><a href="about.html" data-i18n="fLink3_1">About</a></li>
+            <li><a href="careers.html" data-i18n="fLink3_2">Careers</a></li>
+            <li><a href="press.html" data-i18n="fLink3_3">Press Kit</a></li>
+            <li><a href="contact.html" data-i18n="fLink3_4">Contact</a></li>
+            <li><a href="partnerships.html" data-i18n="fLink3_5">Partnerships</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy" data-i18n="footerCopy">&#169; 2026 100CLAN. All rights reserved.</p>
+        <div class="footer-legal">
+          <a href="privacy.html" data-i18n="footerPrivacy">Privacy Policy</a>
+          <a href="terms.html" data-i18n="footerTerms">Terms of Service</a>
+          <a href="cookies.html" data-i18n="footerCookies">Cookie Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ─── Nav scroll (inner page — no hero-light) ───
+    const nav = document.getElementById('mainNav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    });
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+
+    // ─── Mobile menu ───
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileClose = document.getElementById('mobileClose');
+    hamburger.addEventListener('click', () => mobileMenu.classList.add('open'));
+    mobileClose.addEventListener('click', closeMobile);
+    function closeMobile() { mobileMenu.classList.remove('open'); }
+
+    // ─── Scroll reveal ───
+    const revealEls = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); revealObserver.unobserve(e.target); }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => revealObserver.observe(el));
+
+    // ─── i18n ───
+    const i18n = {
+      en: {
+        navFeatures:'Features', navHow:'How It Works', navCommunity:'Community', navPricing:'Pricing',
+        navLogin:'Log In', navJoin:'Join the Clan',
+        pressLabel:'Press & Media', pressTitle:'100CLAN in the Press',
+        pressSub:'Everything you need to cover the world\'s fastest-growing creator collaboration platform. Download assets, read our story, and get in touch.',
+        stat1Val:'2024', stat1Label:'Year Founded',
+        stat2Val:'12,000+', stat2Label:'Creators on Platform',
+        stat3Val:'45+', stat3Label:'Countries Represented',
+        stat4Val:'Series A', stat4Label:'Fundraising Round',
+        assetsLabel:'Brand Assets', assetsTitle:'Download our brand kit',
+        assetsSub:'All assets are approved for editorial and press use. Please review our brand guidelines before publishing.',
+        asset1Title:'Logo Pack', asset1Desc:'Full logo suite in PNG and SVG formats — light, dark, and monochrome variants included.',
+        asset2Title:'Brand Guidelines', asset2Desc:'Official color palette, typography, spacing rules, and correct usage examples for all brand marks.',
+        asset3Title:'Founder Headshots', asset3Desc:'High-resolution photography of the founding team, suitable for print and digital editorial use.',
+        asset4Title:'Product Screenshots', asset4Desc:'Curated platform screenshots showing the creator dashboard, matching system, and collaboration tools.',
+        downloadBtn:'Download PNG/SVG', downloadPdf:'Download PDF', downloadPhotos:'Download Photos', downloadScreenshots:'Download Screenshots',
+        mentionsLabel:'In the News', mentionsTitle:'What they\'re saying',
+        pub1Name:'TechCrunch', pub1Quote:'"100CLAN is doing for creator collaboration what LinkedIn did for professional networking — building the infrastructure for an entirely new kind of working relationship between content creators."', pub1Pub:'TechCrunch', pub1Date:'March 2025',
+        pub2Name:'Forbes', pub2Quote:'"In a creator economy that has long rewarded solo hustle above all else, 100CLAN is making a compelling case that collaboration is the smarter, faster, and more sustainable path to growth."', pub2Pub:'Forbes', pub2Date:'January 2025',
+        pub3Name:'Wired', pub3Quote:'"The platform\'s AI-driven matching engine is genuinely impressive — we tested it with a dozen creators across different niches and the suggested collaborations were consistently relevant and actionable."', pub3Pub:'Wired', pub3Date:'November 2024',
+        factsLabel:'Key Facts Sheet', factsTitle:'100CLAN at a glance',
+        fact1:'Founded in 2024 and headquartered in Dubai, UAE, with a remote-first team across 12 countries.',
+        fact2:'12,000+ verified content creators active on the platform across Instagram, TikTok, YouTube, X, and Snapchat.',
+        fact3:'Creators in 45+ countries spanning the Middle East, Europe, North America, and Southeast Asia.',
+        fact4:'Over 38,000 creator-to-creator collaborations facilitated since launch.',
+        fact5:'Average audience growth of 34% reported by creators within their first 90 days on the platform.',
+        fact6:'$2.8M+ in brand deal revenue managed through the platform\'s deal management tools.',
+        fact7:'Currently raising a Series A round to expand matching capabilities and enter new markets.',
+        fact8:'Supported content niches include lifestyle, tech, fitness, finance, gaming, travel, food, fashion, and beauty.',
+        contactLabel:'Press Contact', contactTitle:'Get in touch', contactSub:'We respond to all press inquiries within 24 business hours.',
+        contactNameLabel:'Name', contactName:'Sarah Al-Rashidi, Head of Communications',
+        contactEmailLabel:'Email', contactResponseLabel:'Response Time', contactResponse:'Within 24 business hours',
+        contactPressKitLabel:'Press Kit', contactPressKitLink:'Download Full Kit (.zip)',
+        ctaLabel:'Join 100CLAN', ctaTitle:'Ready to find<br /><span class="text-yellow">your clan?</span>',
+        ctaSub:'Join 12,000+ creators already collaborating, growing, and winning together.', ctaBtn:'Join 100CLAN Free',
+        footerTagline:'The platform where content creators find their tribe, collaborate, and grow together.',
+        footerCol1:'Platform', footerCol2:'Community', footerCol3:'Company',
+        fLink1_1:'Features', fLink1_2:'How It Works', fLink1_3:'Pricing', fLink1_4:'Creator Matching', fLink1_5:'Collaboration Hub',
+        fLink2_1:'Creator Stories', fLink2_2:'Blog', fLink2_3:'Events', fLink2_4:'Creator Resources', fLink2_5:'Newsletter',
+        fLink3_1:'About', fLink3_2:'Careers', fLink3_3:'Press Kit', fLink3_4:'Contact', fLink3_5:'Partnerships',
+        footerCopy:'© 2026 100CLAN. All rights reserved.',
+        footerPrivacy:'Privacy Policy', footerTerms:'Terms of Service', footerCookies:'Cookie Policy',
+      },
+      ar: {
+        navFeatures:'المميزات', navHow:'كيف يعمل', navCommunity:'المجتمع', navPricing:'الأسعار',
+        navLogin:'تسجيل الدخول', navJoin:'انضم للكلان',
+        pressLabel:'الصحافة والإعلام', pressTitle:'100CLAN في الصحافة',
+        pressSub:'كل ما تحتاجه لتغطية أسرع منصة تعاون بين المبدعين نمواً في العالم. حمّل الأصول واقرأ قصتنا وتواصل معنا.',
+        stat1Val:'2024', stat1Label:'سنة التأسيس',
+        stat2Val:'+١٢,٠٠٠', stat2Label:'مبدع على المنصة',
+        stat3Val:'+٤٥', stat3Label:'دولة ممثّلة',
+        stat4Val:'الجولة أ', stat4Label:'جولة التمويل',
+        assetsLabel:'أصول العلامة التجارية', assetsTitle:'حمّل مجموعة علامتنا التجارية',
+        assetsSub:'جميع الأصول معتمدة للاستخدام التحريري والصحفي. يرجى مراجعة إرشادات علامتنا التجارية قبل النشر.',
+        asset1Title:'مجموعة الشعارات', asset1Desc:'مجموعة شعارات كاملة بتنسيقات PNG وSVG — تشمل النسخ الفاتحة والداكنة والأحادية اللون.',
+        asset2Title:'إرشادات العلامة التجارية', asset2Desc:'لوحة الألوان الرسمية والطباعة وقواعد التباعد وأمثلة الاستخدام الصحيح لجميع علامات العلامة التجارية.',
+        asset3Title:'صور المؤسسين', asset3Desc:'تصوير عالي الدقة للفريق المؤسس، مناسب للاستخدام التحريري في الطباعة والنشر الرقمي.',
+        asset4Title:'لقطات شاشة المنتج', asset4Desc:'لقطات شاشة منتقاة للمنصة تُظهر لوحة تحكم المبدع ونظام المطابقة وأدوات التعاون.',
+        downloadBtn:'تحميل PNG/SVG', downloadPdf:'تحميل PDF', downloadPhotos:'تحميل الصور', downloadScreenshots:'تحميل لقطات الشاشة',
+        mentionsLabel:'في الأخبار', mentionsTitle:'ماذا يقولون',
+        pub1Name:'TechCrunch', pub1Quote:'"يفعل 100CLAN للتعاون بين المبدعين ما فعله LinkedIn للشبكات المهنية — بناء البنية التحتية لنوع جديد كلياً من العلاقات العملية بين صنّاع المحتوى."', pub1Pub:'TechCrunch', pub1Date:'مارس 2025',
+        pub2Name:'Forbes', pub2Quote:'"في اقتصاد المبدعين الذي طالما كافأ المجهود الفردي فوق كل شيء، يقدم 100CLAN حجة مقنعة بأن التعاون هو المسار الأذكى والأسرع والأكثر استدامة للنمو."', pub2Pub:'Forbes', pub2Date:'يناير 2025',
+        pub3Name:'Wired', pub3Quote:'"محرك المطابقة المدعوم بالذكاء الاصطناعي مثير للإعجاب حقاً — اختبرناه مع عشرات المبدعين عبر مجالات مختلفة وكانت التعاونات المقترحة دائماً ذات صلة وقابلة للتنفيذ."', pub3Pub:'Wired', pub3Date:'نوفمبر 2024',
+        factsLabel:'ورقة الحقائق الرئيسية', factsTitle:'100CLAN في لمحة',
+        fact1:'تأسست عام 2024 ومقرها دبي، الإمارات العربية المتحدة، مع فريق يعمل عن بُعد في 12 دولة.',
+        fact2:'+12,000 صانع محتوى موثّق نشط على المنصة عبر إنستغرام وتيك توك ويوتيوب وX وسناب شات.',
+        fact3:'مبدعون من أكثر من 45 دولة يمثلون الشرق الأوسط وأوروبا وأمريكا الشمالية وجنوب شرق آسيا.',
+        fact4:'أكثر من 38,000 تعاون بين مبدعَين تمّ تيسيره منذ الإطلاق.',
+        fact5:'متوسط نمو الجمهور 34% يُسجّله المبدعون خلال أول 90 يوماً على المنصة.',
+        fact6:'+2.8 مليون دولار من إيرادات صفقات العلامات التجارية تمت إدارتها عبر أدوات إدارة الصفقات.',
+        fact7:'تجمع حالياً جولة تمويل من السلسلة أ لتوسيع قدرات المطابقة والدخول إلى أسواق جديدة.',
+        fact8:'المجالات المدعومة: لايف ستايل، تقنية، لياقة، مال، جيمنج، سفر، طعام، موضة، جمال.',
+        contactLabel:'التواصل مع الصحافة', contactTitle:'تواصل معنا', contactSub:'نرد على جميع استفسارات الصحافة خلال 24 ساعة عمل.',
+        contactNameLabel:'الاسم', contactName:'سارة الراشدي، رئيسة الاتصالات',
+        contactEmailLabel:'البريد الإلكتروني', contactResponseLabel:'وقت الرد', contactResponse:'خلال 24 ساعة عمل',
+        contactPressKitLabel:'المجموعة الصحفية', contactPressKitLink:'تحميل المجموعة الكاملة (.zip)',
+        ctaLabel:'انضم لـ 100CLAN', ctaTitle:'مستعد لإيجاد<br /><span class="text-yellow">كلانك؟</span>',
+        ctaSub:'انضم إلى +12,000 مبدع يتعاونون وينمون ويفوزون معاً.', ctaBtn:'انضم إلى 100CLAN مجاناً',
+        footerTagline:'المنصة التي يجد فيها صنّاع المحتوى قبيلتهم ويتعاونون وينمون معاً.',
+        footerCol1:'المنصة', footerCol2:'المجتمع', footerCol3:'الشركة',
+        fLink1_1:'المميزات', fLink1_2:'كيف يعمل', fLink1_3:'الأسعار', fLink1_4:'مطابقة المبدعين', fLink1_5:'مركز التعاون',
+        fLink2_1:'قصص المبدعين', fLink2_2:'المدونة', fLink2_3:'الفعاليات', fLink2_4:'موارد المبدعين', fLink2_5:'النشرة الإخبارية',
+        fLink3_1:'عن الشركة', fLink3_2:'وظائف', fLink3_3:'المجموعة الصحفية', fLink3_4:'اتصل بنا', fLink3_5:'الشراكات',
+        footerCopy:'© 2026 100CLAN. جميع الحقوق محفوظة.',
+        footerPrivacy:'سياسة الخصوصية', footerTerms:'شروط الخدمة', footerCookies:'سياسة ملفات تعريف الارتباط',
+      }
+    };
+
+    function applyLang(lang) {
+      const t = i18n[lang];
+      document.documentElement.lang = lang;
+      document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+      document.documentElement.classList.toggle('lang-ar', lang === 'ar');
+      document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+      requestAnimationFrame(updateLangSlide);
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.dataset.i18n;
+        if (t[key] !== undefined) el.innerHTML = t[key];
+      });
+      localStorage.setItem('clan-lang', lang);
+    }
+
+    function updateLangSlide() {
+      document.querySelectorAll('.lang-switcher').forEach(switcher => {
+        const slide = switcher.querySelector('.lang-slide');
+        const activeBtn = switcher.querySelector('.lang-btn.active');
+        if (!slide || !activeBtn) return;
+        slide.style.width = activeBtn.offsetWidth + 'px';
+        slide.style.transform = `translateX(${activeBtn.offsetLeft}px)`;
+      });
+    }
+
+    applyLang(localStorage.getItem('clan-lang') || 'en');
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => applyLang(btn.dataset.lang));
+    });
+    window.addEventListener('resize', updateLangSlide);
+  </script>
+</body>
+</html>

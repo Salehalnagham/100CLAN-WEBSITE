@@ -1,0 +1,1433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — 100CLAN Creator Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Arabic Brand Font ─── */
+    @font-face {
+      font-family: 'ClanArabic';
+      src: url('brand_assets/100clanBold 2.ttf') format('truetype');
+      font-weight: 700;
+      font-display: swap;
+    }
+
+    /* ─── Language Switcher ─── */
+    .lang-switcher {
+      display: flex; align-items: center;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 20px; padding: 3px; gap: 0; position: relative;
+    }
+    .lang-slide {
+      position: absolute; top: 3px; left: 0;
+      height: calc(100% - 6px); border-radius: 16px;
+      background: var(--yellow);
+      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), width 0.3s cubic-bezier(0.4,0,0.2,1);
+      pointer-events: none;
+    }
+    .lang-btn {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.06em;
+      padding: 5px 13px; border-radius: 16px; border: none;
+      background: transparent; color: rgba(255,255,255,0.4);
+      cursor: pointer; transition: color 0.25s ease;
+      font-family: 'Montserrat', sans-serif; line-height: 1;
+      position: relative; z-index: 1;
+    }
+    .lang-btn.active { background: transparent; color: #111111; }
+
+    /* ─── Arabic RTL Overrides ─── */
+    html.lang-ar,
+    html.lang-ar body, html.lang-ar h1, html.lang-ar h2, html.lang-ar h3,
+    html.lang-ar p, html.lang-ar a, html.lang-ar span, html.lang-ar li,
+    html.lang-ar button, html.lang-ar div, html.lang-ar input, html.lang-ar label
+    { font-family: 'ClanArabic', sans-serif; }
+    html.lang-ar .lang-btn { font-family: 'Montserrat', sans-serif; }
+    html.lang-ar .nav-links { flex-direction: row-reverse; }
+    html.lang-ar .nav-cta   { flex-direction: row-reverse; }
+    html.lang-ar .dash-sidebar { border-right: none; border-left: 1px solid rgba(255,255,255,0.06); }
+    html.lang-ar .sidebar-nav-link { flex-direction: row-reverse; }
+    html.lang-ar .footer-tagline { text-align: right; }
+    html.lang-ar .footer-social  { flex-direction: row-reverse; }
+    html.lang-ar .footer-links   { text-align: right; }
+    html.lang-ar .footer-bottom  { flex-direction: row-reverse; }
+    html.lang-ar .footer-legal   { flex-direction: row-reverse; }
+
+    /* ─── CSS Reset & Variables ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --yellow:   #F5B800;
+      --yellow-dark: #D9A200;
+      --yellow-glow: rgba(245, 184, 0, 0.25);
+      --black:    #111111;
+      --dark:     #1A1A1A;
+      --dark-2:   #222222;
+      --dark-3:   #2A2A2A;
+      --dark-card:#1E1E1E;
+      --white:    #FFFFFF;
+      --gray:     #9B9B9B;
+      --gray-light: #D4D4D4;
+      --font:     'Montserrat', sans-serif;
+      --radius:   12px;
+      --radius-lg: 20px;
+      --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: var(--black);
+      color: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--black); }
+    ::-webkit-scrollbar-thumb { background: var(--yellow); border-radius: 2px; }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+    .text-yellow { color: var(--yellow); }
+    .text-gray   { color: var(--gray); }
+
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--yellow); color: var(--black);
+      font-family: var(--font); font-weight: 800; font-size: 13px;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 11px 24px; border-radius: var(--radius);
+      border: none; cursor: pointer; text-decoration: none;
+      transition: var(--transition); position: relative; overflow: hidden;
+    }
+    .btn-primary::before {
+      content: ''; position: absolute; inset: 0;
+      background: rgba(255,255,255,0.15);
+      transform: translateX(-100%); transition: transform 0.4s ease;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px var(--yellow-glow); }
+    .btn-primary:hover::before { transform: translateX(0); }
+
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent; color: var(--white);
+      font-family: var(--font); font-weight: 700; font-size: 13px;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 10px 24px; border-radius: var(--radius);
+      border: 1.5px solid rgba(255,255,255,0.25); cursor: pointer;
+      text-decoration: none; transition: var(--transition);
+    }
+    .btn-outline:hover { border-color: var(--yellow); color: var(--yellow); transform: translateY(-2px); }
+
+    /* ─── Navigation ─── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 1000; padding: 14px 0;
+      background: rgba(17, 17, 17, 0.96);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(245, 184, 0, 0.12);
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo  { height: 40px; width: auto; }
+    .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+    .nav-links a {
+      font-size: 13px; font-weight: 600; letter-spacing: 0.06em;
+      text-transform: uppercase; color: var(--gray-light); text-decoration: none;
+      transition: color var(--transition);
+    }
+    .nav-links a:hover { color: var(--yellow); }
+    .nav-cta { display: flex; align-items: center; gap: 12px; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .hamburger span { width: 24px; height: 2px; background: var(--white); border-radius: 1px; transition: var(--transition); }
+
+    /* ─── Mobile Menu ─── */
+    .mobile-menu {
+      position: fixed; inset: 0; z-index: 999;
+      background: rgba(17,17,17,0.98); backdrop-filter: blur(20px);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 32px; transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+    }
+    .mobile-menu.open { transform: translateX(0); }
+    .mobile-menu a { font-size: 24px; font-weight: 800; color: var(--white); text-decoration: none; text-transform: uppercase; letter-spacing: 0.06em; transition: color var(--transition); }
+    .mobile-menu a:hover { color: var(--yellow); }
+    .mobile-close { position: absolute; top: 24px; right: 28px; font-size: 28px; color: var(--gray); cursor: pointer; background: none; border: none; font-family: var(--font); transition: color var(--transition); }
+    .mobile-close:hover { color: var(--white); }
+
+    /* ─── Dashboard Layout ─── */
+    .dashboard-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      min-height: calc(100vh - 68px);
+      margin-top: 68px;
+    }
+
+    /* ─── Sidebar ─── */
+    .dash-sidebar {
+      background: #161616;
+      border-right: 1px solid rgba(255,255,255,0.06);
+      padding: 32px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      position: sticky;
+      top: 68px;
+      height: calc(100vh - 68px);
+      overflow-y: auto;
+    }
+
+    .sidebar-profile-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+    .sidebar-profile-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--yellow), transparent);
+    }
+
+    .profile-avatar {
+      width: 52px; height: 52px; border-radius: 50%;
+      background: var(--yellow); color: #111;
+      font-weight: 800; font-size: 18px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 12px;
+    }
+    .profile-name { font-size: 15px; font-weight: 800; margin-bottom: 2px; }
+    .profile-handle { font-size: 12px; color: var(--gray); margin-bottom: 10px; }
+
+    .niche-badge {
+      background: rgba(245,184,0,0.12);
+      color: var(--yellow);
+      border: 1px solid rgba(245,184,0,0.3);
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      display: inline-block;
+    }
+
+    .sidebar-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .sidebar-stat { text-align: center; }
+    .sidebar-stat-val { font-size: 13px; font-weight: 800; color: var(--yellow); display: block; }
+    .sidebar-stat-lbl { font-size: 10px; color: var(--gray); letter-spacing: 0.05em; }
+
+    .sidebar-nav { list-style: none; display: flex; flex-direction: column; gap: 4px; flex: 1; }
+
+    .sidebar-nav-link {
+      display: flex; align-items: center; gap: 10px;
+      padding: 11px 14px; border-radius: 10px;
+      font-size: 13px; font-weight: 600; color: var(--gray);
+      text-decoration: none; transition: var(--transition);
+      cursor: pointer; border: none; background: none;
+      width: 100%; text-align: left; font-family: var(--font);
+    }
+    .sidebar-nav-link:hover { background: rgba(255,255,255,0.05); color: var(--white); }
+    .sidebar-nav-link.active { background: rgba(245,184,0,0.1); color: var(--yellow); }
+    .sidebar-nav-link .nav-icon { font-size: 16px; width: 20px; text-align: center; flex-shrink: 0; }
+
+    .sidebar-badge {
+      margin-left: auto;
+      background: var(--yellow); color: #111;
+      font-size: 10px; font-weight: 800;
+      border-radius: 10px; padding: 2px 7px;
+      min-width: 20px; text-align: center;
+    }
+
+    .sidebar-footer {
+      margin-top: auto;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .sidebar-public-link {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 12px; font-weight: 600; color: var(--gray);
+      text-decoration: none; padding: 8px 14px;
+      border-radius: 8px; transition: var(--transition);
+    }
+    .sidebar-public-link:hover { color: var(--yellow); }
+
+    /* ─── Main Content ─── */
+    .dash-main { padding: 40px 48px; }
+
+    .dash-welcome { margin-bottom: 36px; }
+    .dash-welcome h1 { font-size: 26px; font-weight: 900; letter-spacing: -0.02em; margin-bottom: 6px; }
+    .dash-welcome p { font-size: 14px; color: var(--gray); }
+
+    /* ─── Stats Row ─── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    .stat-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 16px;
+      padding: 22px 24px;
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+    .stat-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--yellow), transparent);
+      opacity: 0; transition: opacity var(--transition);
+    }
+    .stat-card:hover { transform: translateY(-2px); border-color: rgba(245,184,0,0.2); }
+    .stat-card:hover::before { opacity: 1; }
+
+    .stat-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--gray); margin-bottom: 10px; }
+    .stat-value { font-size: 28px; font-weight: 900; color: var(--yellow); letter-spacing: -0.02em; line-height: 1; }
+    .stat-sub { font-size: 11px; color: var(--gray); margin-top: 6px; }
+
+    /* ─── Section Headers ─── */
+    .section-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .section-header h2 { font-size: 18px; font-weight: 800; }
+    .section-header a { font-size: 12px; font-weight: 700; color: var(--yellow); text-decoration: none; letter-spacing: 0.06em; text-transform: uppercase; }
+    .section-header a:hover { opacity: 0.75; }
+
+    /* ─── Requests Section ─── */
+    .requests-section { margin-bottom: 40px; }
+    .requests-list { display: flex; flex-direction: column; gap: 12px; }
+
+    .request-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 16px;
+      padding: 20px 24px;
+      display: flex; align-items: flex-start; gap: 16px;
+      transition: var(--transition);
+    }
+    .request-card:hover { border-color: rgba(245,184,0,0.15); }
+
+    .req-avatar {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--yellow); color: #111;
+      font-weight: 800; font-size: 14px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .req-body { flex: 1; min-width: 0; }
+    .req-top { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 6px; }
+    .req-name { font-size: 14px; font-weight: 700; }
+    .req-handle { font-size: 12px; color: var(--gray); }
+    .req-message { font-size: 13px; color: var(--gray-light); line-height: 1.5; margin-bottom: 12px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .req-meta { font-size: 11px; color: var(--gray); }
+
+    .req-actions { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; flex-shrink: 0; }
+    .btn-accept {
+      background: var(--yellow); color: #111;
+      font-family: var(--font); font-weight: 800; font-size: 12px;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 8px 16px; border-radius: 8px; border: none; cursor: pointer;
+      transition: var(--transition); white-space: nowrap;
+    }
+    .btn-accept:hover { transform: translateY(-1px); box-shadow: 0 4px 16px var(--yellow-glow); }
+    .btn-decline {
+      background: transparent; color: #ff6b6b;
+      font-family: var(--font); font-weight: 700; font-size: 12px;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 7px 16px; border-radius: 8px;
+      border: 1.5px solid rgba(255,107,107,0.4); cursor: pointer;
+      transition: var(--transition); white-space: nowrap;
+    }
+    .btn-decline:hover { border-color: #ff6b6b; background: rgba(255,107,107,0.08); }
+
+    .status-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 14px; border-radius: 20px;
+      font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .status-accepted { background: rgba(72,199,142,0.15); color: #48c78e; border: 1px solid rgba(72,199,142,0.3); }
+    .status-declined { background: rgba(255,255,255,0.06); color: var(--gray); border: 1px solid rgba(255,255,255,0.1); }
+
+    /* ─── Empty State ─── */
+    .empty-state {
+      text-align: center; padding: 40px 24px;
+      background: var(--dark-card); border-radius: 16px;
+      border: 1px dashed rgba(255,255,255,0.1);
+    }
+    .empty-icon { font-size: 36px; margin-bottom: 12px; opacity: 0.4; }
+    .empty-state p { font-size: 14px; color: var(--gray); line-height: 1.6; max-width: 340px; margin: 0 auto; }
+
+    /* ─── Suggested Creators ─── */
+    .suggested-section { margin-bottom: 40px; }
+    .creators-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .creator-mini-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 16px;
+      padding: 20px;
+      display: flex; flex-direction: column; align-items: center; text-align: center;
+      transition: var(--transition);
+    }
+    .creator-mini-card:hover { border-color: rgba(245,184,0,0.2); transform: translateY(-2px); }
+
+    .creator-mini-avatar {
+      width: 48px; height: 48px; border-radius: 50%;
+      font-weight: 800; font-size: 16px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 10px;
+    }
+    .creator-mini-name { font-size: 13px; font-weight: 700; margin-bottom: 2px; }
+    .creator-mini-niche { margin-bottom: 12px; }
+    .creator-mini-followers { font-size: 12px; color: var(--gray); margin-bottom: 14px; }
+    .creator-mini-followers strong { color: var(--yellow); font-weight: 800; }
+
+    .btn-collab-small {
+      background: transparent; color: var(--yellow);
+      font-family: var(--font); font-weight: 700; font-size: 11px;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 7px 14px; border-radius: 8px;
+      border: 1.5px solid rgba(245,184,0,0.4); cursor: pointer;
+      text-decoration: none; transition: var(--transition);
+      display: inline-flex; align-items: center; gap: 5px;
+    }
+    .btn-collab-small:hover { background: rgba(245,184,0,0.1); border-color: var(--yellow); }
+
+    /* ─── Activity Feed ─── */
+    .activity-section { margin-bottom: 40px; }
+    .activity-list { display: flex; flex-direction: column; gap: 0; }
+
+    .activity-item {
+      display: flex; align-items: flex-start; gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .activity-item:last-child { border-bottom: none; }
+
+    .activity-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      margin-top: 5px; flex-shrink: 0;
+    }
+    .dot-yellow { background: var(--yellow); box-shadow: 0 0 6px var(--yellow-glow); }
+    .dot-gray   { background: rgba(255,255,255,0.2); }
+
+    .activity-text { flex: 1; font-size: 13px; color: var(--gray-light); line-height: 1.5; }
+    .activity-text strong { color: var(--white); }
+    .activity-time { font-size: 11px; color: var(--gray); flex-shrink: 0; margin-top: 2px; }
+
+    /* ─── Edit Profile Panel ─── */
+    .edit-overlay {
+      position: fixed; inset: 0; z-index: 2000;
+      background: rgba(0,0,0,0.65); backdrop-filter: blur(6px);
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+    .edit-overlay.open { opacity: 1; pointer-events: all; }
+
+    .edit-panel {
+      position: fixed; top: 0; right: 0; bottom: 0;
+      width: min(500px, 100vw);
+      background: #181818;
+      border-left: 1px solid rgba(255,255,255,0.09);
+      z-index: 2001;
+      display: flex; flex-direction: column;
+      transform: translateX(100%);
+      transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+      overflow: hidden;
+    }
+    .edit-panel.open { transform: translateX(0); }
+
+    .edit-panel-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 24px 28px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      flex-shrink: 0;
+    }
+    .edit-panel-header h2 { font-size: 20px; font-weight: 900; }
+    .edit-close-btn {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: rgba(255,255,255,0.08); border: none; cursor: pointer;
+      color: var(--gray); font-size: 15px;
+      display: flex; align-items: center; justify-content: center;
+      transition: var(--transition); font-family: var(--font);
+    }
+    .edit-close-btn:hover { background: rgba(255,255,255,0.15); color: var(--white); }
+
+    .edit-panel-body {
+      flex: 1; overflow-y: auto; padding: 28px;
+      display: flex; flex-direction: column; gap: 26px;
+    }
+    .edit-panel-body::-webkit-scrollbar { width: 3px; }
+    .edit-panel-body::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 2px; }
+
+    .edit-section-title {
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.12em; color: var(--gray); margin-bottom: 14px;
+    }
+
+    /* Sidebar avatar photo support */
+    .profile-avatar img {
+      width: 100%; height: 100%; object-fit: cover;
+      border-radius: 50%; display: block;
+    }
+
+    /* Photo upload in edit panel */
+    .photo-upload-area {
+      display: flex; flex-direction: column; align-items: center; gap: 14px;
+    }
+    .photo-preview-circle {
+      width: 110px; height: 110px; border-radius: 50%;
+      background: var(--yellow); color: #111;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; cursor: pointer; overflow: hidden;
+      border: 3px solid rgba(245,184,0,0.4);
+      transition: border-color 0.25s ease; flex-shrink: 0;
+    }
+    .photo-preview-circle:hover { border-color: var(--yellow); }
+    .photo-preview-circle img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%; object-fit: cover;
+      border-radius: 50%; display: none;
+    }
+    .photo-preview-circle img.visible { display: block; }
+    .photo-preview-initials {
+      font-weight: 800; font-size: 30px; color: #111;
+      user-select: none; position: relative; z-index: 1;
+    }
+    .photo-upload-hover {
+      position: absolute; inset: 0; border-radius: 50%;
+      background: rgba(0,0,0,0.55);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 3px;
+      opacity: 0; transition: opacity 0.22s ease; z-index: 2;
+      color: #fff;
+    }
+    .photo-preview-circle:hover .photo-upload-hover { opacity: 1; }
+    .photo-upload-hover-icon { font-size: 22px; }
+    .photo-upload-hover-label {
+      font-size: 10px; font-weight: 800;
+      letter-spacing: 0.1em; text-transform: uppercase;
+    }
+    .photo-upload-btns { display: flex; align-items: center; gap: 10px; }
+    .btn-upload-photo {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: rgba(245,184,0,0.1); color: var(--yellow);
+      border: 1.5px solid rgba(245,184,0,0.4); border-radius: 8px;
+      padding: 9px 18px; font-family: var(--font); font-size: 12px;
+      font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+      cursor: pointer; transition: var(--transition);
+    }
+    .btn-upload-photo:hover { background: rgba(245,184,0,0.18); border-color: var(--yellow); }
+    .btn-remove-photo {
+      font-size: 12px; font-weight: 600; color: var(--gray);
+      background: none; border: none; cursor: pointer;
+      font-family: var(--font); transition: color 0.2s ease; padding: 4px 8px;
+    }
+    .btn-remove-photo:hover { color: #ff6b6b; }
+    .photo-hint { font-size: 11px; color: var(--gray); text-align: center; line-height: 1.5; }
+
+    /* Inputs */
+    .edit-label {
+      display: block; font-size: 12px; font-weight: 700;
+      color: var(--gray-light); margin-bottom: 8px; letter-spacing: 0.04em;
+    }
+    .edit-input {
+      width: 100%; padding: 12px 16px;
+      background: var(--dark-3); border: 1.5px solid rgba(255,255,255,0.1);
+      border-radius: 10px; color: var(--white);
+      font-family: var(--font); font-size: 14px;
+      outline: none; transition: border-color 0.2s ease;
+    }
+    .edit-input:focus { border-color: var(--yellow); }
+    .edit-input-wrap { position: relative; display: flex; align-items: center; }
+    .edit-input-prefix {
+      position: absolute; left: 14px; color: var(--yellow);
+      font-weight: 700; font-size: 15px; pointer-events: none;
+    }
+    .edit-input.has-prefix { padding-left: 30px; }
+    .edit-textarea {
+      width: 100%; padding: 12px 16px;
+      background: var(--dark-3); border: 1.5px solid rgba(255,255,255,0.1);
+      border-radius: 10px; color: var(--white);
+      font-family: var(--font); font-size: 14px;
+      outline: none; transition: border-color 0.2s ease;
+      resize: vertical; min-height: 88px; line-height: 1.6;
+    }
+    .edit-textarea:focus { border-color: var(--yellow); }
+    .edit-char-count { font-size: 11px; color: var(--gray); text-align: right; margin-top: 4px; }
+
+    /* Niche chips */
+    .niche-chips-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+    .niche-chip {
+      padding: 7px 14px; border-radius: 20px;
+      font-size: 12px; font-weight: 700; letter-spacing: 0.05em;
+      background: var(--dark-3); border: 1.5px solid rgba(255,255,255,0.1);
+      color: var(--gray); cursor: pointer; transition: var(--transition);
+      user-select: none;
+    }
+    .niche-chip:hover { border-color: rgba(245,184,0,0.4); color: var(--white); }
+    .niche-chip.selected { background: rgba(245,184,0,0.12); border-color: var(--yellow); color: var(--yellow); }
+
+    /* Platform toggles */
+    .platform-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+    .platform-card {
+      display: flex; flex-direction: column; align-items: center; gap: 5px;
+      padding: 11px 6px; border-radius: 10px;
+      background: var(--dark-3); border: 1.5px solid rgba(255,255,255,0.08);
+      cursor: pointer; transition: var(--transition); user-select: none;
+    }
+    .platform-card:hover { border-color: rgba(245,184,0,0.3); }
+    .platform-card.selected { background: rgba(245,184,0,0.1); border-color: var(--yellow); }
+    .platform-icon { font-size: 19px; }
+    .platform-name {
+      font-size: 9px; font-weight: 700; letter-spacing: 0.06em;
+      color: var(--gray); text-transform: uppercase; text-align: center;
+    }
+    .platform-card.selected .platform-name { color: var(--yellow); }
+
+    /* Follower select */
+    .edit-select {
+      width: 100%; padding: 12px 40px 12px 16px;
+      background: var(--dark-3); border: 1.5px solid rgba(255,255,255,0.1);
+      border-radius: 10px; color: var(--white);
+      font-family: var(--font); font-size: 14px;
+      outline: none; cursor: pointer; transition: border-color 0.2s ease;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239B9B9B' stroke-width='1.5' stroke-linecap='round' fill='none'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 16px center;
+    }
+    .edit-select:focus { border-color: var(--yellow); }
+    .edit-select option { background: #222; }
+
+    /* Panel footer */
+    .edit-panel-footer {
+      padding: 18px 28px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      display: flex; gap: 12px; flex-shrink: 0;
+    }
+    .btn-save {
+      flex: 1;
+      background: var(--yellow); color: #111;
+      font-family: var(--font); font-weight: 800; font-size: 14px;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 14px; border-radius: 10px;
+      border: none; cursor: pointer; transition: var(--transition);
+    }
+    .btn-save:hover { transform: translateY(-1px); box-shadow: 0 6px 24px var(--yellow-glow); }
+    .btn-cancel-edit {
+      padding: 14px 22px; border-radius: 10px;
+      background: transparent; color: var(--gray);
+      font-family: var(--font); font-weight: 700; font-size: 14px;
+      border: 1.5px solid rgba(255,255,255,0.12); cursor: pointer;
+      transition: var(--transition);
+    }
+    .btn-cancel-edit:hover { color: var(--white); border-color: rgba(255,255,255,0.25); }
+
+    /* Input error state */
+    .edit-input.input-error { border-color: #ff6b6b; animation: shake 0.3s ease; }
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      25% { transform: translateX(-6px); }
+      75% { transform: translateX(6px); }
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed; bottom: 28px; left: 50%;
+      transform: translateX(-50%) translateY(16px);
+      background: #1E1E1E; border: 1px solid rgba(245,184,0,0.35);
+      border-radius: 14px; padding: 13px 22px;
+      display: flex; align-items: center; gap: 10px;
+      font-size: 14px; font-weight: 600; color: var(--white);
+      z-index: 3000; opacity: 0;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      pointer-events: none; white-space: nowrap;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .toast-icon { font-size: 16px; }
+
+    /* ─── Niche Color Map ─── */
+    .nc-fashion  { background: rgba(255,105,180,0.25); color: #ff69b4; }
+    .nc-tech     { background: rgba(100,149,237,0.25); color: #6495ed; }
+    .nc-food     { background: rgba(255,140,0,0.25);   color: #ff8c00; }
+    .nc-fitness  { background: rgba(50,205,50,0.25);   color: #32cd32; }
+    .nc-beauty   { background: rgba(221,160,221,0.25); color: #dda0dd; }
+    .nc-music    { background: rgba(147,112,219,0.25); color: #9370db; }
+    .nc-travel   { background: rgba(64,224,208,0.25);  color: #40e0d0; }
+    .nc-finance  { background: rgba(245,184,0,0.25);   color: var(--yellow); }
+    .nc-art      { background: rgba(255,99,71,0.25);   color: #ff6347; }
+    .nc-comedy   { background: rgba(255,215,0,0.25);   color: #ffd700; }
+    .nc-cooking  { background: rgba(210,105,30,0.25);  color: #d2691e; }
+    .nc-sports   { background: rgba(30,144,255,0.25);  color: #1e90ff; }
+    .nc-lifestyle{ background: rgba(245,184,0,0.25);   color: var(--yellow); }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 1200px) {
+      .creators-grid { grid-template-columns: repeat(2, 1fr); }
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 900px) {
+      .dashboard-layout { grid-template-columns: 1fr; }
+      .dash-sidebar { position: relative; top: 0; height: auto; flex-direction: row; flex-wrap: wrap; padding: 20px; gap: 12px; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); }
+      .sidebar-profile-card { flex: 0 0 100%; }
+      .sidebar-nav { flex-direction: row; flex-wrap: wrap; flex: none; }
+      .sidebar-footer { flex: 0 0 100%; padding-top: 0; border-top: none; }
+      .dash-main { padding: 28px 20px; }
+      .creators-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+      .creators-grid { grid-template-columns: 1fr 1fr; }
+      .request-card { flex-direction: column; }
+      .req-actions { flex-direction: row; align-items: center; }
+      .container { padding: 0 20px; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .nav-cta .btn-primary { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-close" id="mobileClose">&#10005;</button>
+    <a href="dashboard.html" onclick="closeMobile()">Dashboard</a>
+    <a href="explore-creators.html" onclick="closeMobile()">Explore</a>
+    <a href="collab-requests.html" onclick="closeMobile()">Requests</a>
+    <a href="login.html" onclick="closeMobile()" style="color:var(--gray);font-size:16px">Log Out</a>
+  </div>
+
+  <!-- ─── Navigation ─── -->
+  <nav class="nav" id="mainNav">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="index.html">
+          <img src="brand_assets/Logo-100clan.png" alt="100CLAN" class="nav-logo" />
+        </a>
+        <ul class="nav-links">
+          <li><a href="dashboard.html" style="color:var(--yellow)">Dashboard</a></li>
+          <li><a href="explore-creators.html">Explore</a></li>
+          <li><a href="collab-requests.html">Requests</a></li>
+        </ul>
+        <div class="nav-cta">
+          <div class="lang-switcher" role="group" aria-label="Language">
+            <span class="lang-slide"></span>
+            <button class="lang-btn active" data-lang="en">EN</button>
+            <button class="lang-btn" data-lang="ar">AR</button>
+          </div>
+          <a href="login.html" class="btn-outline" style="font-size:12px;padding:8px 18px">Log Out</a>
+          <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ─── Dashboard Layout ─── -->
+  <div class="dashboard-layout">
+
+    <!-- ─── Sidebar ─── -->
+    <aside class="dash-sidebar">
+
+      <!-- Profile Card -->
+      <div class="sidebar-profile-card">
+        <div class="profile-avatar" id="sidebarAvatar">
+          <img id="sidebarAvatarImg" alt="Profile photo" />
+          <span id="sidebarAvatarText">CR</span>
+        </div>
+        <div class="profile-name" id="sidebarName">Creator</div>
+        <div class="profile-handle" id="sidebarHandle">@creator</div>
+        <div class="niche-badge" id="sidebarNiche">Lifestyle</div>
+        <div class="sidebar-stats">
+          <div class="sidebar-stat">
+            <span class="sidebar-stat-val" id="sidebarFollowers">—</span>
+            <span class="sidebar-stat-lbl">Followers</span>
+          </div>
+          <div class="sidebar-stat">
+            <span class="sidebar-stat-val" id="sidebarActiveCollabs">3</span>
+            <span class="sidebar-stat-lbl">Active</span>
+          </div>
+          <div class="sidebar-stat">
+            <span class="sidebar-stat-val">890K</span>
+            <span class="sidebar-stat-lbl">Reach</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Nav Links -->
+      <ul class="sidebar-nav">
+        <li>
+          <a href="dashboard.html" class="sidebar-nav-link active">
+            <span class="nav-icon">&#127968;</span>
+            Dashboard
+          </a>
+        </li>
+        <li>
+          <button class="sidebar-nav-link" id="editProfileBtn">
+            <span class="nav-icon">&#9998;</span>
+            Edit Profile
+          </button>
+        </li>
+        <li>
+          <a href="explore-creators.html" class="sidebar-nav-link">
+            <span class="nav-icon">&#128269;</span>
+            Explore Creators
+          </a>
+        </li>
+        <li>
+          <a href="collab-requests.html" class="sidebar-nav-link">
+            <span class="nav-icon">&#128236;</span>
+            Collab Requests
+            <span class="sidebar-badge" id="sidebarBadge" style="display:none">0</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="sidebar-nav-link">
+            <span class="nav-icon">&#9881;</span>
+            Settings
+          </a>
+        </li>
+      </ul>
+
+      <!-- Footer -->
+      <div class="sidebar-footer">
+        <a href="#" class="sidebar-public-link">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          View Public Profile
+        </a>
+      </div>
+
+    </aside>
+
+    <!-- ─── Main Content ─── -->
+    <main class="dash-main">
+
+      <!-- Welcome Header -->
+      <div class="dash-welcome">
+        <h1>Welcome back, <span class="text-yellow" id="welcomeName">Creator</span>! &#128075;</h1>
+        <p>Here's what's happening with your creator profile today.</p>
+      </div>
+
+      <!-- Stats Cards -->
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-label">Profile Views</div>
+          <div class="stat-value">1,247</div>
+          <div class="stat-sub">+12% this week</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Collab Requests</div>
+          <div class="stat-value" id="statsRequests">0</div>
+          <div class="stat-sub" id="statsRequestsSub">Pending</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Active Collabs</div>
+          <div class="stat-value">3</div>
+          <div class="stat-sub">In progress</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Total Reach</div>
+          <div class="stat-value">890K</div>
+          <div class="stat-sub">Combined audience</div>
+        </div>
+      </div>
+
+      <!-- Incoming Requests Section -->
+      <div class="requests-section">
+        <div class="section-header">
+          <h2>Collaboration Requests</h2>
+          <a href="collab-requests.html">View all &#8594;</a>
+        </div>
+        <div class="requests-list" id="requestsList">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Suggested Creators -->
+      <div class="suggested-section">
+        <div class="section-header">
+          <h2>Creators You Might Like</h2>
+          <a href="explore-creators.html">See all &#8594;</a>
+        </div>
+        <div class="creators-grid" id="suggestedGrid">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Recent Activity -->
+      <div class="activity-section">
+        <div class="section-header">
+          <h2>Recent Activity</h2>
+        </div>
+        <div class="activity-list">
+          <div class="activity-item">
+            <div class="activity-dot dot-yellow"></div>
+            <div class="activity-text">Your collaboration request to <strong>@diegosports</strong> was <strong style="color:#48c78e">accepted &#10003;</strong></div>
+            <div class="activity-time">2 hours ago</div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-dot dot-gray"></div>
+            <div class="activity-text">New collab request from <strong>@tombradley</strong></div>
+            <div class="activity-time">5 hours ago</div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-dot dot-yellow"></div>
+            <div class="activity-text">Your profile was <strong>viewed 47 times</strong> today</div>
+            <div class="activity-time">Today</div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-dot dot-gray"></div>
+            <div class="activity-text">You joined <strong>100CLAN</strong> &#127881;</div>
+            <div class="activity-time">March 1, 2026</div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-dot dot-yellow"></div>
+            <div class="activity-text">Your profile was <strong>matched</strong> with 12 creators in your niche</div>
+            <div class="activity-time">March 1, 2026</div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ─── Edit Profile Overlay ─── -->
+  <div class="edit-overlay" id="editOverlay"></div>
+
+  <!-- ─── Edit Profile Panel ─── -->
+  <div class="edit-panel" id="editPanel" role="dialog" aria-label="Edit Profile" aria-modal="true">
+
+    <div class="edit-panel-header">
+      <h2>Edit Profile</h2>
+      <button class="edit-close-btn" id="editCloseBtn" aria-label="Close">&#10005;</button>
+    </div>
+
+    <div class="edit-panel-body">
+
+      <!-- Photo Upload -->
+      <div>
+        <div class="edit-section-title">Profile Photo</div>
+        <div class="photo-upload-area">
+          <div class="photo-preview-circle" id="photoPreviewCircle">
+            <img id="photoPreviewImg" alt="Profile photo" />
+            <span class="photo-preview-initials" id="photoPreviewInitials">CR</span>
+            <div class="photo-upload-hover">
+              <span class="photo-upload-hover-icon">📷</span>
+              <span class="photo-upload-hover-label">Change</span>
+            </div>
+          </div>
+          <div class="photo-upload-btns">
+            <button class="btn-upload-photo" id="btnUploadPhoto">📷 Upload Photo</button>
+            <button class="btn-remove-photo" id="btnRemovePhoto">Remove</button>
+          </div>
+          <div class="photo-hint">JPG, PNG or WEBP &nbsp;·&nbsp; Max 10MB<br>Photo is stored locally on your device</div>
+          <input type="file" id="photoFileInput" accept="image/jpeg,image/png,image/webp" style="display:none" />
+        </div>
+      </div>
+
+      <!-- Display Name -->
+      <div>
+        <label class="edit-label" for="editName">Display Name</label>
+        <input type="text" class="edit-input" id="editName" placeholder="Your full name" maxlength="50" autocomplete="off" />
+      </div>
+
+      <!-- Username -->
+      <div>
+        <label class="edit-label" for="editHandle">Username</label>
+        <div class="edit-input-wrap">
+          <span class="edit-input-prefix">@</span>
+          <input type="text" class="edit-input has-prefix" id="editHandle" placeholder="yourhandle" maxlength="30" autocomplete="off" />
+        </div>
+        <div style="font-size:11px;color:var(--gray);margin-top:5px;">Letters, numbers, and underscores only</div>
+      </div>
+
+      <!-- Bio -->
+      <div>
+        <label class="edit-label" for="editBio">Bio</label>
+        <textarea class="edit-textarea" id="editBio" placeholder="Tell other creators about yourself..." maxlength="160"></textarea>
+        <div class="edit-char-count"><span id="bioCharCount">0</span> / 160</div>
+      </div>
+
+      <!-- Niches -->
+      <div>
+        <label class="edit-label">Niches <span style="color:var(--gray);font-weight:400;font-size:11px">(select up to 3)</span></label>
+        <div class="niche-chips-grid" id="editNicheChips"></div>
+      </div>
+
+      <!-- Platforms -->
+      <div>
+        <label class="edit-label">Platforms</label>
+        <div class="platform-grid" id="editPlatformCards"></div>
+      </div>
+
+      <!-- Follower Count -->
+      <div>
+        <label class="edit-label" for="editFollowers">Follower Count</label>
+        <select class="edit-select" id="editFollowers">
+          <option value="">Select your range</option>
+          <option value="&lt; 1K">Under 1K</option>
+          <option value="1K–5K">1K – 5K</option>
+          <option value="5K–10K">5K – 10K</option>
+          <option value="10K–50K">10K – 50K</option>
+          <option value="50K–100K">50K – 100K</option>
+          <option value="100K–500K">100K – 500K</option>
+          <option value="500K–1M">500K – 1M</option>
+          <option value="1M+">1M+</option>
+        </select>
+      </div>
+
+    </div><!-- /edit-panel-body -->
+
+    <div class="edit-panel-footer">
+      <button class="btn-save" id="btnSaveProfile">Save Changes</button>
+      <button class="btn-cancel-edit" id="btnCancelEdit">Cancel</button>
+    </div>
+
+  </div><!-- /edit-panel -->
+
+  <!-- Toast -->
+  <div class="toast" id="profileToast">
+    <span class="toast-icon">&#10003;</span>
+    <span id="toastMsg">Profile updated!</span>
+  </div>
+
+  <script>
+    // ─── Auth Guard ───
+    const storedUser = localStorage.getItem('clan-user');
+    if (!storedUser) { window.location.href = 'login.html'; }
+    const user = JSON.parse(storedUser || '{}');
+
+    // ─── MOCK_CREATORS ───
+    const MOCK_CREATORS = [
+      { name:"Maya Kowalski",    handle:"@mayakowalski",  avatar:"MK", niche:"Fashion",  niches:["Fashion","Lifestyle"],    platforms:["instagram","tiktok"],          followers:"45K",  engagement:"6.2%",  bio:"Dubai-based fashion creator & style coach. Collaborating with brands that care." },
+      { name:"Ahmed Al-Rashidi", handle:"@ahmedtech",     avatar:"AA", niche:"Tech",     niches:["Tech","Gaming"],          platforms:["youtube","twitch"],            followers:"120K", engagement:"4.8%",  bio:"Tech reviews, gaming setups, and everything in between. Based in Riyadh." },
+      { name:"Sofia Martinez",   handle:"@sofiaeats",     avatar:"SM", niche:"Food",     niches:["Food","Travel"],          platforms:["instagram","tiktok"],          followers:"78K",  engagement:"7.1%",  bio:"Food photographer and recipe creator. Always looking for collab opportunities." },
+      { name:"James Chen",       handle:"@jameslifts",    avatar:"JC", niche:"Fitness",  niches:["Fitness","Wellness"],     platforms:["tiktok","youtube"],            followers:"200K", engagement:"5.5%",  bio:"Fitness coach, 5× competition winner. Let's build something epic together." },
+      { name:"Layla Hassan",     handle:"@laylabeuty",    avatar:"LH", niche:"Beauty",   niches:["Beauty","Lifestyle"],     platforms:["instagram","tiktok"],          followers:"55K",  engagement:"8.3%",  bio:"MUA & skincare enthusiast. Honest reviews and tutorials only." },
+      { name:"Marcus Williams",  handle:"@marcusbeats",   avatar:"MW", niche:"Music",    niches:["Music","Lifestyle"],      platforms:["youtube","tiktok"],            followers:"95K",  engagement:"6.9%",  bio:"Producer, multi-instrumentalist, content creator. Music is life." },
+      { name:"Emma Larsson",     handle:"@emmatravels",   avatar:"EL", niche:"Travel",   niches:["Travel","Photography"],   platforms:["instagram","youtube"],         followers:"88K",  engagement:"5.2%",  bio:"Solo traveler, 67 countries. Let's create inspiring content together." },
+      { name:"Khalid Al-Sayed",  handle:"@khalidfinance", avatar:"KS", niche:"Finance",  niches:["Finance","Business"],     platforms:["youtube","instagram"],         followers:"150K", engagement:"4.1%",  bio:"Personal finance educator. Helping Arabs build wealth through content." },
+      { name:"Priya Sharma",     handle:"@priyaart",      avatar:"PS", niche:"Art",      niches:["Art","Design"],           platforms:["instagram","tiktok"],          followers:"62K",  engagement:"9.4%",  bio:"Digital artist & illustrator. Open for creative brand collabs." },
+      { name:"Tom Bradley",      handle:"@tombradley",    avatar:"TB", niche:"Comedy",   niches:["Comedy","Entertainment"], platforms:["tiktok","youtube","instagram"], followers:"300K", engagement:"11.2%", bio:"Making people laugh since 2019. Let's create something viral together." },
+      { name:"Nour Mahmoud",     handle:"@nourcooks",     avatar:"NM", niche:"Cooking",  niches:["Cooking","Food"],         platforms:["instagram","youtube"],         followers:"42K",  engagement:"7.8%",  bio:"Home chef sharing authentic Middle Eastern recipes with the world." },
+      { name:"Diego Santos",     handle:"@diegosports",   avatar:"DS", niche:"Sports",   niches:["Sports","Fitness"],       platforms:["tiktok","instagram"],          followers:"175K", engagement:"6.6%",  bio:"Football analyst & sports content creator. Dubai-based, global audience." }
+    ];
+
+    const NICHE_COLORS = {
+      Fashion:'nc-fashion', Tech:'nc-tech', Food:'nc-food', Fitness:'nc-fitness',
+      Beauty:'nc-beauty', Music:'nc-music', Travel:'nc-travel', Finance:'nc-finance',
+      Art:'nc-art', Comedy:'nc-comedy', Cooking:'nc-cooking', Sports:'nc-sports',
+      Lifestyle:'nc-lifestyle', Gaming:'nc-tech', Wellness:'nc-fitness'
+    };
+
+    // ─── Demo Incoming Requests ───
+    const DEMO_INCOMING = [
+      { id:"demo1", fromHandle:"@tombradley", fromName:"Tom Bradley", fromAvatar:"TB", fromNiche:"Comedy", fromFollowers:"300K", toHandle: user.handle || "@creator", message:"Hey! I love your content style. Would love to do a crossover collab — I think our audiences would love it! Let me know if you're interested.", status:"pending", sentAt: new Date(Date.now()-5*3600000).toISOString() },
+      { id:"demo2", fromHandle:"@sofiaeats",  fromName:"Sofia Martinez", fromAvatar:"SM", fromNiche:"Food", fromFollowers:"78K", toHandle: user.handle || "@creator", message:"Your content vibe matches perfectly with mine. I'm planning a 'Day in my Life' collab series — would you be down to join?", status:"pending", sentAt: new Date(Date.now()-18*3600000).toISOString() },
+    ];
+
+    // ─── Load / init requests ───
+    function getRequests() {
+      return JSON.parse(localStorage.getItem('clan-requests') || '[]');
+    }
+    function saveRequests(reqs) {
+      localStorage.setItem('clan-requests', JSON.stringify(reqs));
+    }
+
+    // If no requests, seed demo ones
+    let allRequests = getRequests();
+    const hasIncoming = allRequests.some(r => r.toHandle === user.handle);
+    if (!hasIncoming) {
+      allRequests = [...allRequests, ...DEMO_INCOMING];
+      saveRequests(allRequests);
+    }
+
+    // ─── Populate user UI ───
+    function populateUser() {
+      const imgEl  = document.getElementById('sidebarAvatarImg');
+      const textEl = document.getElementById('sidebarAvatarText');
+      if (user.photo) {
+        imgEl.src = user.photo;
+        imgEl.style.display = 'block';
+        textEl.style.display = 'none';
+      } else {
+        imgEl.style.display = 'none';
+        textEl.style.display = '';
+        textEl.textContent = user.avatar || getInitials(user.name || 'Creator');
+      }
+      document.getElementById('sidebarName').textContent      = user.name || 'Creator';
+      document.getElementById('sidebarHandle').textContent    = user.handle || '@creator';
+      document.getElementById('sidebarNiche').textContent     = (user.niches && user.niches[0]) || 'Lifestyle';
+      document.getElementById('sidebarFollowers').textContent = user.followersLabel || '—';
+      document.getElementById('welcomeName').textContent      = (user.name || 'Creator').split(' ')[0];
+    }
+    populateUser();
+
+    // ─── Pending count ───
+    function getPendingCount() {
+      const reqs = getRequests();
+      return reqs.filter(r => r.toHandle === (user.handle || '@creator') && r.status === 'pending').length;
+    }
+
+    function updateBadge() {
+      const count = getPendingCount();
+      const badge = document.getElementById('sidebarBadge');
+      const statsEl = document.getElementById('statsRequests');
+      const statsSub = document.getElementById('statsRequestsSub');
+      badge.textContent = count;
+      badge.style.display = count > 0 ? 'inline-block' : 'none';
+      statsEl.textContent = count;
+      statsSub.textContent = count === 1 ? 'Pending' : 'Pending';
+    }
+    updateBadge();
+
+    // ─── Time Ago ───
+    function timeAgo(isoString) {
+      const diff = Date.now() - new Date(isoString).getTime();
+      const mins = Math.floor(diff / 60000);
+      if (mins < 60) return mins + ' min ago';
+      const hrs = Math.floor(diff / 3600000);
+      if (hrs < 24) return hrs + ' hour' + (hrs > 1 ? 's' : '') + ' ago';
+      const days = Math.floor(diff / 86400000);
+      if (days === 1) return 'Yesterday';
+      return new Date(isoString).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    }
+
+    // ─── Update Request Status ───
+    function updateRequestStatus(id, status) {
+      let reqs = getRequests();
+      reqs = reqs.map(r => r.id === id ? { ...r, status } : r);
+      saveRequests(reqs);
+      renderRequests();
+      updateBadge();
+    }
+
+    // ─── Render Requests ───
+    function renderRequests() {
+      const reqs = getRequests();
+      const pending = reqs.filter(r => r.toHandle === (user.handle || '@creator') && r.status === 'pending').slice(0, 3);
+      const list = document.getElementById('requestsList');
+
+      if (pending.length === 0) {
+        list.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-icon">&#128236;</div>
+            <p>No pending requests yet. Share your profile to get discovered by other creators.</p>
+          </div>
+        `;
+        return;
+      }
+
+      list.innerHTML = pending.map(req => `
+        <div class="request-card" id="req-${req.id}">
+          <div class="req-avatar" style="background:${nicheAvatarColor(req.fromNiche)};color:#111">${req.fromAvatar}</div>
+          <div class="req-body">
+            <div class="req-top">
+              <span class="req-name">${req.fromName}</span>
+              <span class="req-handle">${req.fromHandle}</span>
+              <span class="niche-badge" style="font-size:10px;padding:3px 8px">${req.fromNiche}</span>
+              <span style="font-size:11px;color:var(--gray)">${req.fromFollowers} followers</span>
+            </div>
+            <div class="req-message">${req.message}</div>
+            <div class="req-meta">${timeAgo(req.sentAt)}</div>
+          </div>
+          <div class="req-actions" id="req-actions-${req.id}">
+            <button class="btn-accept" onclick="updateRequestStatus('${req.id}','accepted')">&#10003; Accept</button>
+            <button class="btn-decline" onclick="updateRequestStatus('${req.id}','declined')">&#10005; Decline</button>
+          </div>
+        </div>
+      `).join('');
+    }
+    renderRequests();
+
+    // ─── Niche avatar color helper ───
+    function nicheAvatarColor(niche) {
+      const map = {
+        Fashion:'#ff69b4', Tech:'#6495ed', Food:'#ff8c00', Fitness:'#32cd32',
+        Beauty:'#dda0dd', Music:'#9370db', Travel:'#40e0d0', Finance:'#F5B800',
+        Art:'#ff6347', Comedy:'#ffd700', Cooking:'#d2691e', Sports:'#1e90ff',
+        Comedy:'#ffd700', Lifestyle:'#F5B800'
+      };
+      return map[niche] || '#F5B800';
+    }
+
+    // ─── Suggested Creators (4 random) ───
+    function renderSuggested() {
+      const shuffled = [...MOCK_CREATORS].sort(() => Math.random() - 0.5).slice(0, 4);
+      const grid = document.getElementById('suggestedGrid');
+      grid.innerHTML = shuffled.map(c => `
+        <div class="creator-mini-card">
+          <div class="creator-mini-avatar ${NICHE_COLORS[c.niche] || 'nc-lifestyle'}">${c.avatar}</div>
+          <div class="creator-mini-name">${c.name}</div>
+          <div class="creator-mini-niche"><span class="niche-badge" style="font-size:10px;padding:3px 8px">${c.niche}</span></div>
+          <div class="creator-mini-followers"><strong>${c.followers}</strong> followers</div>
+          <a href="explore-creators.html" class="btn-collab-small">&#10024; Collab</a>
+        </div>
+      `).join('');
+    }
+    renderSuggested();
+
+    // ─── Edit Profile Panel ───
+    const ALL_NICHES = ['Fashion','Tech','Food','Fitness','Beauty','Music','Travel','Finance','Art','Comedy','Cooking','Sports','Lifestyle','Gaming','Wellness','Photography'];
+
+    const ALL_PLATFORMS = [
+      { id:'instagram', icon:'📸', label:'Instagram' },
+      { id:'tiktok',    icon:'🎵', label:'TikTok' },
+      { id:'youtube',   icon:'🔴', label:'YouTube' },
+      { id:'twitter',   icon:'🐦', label:'X / Twitter' },
+      { id:'twitch',    icon:'🎮', label:'Twitch' },
+      { id:'linkedin',  icon:'💼', label:'LinkedIn' },
+      { id:'snapchat',  icon:'👻', label:'Snapchat' },
+      { id:'pinterest', icon:'📌', label:'Pinterest' }
+    ];
+
+    let editState = {};
+
+    function getInitials(name) {
+      return (name || 'CR').split(' ').filter(Boolean).map(w => w[0]).join('').toUpperCase().slice(0, 2) || 'CR';
+    }
+
+    // ─── Photo preview helpers ───
+    function updatePhotoPreview() {
+      const img      = document.getElementById('photoPreviewImg');
+      const initials = document.getElementById('photoPreviewInitials');
+      const removeBtn = document.getElementById('btnRemovePhoto');
+      if (editState.photo) {
+        img.src = editState.photo;
+        img.classList.add('visible');
+        initials.style.display = 'none';
+        removeBtn.style.display = 'inline-block';
+      } else {
+        img.classList.remove('visible');
+        img.src = '';
+        initials.style.display = '';
+        initials.textContent = editState.avatar || getInitials(document.getElementById('editName').value.trim() || user.name || 'Creator');
+        removeBtn.style.display = 'none';
+      }
+    }
+
+    // Compress + store photo via canvas
+    document.getElementById('photoFileInput').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      if (file.size > 10 * 1024 * 1024) { showToast('Image too large — max 10MB', '⚠️'); this.value = ''; return; }
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        const tempImg = new Image();
+        tempImg.onload = function() {
+          const MAX = 400;
+          let w = tempImg.width, h = tempImg.height;
+          if (w > h) { if (w > MAX) { h = Math.round(h * MAX / w); w = MAX; } }
+          else        { if (h > MAX) { w = Math.round(w * MAX / h); h = MAX; } }
+          const canvas = document.createElement('canvas');
+          canvas.width = w; canvas.height = h;
+          canvas.getContext('2d').drawImage(tempImg, 0, 0, w, h);
+          editState.photo = canvas.toDataURL('image/jpeg', 0.88);
+          updatePhotoPreview();
+        };
+        tempImg.src = evt.target.result;
+      };
+      reader.readAsDataURL(file);
+      this.value = '';
+    });
+
+    document.getElementById('btnUploadPhoto').addEventListener('click', function() {
+      document.getElementById('photoFileInput').click();
+    });
+    document.getElementById('photoPreviewCircle').addEventListener('click', function() {
+      document.getElementById('photoFileInput').click();
+    });
+    document.getElementById('btnRemovePhoto').addEventListener('click', function(e) {
+      e.stopPropagation();
+      editState.photo  = null;
+      editState.avatar = getInitials(document.getElementById('editName').value.trim() || user.name || 'Creator');
+      updatePhotoPreview();
+    });
+
+    function openEditPanel() {
+      editState = {
+        photo:    user.photo || null,
+        avatar:   user.avatar || getInitials(user.name || 'Creator'),
+        niches:   [...(user.niches || [])],
+        platforms:[...(user.platforms || [])]
+      };
+
+      document.getElementById('editName').value      = user.name || '';
+      document.getElementById('editHandle').value    = (user.handle || '@creator').replace(/^@/, '');
+      document.getElementById('editBio').value       = user.bio || '';
+      document.getElementById('editFollowers').value = user.followersLabel || '';
+      updateBioCount();
+      updatePhotoPreview();
+      renderNicheChips();
+      renderPlatformCards();
+
+      document.getElementById('editOverlay').classList.add('open');
+      document.getElementById('editPanel').classList.add('open');
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => document.getElementById('editName').focus(), 420);
+    }
+
+    function closeEditPanel() {
+      document.getElementById('editOverlay').classList.remove('open');
+      document.getElementById('editPanel').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function renderNicheChips() {
+      document.getElementById('editNicheChips').innerHTML = ALL_NICHES.map(n =>
+        `<div class="niche-chip${editState.niches.includes(n) ? ' selected' : ''}" data-niche="${n}">${n}</div>`
+      ).join('');
+    }
+
+    document.getElementById('editNicheChips').addEventListener('click', function(e) {
+      const chip = e.target.closest('.niche-chip');
+      if (!chip) return;
+      const niche = chip.dataset.niche;
+      const idx   = editState.niches.indexOf(niche);
+      if (idx >= 0) {
+        editState.niches.splice(idx, 1);
+      } else {
+        if (editState.niches.length >= 3) { showToast('Max 3 niches allowed', '⚠️'); return; }
+        editState.niches.push(niche);
+      }
+      renderNicheChips();
+    });
+
+    function renderPlatformCards() {
+      document.getElementById('editPlatformCards').innerHTML = ALL_PLATFORMS.map(p =>
+        `<div class="platform-card${editState.platforms.includes(p.id) ? ' selected' : ''}" data-platform="${p.id}">
+          <span class="platform-icon">${p.icon}</span>
+          <span class="platform-name">${p.label}</span>
+        </div>`
+      ).join('');
+    }
+
+    document.getElementById('editPlatformCards').addEventListener('click', function(e) {
+      const card = e.target.closest('.platform-card');
+      if (!card) return;
+      const pid = card.dataset.platform;
+      const idx = editState.platforms.indexOf(pid);
+      if (idx >= 0) editState.platforms.splice(idx, 1);
+      else editState.platforms.push(pid);
+      renderPlatformCards();
+    });
+
+    function updateBioCount() {
+      document.getElementById('bioCharCount').textContent = document.getElementById('editBio').value.length;
+    }
+    document.getElementById('editBio').addEventListener('input', updateBioCount);
+
+    function saveProfile() {
+      const nameInput = document.getElementById('editName');
+      const name      = nameInput.value.trim();
+
+      if (!name) {
+        nameInput.classList.add('input-error');
+        nameInput.focus();
+        setTimeout(() => nameInput.classList.remove('input-error'), 600);
+        return;
+      }
+
+      const rawHandle = document.getElementById('editHandle').value.trim().replace(/^@/, '').replace(/[^a-zA-Z0-9_]/g, '');
+
+      user.photo          = editState.photo || null;
+      user.avatar         = editState.avatar;
+      user.name           = name;
+      user.handle         = '@' + (rawHandle || name.toLowerCase().replace(/\s+/g, '_').replace(/[^a-z0-9_]/g, ''));
+      user.bio            = document.getElementById('editBio').value.trim();
+      user.niches         = editState.niches;
+      user.platforms      = editState.platforms;
+      user.followersLabel = document.getElementById('editFollowers').value;
+
+      localStorage.setItem('clan-user', JSON.stringify(user));
+      populateUser();
+      closeEditPanel();
+      showToast('Profile updated!', '✓');
+    }
+
+    function showToast(msg, icon) {
+      const toast = document.getElementById('profileToast');
+      document.getElementById('toastMsg').textContent = msg || 'Done!';
+      toast.querySelector('.toast-icon').textContent  = icon || '✓';
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    // Wire up panel controls
+    document.getElementById('editProfileBtn').addEventListener('click', openEditPanel);
+    document.getElementById('editOverlay').addEventListener('click', closeEditPanel);
+    document.getElementById('editCloseBtn').addEventListener('click', closeEditPanel);
+    document.getElementById('btnCancelEdit').addEventListener('click', closeEditPanel);
+    document.getElementById('btnSaveProfile').addEventListener('click', saveProfile);
+
+    // Escape key closes panel
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && document.getElementById('editPanel').classList.contains('open')) {
+        closeEditPanel();
+      }
+    });
+
+    // ─── Mobile menu ───
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileClose = document.getElementById('mobileClose');
+    hamburger.addEventListener('click', () => mobileMenu.classList.add('open'));
+    mobileClose.addEventListener('click', closeMobile);
+    function closeMobile() { mobileMenu.classList.remove('open'); }
+
+    // ─── i18n ───
+    const i18n = {
+      en: { navDashboard: 'Dashboard', navExplore: 'Explore', navRequests: 'Requests' },
+      ar: { navDashboard: 'لوحة التحكم', navExplore: 'استكشاف', navRequests: 'الطلبات' }
+    };
+
+    function applyLang(lang) {
+      document.documentElement.lang = lang;
+      document.documentElement.dir  = lang === 'ar' ? 'rtl' : 'ltr';
+      document.documentElement.classList.toggle('lang-ar', lang === 'ar');
+      document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+      requestAnimationFrame(updateLangSlide);
+      localStorage.setItem('clan-lang', lang);
+    }
+
+    function updateLangSlide() {
+      document.querySelectorAll('.lang-switcher').forEach(switcher => {
+        const slide = switcher.querySelector('.lang-slide');
+        const activeBtn = switcher.querySelector('.lang-btn.active');
+        if (!slide || !activeBtn) return;
+        slide.style.width = activeBtn.offsetWidth + 'px';
+        slide.style.transform = `translateX(${activeBtn.offsetLeft}px)`;
+      });
+    }
+
+    applyLang(localStorage.getItem('clan-lang') || 'en');
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => applyLang(btn.dataset.lang));
+    });
+    window.addEventListener('resize', updateLangSlide);
+  </script>
+</body>
+</html>

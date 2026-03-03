@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Log In — 100CLAN</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Arabic Brand Font ─── */
+    @font-face {
+      font-family: 'ClanArabic';
+      src: url('brand_assets/100clanBold 2.ttf') format('truetype');
+      font-weight: 700;
+      font-display: swap;
+    }
+
+    /* ─── Language Switcher ─── */
+    .lang-switcher {
+      display: flex; align-items: center;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 20px; padding: 3px; gap: 0; position: relative;
+    }
+    .lang-slide {
+      position: absolute; top: 3px; left: 0;
+      height: calc(100% - 6px); border-radius: 16px;
+      background: var(--yellow);
+      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), width 0.3s cubic-bezier(0.4,0,0.2,1);
+      pointer-events: none;
+    }
+    .lang-btn {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.06em;
+      padding: 5px 13px; border-radius: 16px; border: none;
+      background: transparent; color: rgba(255,255,255,0.4);
+      cursor: pointer; transition: color 0.25s ease;
+      font-family: 'Montserrat', sans-serif; line-height: 1;
+      position: relative; z-index: 1;
+    }
+    .lang-btn.active { background: transparent; color: #111111; }
+
+    /* ─── Arabic RTL Overrides ─── */
+    html.lang-ar,
+    html.lang-ar body, html.lang-ar h1, html.lang-ar h2, html.lang-ar h3,
+    html.lang-ar p, html.lang-ar a, html.lang-ar span, html.lang-ar li,
+    html.lang-ar button, html.lang-ar div, html.lang-ar input, html.lang-ar label
+    { font-family: 'ClanArabic', sans-serif; }
+    html.lang-ar .lang-btn     { font-family: 'Montserrat', sans-serif; }
+    html.lang-ar .nav-links    { flex-direction: row-reverse; }
+    html.lang-ar .nav-cta      { flex-direction: row-reverse; }
+    html.lang-ar .login-card   { text-align: right; direction: rtl; }
+    html.lang-ar .login-card .form-field { text-align: right; direction: rtl; }
+    html.lang-ar .remember-row { flex-direction: row-reverse; }
+    html.lang-ar .alt-link     { direction: rtl; }
+    html.lang-ar .divider-text { direction: ltr; }
+    html.lang-ar .footer-tagline { text-align: right; }
+    html.lang-ar .footer-social  { flex-direction: row-reverse; }
+    html.lang-ar .footer-links   { text-align: right; }
+    html.lang-ar .footer-bottom  { flex-direction: row-reverse; }
+    html.lang-ar .footer-legal   { flex-direction: row-reverse; }
+
+    /* ─── CSS Reset & Variables ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --yellow:   #F5B800;
+      --yellow-dark: #D9A200;
+      --yellow-glow: rgba(245, 184, 0, 0.25);
+      --black:    #111111;
+      --dark:     #1A1A1A;
+      --dark-2:   #222222;
+      --dark-3:   #2A2A2A;
+      --dark-card:#1E1E1E;
+      --white:    #FFFFFF;
+      --gray:     #9B9B9B;
+      --gray-light: #D4D4D4;
+      --font:     'Montserrat', sans-serif;
+      --radius:   12px;
+      --radius-lg: 20px;
+      --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: var(--black);
+      color: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--black); }
+    ::-webkit-scrollbar-thumb { background: var(--yellow); border-radius: 2px; }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+    .text-yellow { color: var(--yellow); }
+    .text-gray   { color: var(--gray); }
+
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--yellow); color: var(--black);
+      font-family: var(--font); font-weight: 800; font-size: 14px;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 14px 32px; border-radius: var(--radius);
+      border: none; cursor: pointer; text-decoration: none;
+      transition: var(--transition); position: relative; overflow: hidden;
+    }
+    .btn-primary::before {
+      content: ''; position: absolute; inset: 0;
+      background: rgba(255,255,255,0.15);
+      transform: translateX(-100%); transition: transform 0.4s ease;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px var(--yellow-glow); }
+    .btn-primary:hover::before { transform: translateX(0); }
+
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent; color: var(--white);
+      font-family: var(--font); font-weight: 700; font-size: 14px;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 13px 32px; border-radius: var(--radius);
+      border: 1.5px solid rgba(255,255,255,0.25); cursor: pointer;
+      text-decoration: none; transition: var(--transition);
+    }
+    .btn-outline:hover { border-color: var(--yellow); color: var(--yellow); transform: translateY(-2px); }
+
+    /* ─── Navigation ─── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 1000; padding: 20px 0; transition: var(--transition);
+    }
+    .nav.scrolled {
+      background: rgba(17, 17, 17, 0.92);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(245, 184, 0, 0.12); padding: 14px 0;
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo  { height: 44px; width: auto; }
+    .nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
+    .nav-links a {
+      font-size: 13px; font-weight: 600; letter-spacing: 0.06em;
+      text-transform: uppercase; color: var(--gray-light); text-decoration: none;
+      transition: color var(--transition);
+    }
+    .nav-links a:hover { color: var(--yellow); }
+    .nav-cta { display: flex; align-items: center; gap: 12px; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .hamburger span { width: 24px; height: 2px; background: var(--white); border-radius: 1px; transition: var(--transition); }
+
+    /* ─── Mobile Menu ─── */
+    .mobile-menu {
+      position: fixed; inset: 0; z-index: 999;
+      background: rgba(17,17,17,0.98); backdrop-filter: blur(20px);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 32px; transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+    }
+    .mobile-menu.open { transform: translateX(0); }
+    .mobile-menu a {
+      font-size: 24px; font-weight: 800; color: var(--white);
+      text-decoration: none; text-transform: uppercase; letter-spacing: 0.06em;
+      transition: color var(--transition);
+    }
+    .mobile-menu a:hover { color: var(--yellow); }
+    .mobile-close {
+      position: absolute; top: 24px; right: 28px;
+      font-size: 28px; color: var(--gray); cursor: pointer;
+      background: none; border: none; font-family: var(--font);
+      transition: color var(--transition);
+    }
+    .mobile-close:hover { color: var(--white); }
+
+    /* ─── Login Page Layout ─── */
+    .login-page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 120px 20px 60px;
+      position: relative;
+    }
+    .login-page::before {
+      content: '';
+      position: fixed; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 20% 20%, rgba(245,184,0,0.04) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 50% at 80% 80%, rgba(245,184,0,0.03) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    /* ─── Login Card ─── */
+    .login-card {
+      width: 100%;
+      max-width: 480px;
+      position: relative;
+      z-index: 1;
+    }
+    .login-header {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+    .login-logo {
+      height: 48px;
+      margin-bottom: 28px;
+    }
+    .login-title {
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+    .login-sub {
+      font-size: 14px;
+      color: var(--gray);
+      line-height: 1.6;
+    }
+
+    /* Social login buttons */
+    .social-login-btns {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .social-login-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 13px 20px;
+      border-radius: var(--radius);
+      border: 1.5px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.04);
+      color: var(--white);
+      font-family: var(--font);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      cursor: pointer;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    .social-login-btn:hover {
+      border-color: rgba(255,255,255,0.25);
+      background: rgba(255,255,255,0.07);
+    }
+    .social-login-btn svg { flex-shrink: 0; }
+
+    /* Divider */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .divider-line {
+      flex: 1;
+      height: 1px;
+      background: rgba(255,255,255,0.08);
+    }
+    .divider-text {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gray);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    /* Form card box */
+    .login-form-box {
+      background: var(--dark-card);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-lg);
+      padding: 36px;
+      position: relative;
+      overflow: hidden;
+    }
+    .login-form-box::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--yellow), transparent);
+    }
+
+    .login-form { display: flex; flex-direction: column; gap: 18px; }
+    .form-group { display: flex; flex-direction: column; gap: 8px; }
+    .form-group label {
+      font-size: 12px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--gray-light);
+    }
+    .form-field {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius);
+      padding: 13px 16px;
+      font-size: 14px;
+      color: var(--white);
+      font-family: var(--font);
+      outline: none;
+      transition: border-color var(--transition);
+      width: 100%;
+    }
+    .form-field:focus { border-color: var(--yellow); box-shadow: 0 0 0 3px rgba(245,184,0,0.1); }
+    .form-field::placeholder { color: var(--gray); }
+
+    /* Password field with show/hide */
+    .password-wrapper {
+      position: relative;
+    }
+    .password-wrapper .form-field { padding-right: 44px; }
+    .password-toggle {
+      position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+      background: none; border: none; color: var(--gray);
+      cursor: pointer; padding: 2px; line-height: 1;
+      transition: color var(--transition);
+    }
+    .password-toggle:hover { color: var(--yellow); }
+    html.lang-ar .password-wrapper .form-field { padding-right: 16px; padding-left: 44px; }
+    html.lang-ar .password-toggle { right: auto; left: 14px; }
+
+    /* Remember / forgot row */
+    .remember-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .remember-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+    .remember-checkbox {
+      width: 16px; height: 16px;
+      border-radius: 4px;
+      border: 1.5px solid rgba(255,255,255,0.2);
+      background: transparent;
+      cursor: pointer;
+      accent-color: var(--yellow);
+    }
+    .remember-text {
+      font-size: 13px; color: var(--gray); font-weight: 500;
+    }
+    .forgot-link {
+      font-size: 13px; font-weight: 600;
+      color: var(--yellow); text-decoration: none;
+      transition: opacity var(--transition);
+    }
+    .forgot-link:hover { opacity: 0.75; }
+
+    /* Submit button */
+    .btn-login {
+      width: 100%;
+      justify-content: center;
+      padding: 16px;
+      font-size: 15px;
+      margin-top: 4px;
+    }
+
+    /* Alt link */
+    .alt-link {
+      text-align: center;
+      font-size: 14px;
+      color: var(--gray);
+      margin-top: 20px;
+    }
+    .alt-link a {
+      color: var(--yellow); font-weight: 700; text-decoration: none;
+      transition: opacity var(--transition);
+    }
+    .alt-link a:hover { opacity: 0.75; }
+
+    /* Terms note */
+    .terms-note {
+      text-align: center;
+      font-size: 12px;
+      color: var(--gray);
+      margin-top: 24px;
+      line-height: 1.6;
+    }
+    .terms-note a { color: var(--gray); text-decoration: underline; }
+    .terms-note a:hover { color: var(--yellow); }
+
+    /* ─── Footer ─── */
+    .footer { padding: 64px 0 32px; border-top: 1px solid rgba(255,255,255,0.06); }
+    .footer-top { display: grid; grid-template-columns: 1.4fr repeat(3, 1fr); gap: 48px; margin-bottom: 48px; }
+    .footer-logo { height: 40px; margin-bottom: 16px; }
+    .footer-tagline { font-size: 14px; color: var(--gray); line-height: 1.6; max-width: 260px; }
+    .footer-social { display: flex; gap: 10px; margin-top: 20px; }
+    .social-btn {
+      width: 36px; height: 36px; border-radius: 8px;
+      border: 1px solid rgba(245,184,0,0.3); color: var(--yellow);
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none; position: relative; overflow: hidden;
+      transition: border-color 0.3s ease, color 0.3s ease;
+    }
+    .social-btn::before {
+      content: ''; position: absolute; bottom: 0; left: 0;
+      width: 100%; height: 0%; background: var(--yellow);
+      transition: height 0.4s cubic-bezier(0.22, 1, 0.36, 1); z-index: 0;
+    }
+    .social-btn svg { position: relative; z-index: 1; }
+    .social-btn:hover { border-color: var(--yellow); color: #111111; }
+    .social-btn:hover::before { height: 100%; }
+    .footer-col-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: var(--white); margin-bottom: 20px; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a { font-size: 14px; color: var(--gray); text-decoration: none; transition: color var(--transition); }
+    .footer-links a:hover { color: var(--yellow); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.06); padding-top: 28px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .footer-copy { font-size: 13px; color: var(--gray); }
+    .footer-legal { display: flex; gap: 20px; }
+    .footer-legal a { font-size: 13px; color: var(--gray); text-decoration: none; }
+    .footer-legal a:hover { color: var(--yellow); }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 768px) {
+      .container { padding: 0 20px; }
+      .nav-links  { display: none; }
+      .nav-cta .btn-primary { display: none; }
+      .hamburger  { display: flex; }
+      .login-form-box { padding: 28px 24px; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+    @media (max-width: 480px) {
+      .footer-top { grid-template-columns: 1fr; }
+      .login-form-box { padding: 24px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Mobile Menu Overlay -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-close" id="mobileClose">&#10005;</button>
+    <a href="index.html#features" onclick="closeMobile()">Features</a>
+    <a href="index.html#how"      onclick="closeMobile()">How It Works</a>
+    <a href="index.html#community" onclick="closeMobile()">Community</a>
+    <a href="signup.html" class="btn-primary" onclick="closeMobile()" style="font-size:15px;margin-top:12px;">Join the Clan</a>
+  </div>
+
+  <!-- ─── Navigation ─── -->
+  <nav class="nav scrolled" id="mainNav">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="index.html">
+          <img src="brand_assets/Logo-100clan.png" alt="100CLAN" class="nav-logo" />
+        </a>
+        <ul class="nav-links">
+          <li><a href="index.html#features" data-i18n="navFeatures">Features</a></li>
+          <li><a href="index.html#how"       data-i18n="navHow">How It Works</a></li>
+          <li><a href="index.html#community" data-i18n="navCommunity">Community</a></li>
+          <li><a href="index.html#join"      data-i18n="navPricing">Pricing</a></li>
+        </ul>
+        <div class="nav-cta">
+          <div class="lang-switcher" role="group" aria-label="Language">
+            <span class="lang-slide"></span>
+            <button class="lang-btn active" data-lang="en">EN</button>
+            <button class="lang-btn" data-lang="ar">AR</button>
+          </div>
+          <a href="login.html" class="btn-outline" data-i18n="navLogin">Log In</a>
+          <a href="signup.html" class="btn-primary" data-i18n="navJoin">Join the Clan</a>
+          <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ─── Login Page ─── -->
+  <main class="login-page">
+    <div class="login-card">
+
+      <div class="login-header">
+        <a href="index.html">
+          <img src="brand_assets/Logo-100clan.png" alt="100CLAN" class="login-logo" />
+        </a>
+        <h1 class="login-title" data-i18n="loginTitle">Welcome back</h1>
+        <p class="login-sub" data-i18n="loginSub">Log in to your 100CLAN creator account and keep building.</p>
+      </div>
+
+      <!-- Social Login -->
+      <div class="social-login-btns">
+        <a href="#" class="social-login-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+          <span data-i18n="btnGoogle">Continue with Google</span>
+        </a>
+        <a href="#" class="social-login-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          <span data-i18n="btnApple">Continue with Apple</span>
+        </a>
+      </div>
+
+      <div class="divider">
+        <div class="divider-line"></div>
+        <span class="divider-text" data-i18n="dividerText">or continue with email</span>
+        <div class="divider-line"></div>
+      </div>
+
+      <div class="login-form-box">
+        <form class="login-form" id="loginForm" onsubmit="handleLogin(event)">
+          <div class="form-group">
+            <label for="lemail" data-i18n="labelEmail">Email Address</label>
+            <input id="lemail" type="email" class="form-field" data-i18n-ph="phEmail" placeholder="you@example.com" required autocomplete="email" />
+          </div>
+          <div class="form-group">
+            <label for="lpassword" data-i18n="labelPassword">Password</label>
+            <div class="password-wrapper">
+              <input id="lpassword" type="password" class="form-field" data-i18n-ph="phPassword" placeholder="Enter your password" required autocomplete="current-password" />
+              <button type="button" class="password-toggle" onclick="togglePassword('lpassword', this)" aria-label="Toggle password visibility">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="eye-icon"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="remember-row">
+            <label class="remember-label">
+              <input type="checkbox" class="remember-checkbox" id="rememberMe" />
+              <span class="remember-text" data-i18n="rememberMe">Remember me</span>
+            </label>
+            <a href="#" class="forgot-link" data-i18n="forgotPassword">Forgot password?</a>
+          </div>
+          <button type="submit" class="btn-primary btn-login">
+            <span data-i18n="btnLogin">Log In</span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </form>
+      </div>
+
+      <p class="alt-link" data-i18n-html="altLink">Don't have an account? <a href="signup.html">Join the Clan</a></p>
+
+      <p class="terms-note" data-i18n-html="termsNote">By logging in, you agree to our <a href="terms.html">Terms of Service</a> and <a href="privacy.html">Privacy Policy</a>.</p>
+
+    </div>
+  </main>
+
+  <!-- ─── Footer ─── -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="brand_assets/Logo-100clan.png" alt="100CLAN" class="footer-logo" />
+          <p class="footer-tagline" data-i18n="footerTagline">The platform where content creators find their tribe, collaborate, and grow together.</p>
+          <div class="footer-social">
+            <a href="https://www.instagram.com/100clan" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Instagram">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+            <a href="https://www.tiktok.com/@100clan" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="TikTok">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.22 8.22 0 0 0 4.81 1.54V6.79a4.85 4.85 0 0 1-1.04-.1z"/></svg>
+            </a>
+            <a href="https://www.youtube.com/@100clanshorts" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="YouTube">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
+            </a>
+            <a href="https://www.x.com/100clan" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="X">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-col-title" data-i18n="footerCol1">Platform</div>
+          <ul class="footer-links">
+            <li><a href="index.html#features" data-i18n="fl1_1">Features</a></li>
+            <li><a href="index.html#how" data-i18n="fl1_2">How It Works</a></li>
+            <li><a href="index.html#join" data-i18n="fl1_3">Pricing</a></li>
+            <li><a href="creator-matching.html" data-i18n="fl1_4">Creator Matching</a></li>
+            <li><a href="collaboration-hub.html" data-i18n="fl1_5">Collaboration Hub</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title" data-i18n="footerCol2">Community</div>
+          <ul class="footer-links">
+            <li><a href="creator-stories.html" data-i18n="fl2_1">Creator Stories</a></li>
+            <li><a href="blog.html" data-i18n="fl2_2">Blog</a></li>
+            <li><a href="events.html" data-i18n="fl2_3">Events</a></li>
+            <li><a href="creator-resources.html" data-i18n="fl2_4">Creator Resources</a></li>
+            <li><a href="newsletter.html" data-i18n="fl2_5">Newsletter</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title" data-i18n="footerCol3">Company</div>
+          <ul class="footer-links">
+            <li><a href="about.html" data-i18n="fl3_1">About 100CLAN</a></li>
+            <li><a href="careers.html" data-i18n="fl3_2">Careers</a></li>
+            <li><a href="press.html" data-i18n="fl3_3">Press Kit</a></li>
+            <li><a href="contact.html" data-i18n="fl3_4">Contact</a></li>
+            <li><a href="partnerships.html" data-i18n="fl3_5">Partnerships</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy" data-i18n="footerCopy">&#169; 2026 100CLAN. All rights reserved.</p>
+        <div class="footer-legal">
+          <a href="privacy.html" data-i18n="footerPrivacy">Privacy Policy</a>
+          <a href="terms.html" data-i18n="footerTerms">Terms of Service</a>
+          <a href="cookies.html" data-i18n="footerCookies">Cookie Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ─── Nav ───
+    const nav = document.getElementById('mainNav');
+    function updateNav() { nav.classList.toggle('scrolled', window.scrollY > 40); }
+    window.addEventListener('scroll', updateNav);
+    updateNav();
+
+    // ─── Mobile menu ───
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileClose = document.getElementById('mobileClose');
+    hamburger.addEventListener('click', () => mobileMenu.classList.add('open'));
+    mobileClose.addEventListener('click', closeMobile);
+    function closeMobile() { mobileMenu.classList.remove('open'); }
+
+    // ─── Password toggle ───
+    function togglePassword(fieldId, btn) {
+      const field = document.getElementById(fieldId);
+      const isText = field.type === 'text';
+      field.type = isText ? 'password' : 'text';
+      btn.querySelector('.eye-icon').style.opacity = isText ? '1' : '0.4';
+    }
+
+    // ─── Login handler (demo) ───
+    function handleLogin(e) {
+      e.preventDefault();
+      // Create a demo user if none exists
+      if (!localStorage.getItem('clan-user')) {
+        localStorage.setItem('clan-user', JSON.stringify({
+          name: "Creator",
+          handle: "@creator",
+          avatar: "CR",
+          niches: ["Lifestyle"],
+          platforms: ["instagram"],
+          followersLabel: "10K",
+          bio: "Content creator on 100CLAN.",
+          joined: new Date().toISOString().split('T')[0]
+        }));
+      }
+      // Redirect to dashboard
+      window.location.href = 'dashboard.html';
+    }
+
+    // ─── i18n ───
+    const i18n = {
+      en: {
+        navFeatures: 'Features', navHow: 'How It Works', navCommunity: 'Community', navPricing: 'Pricing',
+        navLogin: 'Log In', navJoin: 'Join the Clan',
+        loginTitle: 'Welcome back',
+        loginSub: 'Log in to your 100CLAN creator account and keep building.',
+        btnGoogle: 'Continue with Google', btnApple: 'Continue with Apple',
+        dividerText: 'or continue with email',
+        labelEmail: 'Email Address', labelPassword: 'Password',
+        phEmail: 'you@example.com', phPassword: 'Enter your password',
+        rememberMe: 'Remember me', forgotPassword: 'Forgot password?',
+        btnLogin: 'Log In',
+        altLink: 'Don\'t have an account? <a href="signup.html">Join the Clan</a>',
+        termsNote: 'By logging in, you agree to our <a href="terms.html">Terms of Service</a> and <a href="privacy.html">Privacy Policy</a>.',
+        footerTagline: 'The platform where content creators find their tribe, collaborate, and grow together.',
+        footerCol1: 'Platform', footerCol2: 'Community', footerCol3: 'Company',
+        fl1_1: 'Features', fl1_2: 'How It Works', fl1_3: 'Pricing', fl1_4: 'Creator Matching', fl1_5: 'Collaboration Hub',
+        fl2_1: 'Creator Stories', fl2_2: 'Blog', fl2_3: 'Events', fl2_4: 'Creator Resources', fl2_5: 'Newsletter',
+        fl3_1: 'About 100CLAN', fl3_2: 'Careers', fl3_3: 'Press Kit', fl3_4: 'Contact', fl3_5: 'Partnerships',
+        footerCopy: '© 2026 100CLAN. All rights reserved.',
+        footerPrivacy: 'Privacy Policy', footerTerms: 'Terms of Service', footerCookies: 'Cookie Policy',
+      },
+      ar: {
+        navFeatures: 'المميزات', navHow: 'كيف يعمل', navCommunity: 'المجتمع', navPricing: 'الأسعار',
+        navLogin: 'تسجيل الدخول', navJoin: 'انضم للكلان',
+        loginTitle: 'مرحباً بعودتك',
+        loginSub: 'سجّل الدخول إلى حساب مبدعك على 100CLAN وتابع البناء.',
+        btnGoogle: 'المتابعة مع Google', btnApple: 'المتابعة مع Apple',
+        dividerText: 'أو تابع بالبريد الإلكتروني',
+        labelEmail: 'البريد الإلكتروني', labelPassword: 'كلمة المرور',
+        phEmail: 'you@example.com', phPassword: 'أدخل كلمة المرور',
+        rememberMe: 'تذكّرني', forgotPassword: 'نسيت كلمة المرور؟',
+        btnLogin: 'تسجيل الدخول',
+        altLink: 'ليس لديك حساب؟ <a href="signup.html">انضم للكلان</a>',
+        termsNote: 'بتسجيل الدخول، أنت توافق على <a href="terms.html">شروط الخدمة</a> و<a href="privacy.html">سياسة الخصوصية</a>.',
+        footerTagline: 'المنصة التي يجد فيها صنّاع المحتوى قبيلتهم ويتعاونون وينمون معاً.',
+        footerCol1: 'المنصة', footerCol2: 'المجتمع', footerCol3: 'الشركة',
+        fl1_1: 'المميزات', fl1_2: 'كيف يعمل', fl1_3: 'الأسعار', fl1_4: 'مطابقة المبدعين', fl1_5: 'مركز التعاون',
+        fl2_1: 'قصص المبدعين', fl2_2: 'المدونة', fl2_3: 'الفعاليات', fl2_4: 'موارد المبدعين', fl2_5: 'النشرة الإخبارية',
+        fl3_1: 'عن 100CLAN', fl3_2: 'وظائف', fl3_3: 'المجموعة الصحفية', fl3_4: 'اتصل بنا', fl3_5: 'الشراكات',
+        footerCopy: '© 2026 100CLAN. جميع الحقوق محفوظة.',
+        footerPrivacy: 'سياسة الخصوصية', footerTerms: 'شروط الخدمة', footerCookies: 'سياسة ملفات تعريف الارتباط',
+      }
+    };
+
+    function applyLang(lang) {
+      const t = i18n[lang];
+      document.documentElement.lang = lang;
+      document.documentElement.dir  = lang === 'ar' ? 'rtl' : 'ltr';
+      document.documentElement.classList.toggle('lang-ar', lang === 'ar');
+      document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+      requestAnimationFrame(updateLangSlide);
+
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[key] !== undefined) el.textContent = t[key];
+      });
+      document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+        const key = el.getAttribute('data-i18n-ph');
+        if (t[key] !== undefined) el.placeholder = t[key];
+      });
+      document.querySelectorAll('[data-i18n-html]').forEach(el => {
+        const key = el.getAttribute('data-i18n-html');
+        if (t[key] !== undefined) el.innerHTML = t[key];
+      });
+
+      localStorage.setItem('clan-lang', lang);
+    }
+
+    function updateLangSlide() {
+      document.querySelectorAll('.lang-switcher').forEach(switcher => {
+        const slide = switcher.querySelector('.lang-slide');
+        const activeBtn = switcher.querySelector('.lang-btn.active');
+        if (!slide || !activeBtn) return;
+        slide.style.width = activeBtn.offsetWidth + 'px';
+        slide.style.transform = `translateX(${activeBtn.offsetLeft}px)`;
+      });
+    }
+
+    applyLang(localStorage.getItem('clan-lang') || 'en');
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => applyLang(btn.dataset.lang));
+    });
+    window.addEventListener('resize', updateLangSlide);
+  </script>
+</body>
+</html>

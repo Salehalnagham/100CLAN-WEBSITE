@@ -168,7 +168,7 @@
     .cropper-header span { font-size: 13px; font-weight: 400; color: var(--gray); display: block; margin-top: 4px; }
     .cropper-container { position: relative; width: 320px; height: 320px; border-radius: 50%; overflow: hidden; background: #000; cursor: grab; touch-action: none; box-shadow: 0 0 0 4px var(--yellow), 0 0 40px rgba(245,184,0,0.15); }
     .cropper-container:active { cursor: grabbing; }
-    .cropper-container img { position: absolute; top: 0; left: 0; transform-origin: 0 0; user-select: none; pointer-events: none; -webkit-user-drag: none; will-change: transform; }
+    .cropper-container img { position: absolute; user-select: none; pointer-events: none; -webkit-user-drag: none; }
     .cropper-guide { position: absolute; inset: 0; border-radius: 50%; border: 2px solid rgba(255,255,255,0.15); pointer-events: none; z-index: 2; }
     .cropper-guide::before, .cropper-guide::after { content: ''; position: absolute; background: rgba(255,255,255,0.08); }
     .cropper-guide::before { top: 50%; left: 0; right: 0; height: 1px; }
@@ -590,22 +590,20 @@
 // ══════════════════════════════════════════
 var cropper = {
   active: false,
-  img: null,
   container: null,
   imgEl: null,
-  // Image natural dimensions
+  srcImg: null,
   natW: 0, natH: 0,
-  // Transform state
-  scale: 1, minScale: 1,
+  // Displayed dimensions and position (in container px)
+  dispW: 0, dispH: 0,
   posX: 0, posY: 0,
+  minScale: 1, scale: 1,
   rotation: 0, flipX: 1,
-  // Drag state
+  // Drag
   dragging: false, dragStartX: 0, dragStartY: 0, startPosX: 0, startPosY: 0,
-  // Pinch state
+  // Pinch
   pinching: false, pinchStartDist: 0, pinchStartScale: 1,
-  // Callback
   onDone: null,
-  // Container size
   size: 320,
 
   open: function(imageSrc, callback) {
@@ -614,94 +612,90 @@ var cropper = {
     this.flipX = 1;
     this.container = document.getElementById('cropperContainer');
     this.imgEl = document.getElementById('cropperImg');
-    this.size = this.container.offsetWidth;
+    // Show overlay first so container has layout
+    document.getElementById('cropperOverlay').classList.add('open');
+    this.size = this.container.offsetWidth || 320;
 
     var self = this;
     var img = new Image();
     img.onload = function() {
+      self.srcImg = img;
       self.natW = img.naturalWidth;
       self.natH = img.naturalHeight;
       self.imgEl.src = imageSrc;
-      // Fit: scale so shorter side fills the circle
+      // Calculate fit scale: fill the circle (cover)
       var fitScale = Math.max(self.size / self.natW, self.size / self.natH);
       self.minScale = fitScale;
       self.scale = fitScale;
-      // Center the image
-      self.posX = (self.size - self.natW * fitScale) / 2;
-      self.posY = (self.size - self.natH * fitScale) / 2;
-      self.updateTransform();
-      // Set slider
+      self.applySize();
+      // Center
+      self.posX = (self.size - self.dispW) / 2;
+      self.posY = (self.size - self.dispH) / 2;
+      self.applyPosition();
+      // Reset slider
       var slider = document.getElementById('cropperZoom');
-      slider.min = 100;
-      slider.max = 400;
       slider.value = 100;
       document.getElementById('cropperZoomVal').textContent = '1.0x';
-      // Show overlay
-      document.getElementById('cropperOverlay').classList.add('open');
       self.active = true;
     };
     img.src = imageSrc;
   },
 
-  updateTransform: function() {
-    // Apply scale, position, rotation, flip via CSS transform
-    var tx = this.posX;
-    var ty = this.posY;
-    var s = this.scale;
-    this.imgEl.style.transform =
-      'translate(' + tx + 'px,' + ty + 'px) scale(' + (s * this.flipX) + ',' + s + ') rotate(' + this.rotation + 'deg)';
-    // When rotated, adjust transform-origin
-    if (this.rotation % 360 !== 0) {
+  applySize: function() {
+    this.dispW = Math.round(this.natW * this.scale);
+    this.dispH = Math.round(this.natH * this.scale);
+    this.imgEl.style.width = this.dispW + 'px';
+    this.imgEl.style.height = this.dispH + 'px';
+  },
+
+  applyPosition: function() {
+    this.imgEl.style.left = Math.round(this.posX) + 'px';
+    this.imgEl.style.top = Math.round(this.posY) + 'px';
+    // Only use transform for rotation/flip (not scale/translate)
+    if (this.rotation !== 0 || this.flipX !== 1) {
       this.imgEl.style.transformOrigin = 'center center';
-      // Recalculate using center-based positioning
-      var cx = this.posX + (this.natW * this.scale) / 2;
-      var cy = this.posY + (this.natH * this.scale) / 2;
-      this.imgEl.style.transform =
-        'translate(' + cx + 'px,' + cy + 'px) rotate(' + this.rotation + 'deg) scale(' + (this.scale * this.flipX) + ',' + this.scale + ') translate(-50%,-50%)';
-      this.imgEl.style.transformOrigin = '0 0';
+      this.imgEl.style.transform = 'rotate(' + this.rotation + 'deg) scaleX(' + this.flipX + ')';
+    } else {
+      this.imgEl.style.transform = 'none';
     }
   },
 
   clampPosition: function() {
-    // Ensure the image covers the entire circular viewport
-    var sw = this.natW * this.scale;
-    var sh = this.natH * this.scale;
-    // Max posX is 0 (left edge at 0 or further left)
-    // Min posX is size - sw (right edge at size or further right)
-    if (this.rotation % 180 !== 0) {
-      // When rotated 90/270, width and height swap
-      var tmp = sw; sw = sh; sh = tmp;
-    }
-    var maxX = Math.max(0, (this.size - sw) / 2);
-    var minX = Math.min(0, this.size - sw + (this.size - sw) / 2);
-    // Simplified: just don't let edges show
-    if (sw >= this.size) {
-      if (this.posX > 0) this.posX = 0;
-      if (this.posX < this.size - sw) this.posX = this.size - sw;
+    var w = this.dispW;
+    var h = this.dispH;
+    // When rotated 90/270, effective dimensions swap
+    if (Math.abs(this.rotation) % 180 !== 0) { var tmp = w; w = h; h = tmp; }
+    // Don't let any edge of the circle show through
+    if (w >= this.size) {
+      var offsetX = (w - this.dispW) / 2;
+      if (this.posX + offsetX > 0) this.posX = -offsetX;
+      if (this.posX + offsetX + w < this.size) this.posX = this.size - w - offsetX;
     } else {
-      this.posX = (this.size - sw) / 2;
+      this.posX = (this.size - this.dispW) / 2;
     }
-    if (sh >= this.size) {
-      if (this.posY > 0) this.posY = 0;
-      if (this.posY < this.size - sh) this.posY = this.size - sh;
+    if (h >= this.size) {
+      var offsetY = (h - this.dispH) / 2;
+      if (this.posY + offsetY > 0) this.posY = -offsetY;
+      if (this.posY + offsetY + h < this.size) this.posY = this.size - h - offsetY;
     } else {
-      this.posY = (this.size - sh) / 2;
+      this.posY = (this.size - this.dispH) / 2;
     }
   },
 
   setZoom: function(zoomPercent) {
-    // zoomPercent: 100 = minScale, 400 = minScale * 4
     var factor = zoomPercent / 100;
     var newScale = this.minScale * factor;
-    // Zoom toward center
+    // Zoom centered on viewport center
     var cx = this.size / 2;
     var cy = this.size / 2;
-    var ratio = newScale / this.scale;
-    this.posX = cx - (cx - this.posX) * ratio;
-    this.posY = cy - (cy - this.posY) * ratio;
+    var oldW = this.dispW, oldH = this.dispH;
     this.scale = newScale;
+    this.applySize();
+    // Adjust position to keep center point stable
+    this.posX = cx - (cx - this.posX) * (this.dispW / oldW);
+    this.posY = cy - (cy - this.posY) * (this.dispH / oldH);
     this.clampPosition();
-    this.updateTransform();
+    this.applyPosition();
     document.getElementById('cropperZoomVal').textContent = factor.toFixed(1) + 'x';
   },
 
@@ -722,18 +716,14 @@ var cropper = {
     this.startPosX = this.posX;
     this.startPosY = this.posY;
   },
-
   moveDrag: function(x, y) {
     if (!this.dragging) return;
     this.posX = this.startPosX + (x - this.dragStartX);
     this.posY = this.startPosY + (y - this.dragStartY);
     this.clampPosition();
-    this.updateTransform();
+    this.applyPosition();
   },
-
-  endDrag: function() {
-    this.dragging = false;
-  },
+  endDrag: function() { this.dragging = false; },
 
   startPinch: function(touches) {
     this.pinching = true;
@@ -742,7 +732,6 @@ var cropper = {
     this.pinchStartDist = Math.sqrt(dx * dx + dy * dy);
     this.pinchStartScale = this.scale;
   },
-
   movePinch: function(touches) {
     if (!this.pinching) return;
     var dx = touches[0].clientX - touches[1].clientX;
@@ -753,50 +742,47 @@ var cropper = {
     newScale = Math.max(this.minScale, Math.min(this.minScale * 4, newScale));
     var cx = this.size / 2;
     var cy = this.size / 2;
-    var scaleRatio = newScale / this.scale;
-    this.posX = cx - (cx - this.posX) * scaleRatio;
-    this.posY = cy - (cy - this.posY) * scaleRatio;
+    var oldW = this.dispW, oldH = this.dispH;
     this.scale = newScale;
+    this.applySize();
+    this.posX = cx - (cx - this.posX) * (this.dispW / oldW);
+    this.posY = cy - (cy - this.posY) * (this.dispH / oldH);
     this.clampPosition();
-    this.updateTransform();
-    // Update slider
+    this.applyPosition();
     var pct = Math.round((this.scale / this.minScale) * 100);
     pct = Math.max(100, Math.min(400, pct));
     document.getElementById('cropperZoom').value = pct;
     document.getElementById('cropperZoomVal').textContent = (pct / 100).toFixed(1) + 'x';
   },
-
-  endPinch: function() {
-    this.pinching = false;
-  },
+  endPinch: function() { this.pinching = false; },
 
   exportCropped: function() {
-    // Draw the visible circular region to a canvas, output as square PNG
     var canvas = document.createElement('canvas');
-    var outputSize = 512;
-    canvas.width = outputSize;
-    canvas.height = outputSize;
+    var out = 512;
+    canvas.width = out;
+    canvas.height = out;
     var ctx = canvas.getContext('2d');
     // Clip to circle
     ctx.beginPath();
-    ctx.arc(outputSize / 2, outputSize / 2, outputSize / 2, 0, Math.PI * 2);
+    ctx.arc(out / 2, out / 2, out / 2, 0, Math.PI * 2);
     ctx.closePath();
     ctx.clip();
-    // Calculate which portion of the source image is visible
-    var ratio = outputSize / this.size;
+    // Map container coords to canvas coords
+    var r = out / this.size;
+    var dx = this.posX * r;
+    var dy = this.posY * r;
+    var dw = this.dispW * r;
+    var dh = this.dispH * r;
     ctx.save();
-    ctx.translate(this.posX * ratio, this.posY * ratio);
     if (this.rotation !== 0 || this.flipX !== 1) {
-      var cx = (this.natW * this.scale * ratio) / 2;
-      var cy = (this.natH * this.scale * ratio) / 2;
-      ctx.translate(cx, cy);
+      ctx.translate(dx + dw / 2, dy + dh / 2);
       ctx.rotate(this.rotation * Math.PI / 180);
       ctx.scale(this.flipX, 1);
-      ctx.translate(-cx, -cy);
+      ctx.drawImage(this.srcImg, -dw / 2, -dh / 2, dw, dh);
+    } else {
+      ctx.drawImage(this.srcImg, dx, dy, dw, dh);
     }
-    ctx.drawImage(this.imgEl, 0, 0, this.natW * this.scale * ratio, this.natH * this.scale * ratio);
     ctx.restore();
-    // Return as JPEG for smaller size (quality 0.92)
     return canvas.toDataURL('image/jpeg', 0.92);
   },
 
@@ -804,6 +790,9 @@ var cropper = {
     this.active = false;
     document.getElementById('cropperOverlay').classList.remove('open');
     this.imgEl.src = '';
+    this.imgEl.style.width = '';
+    this.imgEl.style.height = '';
+    this.imgEl.style.transform = 'none';
   }
 };
 

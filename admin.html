@@ -152,7 +152,14 @@
     /* ── Item Cards (for CRUD lists) ── */
     .item-card { background: var(--dark-3); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 18px 20px; display: flex; align-items: center; gap: 16px; margin-bottom: 12px; transition: var(--transition); }
     .item-card:hover { border-color: rgba(245,184,0,0.2); }
-    .item-avatar { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 15px; color: #fff; flex-shrink: 0; }
+    .item-avatar { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 15px; color: #fff; flex-shrink: 0; overflow: hidden; }
+    .item-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .photo-upload-area { border: 2px dashed rgba(245,184,0,0.3); border-radius: 12px; padding: 20px; text-align: center; cursor: pointer; transition: border-color .2s, background .2s; margin-bottom: 8px; }
+    .photo-upload-area:hover { border-color: #F5B800; background: rgba(245,184,0,0.05); }
+    .photo-upload-area.has-photo { border-color: #F5B800; padding: 8px; }
+    .photo-upload-area img { max-width: 120px; max-height: 120px; border-radius: 10px; object-fit: cover; }
+    .photo-upload-area .upload-label { color: #aaa; font-size: 13px; margin-top: 6px; }
+    .photo-upload-area .upload-icon { font-size: 28px; margin-bottom: 4px; }
     .item-info { flex: 1; min-width: 0; }
     .item-name { font-size: 14px; font-weight: 700; }
     .item-meta { font-size: 12px; color: var(--gray); margin-top: 2px; }
@@ -885,31 +892,71 @@ function renderTeam() {
   const team = getTeam();
   if (!team.length) { document.getElementById('teamList').innerHTML = '<div class="empty"><div class="empty-icon">&#128101;</div><p>No team members. Add one above.</p></div>'; return; }
   document.getElementById('teamList').innerHTML = team.map(t =>
-    '<div class="item-card"><div class="item-avatar" style="background:' + t.color + '">' + initials(t.nameEn) + '</div>' +
+    '<div class="item-card"><div class="item-avatar" style="background:' + t.color + '">' + (t.image ? '<img src="' + t.image + '" alt="' + esc(t.nameEn) + '">' : initials(t.nameEn)) + '</div>' +
     '<div class="item-info"><div class="item-name">' + esc(t.nameEn) + ' / ' + esc(t.nameAr) + '</div><div class="item-meta">' + esc(t.roleEn) + '</div></div>' +
     '<div class="item-actions"><button class="btn btn-b" onclick="editTeam(\'' + t.id + '\')">Edit</button><button class="btn btn-r" onclick="delTeam(\'' + t.id + '\')">Delete</button></div></div>'
   ).join('');
 }
 let editingTeamId = null;
+var teamPhotoBase64 = '';
 function openTeamModal(id) {
   editingTeamId = id || null;
   const t = editingTeamId ? getTeam().find(x => x.id === id) : {};
+  teamPhotoBase64 = t.image || '';
   document.getElementById('modalTeamTitle').textContent = id ? 'Edit Team Member' : 'Add Team Member';
   document.getElementById('modalTeamBody').innerHTML =
+    '<div class="form-group"><label class="form-label">Profile Photo</label>' +
+    '<div class="photo-upload-area' + (teamPhotoBase64 ? ' has-photo' : '') + '" id="tmPhotoArea" onclick="document.getElementById(\'tmPhotoInput\').click()">' +
+    (teamPhotoBase64 ? '<img src="' + teamPhotoBase64 + '" id="tmPhotoPreview">' : '<div class="upload-icon">&#128247;</div><div class="upload-label">Click to upload photo</div>') +
+    '</div>' +
+    '<input type="file" id="tmPhotoInput" accept="image/*" style="display:none" onchange="handleTeamPhoto(this)">' +
+    (teamPhotoBase64 ? '<button class="btn btn-r" style="margin-top:4px;font-size:12px;padding:4px 10px;" onclick="removeTeamPhoto()">Remove Photo</button>' : '') +
+    '</div>' +
     '<div class="bi-row"><div class="form-group"><label class="form-label">Name <span class="bi-tag bi-tag-en">EN</span></label><input class="form-input" id="tmNameEn" value="' + esc(t.nameEn||'') + '" /></div>' +
     '<div class="form-group"><label class="form-label">Name <span class="bi-tag bi-tag-ar">AR</span></label><input class="form-input" id="tmNameAr" dir="rtl" value="' + esc(t.nameAr||'') + '" /></div></div>' +
     '<div class="bi-row"><div class="form-group"><label class="form-label">Role <span class="bi-tag bi-tag-en">EN</span></label><input class="form-input" id="tmRoleEn" value="' + esc(t.roleEn||'') + '" /></div>' +
     '<div class="form-group"><label class="form-label">Role <span class="bi-tag bi-tag-ar">AR</span></label><input class="form-input" id="tmRoleAr" dir="rtl" value="' + esc(t.roleAr||'') + '" /></div></div>' +
     '<div class="bi-row"><div class="form-group"><label class="form-label">Bio <span class="bi-tag bi-tag-en">EN</span></label><textarea class="form-textarea" id="tmBioEn">' + esc(t.bioEn||'') + '</textarea></div>' +
     '<div class="form-group"><label class="form-label">Bio <span class="bi-tag bi-tag-ar">AR</span></label><textarea class="form-textarea" id="tmBioAr" dir="rtl">' + esc(t.bioAr||'') + '</textarea></div></div>' +
-    '<div class="form-group"><label class="form-label">Avatar Gradient (CSS)</label><input class="form-input" id="tmColor" value="' + esc(t.color||'linear-gradient(135deg,#F5B800,#D9A200)') + '" placeholder="linear-gradient(135deg,#color1,#color2)" /></div>' +
+    '<div class="form-group"><label class="form-label">Fallback Color (used if no photo)</label><input class="form-input" id="tmColor" value="' + esc(t.color||'linear-gradient(135deg,#F5B800,#D9A200)') + '" placeholder="linear-gradient(135deg,#color1,#color2)" /></div>' +
     '<div class="modal-actions"><button class="btn btn-ghost" onclick="closeModal(\'modalTeam\')">Cancel</button><button class="btn btn-y" onclick="saveTeamMember()">Save</button></div>';
   openModal('modalTeam');
+}
+function handleTeamPhoto(input) {
+  var file = input.files[0];
+  if (!file) return;
+  if (file.size > 2 * 1024 * 1024) { toast('&#9888; Image must be under 2MB'); input.value = ''; return; }
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    teamPhotoBase64 = e.target.result;
+    var area = document.getElementById('tmPhotoArea');
+    area.classList.add('has-photo');
+    area.innerHTML = '<img src="' + teamPhotoBase64 + '" id="tmPhotoPreview">';
+    var removeBtn = area.parentElement.querySelector('.btn-r');
+    if (!removeBtn) {
+      var btn = document.createElement('button');
+      btn.className = 'btn btn-r';
+      btn.style.cssText = 'margin-top:4px;font-size:12px;padding:4px 10px;';
+      btn.textContent = 'Remove Photo';
+      btn.onclick = removeTeamPhoto;
+      area.parentElement.appendChild(btn);
+    }
+  };
+  reader.readAsDataURL(file);
+}
+function removeTeamPhoto() {
+  teamPhotoBase64 = '';
+  var area = document.getElementById('tmPhotoArea');
+  area.classList.remove('has-photo');
+  area.innerHTML = '<div class="upload-icon">&#128247;</div><div class="upload-label">Click to upload photo</div>';
+  document.getElementById('tmPhotoInput').value = '';
+  var removeBtn = area.parentElement.querySelector('.btn-r');
+  if (removeBtn) removeBtn.remove();
 }
 function editTeam(id) { openTeamModal(id); }
 function saveTeamMember() {
   const team = getTeam();
-  const data = { nameEn:document.getElementById('tmNameEn').value, nameAr:document.getElementById('tmNameAr').value, roleEn:document.getElementById('tmRoleEn').value, roleAr:document.getElementById('tmRoleAr').value, bioEn:document.getElementById('tmBioEn').value, bioAr:document.getElementById('tmBioAr').value, color:document.getElementById('tmColor').value };
+  const data = { nameEn:document.getElementById('tmNameEn').value, nameAr:document.getElementById('tmNameAr').value, roleEn:document.getElementById('tmRoleEn').value, roleAr:document.getElementById('tmRoleAr').value, bioEn:document.getElementById('tmBioEn').value, bioAr:document.getElementById('tmBioAr').value, color:document.getElementById('tmColor').value, image:teamPhotoBase64 };
   if (!data.nameEn) { toast('&#9888; Name (EN) is required'); return; }
   if (editingTeamId) {
     const idx = team.findIndex(t => t.id === editingTeamId);
@@ -931,21 +978,30 @@ function renderStories() {
   const stories = getStories();
   if (!stories.length) { document.getElementById('storiesList').innerHTML = '<div class="empty"><div class="empty-icon">&#11088;</div><p>No stories yet.</p></div>'; return; }
   document.getElementById('storiesList').innerHTML = stories.map(s =>
-    '<div class="item-card"><div class="item-avatar" style="background:' + s.color + '">' + initials(s.name) + '</div>' +
+    '<div class="item-card"><div class="item-avatar" style="background:' + s.color + '">' + (s.image ? '<img src="' + s.image + '" alt="' + esc(s.name) + '">' : initials(s.name)) + '</div>' +
     '<div class="item-info"><div class="item-name">' + esc(s.name) + '</div><div class="item-meta">' + esc(s.niche) + ' · ' + esc(s.platform) + ' · ' + esc(s.statBefore) + ' → ' + esc(s.statAfter) + ' (' + esc(s.growth) + ')</div></div>' +
     '<div class="item-actions"><button class="btn btn-b" onclick="editStory(\'' + s.id + '\')">Edit</button><button class="btn btn-r" onclick="delStory(\'' + s.id + '\')">Delete</button></div></div>'
   ).join('');
 }
 let editingStoryId = null;
+var storyPhotoBase64 = '';
 function openStoryModal(id) {
   editingStoryId = id || null;
   const s = editingStoryId ? getStories().find(x => x.id === id) : {};
+  storyPhotoBase64 = s.image || '';
   document.getElementById('modalStoryTitle').textContent = id ? 'Edit Story' : 'Add Creator Story';
   document.getElementById('modalStoryBody').innerHTML =
+    '<div class="form-group"><label class="form-label">Creator Photo</label>' +
+    '<div class="photo-upload-area' + (storyPhotoBase64 ? ' has-photo' : '') + '" id="stPhotoArea" onclick="document.getElementById(\'stPhotoInput\').click()">' +
+    (storyPhotoBase64 ? '<img src="' + storyPhotoBase64 + '" id="stPhotoPreview">' : '<div class="upload-icon">&#128247;</div><div class="upload-label">Click to upload photo</div>') +
+    '</div>' +
+    '<input type="file" id="stPhotoInput" accept="image/*" style="display:none" onchange="handleStoryPhoto(this)">' +
+    (storyPhotoBase64 ? '<button class="btn btn-r" style="margin-top:4px;font-size:12px;padding:4px 10px;" onclick="removeStoryPhoto()">Remove Photo</button>' : '') +
+    '</div>' +
     '<div class="form-row"><div class="form-group"><label class="form-label">Creator Name</label><input class="form-input" id="stName" value="' + esc(s.name||'') + '" /></div>' +
     '<div class="form-group"><label class="form-label">Niche</label><input class="form-input" id="stNiche" value="' + esc(s.niche||'') + '" placeholder="e.g. Fashion, Tech, Food" /></div></div>' +
     '<div class="form-row"><div class="form-group"><label class="form-label">Platform</label><select class="form-select" id="stPlatform"><option value="Instagram"' + (s.platform==='Instagram'?' selected':'') + '>Instagram</option><option value="YouTube"' + (s.platform==='YouTube'?' selected':'') + '>YouTube</option><option value="TikTok"' + (s.platform==='TikTok'?' selected':'') + '>TikTok</option><option value="Twitter"' + (s.platform==='Twitter'?' selected':'') + '>Twitter</option></select></div>' +
-    '<div class="form-group"><label class="form-label">Avatar Gradient</label><input class="form-input" id="stColor" value="' + esc(s.color||'linear-gradient(135deg,#F5B800,#D9A200)') + '" /></div></div>' +
+    '<div class="form-group"><label class="form-label">Fallback Color (if no photo)</label><input class="form-input" id="stColor" value="' + esc(s.color||'linear-gradient(135deg,#F5B800,#D9A200)') + '" /></div></div>' +
     '<div class="bi-row"><div class="form-group"><label class="form-label">Quote <span class="bi-tag bi-tag-en">EN</span></label><textarea class="form-textarea" id="stQuoteEn">' + esc(s.quoteEn||'') + '</textarea></div>' +
     '<div class="form-group"><label class="form-label">Quote <span class="bi-tag bi-tag-ar">AR</span></label><textarea class="form-textarea" id="stQuoteAr" dir="rtl">' + esc(s.quoteAr||'') + '</textarea></div></div>' +
     '<div class="form-row" style="grid-template-columns:1fr 1fr 1fr;"><div class="form-group"><label class="form-label">Before (e.g. 95K)</label><input class="form-input" id="stBefore" value="' + esc(s.statBefore||'') + '" /></div>' +
@@ -954,10 +1010,41 @@ function openStoryModal(id) {
     '<div class="modal-actions"><button class="btn btn-ghost" onclick="closeModal(\'modalStory\')">Cancel</button><button class="btn btn-y" onclick="saveStoryItem()">Save</button></div>';
   openModal('modalStory');
 }
+function handleStoryPhoto(input) {
+  var file = input.files[0];
+  if (!file) return;
+  if (file.size > 2 * 1024 * 1024) { toast('&#9888; Image must be under 2MB'); input.value = ''; return; }
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    storyPhotoBase64 = e.target.result;
+    var area = document.getElementById('stPhotoArea');
+    area.classList.add('has-photo');
+    area.innerHTML = '<img src="' + storyPhotoBase64 + '" id="stPhotoPreview">';
+    var removeBtn = area.parentElement.querySelector('.btn-r');
+    if (!removeBtn) {
+      var btn = document.createElement('button');
+      btn.className = 'btn btn-r';
+      btn.style.cssText = 'margin-top:4px;font-size:12px;padding:4px 10px;';
+      btn.textContent = 'Remove Photo';
+      btn.onclick = removeStoryPhoto;
+      area.parentElement.appendChild(btn);
+    }
+  };
+  reader.readAsDataURL(file);
+}
+function removeStoryPhoto() {
+  storyPhotoBase64 = '';
+  var area = document.getElementById('stPhotoArea');
+  area.classList.remove('has-photo');
+  area.innerHTML = '<div class="upload-icon">&#128247;</div><div class="upload-label">Click to upload photo</div>';
+  document.getElementById('stPhotoInput').value = '';
+  var removeBtn = area.parentElement.querySelector('.btn-r');
+  if (removeBtn) removeBtn.remove();
+}
 function editStory(id) { openStoryModal(id); }
 function saveStoryItem() {
   const stories = getStories();
-  const data = { name:document.getElementById('stName').value, niche:document.getElementById('stNiche').value, platform:document.getElementById('stPlatform').value, quoteEn:document.getElementById('stQuoteEn').value, quoteAr:document.getElementById('stQuoteAr').value, statBefore:document.getElementById('stBefore').value, statAfter:document.getElementById('stAfter').value, growth:document.getElementById('stGrowth').value, color:document.getElementById('stColor').value };
+  const data = { name:document.getElementById('stName').value, niche:document.getElementById('stNiche').value, platform:document.getElementById('stPlatform').value, quoteEn:document.getElementById('stQuoteEn').value, quoteAr:document.getElementById('stQuoteAr').value, statBefore:document.getElementById('stBefore').value, statAfter:document.getElementById('stAfter').value, growth:document.getElementById('stGrowth').value, color:document.getElementById('stColor').value, image:storyPhotoBase64 };
   if (!data.name) { toast('&#9888; Creator name is required'); return; }
   if (editingStoryId) { const idx = stories.findIndex(s => s.id === editingStoryId); if (idx >= 0) stories[idx] = { ...stories[idx], ...data }; }
   else { data.id = uid(); stories.push(data); }

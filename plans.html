@@ -1021,6 +1021,39 @@
       });
     }
 
+    // Load pricing from admin
+    var pricing = JSON.parse(localStorage.getItem('clan-content-plans') || 'null');
+    if (pricing && pricing.plans && pricing.plans.length) {
+      var lang = localStorage.getItem('clan-lang') || 'en';
+      var grid = document.querySelector('.plans-grid');
+      if (grid) {
+        grid.innerHTML = pricing.plans.map(function(plan, i) {
+          var name = lang === 'ar' ? (plan.nameAr || plan.nameEn) : plan.nameEn;
+          var desc = lang === 'ar' ? (plan.descAr || plan.descEn) : plan.descEn;
+          var price = plan.priceMonthly || 0;
+          var isFeatured = i === 1;
+          var delay = i > 0 ? ' reveal-delay-' + i : '';
+          var btnClass = isFeatured ? 'plan-btn-primary' : 'plan-btn-outline';
+          var btnText = price === 0 ? 'Get Started Free' : (i === 2 ? 'Contact Sales' : 'Start Pro Trial');
+          var btnHref = i === 2 ? 'contact.html' : 'signup.html';
+          var html = '<div class="plan-card' + (isFeatured ? ' featured' : '') + ' reveal' + delay + '">';
+          if (isFeatured) html += '<div class="plan-badge">Most Popular</div>';
+          html += '<div class="plan-name">' + name + '</div>';
+          html += '<div class="plan-price"><span class="currency">$</span>' + price + '<span class="period"> / ' + (price === 0 ? 'forever' : 'month') + '</span></div>';
+          html += '<p class="plan-desc">' + desc + '</p>';
+          html += '<a href="' + btnHref + '" class="plan-btn ' + btnClass + '">' + btnText + '</a>';
+          html += '<div class="plan-divider"></div>';
+          html += '<div class="plan-features-title">What\'s included</div>';
+          html += '<ul class="plan-features">';
+          (plan.features || []).forEach(function(f) {
+            html += '<li><span class="check">&#10003;</span><span>' + f + '</span></li>';
+          });
+          html += '</ul></div>';
+          return html;
+        }).join('');
+      }
+    }
+
     // Load footer overrides
     var footer = JSON.parse(localStorage.getItem('clan-content-footer') || 'null');
     if (footer) {

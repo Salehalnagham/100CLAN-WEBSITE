@@ -1289,6 +1289,34 @@
       });
     }
 
+    // Load blog posts from admin
+    var blogs = JSON.parse(localStorage.getItem('clan-content-blog') || 'null');
+    if (blogs && blogs.length) {
+      var lang = localStorage.getItem('clan-lang') || 'en';
+      var grid = document.querySelector('.blog-grid');
+      if (grid) {
+        var gradients = [
+          'linear-gradient(135deg, #1A1A1A 0%, #3A2A1A 50%, #F5B800 100%)',
+          'linear-gradient(135deg, #111 0%, #1A2A1A 50%, #2A8A2A 100%)',
+          'linear-gradient(135deg, #111 0%, #1A1A2A 50%, #2A2ABB 100%)',
+          'linear-gradient(135deg, #111 0%, #2A1A2A 50%, #AA2ABB 100%)',
+          'linear-gradient(135deg, #111 0%, #2A2A1A 50%, #BBAA2A 100%)',
+          'linear-gradient(135deg, #111 0%, #2A1A1A 50%, #BB2A2A 100%)'
+        ];
+        grid.innerHTML = blogs.map(function(b, i) {
+          var title = lang === 'ar' ? (b.titleAr || b.titleEn) : b.titleEn;
+          var excerpt = lang === 'ar' ? (b.excerptAr || b.excerptEn) : b.excerptEn;
+          var bg = b.color || gradients[i % gradients.length];
+          var delay = i % 3 > 0 ? ' reveal-delay-' + (i % 3) : '';
+          return '<div class="blog-card reveal' + delay + '">' +
+            '<div class="blog-thumb" style="background:' + bg + '"><span class="category-badge">' + (b.category || '') + '</span></div>' +
+            '<div class="blog-body"><p class="post-date">' + (b.date || '') + '</p>' +
+            '<h3>' + title + '</h3><p>' + excerpt + '</p>' +
+            '<a href="#" class="read-more">Read More →</a></div></div>';
+        }).join('');
+      }
+    }
+
     // Load footer overrides
     var footer = JSON.parse(localStorage.getItem('clan-content-footer') || 'null');
     if (footer) {

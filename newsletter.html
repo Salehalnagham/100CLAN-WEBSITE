@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Newsletter — 100CLAN</title>
+  <title>Newsletter - 100CLAN</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -18,24 +18,45 @@
 
     /* ─── Language Switcher ─── */
     .lang-switcher {
-      display: flex; align-items: center;
-      background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.14);
-      border-radius: 20px; padding: 3px; gap: 0; position: relative;
+      display: flex;
+      align-items: center;
+      background: rgba(255,255,255,0.07);
+      border: 1.5px solid rgba(255,255,255,0.13);
+      border-radius: 100px;
+      padding: 3px;
+      position: relative;
+      flex-shrink: 0;
     }
     .lang-slide {
-      position: absolute; top: 3px; left: 0; height: calc(100% - 6px);
-      border-radius: 16px; background: var(--yellow);
-      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), width 0.3s cubic-bezier(0.4,0,0.2,1);
+      position: absolute;
+      top: 3px;
+      left: 0;
+      height: calc(100% - 6px);
+      border-radius: 100px;
+      background: var(--yellow);
+      box-shadow: 0 2px 12px rgba(245,184,0,0.55), 0 1px 4px rgba(0,0,0,0.35);
+      transition: transform 0.42s cubic-bezier(0.34,1.4,0.64,1), width 0.42s cubic-bezier(0.34,1.4,0.64,1);
       pointer-events: none;
     }
     .lang-btn {
-      font-size: 11px; font-weight: 700; letter-spacing: 0.06em;
-      padding: 5px 13px; border-radius: 16px; border: none;
-      background: transparent; color: rgba(255,255,255,0.4);
-      cursor: pointer; transition: color 0.25s ease;
-      font-family: 'Montserrat', sans-serif; line-height: 1; position: relative; z-index: 1;
+      flex: 1;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      padding: 6px 16px;
+      border-radius: 100px;
+      border: none;
+      background: transparent;
+      color: rgba(255,255,255,0.38);
+      cursor: pointer;
+      transition: color 0.25s ease;
+      font-family: 'Montserrat', sans-serif;
+      line-height: 1;
+      position: relative;
+      z-index: 1;
+      text-align: center;
     }
-    .lang-btn.active { background: transparent; color: #111111; }
+    .lang-btn.active { color: #111111; font-weight: 900; }
 
     /* ─── Arabic / RTL ─── */
     html.lang-ar, html.lang-ar body,
@@ -43,7 +64,24 @@
     html.lang-ar p, html.lang-ar a, html.lang-ar span,
     html.lang-ar li, html.lang-ar button, html.lang-ar div,
     html.lang-ar input, html.lang-ar select { font-family: 'ClanArabic', sans-serif; }
-    html.lang-ar .lang-btn { font-family: 'Montserrat', sans-serif; }
+    html.lang-ar .lang-btn {
+      flex: 1;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      padding: 6px 16px;
+      border-radius: 100px;
+      border: none;
+      background: transparent;
+      color: rgba(255,255,255,0.38);
+      cursor: pointer;
+      transition: color 0.25s ease;
+      font-family: 'Montserrat', sans-serif;
+      line-height: 1;
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
     html.lang-ar .nav-links          { flex-direction: row-reverse; }
     html.lang-ar .nav-cta            { flex-direction: row-reverse; }
     html.lang-ar .section-label      { flex-direction: row-reverse; }
@@ -110,8 +148,7 @@
       font-size: 11px; font-weight: 700; letter-spacing: 0.2em;
       text-transform: uppercase; color: var(--yellow); margin-bottom: 16px;
     }
-    .section-label::before { content: ''; width: 24px; height: 2px; background: var(--yellow); border-radius: 1px; }
-    .section-title { font-size: clamp(32px, 5vw, 52px); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; }
+.section-title { font-size: clamp(32px, 5vw, 52px); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; }
     .section-sub { font-size: 17px; color: var(--gray); font-weight: 400; line-height: 1.7; }
 
     .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.7s ease, transform 0.7s ease; }
@@ -363,7 +400,7 @@
           <li><a href="index.html#features" data-i18n="navFeatures">Features</a></li>
           <li><a href="index.html#how" data-i18n="navHow">How It Works</a></li>
           <li><a href="index.html#community" data-i18n="navCommunity">Community</a></li>
-          <li><a href="index.html#join" data-i18n="navPricing">Pricing</a></li>
+          <li><a href="plans.html" data-i18n="navPricing">Pricing</a></li>
         </ul>
         <div class="nav-cta">
           <div class="lang-switcher" role="group" aria-label="Language">
@@ -391,7 +428,7 @@
           <span data-i18n="bannerH1a">Stay Ahead of the</span><br/>
           <span class="text-yellow" data-i18n="bannerH1b">Creator Curve</span>
         </h1>
-        <p class="page-banner-sub reveal reveal-delay-2" data-i18n="bannerSub">The newsletter for ambitious creators — platform updates, collab opportunities, growth tactics, and creator spotlights delivered straight to your inbox.</p>
+        <p class="page-banner-sub reveal reveal-delay-2" data-i18n="bannerSub">The newsletter for ambitious creators, platform updates, collab opportunities, growth tactics, and creator spotlights delivered straight to your inbox.</p>
       </div>
     </div>
   </div>
@@ -416,8 +453,8 @@
             <input type="email" class="form-field" data-i18n-placeholder="formEmailPlaceholder" placeholder="Your email address" />
           </div>
           <select class="form-select" aria-label="Frequency">
-            <option value="weekly" data-i18n="freqWeekly">Weekly — every Tuesday</option>
-            <option value="biweekly" data-i18n="freqBiweekly">Bi-weekly — every other Tuesday</option>
+            <option value="weekly" data-i18n="freqWeekly">Weekly, every Tuesday</option>
+            <option value="biweekly" data-i18n="freqBiweekly">Bi-weekly, every other Tuesday</option>
           </select>
           <button class="btn-subscribe" onclick="handleSubscribe()" type="button">
             <span data-i18n="subBtn">Subscribe Free</span>
@@ -438,12 +475,12 @@
         <div class="benefit-card reveal">
           <div class="benefit-icon">✨</div>
           <div class="benefit-title" data-i18n="ben1Title">Creator Spotlights</div>
-          <p class="benefit-desc" data-i18n="ben1Desc">Deep-dives into how top creators built their audience, scaled their income, and found their niche — with tactics you can steal.</p>
+          <p class="benefit-desc" data-i18n="ben1Desc">Deep-dives into how top creators built their audience, scaled their income, and found their niche, with tactics you can steal.</p>
         </div>
         <div class="benefit-card reveal reveal-delay-1">
           <div class="benefit-icon">🚀</div>
           <div class="benefit-title" data-i18n="ben2Title">Platform Updates</div>
-          <p class="benefit-desc" data-i18n="ben2Desc">Algorithm changes, feature launches, and policy updates across TikTok, Instagram, YouTube, and X — before everyone else hears about them.</p>
+          <p class="benefit-desc" data-i18n="ben2Desc">Algorithm changes, feature launches, and policy updates across TikTok, Instagram, YouTube, and X, before everyone else hears about them.</p>
         </div>
         <div class="benefit-card reveal reveal-delay-2">
           <div class="benefit-icon">🤝</div>
@@ -472,7 +509,7 @@
             <span class="issue-date" data-i18n="issue1Date">Feb 18, 2026</span>
           </div>
           <div class="issue-title" data-i18n="issue1Title">The Collab Formula: How 3 Creators Hit 1M Combined New Followers</div>
-          <p class="issue-preview" data-i18n="issue1Preview">This week we break down the exact collab structure that drove a million new follows across three creators in 6 weeks — plus 5 open collab requests from the 100CLAN community.</p>
+          <p class="issue-preview" data-i18n="issue1Preview">This week we break down the exact collab structure that drove a million new follows across three creators in 6 weeks, plus 5 open collab requests from the 100CLAN community.</p>
           <a href="#" class="issue-read" data-i18n="readIssue">Read Issue →</a>
         </div>
 
@@ -507,7 +544,7 @@
       <div class="cta-inner">
         <div class="section-label reveal" style="justify-content:center" data-i18n="ctaLabel">Join the Platform</div>
         <h2 class="cta-title reveal reveal-delay-1" data-i18n="ctaTitle">The newsletter is just <span class="text-yellow">the start</span></h2>
-        <p class="cta-sub reveal reveal-delay-2" data-i18n="ctaSub">Join 100CLAN and get everything in the newsletter — plus a full platform to find collab partners, manage deals, and grow faster together.</p>
+        <p class="cta-sub reveal reveal-delay-2" data-i18n="ctaSub">Join 100CLAN and get everything in the newsletter, plus a full platform to find collab partners, manage deals, and grow faster together.</p>
         <div class="cta-buttons reveal reveal-delay-3">
           <a href="signup.html" class="btn-primary-lg" data-i18n="ctaBtn">
             Join 100CLAN Free
@@ -632,22 +669,22 @@
         navLogin: 'Log In', navJoin: 'Join the Clan',
         bannerLabel: 'Newsletter',
         bannerH1a: 'Stay Ahead of the', bannerH1b: 'Creator Curve',
-        bannerSub: 'The newsletter for ambitious creators — platform updates, collab opportunities, growth tactics, and creator spotlights delivered straight to your inbox.',
+        bannerSub: 'The newsletter for ambitious creators, platform updates, collab opportunities, growth tactics, and creator spotlights delivered straight to your inbox.',
         subBadge: 'Join 8,400+ creators already subscribed',
         formTitle: 'Get the Clan Weekly',
         formSub: 'No fluff, no spam. Just the most valuable creator intel, curated every week by the 100CLAN team.',
         formNamePlaceholder: 'Your name',
         formEmailPlaceholder: 'Your email address',
-        freqWeekly: 'Weekly — every Tuesday',
-        freqBiweekly: 'Bi-weekly — every other Tuesday',
+        freqWeekly: 'Weekly, every Tuesday',
+        freqBiweekly: 'Bi-weekly, every other Tuesday',
         subBtn: 'Subscribe Free',
         subNote: 'No credit card required. Unsubscribe at any time.',
         benefitsLabel: "What You'll Get",
         benefitsTitle: 'Every issue is packed with value',
         ben1Title: 'Creator Spotlights',
-        ben1Desc: 'Deep-dives into how top creators built their audience, scaled their income, and found their niche — with tactics you can steal.',
+        ben1Desc: 'Deep-dives into how top creators built their audience, scaled their income, and found their niche, with tactics you can steal.',
         ben2Title: 'Platform Updates',
-        ben2Desc: 'Algorithm changes, feature launches, and policy updates across TikTok, Instagram, YouTube, and X — before everyone else hears about them.',
+        ben2Desc: 'Algorithm changes, feature launches, and policy updates across TikTok, Instagram, YouTube, and X, before everyone else hears about them.',
         ben3Title: 'Collab Opportunities',
         ben3Desc: 'Curated list of open collaboration requests from other 100CLAN creators every week. Find your next collab partner in 2 minutes.',
         ben4Title: 'Exclusive Tips',
@@ -656,7 +693,7 @@
         issuesTitle: "See what you've been missing",
         issue1Num: '#042', issue1Date: 'Feb 18, 2026',
         issue1Title: 'The Collab Formula: How 3 Creators Hit 1M Combined New Followers',
-        issue1Preview: 'This week we break down the exact collab structure that drove a million new follows across three creators in 6 weeks — plus 5 open collab requests from the 100CLAN community.',
+        issue1Preview: 'This week we break down the exact collab structure that drove a million new follows across three creators in 6 weeks, plus 5 open collab requests from the 100CLAN community.',
         issue2Num: '#041', issue2Date: 'Feb 11, 2026',
         issue2Title: "TikTok's New Algorithm Signal Nobody Is Talking About",
         issue2Preview: 'Our data team analysed 2,400 videos to uncover the one engagement signal TikTok started prioritising in Q1 2026. The results will change how you shoot your content.',
@@ -666,7 +703,7 @@
         readIssue: 'Read Issue →',
         ctaLabel: 'Join the Platform',
         ctaTitle: 'The newsletter is just the start',
-        ctaSub: 'Join 100CLAN and get everything in the newsletter — plus a full platform to find collab partners, manage deals, and grow faster together.',
+        ctaSub: 'Join 100CLAN and get everything in the newsletter, plus a full platform to find collab partners, manage deals, and grow faster together.',
         ctaBtn: 'Join 100CLAN Free',
         footerTagline: 'The platform where content creators find their tribe, collaborate, and grow together.',
         footerCol1: 'Platform', footerCol2: 'Community', footerCol3: 'Company',
@@ -681,22 +718,22 @@
         navLogin: 'تسجيل الدخول', navJoin: 'انضم للكلان',
         bannerLabel: 'النشرة الإخبارية',
         bannerH1a: 'ابقَ متقدماً على', bannerH1b: 'منحنى المبدعين',
-        bannerSub: 'النشرة الإخبارية للمبدعين الطموحين — تحديثات المنصات وفرص التعاون وتكتيكات النمو وأبرز المبدعين مباشرة إلى بريدك الوارد.',
+        bannerSub: 'النشرة الإخبارية للمبدعين الطموحين, تحديثات المنصات وفرص التعاون وتكتيكات النمو وأبرز المبدعين مباشرة إلى بريدك الوارد.',
         subBadge: 'انضم إلى أكثر من ٨٤٠٠ مبدع مشترك',
         formTitle: 'احصل على كلان ويكلي',
         formSub: 'لا حشو ولا رسائل مزعجة. فقط أثمن المعلومات الإبداعية، منتقاة كل أسبوع من قِبل فريق 100CLAN.',
         formNamePlaceholder: 'اسمك',
         formEmailPlaceholder: 'عنوان بريدك الإلكتروني',
-        freqWeekly: 'أسبوعي — كل ثلاثاء',
-        freqBiweekly: 'نصف أسبوعي — كل ثلاثاء آخر',
+        freqWeekly: 'أسبوعي, كل ثلاثاء',
+        freqBiweekly: 'نصف أسبوعي, كل ثلاثاء آخر',
         subBtn: 'اشترك مجاناً',
         subNote: 'لا تحتاج إلى بطاقة ائتمانية. إلغاء الاشتراك في أي وقت.',
         benefitsLabel: 'ما ستحصل عليه',
         benefitsTitle: 'كل إصدار مليء بالقيمة',
         ben1Title: 'أبرز المبدعين',
-        ben1Desc: 'تعمّق في كيفية بناء أبرز المبدعين لجمهورهم وتضخيم دخلهم وإيجاد مجالهم — مع تكتيكات يمكنك تطبيقها.',
+        ben1Desc: 'تعمّق في كيفية بناء أبرز المبدعين لجمهورهم وتضخيم دخلهم وإيجاد مجالهم, مع تكتيكات يمكنك تطبيقها.',
         ben2Title: 'تحديثات المنصات',
-        ben2Desc: 'تغييرات الخوارزميات وإطلاق الميزات وتحديثات السياسات عبر تيك توك وإنستغرام ويوتيوب وX — قبل أن يسمع بها الآخرون.',
+        ben2Desc: 'تغييرات الخوارزميات وإطلاق الميزات وتحديثات السياسات عبر تيك توك وإنستغرام ويوتيوب وX, قبل أن يسمع بها الآخرون.',
         ben3Title: 'فرص التعاون',
         ben3Desc: 'قائمة منتقاة من طلبات التعاون المفتوحة من مبدعي 100CLAN كل أسبوع. ابحث عن شريك التعاون القادم في دقيقتين.',
         ben4Title: 'نصائح حصرية',
@@ -705,7 +742,7 @@
         issuesTitle: 'اكتشف ما فاتك',
         issue1Num: '#٠٤٢', issue1Date: '١٨ فبراير ٢٠٢٦',
         issue1Title: 'معادلة التعاون: كيف حصل ٣ مبدعين على مليون متابع جديد مجتمع',
-        issue1Preview: 'هذا الأسبوع نحلل البنية الدقيقة للتعاون التي أدت إلى مليون متابعة جديدة عبر ثلاثة مبدعين في ٦ أسابيع — مع ٥ طلبات تعاون مفتوحة من مجتمع 100CLAN.',
+        issue1Preview: 'هذا الأسبوع نحلل البنية الدقيقة للتعاون التي أدت إلى مليون متابعة جديدة عبر ثلاثة مبدعين في ٦ أسابيع, مع ٥ طلبات تعاون مفتوحة من مجتمع 100CLAN.',
         issue2Num: '#٠٤١', issue2Date: '١١ فبراير ٢٠٢٦',
         issue2Title: 'إشارة خوارزمية تيك توك الجديدة التي لا يتحدث عنها أحد',
         issue2Preview: 'حلّل فريق البيانات لدينا ٢٤٠٠ فيديو للكشف عن إشارة التفاعل الوحيدة التي بدأ تيك توك بإعطائها الأولوية في الربع الأول من ٢٠٢٦. النتائج ستغير طريقة تصوير محتواك.',
@@ -715,7 +752,7 @@
         readIssue: 'اقرأ الإصدار ←',
         ctaLabel: 'انضم للمنصة',
         ctaTitle: 'النشرة الإخبارية مجرد البداية',
-        ctaSub: 'انضم إلى 100CLAN واحصل على كل ما في النشرة الإخبارية — إضافة إلى منصة كاملة لإيجاد شركاء التعاون وإدارة الصفقات والنمو بشكل أسرع معاً.',
+        ctaSub: 'انضم إلى 100CLAN واحصل على كل ما في النشرة الإخبارية, إضافة إلى منصة كاملة لإيجاد شركاء التعاون وإدارة الصفقات والنمو بشكل أسرع معاً.',
         ctaBtn: 'انضم إلى 100CLAN مجاناً',
         footerTagline: 'المنصة التي يجد فيها صنّاع المحتوى قبيلتهم ويتعاونون وينمون معاً.',
         footerCol1: 'المنصة', footerCol2: 'المجتمع', footerCol3: 'الشركة',
@@ -757,6 +794,60 @@
       btn.addEventListener('click', () => applyLang(btn.dataset.lang));
     });
     window.addEventListener('resize', updateLangSlide);
+    // ─── Lang Switcher: Drag / Swipe Support ───
+    (function() {
+      document.querySelectorAll('.lang-switcher').forEach(function(sw) {
+        var slide = sw.querySelector('.lang-slide');
+        if (!slide) return;
+        var active = false, dragged = false;
+        var startX = 0, startTX = 0, curTX = 0, minTX = 0, maxTX = 0;
+
+        function clientX(e) { return e.touches ? e.touches[0].clientX : e.clientX; }
+        function getTX() {
+          var m = (slide.style.transform || '').match(/translateX\(([^p]+)px\)/);
+          return m ? +m[1] : 0;
+        }
+
+        function start(e) {
+          active = true; dragged = false;
+          startX = clientX(e); startTX = curTX = getTX();
+          var enBtn = sw.querySelector('[data-lang="en"]');
+          var arBtn = sw.querySelector('[data-lang="ar"]');
+          minTX = enBtn ? enBtn.offsetLeft : 0;
+          maxTX = arBtn ? arBtn.offsetLeft : sw.offsetWidth * 0.5;
+          slide.style.transition = 'none';
+        }
+        function move(e) {
+          if (!active) return;
+          var dx = clientX(e) - startX;
+          if (Math.abs(dx) > 4) dragged = true;
+          curTX = Math.max(minTX, Math.min(startTX + dx, maxTX));
+          slide.style.transform = 'translateX(' + curTX + 'px)';
+          if (dragged) e.preventDefault();
+        }
+        function end() {
+          if (!active) return;
+          active = false;
+          slide.style.transition = '';
+          if (dragged) {
+            var mid = (minTX + maxTX) / 2;
+            applyLang(curTX >= mid ? 'ar' : 'en');
+          }
+        }
+
+        // Prevent click from firing after a drag
+        sw.addEventListener('click', function(e) {
+          if (dragged) { e.stopImmediatePropagation(); dragged = false; }
+        }, true);
+
+        sw.addEventListener('mousedown', start);
+        document.addEventListener('mousemove', move);
+        document.addEventListener('mouseup', end);
+        sw.addEventListener('touchstart', start, { passive: true });
+        document.addEventListener('touchmove', move, { passive: false });
+        document.addEventListener('touchend', end);
+      });
+    })();
   </script>
 </body>
 </html>

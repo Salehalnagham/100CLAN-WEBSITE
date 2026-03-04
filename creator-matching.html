@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Creator Matching — 100CLAN</title>
+  <title>Creator Matching - 100CLAN</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -21,39 +21,42 @@
       display: flex;
       align-items: center;
       background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.14);
-      border-radius: 20px;
+      border: 1.5px solid rgba(255,255,255,0.13);
+      border-radius: 100px;
       padding: 3px;
-      gap: 0;
       position: relative;
+      flex-shrink: 0;
     }
     .lang-slide {
       position: absolute;
       top: 3px;
       left: 0;
       height: calc(100% - 6px);
-      border-radius: 16px;
+      border-radius: 100px;
       background: var(--yellow);
-      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), width 0.3s cubic-bezier(0.4,0,0.2,1);
+      box-shadow: 0 2px 12px rgba(245,184,0,0.55), 0 1px 4px rgba(0,0,0,0.35);
+      transition: transform 0.42s cubic-bezier(0.34,1.4,0.64,1), width 0.42s cubic-bezier(0.34,1.4,0.64,1);
       pointer-events: none;
     }
     .lang-btn {
+      flex: 1;
       font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      padding: 5px 13px;
-      border-radius: 16px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      padding: 6px 16px;
+      border-radius: 100px;
       border: none;
       background: transparent;
-      color: rgba(255,255,255,0.4);
+      color: rgba(255,255,255,0.38);
       cursor: pointer;
       transition: color 0.25s ease;
       font-family: 'Montserrat', sans-serif;
       line-height: 1;
       position: relative;
       z-index: 1;
+      text-align: center;
     }
-    .lang-btn.active { background: transparent; color: #111111; }
+    .lang-btn.active { color: #111111; font-weight: 900; }
 
     /* ─── Arabic / RTL Global Overrides ─── */
     html.lang-ar,
@@ -62,7 +65,24 @@
     html.lang-ar p, html.lang-ar a, html.lang-ar span,
     html.lang-ar li, html.lang-ar button, html.lang-ar div,
     html.lang-ar input { font-family: 'ClanArabic', sans-serif; }
-    html.lang-ar .lang-btn { font-family: 'Montserrat', sans-serif; }
+    html.lang-ar .lang-btn {
+      flex: 1;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      padding: 6px 16px;
+      border-radius: 100px;
+      border: none;
+      background: transparent;
+      color: rgba(255,255,255,0.38);
+      cursor: pointer;
+      transition: color 0.25s ease;
+      font-family: 'Montserrat', sans-serif;
+      line-height: 1;
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
     html.lang-ar .nav-links            { flex-direction: row-reverse; }
     html.lang-ar .nav-cta              { flex-direction: row-reverse; }
     html.lang-ar .section-label        { flex-direction: row-reverse; }
@@ -214,15 +234,7 @@
       color: var(--yellow);
       margin-bottom: 16px;
     }
-    .section-label::before {
-      content: '';
-      width: 24px;
-      height: 2px;
-      background: var(--yellow);
-      border-radius: 1px;
-    }
-
-    .section-title {
+.section-title {
       font-size: clamp(32px, 5vw, 52px);
       font-weight: 800;
       line-height: 1.1;
@@ -932,7 +944,7 @@
           <li><a href="index.html#features" data-i18n="navFeatures">Features</a></li>
           <li><a href="index.html#how" data-i18n="navHow">How It Works</a></li>
           <li><a href="index.html#community" data-i18n="navCommunity">Community</a></li>
-          <li><a href="index.html#join" data-i18n="navPricing">Pricing</a></li>
+          <li><a href="plans.html" data-i18n="navPricing">Pricing</a></li>
         </ul>
         <div class="nav-cta">
           <div class="lang-switcher" role="group" aria-label="Language">
@@ -957,7 +969,7 @@
       <div class="page-banner-inner">
         <div class="section-label reveal" data-i18n="bannerLabel">AI-Powered Feature</div>
         <h1 class="reveal reveal-delay-1" data-i18n="bannerH1">Find Your Perfect<br /><span class="text-yellow">Collab Match</span></h1>
-        <p class="subtitle reveal reveal-delay-2" data-i18n="bannerSub">Our algorithm analyzes niche, audience demographics, engagement rates, and growth trajectory to surface creators who will genuinely amplify your content — not just inflate your numbers.</p>
+        <p class="subtitle reveal reveal-delay-2" data-i18n="bannerSub">Our algorithm analyzes niche, audience demographics, engagement rates, and growth trajectory to surface creators who will genuinely amplify your content, not just inflate your numbers.</p>
       </div>
     </div>
   </section>
@@ -1009,13 +1021,13 @@
           <div class="criteria-icon">👥</div>
           <div class="criteria-tag" data-i18n="c2tag">Audience Signal</div>
           <h3 data-i18n="c2title">Audience Overlap Analysis</h3>
-          <p data-i18n="c2desc">We analyze shared audience demographics — age, location, interests — to identify the ideal overlap range. Too much overlap means no new reach; too little means no resonance.</p>
+          <p data-i18n="c2desc">We analyze shared audience demographics, age, location, interests, to identify the ideal overlap range. Too much overlap means no new reach; too little means no resonance.</p>
         </div>
         <div class="criteria-card reveal reveal-delay-2">
           <div class="criteria-icon">📈</div>
           <div class="criteria-tag" data-i18n="c3tag">Performance Signal</div>
           <h3 data-i18n="c3title">Engagement Rate</h3>
-          <p data-i18n="c3desc">Raw follower counts are misleading. We weight engagement rate — likes, comments, shares, saves — far more heavily to find creators with genuinely active, responsive audiences.</p>
+          <p data-i18n="c3desc">Raw follower counts are misleading. We weight engagement rate, likes, comments, shares, saves, far more heavily to find creators with genuinely active, responsive audiences.</p>
         </div>
         <div class="criteria-card reveal reveal-delay-1">
           <div class="criteria-icon">📊</div>
@@ -1194,7 +1206,7 @@
         <h2 class="section-title reveal reveal-delay-1" data-i18n="testTitle">Matched. Connected. <span class="text-yellow">Grown.</span></h2>
       </div>
       <div class="testimonial-feature reveal reveal-delay-2">
-        <p class="testimonial-feature-text" data-i18n="testQuote">"I was skeptical that an algorithm could replace intuition, but 100CLAN's matching is genuinely uncanny. Marcus and I were matched within 36 hours of joining. We had the same audience demographic, complementary niches — he does tech, I do productivity — and nearly identical engagement patterns. Our first collab video hit 1.8M views across both channels combined. Neither of us had ever seen numbers like that from a standalone video. The AI found what I'd been manually searching for across Twitter and Reddit for two years."</p>
+        <p class="testimonial-feature-text" data-i18n="testQuote">"I was skeptical that an algorithm could replace intuition, but 100CLAN's matching is genuinely uncanny. Marcus and I were matched within 36 hours of joining. We had the same audience demographic, complementary niches, he does tech, I do productivity, and nearly identical engagement patterns. Our first collab video hit 1.8M views across both channels combined. Neither of us had ever seen numbers like that from a standalone video. The AI found what I'd been manually searching for across Twitter and Reddit for two years."</p>
         <div class="testimonial-author">
           <div class="author-avatar" style="background:linear-gradient(135deg,#66BB6A,#2E7D32)">JW</div>
           <div>
@@ -1331,7 +1343,7 @@
         navPricing: 'Pricing', navLogin: 'Log In', navJoin: 'Join the Clan',
         bannerLabel: 'AI-Powered Feature',
         bannerH1: 'Find Your Perfect<br /><span class="text-yellow">Collab Match</span>',
-        bannerSub: 'Our algorithm analyzes niche, audience demographics, engagement rates, and growth trajectory to surface creators who will genuinely amplify your content — not just inflate your numbers.',
+        bannerSub: 'Our algorithm analyzes niche, audience demographics, engagement rates, and growth trajectory to surface creators who will genuinely amplify your content, not just inflate your numbers.',
         howLabel: 'Simple Process',
         howTitle: 'Matched in <span class="text-yellow">3 steps</span>',
         howSub: 'No cold DMs. No guesswork. Just data-driven matches that actually convert into successful collaborations.',
@@ -1345,7 +1357,7 @@
         criteriaTitle: '12 data points.<br /><span class="text-yellow">One perfect match.</span>',
         criteriaSub: 'Our matching engine doesn\'t rely on follower count alone. Here\'s what drives your compatibility score.',
         c1tag: 'Primary Signal', c1title: 'Niche Alignment', c1desc: 'We map your content against 240+ niche subcategories to find creators in adjacent spaces that genuinely complement your content style and audience interests.',
-        c2tag: 'Audience Signal', c2title: 'Audience Overlap Analysis', c2desc: 'We analyze shared audience demographics — age, location, interests — to identify the ideal overlap range.',
+        c2tag: 'Audience Signal', c2title: 'Audience Overlap Analysis', c2desc: 'We analyze shared audience demographics, age, location, interests, to identify the ideal overlap range.',
         c3tag: 'Performance Signal', c3title: 'Engagement Rate', c3desc: 'Raw follower counts are misleading. We weight engagement rate far more heavily to find creators with genuinely active, responsive audiences.',
         c4tag: 'Growth Signal', c4title: 'Growth Trajectory', c4desc: 'We track 90-day follower momentum and engagement trends. A creator on an upward curve brings exponential collab value.',
         c5tag: 'Content Signal', c5title: 'Content Style', c5desc: 'Production quality, posting frequency, format preferences and brand tone are all factored to ensure creative chemistry from day one.',
@@ -1356,7 +1368,7 @@
         filterNiche: 'Niche Tags', filterCount: '<strong>47 creators</strong> match your filters', filterCTA: 'View All Matches →',
         stat1Label: 'Match Satisfaction Rate', stat2Label: 'Avg. Reach Increase', stat3Label: 'Avg. Time to First Match',
         testLabel: 'Creator Pair', testTitle: 'Matched. Connected. <span class="text-yellow">Grown.</span>',
-        testQuote: '"I was skeptical that an algorithm could replace intuition, but 100CLAN\'s matching is genuinely uncanny. Marcus and I were matched within 36 hours of joining. We had the same audience demographic, complementary niches — he does tech, I do productivity — and nearly identical engagement patterns. Our first collab video hit 1.8M views across both channels combined."',
+        testQuote: '"I was skeptical that an algorithm could replace intuition, but 100CLAN\'s matching is genuinely uncanny. Marcus and I were matched within 36 hours of joining. We had the same audience demographic, complementary niches, he does tech, I do productivity, and nearly identical engagement patterns. Our first collab video hit 1.8M views across both channels combined."',
         testBadge: 'Matched with @marcustech',
         ctaLabel: 'Start Matching Today',
         ctaTitle: 'Your perfect collab<br /><span class="text-yellow">partner is waiting.</span>',
@@ -1389,10 +1401,10 @@
         criteriaTitle: '١٢ نقطة بيانات.<br /><span class="text-yellow">مطابقة مثالية واحدة.</span>',
         criteriaSub: 'لا يعتمد محرك المطابقة لدينا على عدد المتابعين وحده. إليك ما يقود درجة توافقك.',
         c1tag: 'إشارة أساسية', c1title: 'توافق المجال', c1desc: 'نُعيّن محتواك مقابل أكثر من ٢٤٠ فئة فرعية لإيجاد مبدعين في مجالات مجاورة تكمّل أسلوبك.',
-        c2tag: 'إشارة الجمهور', c2title: 'تحليل تداخل الجمهور', c2desc: 'نحلل ديموغرافية الجمهور المشتركة — العمر والموقع والاهتمامات — لتحديد نطاق التداخل المثالي.',
+        c2tag: 'إشارة الجمهور', c2title: 'تحليل تداخل الجمهور', c2desc: 'نحلل ديموغرافية الجمهور المشتركة, العمر والموقع والاهتمامات, لتحديد نطاق التداخل المثالي.',
         c3tag: 'إشارة الأداء', c3title: 'معدل التفاعل', c3desc: 'أعداد المتابعين وحدها مضللة. نعطي وزناً أكبر لمعدل التفاعل للعثور على مبدعين بجماهير نشطة حقيقية.',
         c4tag: 'إشارة النمو', c4title: 'مسار النمو', c4desc: 'نتتبع زخم المتابعين لمدة ٩٠ يوماً واتجاهات التفاعل. المبدع في مسار تصاعدي يجلب قيمة تعاون أُسّية.',
-        c5tag: 'إشارة المحتوى', c5title: 'أسلوب المحتوى', c5desc: 'جودة الإنتاج وتكرار النشر وتفضيلات الصيغة ونبرة العلامة التجارية — كلها معايير نأخذها بالحسبان.',
+        c5tag: 'إشارة المحتوى', c5title: 'أسلوب المحتوى', c5desc: 'جودة الإنتاج وتكرار النشر وتفضيلات الصيغة ونبرة العلامة التجارية, كلها معايير نأخذها بالحسبان.',
         c6tag: 'إشارة التعاون', c6title: 'سجل التعاون', c6desc: 'السجل الحافل مهم. نسجّل معدل إكمال التعاون السابق والتقييمات وأثر النمو المقاس للشراكات السابقة.',
         filterLabel: 'تصفح المطابقات', filterTitle: 'قائمة مطابقاتك،<br /><span class="text-yellow">فلاتركَ أنت</span>',
         filterSub: 'صفّ قائمة مطابقاتك في أي وقت باستخدام فلاتر المنصة ونطاق المتابعين والمجال والتفاعل.',
@@ -1400,7 +1412,7 @@
         filterNiche: 'وسوم المجال', filterCount: '<strong>٤٧ مبدعاً</strong> يتطابقون مع فلاترك', filterCTA: 'عرض جميع المطابقات ←',
         stat1Label: 'معدل رضا المطابقة', stat2Label: 'متوسط زيادة الوصول', stat3Label: 'متوسط وقت أول مطابقة',
         testLabel: 'ثنائي مبدع', testTitle: 'تطابقا. تواصلا. <span class="text-yellow">نما.</span>',
-        testQuote: '"كنت متشككاً في أن خوارزمية يمكنها استبدال الحدس، لكن مطابقة 100CLAN مذهلة حقاً. تطابقت مع ماركوس في غضون ٣٦ ساعة من الانضمام. كان لدينا نفس ديموغرافية الجمهور ومجالات مكملة — هو يتناول التقنية وأنا الإنتاجية — وأنماط تفاعل متطابقة تقريباً."',
+        testQuote: '"كنت متشككاً في أن خوارزمية يمكنها استبدال الحدس، لكن مطابقة 100CLAN مذهلة حقاً. تطابقت مع ماركوس في غضون ٣٦ ساعة من الانضمام. كان لدينا نفس ديموغرافية الجمهور ومجالات مكملة, هو يتناول التقنية وأنا الإنتاجية, وأنماط تفاعل متطابقة تقريباً."',
         testBadge: 'تطابق مع @marcustech',
         ctaLabel: 'ابدأ المطابقة اليوم',
         ctaTitle: 'شريك التعاون المثالي<br /><span class="text-yellow">ينتظرك.</span>',
@@ -1451,6 +1463,60 @@
       btn.addEventListener('click', () => applyLang(btn.dataset.lang));
     });
     window.addEventListener('resize', updateLangSlide);
+    // ─── Lang Switcher: Drag / Swipe Support ───
+    (function() {
+      document.querySelectorAll('.lang-switcher').forEach(function(sw) {
+        var slide = sw.querySelector('.lang-slide');
+        if (!slide) return;
+        var active = false, dragged = false;
+        var startX = 0, startTX = 0, curTX = 0, minTX = 0, maxTX = 0;
+
+        function clientX(e) { return e.touches ? e.touches[0].clientX : e.clientX; }
+        function getTX() {
+          var m = (slide.style.transform || '').match(/translateX\(([^p]+)px\)/);
+          return m ? +m[1] : 0;
+        }
+
+        function start(e) {
+          active = true; dragged = false;
+          startX = clientX(e); startTX = curTX = getTX();
+          var enBtn = sw.querySelector('[data-lang="en"]');
+          var arBtn = sw.querySelector('[data-lang="ar"]');
+          minTX = enBtn ? enBtn.offsetLeft : 0;
+          maxTX = arBtn ? arBtn.offsetLeft : sw.offsetWidth * 0.5;
+          slide.style.transition = 'none';
+        }
+        function move(e) {
+          if (!active) return;
+          var dx = clientX(e) - startX;
+          if (Math.abs(dx) > 4) dragged = true;
+          curTX = Math.max(minTX, Math.min(startTX + dx, maxTX));
+          slide.style.transform = 'translateX(' + curTX + 'px)';
+          if (dragged) e.preventDefault();
+        }
+        function end() {
+          if (!active) return;
+          active = false;
+          slide.style.transition = '';
+          if (dragged) {
+            var mid = (minTX + maxTX) / 2;
+            applyLang(curTX >= mid ? 'ar' : 'en');
+          }
+        }
+
+        // Prevent click from firing after a drag
+        sw.addEventListener('click', function(e) {
+          if (dragged) { e.stopImmediatePropagation(); dragged = false; }
+        }, true);
+
+        sw.addEventListener('mousedown', start);
+        document.addEventListener('mousemove', move);
+        document.addEventListener('mouseup', end);
+        sw.addEventListener('touchstart', start, { passive: true });
+        document.addEventListener('touchmove', move, { passive: false });
+        document.addEventListener('touchend', end);
+      });
+    })();
   </script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Press Kit — 100CLAN</title>
+  <title>Press Kit - 100CLAN</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -21,39 +21,42 @@
       display: flex;
       align-items: center;
       background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.14);
-      border-radius: 20px;
+      border: 1.5px solid rgba(255,255,255,0.13);
+      border-radius: 100px;
       padding: 3px;
-      gap: 0;
       position: relative;
+      flex-shrink: 0;
     }
     .lang-slide {
       position: absolute;
       top: 3px;
       left: 0;
       height: calc(100% - 6px);
-      border-radius: 16px;
+      border-radius: 100px;
       background: var(--yellow);
-      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), width 0.3s cubic-bezier(0.4,0,0.2,1);
+      box-shadow: 0 2px 12px rgba(245,184,0,0.55), 0 1px 4px rgba(0,0,0,0.35);
+      transition: transform 0.42s cubic-bezier(0.34,1.4,0.64,1), width 0.42s cubic-bezier(0.34,1.4,0.64,1);
       pointer-events: none;
     }
     .lang-btn {
+      flex: 1;
       font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      padding: 5px 13px;
-      border-radius: 16px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      padding: 6px 16px;
+      border-radius: 100px;
       border: none;
       background: transparent;
-      color: rgba(255,255,255,0.4);
+      color: rgba(255,255,255,0.38);
       cursor: pointer;
       transition: color 0.25s ease;
       font-family: 'Montserrat', sans-serif;
       line-height: 1;
       position: relative;
       z-index: 1;
+      text-align: center;
     }
-    .lang-btn.active { background: transparent; color: #111111; }
+    .lang-btn.active { color: #111111; font-weight: 900; }
 
     /* ─── Arabic / RTL Global Overrides ─── */
     html.lang-ar,
@@ -62,7 +65,24 @@
     html.lang-ar p, html.lang-ar a, html.lang-ar span,
     html.lang-ar li, html.lang-ar button, html.lang-ar div,
     html.lang-ar input { font-family: 'ClanArabic', sans-serif; }
-    html.lang-ar .lang-btn { font-family: 'Montserrat', sans-serif; }
+    html.lang-ar .lang-btn {
+      flex: 1;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      padding: 6px 16px;
+      border-radius: 100px;
+      border: none;
+      background: transparent;
+      color: rgba(255,255,255,0.38);
+      cursor: pointer;
+      transition: color 0.25s ease;
+      font-family: 'Montserrat', sans-serif;
+      line-height: 1;
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
     html.lang-ar .nav-links            { flex-direction: row-reverse; }
     html.lang-ar .nav-cta              { flex-direction: row-reverse; }
     html.lang-ar .section-label        { flex-direction: row-reverse; }
@@ -188,15 +208,7 @@
       color: var(--yellow);
       margin-bottom: 16px;
     }
-    .section-label::before {
-      content: '';
-      width: 24px;
-      height: 2px;
-      background: var(--yellow);
-      border-radius: 1px;
-    }
-
-    .section-title {
+.section-title {
       font-size: clamp(32px, 5vw, 52px);
       font-weight: 800;
       line-height: 1.1;
@@ -707,7 +719,7 @@
           <li><a href="index.html#features" data-i18n="navFeatures">Features</a></li>
           <li><a href="index.html#how" data-i18n="navHow">How It Works</a></li>
           <li><a href="index.html#community" data-i18n="navCommunity">Community</a></li>
-          <li><a href="index.html#join" data-i18n="navPricing">Pricing</a></li>
+          <li><a href="plans.html" data-i18n="navPricing">Pricing</a></li>
         </ul>
         <div class="nav-cta">
           <div class="lang-switcher" role="group" aria-label="Language">
@@ -741,7 +753,7 @@
     <div class="container">
       <div class="press-stats">
         <div class="press-stat reveal">
-          <div class="press-stat-value" data-i18n="stat1Val">2024</div>
+          <div class="press-stat-value" data-i18n="stat1Val">2020</div>
           <div class="press-stat-label" data-i18n="stat1Label">Year Founded</div>
         </div>
         <div class="press-stat reveal reveal-delay-1">
@@ -775,7 +787,7 @@
           </div>
           <div>
             <div class="asset-title" data-i18n="asset1Title">Logo Pack</div>
-            <p class="asset-desc" data-i18n="asset1Desc">Full logo suite in PNG and SVG formats — light, dark, and monochrome variants included.</p>
+            <p class="asset-desc" data-i18n="asset1Desc">Full logo suite in PNG and SVG formats, light, dark, and monochrome variants included.</p>
           </div>
           <a href="#" class="btn-outline" style="font-size:12px;padding:10px 20px;" data-i18n="downloadBtn">Download PNG/SVG</a>
         </div>
@@ -823,7 +835,7 @@
       <div class="press-quotes-grid">
         <div class="press-quote-card reveal">
           <div class="press-pub-placeholder" data-i18n="pub1Name">TechCrunch</div>
-          <p class="press-quote-text" data-i18n="pub1Quote">"100CLAN is doing for creator collaboration what LinkedIn did for professional networking — building the infrastructure for an entirely new kind of working relationship between content creators."</p>
+          <p class="press-quote-text" data-i18n="pub1Quote">"100CLAN is doing for creator collaboration what LinkedIn did for professional networking, building the infrastructure for an entirely new kind of working relationship between content creators."</p>
           <div class="press-quote-meta">
             <span class="press-pub-name" data-i18n="pub1Pub">TechCrunch</span>
             <span class="press-pub-date" data-i18n="pub1Date">March 2025</span>
@@ -839,7 +851,7 @@
         </div>
         <div class="press-quote-card reveal reveal-delay-2">
           <div class="press-pub-placeholder" data-i18n="pub3Name">Wired</div>
-          <p class="press-quote-text" data-i18n="pub3Quote">"The platform's AI-driven matching engine is genuinely impressive — we tested it with a dozen creators across different niches and the suggested collaborations were consistently relevant and actionable."</p>
+          <p class="press-quote-text" data-i18n="pub3Quote">"The platform's AI-driven matching engine is genuinely impressive, we tested it with a dozen creators across different niches and the suggested collaborations were consistently relevant and actionable."</p>
           <div class="press-quote-meta">
             <span class="press-pub-name" data-i18n="pub3Pub">Wired</span>
             <span class="press-pub-date" data-i18n="pub3Date">November 2024</span>
@@ -857,7 +869,7 @@
           <div class="section-label reveal" data-i18n="factsLabel">Key Facts Sheet</div>
           <h2 class="section-title reveal reveal-delay-1" style="margin-bottom:32px;" data-i18n="factsTitle">100CLAN at a <span class="text-yellow">glance</span></h2>
           <ul class="facts-list reveal reveal-delay-2">
-            <li data-i18n="fact1">Founded in 2024 and headquartered in Dubai, UAE, with a remote-first team across 12 countries.</li>
+            <li data-i18n="fact1">Founded in 2020 and headquartered in Dubai, UAE, with a remote-first team across 12 countries.</li>
             <li data-i18n="fact2">12,000+ verified content creators active on the platform across Instagram, TikTok, YouTube, X, and Snapchat.</li>
             <li data-i18n="fact3">Creators in 45+ countries spanning the Middle East, Europe, North America, and Southeast Asia.</li>
             <li data-i18n="fact4">Over 38,000 creator-to-creator collaborations facilitated since launch.</li>
@@ -1010,23 +1022,23 @@
         navLogin:'Log In', navJoin:'Join the Clan',
         pressLabel:'Press & Media', pressTitle:'100CLAN in the Press',
         pressSub:'Everything you need to cover the world\'s fastest-growing creator collaboration platform. Download assets, read our story, and get in touch.',
-        stat1Val:'2024', stat1Label:'Year Founded',
+        stat1Val:'2020', stat1Label:'Year Founded',
         stat2Val:'12,000+', stat2Label:'Creators on Platform',
         stat3Val:'45+', stat3Label:'Countries Represented',
         stat4Val:'Series A', stat4Label:'Fundraising Round',
         assetsLabel:'Brand Assets', assetsTitle:'Download our brand kit',
         assetsSub:'All assets are approved for editorial and press use. Please review our brand guidelines before publishing.',
-        asset1Title:'Logo Pack', asset1Desc:'Full logo suite in PNG and SVG formats — light, dark, and monochrome variants included.',
+        asset1Title:'Logo Pack', asset1Desc:'Full logo suite in PNG and SVG formats, light, dark, and monochrome variants included.',
         asset2Title:'Brand Guidelines', asset2Desc:'Official color palette, typography, spacing rules, and correct usage examples for all brand marks.',
         asset3Title:'Founder Headshots', asset3Desc:'High-resolution photography of the founding team, suitable for print and digital editorial use.',
         asset4Title:'Product Screenshots', asset4Desc:'Curated platform screenshots showing the creator dashboard, matching system, and collaboration tools.',
         downloadBtn:'Download PNG/SVG', downloadPdf:'Download PDF', downloadPhotos:'Download Photos', downloadScreenshots:'Download Screenshots',
         mentionsLabel:'In the News', mentionsTitle:'What they\'re saying',
-        pub1Name:'TechCrunch', pub1Quote:'"100CLAN is doing for creator collaboration what LinkedIn did for professional networking — building the infrastructure for an entirely new kind of working relationship between content creators."', pub1Pub:'TechCrunch', pub1Date:'March 2025',
+        pub1Name:'TechCrunch', pub1Quote:'"100CLAN is doing for creator collaboration what LinkedIn did for professional networking, building the infrastructure for an entirely new kind of working relationship between content creators."', pub1Pub:'TechCrunch', pub1Date:'March 2025',
         pub2Name:'Forbes', pub2Quote:'"In a creator economy that has long rewarded solo hustle above all else, 100CLAN is making a compelling case that collaboration is the smarter, faster, and more sustainable path to growth."', pub2Pub:'Forbes', pub2Date:'January 2025',
-        pub3Name:'Wired', pub3Quote:'"The platform\'s AI-driven matching engine is genuinely impressive — we tested it with a dozen creators across different niches and the suggested collaborations were consistently relevant and actionable."', pub3Pub:'Wired', pub3Date:'November 2024',
+        pub3Name:'Wired', pub3Quote:'"The platform\'s AI-driven matching engine is genuinely impressive, we tested it with a dozen creators across different niches and the suggested collaborations were consistently relevant and actionable."', pub3Pub:'Wired', pub3Date:'November 2024',
         factsLabel:'Key Facts Sheet', factsTitle:'100CLAN at a glance',
-        fact1:'Founded in 2024 and headquartered in Dubai, UAE, with a remote-first team across 12 countries.',
+        fact1:'Founded in 2020 and headquartered in Dubai, UAE, with a remote-first team across 12 countries.',
         fact2:'12,000+ verified content creators active on the platform across Instagram, TikTok, YouTube, X, and Snapchat.',
         fact3:'Creators in 45+ countries spanning the Middle East, Europe, North America, and Southeast Asia.',
         fact4:'Over 38,000 creator-to-creator collaborations facilitated since launch.',
@@ -1053,23 +1065,23 @@
         navLogin:'تسجيل الدخول', navJoin:'انضم للكلان',
         pressLabel:'الصحافة والإعلام', pressTitle:'100CLAN في الصحافة',
         pressSub:'كل ما تحتاجه لتغطية أسرع منصة تعاون بين المبدعين نمواً في العالم. حمّل الأصول واقرأ قصتنا وتواصل معنا.',
-        stat1Val:'2024', stat1Label:'سنة التأسيس',
+        stat1Val:'2020', stat1Label:'سنة التأسيس',
         stat2Val:'+١٢,٠٠٠', stat2Label:'مبدع على المنصة',
         stat3Val:'+٤٥', stat3Label:'دولة ممثّلة',
         stat4Val:'الجولة أ', stat4Label:'جولة التمويل',
         assetsLabel:'أصول العلامة التجارية', assetsTitle:'حمّل مجموعة علامتنا التجارية',
         assetsSub:'جميع الأصول معتمدة للاستخدام التحريري والصحفي. يرجى مراجعة إرشادات علامتنا التجارية قبل النشر.',
-        asset1Title:'مجموعة الشعارات', asset1Desc:'مجموعة شعارات كاملة بتنسيقات PNG وSVG — تشمل النسخ الفاتحة والداكنة والأحادية اللون.',
+        asset1Title:'مجموعة الشعارات', asset1Desc:'مجموعة شعارات كاملة بتنسيقات PNG وSVG, تشمل النسخ الفاتحة والداكنة والأحادية اللون.',
         asset2Title:'إرشادات العلامة التجارية', asset2Desc:'لوحة الألوان الرسمية والطباعة وقواعد التباعد وأمثلة الاستخدام الصحيح لجميع علامات العلامة التجارية.',
         asset3Title:'صور المؤسسين', asset3Desc:'تصوير عالي الدقة للفريق المؤسس، مناسب للاستخدام التحريري في الطباعة والنشر الرقمي.',
         asset4Title:'لقطات شاشة المنتج', asset4Desc:'لقطات شاشة منتقاة للمنصة تُظهر لوحة تحكم المبدع ونظام المطابقة وأدوات التعاون.',
         downloadBtn:'تحميل PNG/SVG', downloadPdf:'تحميل PDF', downloadPhotos:'تحميل الصور', downloadScreenshots:'تحميل لقطات الشاشة',
         mentionsLabel:'في الأخبار', mentionsTitle:'ماذا يقولون',
-        pub1Name:'TechCrunch', pub1Quote:'"يفعل 100CLAN للتعاون بين المبدعين ما فعله LinkedIn للشبكات المهنية — بناء البنية التحتية لنوع جديد كلياً من العلاقات العملية بين صنّاع المحتوى."', pub1Pub:'TechCrunch', pub1Date:'مارس 2025',
+        pub1Name:'TechCrunch', pub1Quote:'"يفعل 100CLAN للتعاون بين المبدعين ما فعله LinkedIn للشبكات المهنية, بناء البنية التحتية لنوع جديد كلياً من العلاقات العملية بين صنّاع المحتوى."', pub1Pub:'TechCrunch', pub1Date:'مارس 2025',
         pub2Name:'Forbes', pub2Quote:'"في اقتصاد المبدعين الذي طالما كافأ المجهود الفردي فوق كل شيء، يقدم 100CLAN حجة مقنعة بأن التعاون هو المسار الأذكى والأسرع والأكثر استدامة للنمو."', pub2Pub:'Forbes', pub2Date:'يناير 2025',
-        pub3Name:'Wired', pub3Quote:'"محرك المطابقة المدعوم بالذكاء الاصطناعي مثير للإعجاب حقاً — اختبرناه مع عشرات المبدعين عبر مجالات مختلفة وكانت التعاونات المقترحة دائماً ذات صلة وقابلة للتنفيذ."', pub3Pub:'Wired', pub3Date:'نوفمبر 2024',
+        pub3Name:'Wired', pub3Quote:'"محرك المطابقة المدعوم بالذكاء الاصطناعي مثير للإعجاب حقاً, اختبرناه مع عشرات المبدعين عبر مجالات مختلفة وكانت التعاونات المقترحة دائماً ذات صلة وقابلة للتنفيذ."', pub3Pub:'Wired', pub3Date:'نوفمبر 2024',
         factsLabel:'ورقة الحقائق الرئيسية', factsTitle:'100CLAN في لمحة',
-        fact1:'تأسست عام 2024 ومقرها دبي، الإمارات العربية المتحدة، مع فريق يعمل عن بُعد في 12 دولة.',
+        fact1:'تأسست عام 2020 ومقرها دبي، الإمارات العربية المتحدة، مع فريق يعمل عن بُعد في 12 دولة.',
         fact2:'+12,000 صانع محتوى موثّق نشط على المنصة عبر إنستغرام وتيك توك ويوتيوب وX وسناب شات.',
         fact3:'مبدعون من أكثر من 45 دولة يمثلون الشرق الأوسط وأوروبا وأمريكا الشمالية وجنوب شرق آسيا.',
         fact4:'أكثر من 38,000 تعاون بين مبدعَين تمّ تيسيره منذ الإطلاق.',
@@ -1122,6 +1134,60 @@
       btn.addEventListener('click', () => applyLang(btn.dataset.lang));
     });
     window.addEventListener('resize', updateLangSlide);
+    // ─── Lang Switcher: Drag / Swipe Support ───
+    (function() {
+      document.querySelectorAll('.lang-switcher').forEach(function(sw) {
+        var slide = sw.querySelector('.lang-slide');
+        if (!slide) return;
+        var active = false, dragged = false;
+        var startX = 0, startTX = 0, curTX = 0, minTX = 0, maxTX = 0;
+
+        function clientX(e) { return e.touches ? e.touches[0].clientX : e.clientX; }
+        function getTX() {
+          var m = (slide.style.transform || '').match(/translateX\(([^p]+)px\)/);
+          return m ? +m[1] : 0;
+        }
+
+        function start(e) {
+          active = true; dragged = false;
+          startX = clientX(e); startTX = curTX = getTX();
+          var enBtn = sw.querySelector('[data-lang="en"]');
+          var arBtn = sw.querySelector('[data-lang="ar"]');
+          minTX = enBtn ? enBtn.offsetLeft : 0;
+          maxTX = arBtn ? arBtn.offsetLeft : sw.offsetWidth * 0.5;
+          slide.style.transition = 'none';
+        }
+        function move(e) {
+          if (!active) return;
+          var dx = clientX(e) - startX;
+          if (Math.abs(dx) > 4) dragged = true;
+          curTX = Math.max(minTX, Math.min(startTX + dx, maxTX));
+          slide.style.transform = 'translateX(' + curTX + 'px)';
+          if (dragged) e.preventDefault();
+        }
+        function end() {
+          if (!active) return;
+          active = false;
+          slide.style.transition = '';
+          if (dragged) {
+            var mid = (minTX + maxTX) / 2;
+            applyLang(curTX >= mid ? 'ar' : 'en');
+          }
+        }
+
+        // Prevent click from firing after a drag
+        sw.addEventListener('click', function(e) {
+          if (dragged) { e.stopImmediatePropagation(); dragged = false; }
+        }, true);
+
+        sw.addEventListener('mousedown', start);
+        document.addEventListener('mousemove', move);
+        document.addEventListener('mouseup', end);
+        sw.addEventListener('touchstart', start, { passive: true });
+        document.addEventListener('touchmove', move, { passive: false });
+        document.addEventListener('touchend', end);
+      });
+    })();
   </script>
 </body>
 </html>

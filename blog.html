@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Blog — Creator Insights & Strategies | 100CLAN</title>
+  <title>Blog - Creator Insights & Strategies | 100CLAN</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -21,39 +21,42 @@
       display: flex;
       align-items: center;
       background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.14);
-      border-radius: 20px;
+      border: 1.5px solid rgba(255,255,255,0.13);
+      border-radius: 100px;
       padding: 3px;
-      gap: 0;
       position: relative;
+      flex-shrink: 0;
     }
     .lang-slide {
       position: absolute;
       top: 3px;
       left: 0;
       height: calc(100% - 6px);
-      border-radius: 16px;
+      border-radius: 100px;
       background: var(--yellow);
-      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), width 0.3s cubic-bezier(0.4,0,0.2,1);
+      box-shadow: 0 2px 12px rgba(245,184,0,0.55), 0 1px 4px rgba(0,0,0,0.35);
+      transition: transform 0.42s cubic-bezier(0.34,1.4,0.64,1), width 0.42s cubic-bezier(0.34,1.4,0.64,1);
       pointer-events: none;
     }
     .lang-btn {
+      flex: 1;
       font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      padding: 5px 13px;
-      border-radius: 16px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      padding: 6px 16px;
+      border-radius: 100px;
       border: none;
       background: transparent;
-      color: rgba(255,255,255,0.4);
+      color: rgba(255,255,255,0.38);
       cursor: pointer;
       transition: color 0.25s ease;
       font-family: 'Montserrat', sans-serif;
       line-height: 1;
       position: relative;
       z-index: 1;
+      text-align: center;
     }
-    .lang-btn.active { background: transparent; color: #111111; }
+    .lang-btn.active { color: #111111; font-weight: 900; }
 
     /* ─── Arabic / RTL Global Overrides ─── */
     html.lang-ar,
@@ -62,7 +65,24 @@
     html.lang-ar p, html.lang-ar a, html.lang-ar span,
     html.lang-ar li, html.lang-ar button, html.lang-ar div,
     html.lang-ar input { font-family: 'ClanArabic', sans-serif; }
-    html.lang-ar .lang-btn { font-family: 'Montserrat', sans-serif; }
+    html.lang-ar .lang-btn {
+      flex: 1;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      padding: 6px 16px;
+      border-radius: 100px;
+      border: none;
+      background: transparent;
+      color: rgba(255,255,255,0.38);
+      cursor: pointer;
+      transition: color 0.25s ease;
+      font-family: 'Montserrat', sans-serif;
+      line-height: 1;
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
     html.lang-ar .nav-links            { flex-direction: row-reverse; }
     html.lang-ar .nav-cta              { flex-direction: row-reverse; }
     html.lang-ar .section-label        { flex-direction: row-reverse; }
@@ -193,15 +213,7 @@
       color: var(--yellow);
       margin-bottom: 16px;
     }
-    .section-label::before {
-      content: '';
-      width: 24px;
-      height: 2px;
-      background: var(--yellow);
-      border-radius: 1px;
-    }
-
-    .section-title {
+.section-title {
       font-size: clamp(32px, 5vw, 52px);
       font-weight: 800;
       line-height: 1.1;
@@ -812,7 +824,7 @@
         <div class="featured-body">
           <p class="post-date" data-i18n="featuredDate">February 28, 2026</p>
           <h2 data-i18n="featuredTitle">The Complete Guide to Creator Collaboration in 2026</h2>
-          <p data-i18n="featuredExcerpt">Cross-posting and strategic shout-outs are no longer optional — they're the most reliable way to 3× your audience growth without spending on ads. We break down every format that's working right now.</p>
+          <p data-i18n="featuredExcerpt">Cross-posting and strategic shout-outs are no longer optional, they're the most reliable way to 3× your audience growth without spending on ads. We break down every format that's working right now.</p>
           <a href="#" class="read-more" data-i18n="readMore">Read More →</a>
         </div>
       </div>
@@ -843,7 +855,7 @@
           <div class="blog-body">
             <p class="post-date" data-i18n="card2Date">February 25, 2026</p>
             <h3 data-i18n="card2Title">How to Negotiate Your First Brand Deal</h3>
-            <p data-i18n="card2Excerpt">Landing your first paid partnership is a milestone — but knowing your worth and asking for it is a skill. Here's a step-by-step guide to negotiating like a pro.</p>
+            <p data-i18n="card2Excerpt">Landing your first paid partnership is a milestone, but knowing your worth and asking for it is a skill. Here's a step-by-step guide to negotiating like a pro.</p>
             <a href="#" class="read-more" data-i18n="readMore">Read More →</a>
           </div>
         </div>
@@ -855,7 +867,7 @@
           <div class="blog-body">
             <p class="post-date" data-i18n="card3Date">February 20, 2026</p>
             <h3 data-i18n="card3Title">5 Collab Formats That Actually Drive Followers</h3>
-            <p data-i18n="card3Excerpt">Not all collaborations are created equal. These five proven formats consistently deliver real follower growth — not just one-time exposure — for both parties involved.</p>
+            <p data-i18n="card3Excerpt">Not all collaborations are created equal. These five proven formats consistently deliver real follower growth, not just one-time exposure, for both parties involved.</p>
             <a href="#" class="read-more" data-i18n="readMore">Read More →</a>
           </div>
         </div>
@@ -879,7 +891,7 @@
           <div class="blog-body">
             <p class="post-date" data-i18n="card5Date">February 10, 2026</p>
             <h3 data-i18n="card5Title">Instagram Reels vs TikTok: Where to Post in 2026</h3>
-            <p data-i18n="card5Excerpt">Both platforms reward short-form video — but in very different ways. We analyzed reach, engagement rates, and monetization options to help you prioritize your energy.</p>
+            <p data-i18n="card5Excerpt">Both platforms reward short-form video, but in very different ways. We analyzed reach, engagement rates, and monetization options to help you prioritize your energy.</p>
             <a href="#" class="read-more" data-i18n="readMore">Read More →</a>
           </div>
         </div>
@@ -891,7 +903,7 @@
           <div class="blog-body">
             <p class="post-date" data-i18n="card6Date">February 5, 2026</p>
             <h3 data-i18n="card6Title">Building Your Creator Brand Identity</h3>
-            <p data-i18n="card6Excerpt">Your brand is more than a logo — it's the feeling you leave with every viewer. Learn how to define, articulate, and consistently deliver a creator identity that attracts the right audience.</p>
+            <p data-i18n="card6Excerpt">Your brand is more than a logo, it's the feeling you leave with every viewer. Learn how to define, articulate, and consistently deliver a creator identity that attracts the right audience.</p>
             <a href="#" class="read-more" data-i18n="readMore">Read More →</a>
           </div>
         </div>
@@ -967,7 +979,7 @@
           <ul class="footer-links">
             <li><a href="index.html#features" data-i18n="fl1_1">Features</a></li>
             <li><a href="index.html#how" data-i18n="fl1_2">How It Works</a></li>
-            <li><a href="index.html#join" data-i18n="fl1_3">Pricing</a></li>
+            <li><a href="plans.html" data-i18n="fl1_3">Pricing</a></li>
             <li><a href="creator-matching.html" data-i18n="fl1_4">Creator Matching</a></li>
             <li><a href="collaboration-hub.html" data-i18n="fl1_5">Collaboration Hub</a></li>
           </ul>
@@ -1054,26 +1066,26 @@
         featuredBadge: 'STRATEGY',
         featuredDate: 'February 28, 2026',
         featuredTitle: 'The Complete Guide to Creator Collaboration in 2026',
-        featuredExcerpt: 'Cross-posting and strategic shout-outs are no longer optional — they\'re the most reliable way to 3× your audience growth without spending on ads. We break down every format that\'s working right now.',
+        featuredExcerpt: 'Cross-posting and strategic shout-outs are no longer optional, they\'re the most reliable way to 3× your audience growth without spending on ads. We break down every format that\'s working right now.',
         readMore: 'Read More →',
         card1Badge: 'PLATFORM TIPS', card1Date: 'March 2, 2026',
         card1Title: 'TikTok\'s New Algorithm: What Creators Need to Know',
         card1Excerpt: 'The latest TikTok update reshuffles how content gets distributed. Here\'s what changed, what stayed the same, and exactly how to adjust your posting strategy.',
         card2Badge: 'MONETIZATION', card2Date: 'February 25, 2026',
         card2Title: 'How to Negotiate Your First Brand Deal',
-        card2Excerpt: 'Landing your first paid partnership is a milestone — but knowing your worth and asking for it is a skill. Here\'s a step-by-step guide to negotiating like a pro.',
+        card2Excerpt: 'Landing your first paid partnership is a milestone, but knowing your worth and asking for it is a skill. Here\'s a step-by-step guide to negotiating like a pro.',
         card3Badge: 'COLLABORATION', card3Date: 'February 20, 2026',
         card3Title: '5 Collab Formats That Actually Drive Followers',
-        card3Excerpt: 'Not all collaborations are created equal. These five proven formats consistently deliver real follower growth — not just one-time exposure — for both parties involved.',
+        card3Excerpt: 'Not all collaborations are created equal. These five proven formats consistently deliver real follower growth, not just one-time exposure, for both parties involved.',
         card4Badge: 'GROWTH', card4Date: 'February 15, 2026',
         card4Title: 'Growing from 10K to 100K: A Realistic Roadmap',
         card4Excerpt: 'The jump from 10K to 100K is where most creators stall. We mapped out the exact milestones, mindset shifts, and tactical moves that make the difference.',
         card5Badge: 'PLATFORM TIPS', card5Date: 'February 10, 2026',
         card5Title: 'Instagram Reels vs TikTok: Where to Post in 2026',
-        card5Excerpt: 'Both platforms reward short-form video — but in very different ways. We analyzed reach, engagement rates, and monetization options to help you prioritize your energy.',
+        card5Excerpt: 'Both platforms reward short-form video, but in very different ways. We analyzed reach, engagement rates, and monetization options to help you prioritize your energy.',
         card6Badge: 'STRATEGY', card6Date: 'February 5, 2026',
         card6Title: 'Building Your Creator Brand Identity',
-        card6Excerpt: 'Your brand is more than a logo — it\'s the feeling you leave with every viewer. Learn how to define, articulate, and consistently deliver a creator identity that attracts the right audience.',
+        card6Excerpt: 'Your brand is more than a logo, it\'s the feeling you leave with every viewer. Learn how to define, articulate, and consistently deliver a creator identity that attracts the right audience.',
         newsletterTitle: 'Get new posts in your inbox',
         newsletterSub: 'Fresh creator strategies delivered every week. No spam, ever.',
         newsletterPlaceholder: 'Your email address',
@@ -1102,26 +1114,26 @@
         featuredBadge: 'استراتيجية',
         featuredDate: '٢٨ فبراير ٢٠٢٦',
         featuredTitle: 'الدليل الشامل للتعاون بين المبدعين في 2026',
-        featuredExcerpt: 'النشر المتقاطع والصيحات الاستراتيجية لم تعد اختيارية — إنها الطريقة الأكثر موثوقية لمضاعفة نمو جمهورك 3 أضعاف دون إنفاق على الإعلانات.',
+        featuredExcerpt: 'النشر المتقاطع والصيحات الاستراتيجية لم تعد اختيارية, إنها الطريقة الأكثر موثوقية لمضاعفة نمو جمهورك 3 أضعاف دون إنفاق على الإعلانات.',
         readMore: 'اقرأ المزيد →',
         card1Badge: 'نصائح المنصة', card1Date: '٢ مارس ٢٠٢٦',
         card1Title: 'خوارزمية تيك توك الجديدة: ما يحتاج المبدعون معرفته',
         card1Excerpt: 'يعيد آخر تحديث لتيك توك توزيع المحتوى. إليك ما تغير وما بقي كما هو وكيف تعدّل استراتيجية نشرك.',
         card2Badge: 'التحقيق المالي', card2Date: '٢٥ فبراير ٢٠٢٦',
         card2Title: 'كيف تتفاوض على أول صفقة علامة تجارية',
-        card2Excerpt: 'الحصول على أول شراكة مدفوعة إنجاز — لكن معرفة قيمتك والمطالبة بها مهارة. دليل خطوة بخطوة للتفاوض كالمحترفين.',
+        card2Excerpt: 'الحصول على أول شراكة مدفوعة إنجاز, لكن معرفة قيمتك والمطالبة بها مهارة. دليل خطوة بخطوة للتفاوض كالمحترفين.',
         card3Badge: 'التعاون', card3Date: '٢٠ فبراير ٢٠٢٦',
         card3Title: '5 أشكال تعاون تجلب متابعين فعليين',
-        card3Excerpt: 'ليست كل أشكال التعاون متساوية. هذه الأشكال الخمسة المجرّبة تحقق نمواً حقيقياً في المتابعين — لا مجرد ظهور لمرة واحدة.',
+        card3Excerpt: 'ليست كل أشكال التعاون متساوية. هذه الأشكال الخمسة المجرّبة تحقق نمواً حقيقياً في المتابعين, لا مجرد ظهور لمرة واحدة.',
         card4Badge: 'النمو', card4Date: '١٥ فبراير ٢٠٢٦',
         card4Title: 'النمو من 10K إلى 100K: خارطة طريق واقعية',
         card4Excerpt: 'القفزة من 10K إلى 100K هي حيث يتوقف معظم المبدعين. رسمنا المعالم الدقيقة وتحولات العقلية والخطوات التكتيكية التي تصنع الفارق.',
         card5Badge: 'نصائح المنصة', card5Date: '١٠ فبراير ٢٠٢٦',
         card5Title: 'Instagram Reels مقابل TikTok: أين تنشر في 2026',
-        card5Excerpt: 'تكافئ كلتا المنصتين الفيديو القصير — لكن بطرق مختلفة جداً. حللنا مدى الوصول ومعدلات التفاعل وخيارات التحقيق المالي.',
+        card5Excerpt: 'تكافئ كلتا المنصتين الفيديو القصير, لكن بطرق مختلفة جداً. حللنا مدى الوصول ومعدلات التفاعل وخيارات التحقيق المالي.',
         card6Badge: 'الاستراتيجية', card6Date: '٥ فبراير ٢٠٢٦',
         card6Title: 'بناء هوية علامتك كمبدع',
-        card6Excerpt: 'علامتك أكثر من مجرد شعار — إنها الشعور الذي تتركه مع كل مشاهد. تعلم كيف تحدد هوية المبدع وتجسّدها باستمرار لتجذب الجمهور المناسب.',
+        card6Excerpt: 'علامتك أكثر من مجرد شعار, إنها الشعور الذي تتركه مع كل مشاهد. تعلم كيف تحدد هوية المبدع وتجسّدها باستمرار لتجذب الجمهور المناسب.',
         newsletterTitle: 'احصل على المقالات الجديدة في صندوق بريدك',
         newsletterSub: 'استراتيجيات المبدعين الطازجة تُرسل كل أسبوع. بدون رسائل مزعجة أبداً.',
         newsletterPlaceholder: 'عنوان بريدك الإلكتروني',
@@ -1178,6 +1190,60 @@
       btn.addEventListener('click', () => applyLang(btn.dataset.lang));
     });
     window.addEventListener('resize', updateLangSlide);
+    // ─── Lang Switcher: Drag / Swipe Support ───
+    (function() {
+      document.querySelectorAll('.lang-switcher').forEach(function(sw) {
+        var slide = sw.querySelector('.lang-slide');
+        if (!slide) return;
+        var active = false, dragged = false;
+        var startX = 0, startTX = 0, curTX = 0, minTX = 0, maxTX = 0;
+
+        function clientX(e) { return e.touches ? e.touches[0].clientX : e.clientX; }
+        function getTX() {
+          var m = (slide.style.transform || '').match(/translateX\(([^p]+)px\)/);
+          return m ? +m[1] : 0;
+        }
+
+        function start(e) {
+          active = true; dragged = false;
+          startX = clientX(e); startTX = curTX = getTX();
+          var enBtn = sw.querySelector('[data-lang="en"]');
+          var arBtn = sw.querySelector('[data-lang="ar"]');
+          minTX = enBtn ? enBtn.offsetLeft : 0;
+          maxTX = arBtn ? arBtn.offsetLeft : sw.offsetWidth * 0.5;
+          slide.style.transition = 'none';
+        }
+        function move(e) {
+          if (!active) return;
+          var dx = clientX(e) - startX;
+          if (Math.abs(dx) > 4) dragged = true;
+          curTX = Math.max(minTX, Math.min(startTX + dx, maxTX));
+          slide.style.transform = 'translateX(' + curTX + 'px)';
+          if (dragged) e.preventDefault();
+        }
+        function end() {
+          if (!active) return;
+          active = false;
+          slide.style.transition = '';
+          if (dragged) {
+            var mid = (minTX + maxTX) / 2;
+            applyLang(curTX >= mid ? 'ar' : 'en');
+          }
+        }
+
+        // Prevent click from firing after a drag
+        sw.addEventListener('click', function(e) {
+          if (dragged) { e.stopImmediatePropagation(); dragged = false; }
+        }, true);
+
+        sw.addEventListener('mousedown', start);
+        document.addEventListener('mousemove', move);
+        document.addEventListener('mouseup', end);
+        sw.addEventListener('touchstart', start, { passive: true });
+        document.addEventListener('touchmove', move, { passive: false });
+        document.addEventListener('touchend', end);
+      });
+    })();
   </script>
 </body>
 </html>

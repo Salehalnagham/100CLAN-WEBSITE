@@ -21,39 +21,42 @@
       display: flex;
       align-items: center;
       background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.14);
-      border-radius: 20px;
+      border: 1.5px solid rgba(255,255,255,0.13);
+      border-radius: 100px;
       padding: 3px;
-      gap: 0;
       position: relative;
+      flex-shrink: 0;
     }
     .lang-slide {
       position: absolute;
       top: 3px;
       left: 0;
       height: calc(100% - 6px);
-      border-radius: 16px;
+      border-radius: 100px;
       background: var(--yellow);
-      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), width 0.3s cubic-bezier(0.4,0,0.2,1);
+      box-shadow: 0 2px 12px rgba(245,184,0,0.55), 0 1px 4px rgba(0,0,0,0.35);
+      transition: transform 0.42s cubic-bezier(0.34,1.4,0.64,1), width 0.42s cubic-bezier(0.34,1.4,0.64,1);
       pointer-events: none;
     }
     .lang-btn {
+      flex: 1;
       font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      padding: 5px 13px;
-      border-radius: 16px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      padding: 6px 16px;
+      border-radius: 100px;
       border: none;
       background: transparent;
-      color: rgba(255,255,255,0.4);
+      color: rgba(255,255,255,0.38);
       cursor: pointer;
       transition: color 0.25s ease;
       font-family: 'Montserrat', sans-serif;
       line-height: 1;
       position: relative;
       z-index: 1;
+      text-align: center;
     }
-    .lang-btn.active { background: transparent; color: #111111; }
+    .lang-btn.active { color: #111111; font-weight: 900; }
 
     /* ─── Arabic / RTL Global Overrides ─── */
     html.lang-ar,
@@ -62,7 +65,24 @@
     html.lang-ar p, html.lang-ar a, html.lang-ar span,
     html.lang-ar li, html.lang-ar button, html.lang-ar div,
     html.lang-ar input { font-family: 'ClanArabic', sans-serif; }
-    html.lang-ar .lang-btn { font-family: 'Montserrat', sans-serif; }
+    html.lang-ar .lang-btn {
+      flex: 1;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      padding: 6px 16px;
+      border-radius: 100px;
+      border: none;
+      background: transparent;
+      color: rgba(255,255,255,0.38);
+      cursor: pointer;
+      transition: color 0.25s ease;
+      font-family: 'Montserrat', sans-serif;
+      line-height: 1;
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
     html.lang-ar .nav-links            { flex-direction: row-reverse; }
     html.lang-ar .nav-cta              { flex-direction: row-reverse; }
     html.lang-ar .section-label        { flex-direction: row-reverse; }
@@ -186,15 +206,7 @@
       color: var(--yellow);
       margin-bottom: 16px;
     }
-    .section-label::before {
-      content: '';
-      width: 24px;
-      height: 2px;
-      background: var(--yellow);
-      border-radius: 1px;
-    }
-
-    /* fade-in animation */
+/* fade-in animation */
     .reveal {
       opacity: 0;
       transform: translateY(32px);
@@ -636,7 +648,7 @@
       <!-- Section 1 -->
       <div class="legal-section reveal" id="what-are-cookies">
         <h2>1. What Are Cookies</h2>
-        <p>Cookies are small text files that are placed on your device — computer, smartphone, or tablet — when you visit a website. They are widely used to make websites work more efficiently, provide a better user experience, and give website owners information about how their site is being used. Cookies are stored locally on your device and can be read by the website that placed them when you return.</p>
+        <p>Cookies are small text files that are placed on your device, computer, smartphone, or tablet, when you visit a website. They are widely used to make websites work more efficiently, provide a better user experience, and give website owners information about how their site is being used. Cookies are stored locally on your device and can be read by the website that placed them when you return.</p>
         <p>In addition to traditional cookies, we also use similar technologies such as web beacons (also known as pixel tags or clear GIFs), local storage objects, and session storage. Web beacons are tiny image files embedded in web pages or emails that allow us to determine whether an action has occurred. Local storage and session storage are web storage technologies that allow websites to store data in a browser, functioning similarly to cookies but with different size limits and persistence characteristics.</p>
         <p>Cookies can be "session cookies" (deleted when you close your browser) or "persistent cookies" (remaining on your device for a defined period or until you delete them). They may be placed by us ("first-party cookies") or by third-party services we use ("third-party cookies"). By using the 100CLAN platform, you consent to the use of cookies and similar technologies as described in this Cookie Policy.</p>
       </div>
@@ -646,7 +658,7 @@
         <h2>2. How We Use Cookies</h2>
         <p>We use cookies and similar technologies for several important purposes. First, for authentication and security: cookies help us identify you when you log in, keep your session active as you navigate between pages, and protect your account from unauthorized access. Without these cookies, you would need to log in again with every page you visit. Security-related cookies also help us detect suspicious activity and protect both you and the platform.</p>
         <p>Second, we use cookies to remember your preferences. This includes your preferred language (English or Arabic), display settings, notification preferences, and other personalization choices you have made on the platform. These preference cookies ensure that you do not have to reset your choices every time you visit 100CLAN, creating a more seamless and personalized experience.</p>
-        <p>Third, we use analytics cookies to understand how visitors use our platform. This data — aggregated and anonymized — tells us which pages are most popular, how users navigate through the site, where they encounter problems, and how we can improve the overall user experience. Finally, we use marketing cookies to measure the effectiveness of our advertising campaigns, serve relevant ads to potential users on third-party platforms, and track conversions from those ads back to our platform.</p>
+        <p>Third, we use analytics cookies to understand how visitors use our platform. This data, aggregated and anonymized, tells us which pages are most popular, how users navigate through the site, where they encounter problems, and how we can improve the overall user experience. Finally, we use marketing cookies to measure the effectiveness of our advertising campaigns, serve relevant ads to potential users on third-party platforms, and track conversions from those ads back to our platform.</p>
       </div>
 
       <!-- Section 3 -->
@@ -686,19 +698,19 @@
               <tr>
                 <td>_ga</td>
                 <td><span class="cookie-cat analytics">Analytics</span></td>
-                <td>Google Analytics tracking cookie — distinguishes unique users for traffic analysis</td>
+                <td>Google Analytics tracking cookie, distinguishes unique users for traffic analysis</td>
                 <td>2 years</td>
               </tr>
               <tr>
                 <td>_fbp</td>
                 <td><span class="cookie-cat marketing">Marketing</span></td>
-                <td>Facebook Pixel — used for ad measurement, optimization, and audience building</td>
+                <td>Facebook Pixel, used for ad measurement, optimization, and audience building</td>
                 <td>3 months</td>
               </tr>
               <tr>
                 <td>intercom-id</td>
                 <td><span class="cookie-cat functional">Functional</span></td>
-                <td>Intercom customer support chat — identifies returning users for a continuous support experience</td>
+                <td>Intercom customer support chat, identifies returning users for a continuous support experience</td>
                 <td>9 months</td>
               </tr>
             </tbody>
@@ -727,7 +739,7 @@
       <!-- Section 6 -->
       <div class="legal-section reveal" id="changes">
         <h2>6. Changes to This Policy</h2>
-        <p>We may update this Cookie Policy from time to time to reflect changes in technology, regulation, or our business practices. When we make changes, we will update the "Last updated" date at the top of this page. If the changes are significant, we may provide additional notice through the platform — for example, by displaying a notice in your account dashboard or sending an email to the address associated with your account.</p>
+        <p>We may update this Cookie Policy from time to time to reflect changes in technology, regulation, or our business practices. When we make changes, we will update the "Last updated" date at the top of this page. If the changes are significant, we may provide additional notice through the platform, for example, by displaying a notice in your account dashboard or sending an email to the address associated with your account.</p>
         <p>We encourage you to review this Cookie Policy periodically to stay informed about how we use cookies. Your continued use of the 100CLAN platform after any changes to this policy constitutes your acceptance of the updated terms. If you do not agree to the changes, you should update your cookie preferences using the controls described in the "Managing Cookies" section above, or stop using the platform.</p>
       </div>
 
@@ -769,7 +781,7 @@
           <ul class="footer-links">
             <li><a href="index.html#features" data-i18n="fl1_1">Features</a></li>
             <li><a href="index.html#how" data-i18n="fl1_2">How It Works</a></li>
-            <li><a href="index.html#join" data-i18n="fl1_3">Pricing</a></li>
+            <li><a href="plans.html" data-i18n="fl1_3">Pricing</a></li>
             <li><a href="creator-matching.html" data-i18n="fl1_4">Creator Matching</a></li>
             <li><a href="collaboration-hub.html" data-i18n="fl1_5">Collaboration Hub</a></li>
           </ul>
@@ -898,6 +910,60 @@
       btn.addEventListener('click', () => applyLang(btn.dataset.lang));
     });
     window.addEventListener('resize', updateLangSlide);
+    // ─── Lang Switcher: Drag / Swipe Support ───
+    (function() {
+      document.querySelectorAll('.lang-switcher').forEach(function(sw) {
+        var slide = sw.querySelector('.lang-slide');
+        if (!slide) return;
+        var active = false, dragged = false;
+        var startX = 0, startTX = 0, curTX = 0, minTX = 0, maxTX = 0;
+
+        function clientX(e) { return e.touches ? e.touches[0].clientX : e.clientX; }
+        function getTX() {
+          var m = (slide.style.transform || '').match(/translateX\(([^p]+)px\)/);
+          return m ? +m[1] : 0;
+        }
+
+        function start(e) {
+          active = true; dragged = false;
+          startX = clientX(e); startTX = curTX = getTX();
+          var enBtn = sw.querySelector('[data-lang="en"]');
+          var arBtn = sw.querySelector('[data-lang="ar"]');
+          minTX = enBtn ? enBtn.offsetLeft : 0;
+          maxTX = arBtn ? arBtn.offsetLeft : sw.offsetWidth * 0.5;
+          slide.style.transition = 'none';
+        }
+        function move(e) {
+          if (!active) return;
+          var dx = clientX(e) - startX;
+          if (Math.abs(dx) > 4) dragged = true;
+          curTX = Math.max(minTX, Math.min(startTX + dx, maxTX));
+          slide.style.transform = 'translateX(' + curTX + 'px)';
+          if (dragged) e.preventDefault();
+        }
+        function end() {
+          if (!active) return;
+          active = false;
+          slide.style.transition = '';
+          if (dragged) {
+            var mid = (minTX + maxTX) / 2;
+            applyLang(curTX >= mid ? 'ar' : 'en');
+          }
+        }
+
+        // Prevent click from firing after a drag
+        sw.addEventListener('click', function(e) {
+          if (dragged) { e.stopImmediatePropagation(); dragged = false; }
+        }, true);
+
+        sw.addEventListener('mousedown', start);
+        document.addEventListener('mousemove', move);
+        document.addEventListener('mouseup', end);
+        sw.addEventListener('touchstart', start, { passive: true });
+        document.addEventListener('touchmove', move, { passive: false });
+        document.addEventListener('touchend', end);
+      });
+    })();
   </script>
 </body>
 </html>

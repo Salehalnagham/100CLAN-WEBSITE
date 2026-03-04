@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Careers — Build the Future of Creator Collaboration | 100CLAN</title>
+  <title>Careers - Build the Future of Creator Collaboration | 100CLAN</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -21,39 +21,42 @@
       display: flex;
       align-items: center;
       background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.14);
-      border-radius: 20px;
+      border: 1.5px solid rgba(255,255,255,0.13);
+      border-radius: 100px;
       padding: 3px;
-      gap: 0;
       position: relative;
+      flex-shrink: 0;
     }
     .lang-slide {
       position: absolute;
       top: 3px;
       left: 0;
       height: calc(100% - 6px);
-      border-radius: 16px;
+      border-radius: 100px;
       background: var(--yellow);
-      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), width 0.3s cubic-bezier(0.4,0,0.2,1);
+      box-shadow: 0 2px 12px rgba(245,184,0,0.55), 0 1px 4px rgba(0,0,0,0.35);
+      transition: transform 0.42s cubic-bezier(0.34,1.4,0.64,1), width 0.42s cubic-bezier(0.34,1.4,0.64,1);
       pointer-events: none;
     }
     .lang-btn {
+      flex: 1;
       font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      padding: 5px 13px;
-      border-radius: 16px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      padding: 6px 16px;
+      border-radius: 100px;
       border: none;
       background: transparent;
-      color: rgba(255,255,255,0.4);
+      color: rgba(255,255,255,0.38);
       cursor: pointer;
       transition: color 0.25s ease;
       font-family: 'Montserrat', sans-serif;
       line-height: 1;
       position: relative;
       z-index: 1;
+      text-align: center;
     }
-    .lang-btn.active { background: transparent; color: #111111; }
+    .lang-btn.active { color: #111111; font-weight: 900; }
 
     /* ─── Arabic / RTL Global Overrides ─── */
     html.lang-ar,
@@ -62,7 +65,24 @@
     html.lang-ar p, html.lang-ar a, html.lang-ar span,
     html.lang-ar li, html.lang-ar button, html.lang-ar div,
     html.lang-ar input { font-family: 'ClanArabic', sans-serif; }
-    html.lang-ar .lang-btn { font-family: 'Montserrat', sans-serif; }
+    html.lang-ar .lang-btn {
+      flex: 1;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      padding: 6px 16px;
+      border-radius: 100px;
+      border: none;
+      background: transparent;
+      color: rgba(255,255,255,0.38);
+      cursor: pointer;
+      transition: color 0.25s ease;
+      font-family: 'Montserrat', sans-serif;
+      line-height: 1;
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
     html.lang-ar .nav-links            { flex-direction: row-reverse; }
     html.lang-ar .nav-cta              { flex-direction: row-reverse; }
     html.lang-ar .section-label        { flex-direction: row-reverse; }
@@ -194,15 +214,7 @@
       color: var(--yellow);
       margin-bottom: 16px;
     }
-    .section-label::before {
-      content: '';
-      width: 24px;
-      height: 2px;
-      background: var(--yellow);
-      border-radius: 1px;
-    }
-
-    .section-title {
+.section-title {
       font-size: clamp(32px, 5vw, 52px);
       font-weight: 800;
       line-height: 1.1;
@@ -785,7 +797,7 @@
         <div class="culture-card reveal">
           <span class="culture-icon">&#127757;</span>
           <h3 data-i18n="c1Title">Remote First</h3>
-          <p data-i18n="c1Desc">We are fully distributed across multiple countries and time zones. Async by default, video by exception. We believe great work happens everywhere — not just in an office.</p>
+          <p data-i18n="c1Desc">We are fully distributed across multiple countries and time zones. Async by default, video by exception. We believe great work happens everywhere, not just in an office.</p>
         </div>
         <div class="culture-card reveal reveal-delay-1">
           <span class="culture-icon">&#127775;</span>
@@ -795,7 +807,7 @@
         <div class="culture-card reveal reveal-delay-2">
           <span class="culture-icon">&#128640;</span>
           <h3 data-i18n="c3Title">Move Fast</h3>
-          <p data-i18n="c3Desc">We ship weekly and iterate daily. Perfectionism is the enemy of momentum. We value speed with judgment — launch, learn, and improve relentlessly.</p>
+          <p data-i18n="c3Desc">We ship weekly and iterate daily. Perfectionism is the enemy of momentum. We value speed with judgment, launch, learn, and improve relentlessly.</p>
         </div>
       </div>
     </div>
@@ -842,7 +854,7 @@
           <span class="benefit-emoji">&#127912;</span>
           <div class="benefit-text">
             <h4 data-i18n="b5Title">Creator Budget</h4>
-            <p data-i18n="b5Desc">$500/year to invest in your own content — camera gear, software, subscriptions. We support creators.</p>
+            <p data-i18n="b5Desc">$500/year to invest in your own content, camera gear, software, subscriptions. We support creators.</p>
           </div>
         </div>
         <div class="benefit-item reveal reveal-delay-3">
@@ -874,7 +886,7 @@
               <span class="job-tag" data-i18n="jobFullTime">Full-time</span>
             </div>
             <h3 data-i18n="job1Title">Product Designer</h3>
-            <p data-i18n="job1Desc">Shape the visual language of a platform used by 12,000+ creators. You'll work directly with founders on UX, UI, and brand systems — owning the entire design experience from wireframe to production.</p>
+            <p data-i18n="job1Desc">Shape the visual language of a platform used by 12,000+ creators. You'll work directly with founders on UX, UI, and brand systems, owning the entire design experience from wireframe to production.</p>
           </div>
           <div class="job-apply">
             <a href="contact.html" class="btn-primary" data-i18n="jobApply">Apply Now</a>
@@ -889,7 +901,7 @@
               <span class="job-tag" data-i18n="jobFullTime">Full-time</span>
             </div>
             <h3 data-i18n="job2Title">Growth Marketing Manager</h3>
-            <p data-i18n="job2Desc">Own our creator acquisition funnel — from paid social to SEO to partnerships. You'll grow our creator base from 12K to 100K and build the playbooks that scale beyond that milestone.</p>
+            <p data-i18n="job2Desc">Own our creator acquisition funnel, from paid social to SEO to partnerships. You'll grow our creator base from 12K to 100K and build the playbooks that scale beyond that milestone.</p>
           </div>
           <div class="job-apply">
             <a href="contact.html" class="btn-primary" data-i18n="jobApply">Apply Now</a>
@@ -935,7 +947,7 @@
     <div class="container">
       <div class="open-app reveal">
         <h3 data-i18n="openTitle">Don't see your role?</h3>
-        <p data-i18n="openDesc">We're always open to exceptional people. If you're talented, driven, and passionate about the creator economy — we want to hear from you regardless of whether a position is listed.</p>
+        <p data-i18n="openDesc">We're always open to exceptional people. If you're talented, driven, and passionate about the creator economy, we want to hear from you regardless of whether a position is listed.</p>
         <a href="mailto:careers@100clan.com" class="email-link" data-i18n="openEmail">careers@100clan.com →</a>
       </div>
     </div>
@@ -992,7 +1004,7 @@
           <ul class="footer-links">
             <li><a href="index.html#features" data-i18n="fl1_1">Features</a></li>
             <li><a href="index.html#how" data-i18n="fl1_2">How It Works</a></li>
-            <li><a href="index.html#join" data-i18n="fl1_3">Pricing</a></li>
+            <li><a href="plans.html" data-i18n="fl1_3">Pricing</a></li>
             <li><a href="creator-matching.html" data-i18n="fl1_4">Creator Matching</a></li>
             <li><a href="collaboration-hub.html" data-i18n="fl1_5">Collaboration Hub</a></li>
           </ul>
@@ -1070,32 +1082,32 @@
         cultureLabel: 'How We Work', cultureTitle: 'Our culture',
         cultureSub: 'Three principles that define how we show up every day.',
         c1Title: 'Remote First',
-        c1Desc: 'We are fully distributed across multiple countries and time zones. Async by default, video by exception. We believe great work happens everywhere — not just in an office.',
+        c1Desc: 'We are fully distributed across multiple countries and time zones. Async by default, video by exception. We believe great work happens everywhere, not just in an office.',
         c2Title: 'Creator Obsessed',
         c2Desc: 'Every product decision, every strategy call, every line of code starts with a single question: does this make creators win? We think like creators because many of us are creators.',
         c3Title: 'Move Fast',
-        c3Desc: 'We ship weekly and iterate daily. Perfectionism is the enemy of momentum. We value speed with judgment — launch, learn, and improve relentlessly.',
+        c3Desc: 'We ship weekly and iterate daily. Perfectionism is the enemy of momentum. We value speed with judgment, launch, learn, and improve relentlessly.',
         benefitsLabel: 'Why Join Us', benefitsTitle: 'Perks & benefits',
         benefitsSub: 'We take care of the people who take care of creators.',
         b1Title: 'Remote Work', b1Desc: 'Fully distributed team. Work from anywhere in the world, on a schedule that fits your life.',
         b2Title: 'Competitive Salary', b2Desc: 'Top-of-market compensation benchmarked against global tech companies, paid in your currency.',
         b3Title: 'Equity', b3Desc: 'Share in our growth with meaningful equity packages. When 100CLAN wins, you win too.',
         b4Title: 'Health Coverage', b4Desc: 'Comprehensive health, dental, and vision plans for you and your dependents.',
-        b5Title: 'Creator Budget', b5Desc: '$500/year to invest in your own content — camera gear, software, subscriptions. We support creators.',
+        b5Title: 'Creator Budget', b5Desc: '$500/year to invest in your own content, camera gear, software, subscriptions. We support creators.',
         b6Title: 'Learning Stipend', b6Desc: '$1,000/year for courses, books, conferences, or anything that helps you grow professionally.',
         jobsLabel: 'Open Roles', jobsTitle: 'Open positions',
         jobsSub: 'All roles are full-time and fully remote. We hire globally.',
         jobRemote: 'Remote', jobFullTime: 'Full-time', jobApply: 'Apply Now',
         job1Dept: 'Design', job1Title: 'Product Designer',
-        job1Desc: 'Shape the visual language of a platform used by 12,000+ creators. You\'ll work directly with founders on UX, UI, and brand systems — owning the entire design experience from wireframe to production.',
+        job1Desc: 'Shape the visual language of a platform used by 12,000+ creators. You\'ll work directly with founders on UX, UI, and brand systems, owning the entire design experience from wireframe to production.',
         job2Dept: 'Marketing', job2Title: 'Growth Marketing Manager',
-        job2Desc: 'Own our creator acquisition funnel — from paid social to SEO to partnerships. You\'ll grow our creator base from 12K to 100K and build the playbooks that scale beyond that milestone.',
+        job2Desc: 'Own our creator acquisition funnel, from paid social to SEO to partnerships. You\'ll grow our creator base from 12K to 100K and build the playbooks that scale beyond that milestone.',
         job3Dept: 'Engineering', job3Title: 'Backend Engineer',
         job3Desc: 'Build the matching algorithm and collaboration infrastructure that powers every collab on 100CLAN. Our stack: Node.js, PostgreSQL, Redis. You\'ll work on systems that touch tens of thousands of creators daily.',
         job4Dept: 'Success', job4Title: 'Creator Success Manager',
         job4Desc: 'Be the first point of contact for our top creators. Help them get the most out of the platform, resolve friction fast, and turn satisfied users into passionate advocates for 100CLAN.',
         openTitle: 'Don\'t see your role?',
-        openDesc: 'We\'re always open to exceptional people. If you\'re talented, driven, and passionate about the creator economy — we want to hear from you regardless of whether a position is listed.',
+        openDesc: 'We\'re always open to exceptional people. If you\'re talented, driven, and passionate about the creator economy, we want to hear from you regardless of whether a position is listed.',
         openEmail: 'careers@100clan.com →',
         ctaLabel: 'Join the Platform',
         ctaTitle1: 'Already a creator?', ctaTitle2: 'Join 100CLAN.',
@@ -1120,18 +1132,18 @@
         cultureLabel: 'كيف نعمل', cultureTitle: 'ثقافتنا',
         cultureSub: 'ثلاثة مبادئ تحدد كيف نظهر كل يوم.',
         c1Title: 'العمل عن بُعد أولاً',
-        c1Desc: 'نحن موزعون بالكامل عبر دول ومناطق زمنية متعددة. غير متزامن بشكل افتراضي، فيديو باستثناء. نؤمن أن العمل الرائع يحدث في كل مكان — ليس فقط في مكتب.',
+        c1Desc: 'نحن موزعون بالكامل عبر دول ومناطق زمنية متعددة. غير متزامن بشكل افتراضي، فيديو باستثناء. نؤمن أن العمل الرائع يحدث في كل مكان, ليس فقط في مكتب.',
         c2Title: 'مهووسون بالمبدعين',
         c2Desc: 'كل قرار منتج، كل مكالمة استراتيجية، كل سطر كود يبدأ بسؤال واحد: هل هذا يجعل المبدعين يفوزون؟ نفكر كمبدعين لأن كثيرين منا مبدعون.',
         c3Title: 'تحرك بسرعة',
-        c3Desc: 'نشحن أسبوعياً ونحسّن يومياً. الكمالية عدو الزخم. نقدّر السرعة مع الحكمة — انطلق، تعلم، وتحسّن بلا توقف.',
+        c3Desc: 'نشحن أسبوعياً ونحسّن يومياً. الكمالية عدو الزخم. نقدّر السرعة مع الحكمة, انطلق، تعلم، وتحسّن بلا توقف.',
         benefitsLabel: 'لماذا تنضم إلينا', benefitsTitle: 'المزايا والفوائد',
         benefitsSub: 'نعتني بالناس الذين يعتنون بالمبدعين.',
         b1Title: 'العمل عن بُعد', b1Desc: 'فريق موزع بالكامل. اعمل من أي مكان في العالم، بجدول يناسب حياتك.',
         b2Title: 'راتب تنافسي', b2Desc: 'تعويض في مستوى أعلى السوق مقارنة بشركات التكنولوجيا العالمية، مدفوع بعملتك.',
         b3Title: 'حصص الأسهم', b3Desc: 'شارك في نمونا بحزم أسهم ذات معنى. عندما يفوز 100CLAN، تفوز أنت أيضاً.',
         b4Title: 'التغطية الصحية', b4Desc: 'خطط صحية وأسنان وبصريات شاملة لك ولمعاليك.',
-        b5Title: 'ميزانية المبدع', b5Desc: '500 دولار سنوياً للاستثمار في محتواك الخاص — معدات تصوير، برامج، اشتراكات. ندعم المبدعين.',
+        b5Title: 'ميزانية المبدع', b5Desc: '500 دولار سنوياً للاستثمار في محتواك الخاص, معدات تصوير، برامج، اشتراكات. ندعم المبدعين.',
         b6Title: 'منحة التعلم', b6Desc: '1,000 دولار سنوياً للدورات والكتب والمؤتمرات أو أي شيء يساعدك على النمو المهني.',
         jobsLabel: 'الأدوار المفتوحة', jobsTitle: 'الوظائف المتاحة',
         jobsSub: 'جميع الأدوار بدوام كامل وعن بُعد بالكامل. نوظّف عالمياً.',
@@ -1139,13 +1151,13 @@
         job1Dept: 'التصميم', job1Title: 'مصمم منتجات',
         job1Desc: 'شكّل اللغة البصرية لمنصة يستخدمها أكثر من 12,000 مبدع. ستعمل مباشرة مع المؤسسين على UX وUI وأنظمة العلامة التجارية.',
         job2Dept: 'التسويق', job2Title: 'مدير تسويق النمو',
-        job2Desc: 'امتلك قمع اكتساب المبدعين — من الإعلانات المدفوعة إلى SEO والشراكات. ستنمو قاعدة مبدعينا من 12K إلى 100K.',
+        job2Desc: 'امتلك قمع اكتساب المبدعين, من الإعلانات المدفوعة إلى SEO والشراكات. ستنمو قاعدة مبدعينا من 12K إلى 100K.',
         job3Dept: 'الهندسة', job3Title: 'مهندس خلفية',
         job3Desc: 'ابنِ خوارزمية المطابقة والبنية التحتية للتعاون التي تدعم كل تعاون على 100CLAN. تقنياتنا: Node.js وPostgreSQL وRedis.',
         job4Dept: 'النجاح', job4Title: 'مدير نجاح المبدعين',
         job4Desc: 'كن أول نقطة تواصل لأفضل مبدعينا. ساعدهم على الاستفادة القصوى من المنصة وحوّل المستخدمين الراضين إلى مناصرين متحمسين.',
         openTitle: 'لا تجد دورك المناسب؟',
-        openDesc: 'نحن دائماً منفتحون على الأشخاص الاستثنائيين. إذا كنت موهوباً ومدفوعاً وشغوفاً باقتصاد المبدعين — نريد أن نسمع منك بغض النظر عن الوظائف المدرجة.',
+        openDesc: 'نحن دائماً منفتحون على الأشخاص الاستثنائيين. إذا كنت موهوباً ومدفوعاً وشغوفاً باقتصاد المبدعين, نريد أن نسمع منك بغض النظر عن الوظائف المدرجة.',
         openEmail: 'careers@100clan.com →',
         ctaLabel: 'انضم للمنصة',
         ctaTitle1: 'أنت مبدع بالفعل؟', ctaTitle2: 'انضم إلى 100CLAN.',
@@ -1216,6 +1228,60 @@
       btn.addEventListener('click', () => applyLang(btn.dataset.lang));
     });
     window.addEventListener('resize', updateLangSlide);
+    // ─── Lang Switcher: Drag / Swipe Support ───
+    (function() {
+      document.querySelectorAll('.lang-switcher').forEach(function(sw) {
+        var slide = sw.querySelector('.lang-slide');
+        if (!slide) return;
+        var active = false, dragged = false;
+        var startX = 0, startTX = 0, curTX = 0, minTX = 0, maxTX = 0;
+
+        function clientX(e) { return e.touches ? e.touches[0].clientX : e.clientX; }
+        function getTX() {
+          var m = (slide.style.transform || '').match(/translateX\(([^p]+)px\)/);
+          return m ? +m[1] : 0;
+        }
+
+        function start(e) {
+          active = true; dragged = false;
+          startX = clientX(e); startTX = curTX = getTX();
+          var enBtn = sw.querySelector('[data-lang="en"]');
+          var arBtn = sw.querySelector('[data-lang="ar"]');
+          minTX = enBtn ? enBtn.offsetLeft : 0;
+          maxTX = arBtn ? arBtn.offsetLeft : sw.offsetWidth * 0.5;
+          slide.style.transition = 'none';
+        }
+        function move(e) {
+          if (!active) return;
+          var dx = clientX(e) - startX;
+          if (Math.abs(dx) > 4) dragged = true;
+          curTX = Math.max(minTX, Math.min(startTX + dx, maxTX));
+          slide.style.transform = 'translateX(' + curTX + 'px)';
+          if (dragged) e.preventDefault();
+        }
+        function end() {
+          if (!active) return;
+          active = false;
+          slide.style.transition = '';
+          if (dragged) {
+            var mid = (minTX + maxTX) / 2;
+            applyLang(curTX >= mid ? 'ar' : 'en');
+          }
+        }
+
+        // Prevent click from firing after a drag
+        sw.addEventListener('click', function(e) {
+          if (dragged) { e.stopImmediatePropagation(); dragged = false; }
+        }, true);
+
+        sw.addEventListener('mousedown', start);
+        document.addEventListener('mousemove', move);
+        document.addEventListener('mouseup', end);
+        sw.addEventListener('touchstart', start, { passive: true });
+        document.addEventListener('touchmove', move, { passive: false });
+        document.addEventListener('touchend', end);
+      });
+    })();
   </script>
 </body>
 </html>

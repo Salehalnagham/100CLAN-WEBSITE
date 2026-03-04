@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Creator Stories — 100CLAN</title>
+  <title>Creator Stories - 100CLAN</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -13,14 +13,67 @@
       src: url('brand_assets/100clanBold 2.ttf') format('truetype');
       font-weight: 700; font-display: swap;
     }
-    .lang-switcher { display: flex; align-items: center; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.14); border-radius: 20px; padding: 3px; gap: 0; position: relative; }
-    .lang-slide { position: absolute; top: 3px; left: 0; height: calc(100% - 6px); border-radius: 16px; background: var(--yellow); transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), width 0.3s cubic-bezier(0.4,0,0.2,1); pointer-events: none; }
-    .lang-btn { font-size: 11px; font-weight: 700; letter-spacing: 0.06em; padding: 5px 13px; border-radius: 16px; border: none; background: transparent; color: rgba(255,255,255,0.4); cursor: pointer; transition: color 0.25s ease; font-family: 'Montserrat', sans-serif; line-height: 1; position: relative; z-index: 1; }
-    .lang-btn.active { background: transparent; color: #111111; }
+    .lang-switcher {
+      display: flex;
+      align-items: center;
+      background: rgba(255,255,255,0.07);
+      border: 1.5px solid rgba(255,255,255,0.13);
+      border-radius: 100px;
+      padding: 3px;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .lang-slide {
+      position: absolute;
+      top: 3px;
+      left: 0;
+      height: calc(100% - 6px);
+      border-radius: 100px;
+      background: var(--yellow);
+      box-shadow: 0 2px 12px rgba(245,184,0,0.55), 0 1px 4px rgba(0,0,0,0.35);
+      transition: transform 0.42s cubic-bezier(0.34,1.4,0.64,1), width 0.42s cubic-bezier(0.34,1.4,0.64,1);
+      pointer-events: none;
+    }
+    .lang-btn {
+      flex: 1;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      padding: 6px 16px;
+      border-radius: 100px;
+      border: none;
+      background: transparent;
+      color: rgba(255,255,255,0.38);
+      cursor: pointer;
+      transition: color 0.25s ease;
+      font-family: 'Montserrat', sans-serif;
+      line-height: 1;
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+    .lang-btn.active { color: #111111; font-weight: 900; }
     html.lang-ar, html.lang-ar body, html.lang-ar h1, html.lang-ar h2, html.lang-ar h3,
     html.lang-ar p, html.lang-ar a, html.lang-ar span, html.lang-ar li, html.lang-ar button, html.lang-ar div,
     html.lang-ar input { font-family: 'ClanArabic', sans-serif; }
-    html.lang-ar .lang-btn { font-family: 'Montserrat', sans-serif; }
+    html.lang-ar .lang-btn {
+      flex: 1;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      padding: 6px 16px;
+      border-radius: 100px;
+      border: none;
+      background: transparent;
+      color: rgba(255,255,255,0.38);
+      cursor: pointer;
+      transition: color 0.25s ease;
+      font-family: 'Montserrat', sans-serif;
+      line-height: 1;
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
     html.lang-ar .nav-links { flex-direction: row-reverse; }
     html.lang-ar .nav-cta { flex-direction: row-reverse; }
     html.lang-ar .section-label { flex-direction: row-reverse; }
@@ -62,8 +115,7 @@
     .btn-primary-lg { display: inline-flex; align-items: center; gap: 10px; background: var(--yellow); color: var(--black); font-family: var(--font); font-weight: 800; font-size: 16px; letter-spacing: 0.05em; text-transform: uppercase; padding: 18px 44px; border-radius: var(--radius); border: none; cursor: pointer; text-decoration: none; transition: var(--transition); }
     .btn-primary-lg:hover { transform: translateY(-3px); box-shadow: 0 12px 48px rgba(245,184,0,0.35); }
     .section-label { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--yellow); margin-bottom: 16px; }
-    .section-label::before { content: ''; width: 24px; height: 2px; background: var(--yellow); border-radius: 1px; }
-    .section-title { font-size: clamp(32px,5vw,52px); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; }
+.section-title { font-size: clamp(32px,5vw,52px); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; }
     .section-sub { font-size: 17px; color: var(--gray); font-weight: 400; line-height: 1.7; }
     .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.7s ease, transform 0.7s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
@@ -264,7 +316,7 @@
           <li><a href="index.html#features" data-i18n="navFeatures">Features</a></li>
           <li><a href="index.html#how" data-i18n="navHow">How It Works</a></li>
           <li><a href="index.html#community" data-i18n="navCommunity">Community</a></li>
-          <li><a href="index.html#join" data-i18n="navPricing">Pricing</a></li>
+          <li><a href="plans.html" data-i18n="navPricing">Pricing</a></li>
         </ul>
         <div class="nav-cta">
           <div class="lang-switcher" role="group" aria-label="Language">
@@ -287,7 +339,7 @@
       <div class="page-banner-inner">
         <div class="section-label reveal" data-i18n="bannerLabel">Community Spotlight</div>
         <h1 class="reveal reveal-delay-1" data-i18n="bannerH1">Real Creators.<br /><span class="text-yellow">Real Growth.</span></h1>
-        <p class="subtitle reveal reveal-delay-2" data-i18n="bannerSub">These are the numbers behind the names — genuine growth achieved through genuine collaboration. No bots, no bought followers, no shortcuts.</p>
+        <p class="subtitle reveal reveal-delay-2" data-i18n="bannerSub">These are the numbers behind the names, genuine growth achieved through genuine collaboration. No bots, no bought followers, no shortcuts.</p>
       </div>
     </div>
   </section>
@@ -321,7 +373,7 @@
             <span class="featured-niche-badge" data-i18n="featuredNiche">Lifestyle</span>
             <span style="font-size:12px;color:var(--gray)" data-i18n="featuredPlatform">YouTube · Instagram</span>
           </div>
-          <p class="featured-quote" data-i18n="featuredQuote">"I'd been trying to find the right collab partners for months — scrolling Reddit threads, cold DM-ing creators who never responded. Two weeks on 100CLAN changed everything. I connected with three creators whose audiences actually overlapped mine in the right way. We dropped a lifestyle video series together and I gained 60K subscribers in 45 days. My engagement didn't just go up — it tripled. 100CLAN found what I couldn't find on my own."</p>
+          <p class="featured-quote" data-i18n="featuredQuote">"I'd been trying to find the right collab partners for months, scrolling Reddit threads, cold DM-ing creators who never responded. Two weeks on 100CLAN changed everything. I connected with three creators whose audiences actually overlapped mine in the right way. We dropped a lifestyle video series together and I gained 60K subscribers in 45 days. My engagement didn't just go up, it tripled. 100CLAN found what I couldn't find on my own."</p>
           <div class="story-stats">
             <div class="story-stat">
               <div class="story-stat-label" data-i18n="featStat1label">YouTube Subscribers</div>
@@ -519,7 +571,7 @@
               <span class="sc-niche" data-i18n="niche5">Fitness</span>
             </div>
           </div>
-          <p class="sc-quote" data-i18n="quote5">"100CLAN made me realise growth isn't a solo sport. I collaborated with a nutrition creator and a mindset coach — we had zero audience overlap and it was perfect. All three of us grew 40%+ in three months."</p>
+          <p class="sc-quote" data-i18n="quote5">"100CLAN made me realise growth isn't a solo sport. I collaborated with a nutrition creator and a mindset coach, we had zero audience overlap and it was perfect. All three of us grew 40%+ in three months."</p>
           <div class="sc-author">
             <div style="width:6px;height:6px;border-radius:50%;background:var(--yellow);flex-shrink:0"></div>
             <div>
@@ -699,10 +751,10 @@
         navPricing: 'Pricing', navLogin: 'Log In', navJoin: 'Join the Clan',
         bannerLabel: 'Community Spotlight',
         bannerH1: 'Real Creators.<br /><span class="text-yellow">Real Growth.</span>',
-        bannerSub: 'These are the numbers behind the names — genuine growth achieved through genuine collaboration. No bots, no bought followers, no shortcuts.',
+        bannerSub: 'These are the numbers behind the names, genuine growth achieved through genuine collaboration. No bots, no bought followers, no shortcuts.',
         filterAll: 'All Stories', filterNiche: 'By Niche', filterPlatform: 'By Platform', filterGrowth: 'By Growth',
         featuredLabel: 'Featured Story', featuredNiche: 'Lifestyle', featuredPlatform: 'YouTube · Instagram',
-        featuredQuote: '"I\'d been trying to find the right collab partners for months — scrolling Reddit threads, cold DM-ing creators who never responded. Two weeks on 100CLAN changed everything. I connected with three creators whose audiences actually overlapped mine in the right way. We dropped a lifestyle video series together and I gained 60K subscribers in 45 days."',
+        featuredQuote: '"I\'d been trying to find the right collab partners for months, scrolling Reddit threads, cold DM-ing creators who never responded. Two weeks on 100CLAN changed everything. I connected with three creators whose audiences actually overlapped mine in the right way. We dropped a lifestyle video series together and I gained 60K subscribers in 45 days."',
         featStat1label: 'YouTube Subscribers', featStat2label: 'Engagement Rate', featStat3label: 'Timeframe', featStatTime: '45 Days',
         gridLabel: 'More Success Stories',
         gridTitle: 'Every niche.<br /><span class="text-yellow">Every platform.</span>',
@@ -711,7 +763,7 @@
         quote2: '"Gaming is competitive. Finding partners who don\'t just use you for a number is rare. 100CLAN matched me with creators who genuinely cared about building something together."',
         quote3: '"My food videos were getting decent views but zero brand deals. A collaboration with a travel creator repositioned me as a \'food travel\' voice and suddenly brands were reaching out."',
         quote4: '"The deal management feature is what got me. I co-negotiated a $25K brand deal with two other tech creators. The revenue split was automatic."',
-        quote5: '"100CLAN made me realise growth isn\'t a solo sport. I collaborated with a nutrition creator and a mindset coach — all three of us grew 40%+ in three months."',
+        quote5: '"100CLAN made me realise growth isn\'t a solo sport. I collaborated with a nutrition creator and a mindset coach, all three of us grew 40%+ in three months."',
         quote6: '"I had a massive Instagram following but my YouTube was dead. Through 100CLAN I found a video editor / travel vlogger duo who completely transformed my production quality."',
         scStatFollowers: 'Followers', scStatEngagement: 'Engagement', scStatBrand: 'Brand Deals', scStatRevenue: 'Monthly Revenue', scStatViews: 'Monthly Views',
         loadMore: 'Load More Stories',
@@ -732,10 +784,10 @@
         navPricing: 'الأسعار', navLogin: 'تسجيل الدخول', navJoin: 'انضم للكلان',
         bannerLabel: 'أضواء المجتمع',
         bannerH1: 'مبدعون حقيقيون.<br /><span class="text-yellow">نمو حقيقي.</span>',
-        bannerSub: 'هذه هي الأرقام خلف الأسماء — نمو حقيقي تحقق عبر تعاون حقيقي. بلا بوتات ولا متابعين مشتريين ولا اختصارات.',
+        bannerSub: 'هذه هي الأرقام خلف الأسماء, نمو حقيقي تحقق عبر تعاون حقيقي. بلا بوتات ولا متابعين مشتريين ولا اختصارات.',
         filterAll: 'جميع القصص', filterNiche: 'حسب المجال', filterPlatform: 'حسب المنصة', filterGrowth: 'حسب النمو',
         featuredLabel: 'قصة مميزة', featuredNiche: 'لايف ستايل', featuredPlatform: 'يوتيوب · إنستغرام',
-        featuredQuote: '"كنت أحاول إيجاد شركاء تعاون مناسبين لأشهر — أتصفح مواضيع Reddit وأرسل رسائل مباشرة باردة لمبدعين لم يردوا أبداً. أسبوعان على 100CLAN غيّرا كل شيء. تواصلت مع ثلاثة مبدعين تتقاطع جماهيرهم مع جمهوري بالطريقة الصحيحة. أطلقنا سلسلة فيديوهات لايف ستايل معاً وحصلت على ٦٠ ألف مشترك في ٤٥ يوماً."',
+        featuredQuote: '"كنت أحاول إيجاد شركاء تعاون مناسبين لأشهر, أتصفح مواضيع Reddit وأرسل رسائل مباشرة باردة لمبدعين لم يردوا أبداً. أسبوعان على 100CLAN غيّرا كل شيء. تواصلت مع ثلاثة مبدعين تتقاطع جماهيرهم مع جمهوري بالطريقة الصحيحة. أطلقنا سلسلة فيديوهات لايف ستايل معاً وحصلت على ٦٠ ألف مشترك في ٤٥ يوماً."',
         featStat1label: 'مشتركو يوتيوب', featStat2label: 'معدل التفاعل', featStat3label: 'الإطار الزمني', featStatTime: '٤٥ يوماً',
         gridLabel: 'قصص نجاح أخرى',
         gridTitle: 'كل مجال.<br /><span class="text-yellow">كل منصة.</span>',
@@ -744,7 +796,7 @@
         quote2: '"عالم الألعاب تنافسي. إيجاد شركاء لا يستخدمونك كرقم فحسب أمر نادر. طابقني 100CLAN مع مبدعين يهتمون فعلاً ببناء شيء مشترك."',
         quote3: '"كانت فيديوهات الطعام تحقق مشاهدات لا بأس بها لكن صفر صفقات براند. تعاون مع مبدع سفر أعاد تموضعي كصوت \'طعام وسفر\' وفجأة بدأت البراندات تتواصل معي."',
         quote4: '"ميزة إدارة الصفقات هي ما أبهرني. تفاوضت مشتركاً مع مبدعَي تقنية آخرَين على صفقة براند بـ٢٥ ألف دولار. توزيع الإيرادات كان تلقائياً."',
-        quote5: '"100CLAN جعلني أدرك أن النمو ليس رياضة فردية. تعاونت مع مبدع تغذية ومدرب تفكير — نما كلنا الثلاثة ٤٠٪+ في ثلاثة أشهر."',
+        quote5: '"100CLAN جعلني أدرك أن النمو ليس رياضة فردية. تعاونت مع مبدع تغذية ومدرب تفكير, نما كلنا الثلاثة ٤٠٪+ في ثلاثة أشهر."',
         quote6: '"كان لدي جمهور ضخم على إنستغرام لكن يوتيوب كانت ميتاً. عبر 100CLAN وجدت ثنائياً من محرر الفيديو ومدوّن السفر حوّل جودة إنتاجي بالكامل."',
         scStatFollowers: 'المتابعون', scStatEngagement: 'التفاعل', scStatBrand: 'صفقات البراند', scStatRevenue: 'الدخل الشهري', scStatViews: 'المشاهدات الشهرية',
         loadMore: 'تحميل المزيد من القصص',
@@ -791,6 +843,60 @@
       btn.addEventListener('click', () => applyLang(btn.dataset.lang));
     });
     window.addEventListener('resize', updateLangSlide);
+    // ─── Lang Switcher: Drag / Swipe Support ───
+    (function() {
+      document.querySelectorAll('.lang-switcher').forEach(function(sw) {
+        var slide = sw.querySelector('.lang-slide');
+        if (!slide) return;
+        var active = false, dragged = false;
+        var startX = 0, startTX = 0, curTX = 0, minTX = 0, maxTX = 0;
+
+        function clientX(e) { return e.touches ? e.touches[0].clientX : e.clientX; }
+        function getTX() {
+          var m = (slide.style.transform || '').match(/translateX\(([^p]+)px\)/);
+          return m ? +m[1] : 0;
+        }
+
+        function start(e) {
+          active = true; dragged = false;
+          startX = clientX(e); startTX = curTX = getTX();
+          var enBtn = sw.querySelector('[data-lang="en"]');
+          var arBtn = sw.querySelector('[data-lang="ar"]');
+          minTX = enBtn ? enBtn.offsetLeft : 0;
+          maxTX = arBtn ? arBtn.offsetLeft : sw.offsetWidth * 0.5;
+          slide.style.transition = 'none';
+        }
+        function move(e) {
+          if (!active) return;
+          var dx = clientX(e) - startX;
+          if (Math.abs(dx) > 4) dragged = true;
+          curTX = Math.max(minTX, Math.min(startTX + dx, maxTX));
+          slide.style.transform = 'translateX(' + curTX + 'px)';
+          if (dragged) e.preventDefault();
+        }
+        function end() {
+          if (!active) return;
+          active = false;
+          slide.style.transition = '';
+          if (dragged) {
+            var mid = (minTX + maxTX) / 2;
+            applyLang(curTX >= mid ? 'ar' : 'en');
+          }
+        }
+
+        // Prevent click from firing after a drag
+        sw.addEventListener('click', function(e) {
+          if (dragged) { e.stopImmediatePropagation(); dragged = false; }
+        }, true);
+
+        sw.addEventListener('mousedown', start);
+        document.addEventListener('mousemove', move);
+        document.addEventListener('mouseup', end);
+        sw.addEventListener('touchstart', start, { passive: true });
+        document.addEventListener('touchmove', move, { passive: false });
+        document.addEventListener('touchend', end);
+      });
+    })();
   </script>
 </body>
 </html>

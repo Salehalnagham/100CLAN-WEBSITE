@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About 100CLAN — Our Mission, Story & Team</title>
+  <title>About 100CLAN - Our Mission, Story & Team</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -21,39 +21,42 @@
       display: flex;
       align-items: center;
       background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.14);
-      border-radius: 20px;
+      border: 1.5px solid rgba(255,255,255,0.13);
+      border-radius: 100px;
       padding: 3px;
-      gap: 0;
       position: relative;
+      flex-shrink: 0;
     }
     .lang-slide {
       position: absolute;
       top: 3px;
       left: 0;
       height: calc(100% - 6px);
-      border-radius: 16px;
+      border-radius: 100px;
       background: var(--yellow);
-      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), width 0.3s cubic-bezier(0.4,0,0.2,1);
+      box-shadow: 0 2px 12px rgba(245,184,0,0.55), 0 1px 4px rgba(0,0,0,0.35);
+      transition: transform 0.42s cubic-bezier(0.34,1.4,0.64,1), width 0.42s cubic-bezier(0.34,1.4,0.64,1);
       pointer-events: none;
     }
     .lang-btn {
+      flex: 1;
       font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      padding: 5px 13px;
-      border-radius: 16px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      padding: 6px 16px;
+      border-radius: 100px;
       border: none;
       background: transparent;
-      color: rgba(255,255,255,0.4);
+      color: rgba(255,255,255,0.38);
       cursor: pointer;
       transition: color 0.25s ease;
       font-family: 'Montserrat', sans-serif;
       line-height: 1;
       position: relative;
       z-index: 1;
+      text-align: center;
     }
-    .lang-btn.active { background: transparent; color: #111111; }
+    .lang-btn.active { color: #111111; font-weight: 900; }
 
     /* ─── Arabic / RTL Global Overrides ─── */
     html.lang-ar,
@@ -62,7 +65,24 @@
     html.lang-ar p, html.lang-ar a, html.lang-ar span,
     html.lang-ar li, html.lang-ar button, html.lang-ar div,
     html.lang-ar input { font-family: 'ClanArabic', sans-serif; }
-    html.lang-ar .lang-btn { font-family: 'Montserrat', sans-serif; }
+    html.lang-ar .lang-btn {
+      flex: 1;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      padding: 6px 16px;
+      border-radius: 100px;
+      border: none;
+      background: transparent;
+      color: rgba(255,255,255,0.38);
+      cursor: pointer;
+      transition: color 0.25s ease;
+      font-family: 'Montserrat', sans-serif;
+      line-height: 1;
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
     html.lang-ar .nav-links            { flex-direction: row-reverse; }
     html.lang-ar .nav-cta              { flex-direction: row-reverse; }
     html.lang-ar .section-label        { flex-direction: row-reverse; }
@@ -193,15 +213,7 @@
       color: var(--yellow);
       margin-bottom: 16px;
     }
-    .section-label::before {
-      content: '';
-      width: 24px;
-      height: 2px;
-      background: var(--yellow);
-      border-radius: 1px;
-    }
-
-    .section-title {
+.section-title {
       font-size: clamp(32px, 5vw, 52px);
       font-weight: 800;
       line-height: 1.1;
@@ -836,7 +848,7 @@
     <div class="container">
       <div class="section-label reveal" data-i18n="bannerLabel">Our Story</div>
       <h1 class="reveal reveal-delay-1"><span data-i18n="bannerTitle">About</span> <span class="text-yellow">100CLAN</span></h1>
-      <p class="reveal reveal-delay-2" data-i18n="bannerSub">We exist to close the gap between creative potential and real-world growth — one collaboration at a time.</p>
+      <p class="reveal reveal-delay-2" data-i18n="bannerSub">We exist to close the gap between creative potential and real-world growth, one collaboration at a time.</p>
     </div>
   </section>
 
@@ -847,14 +859,14 @@
         <div class="mission-text reveal">
           <div class="section-label" data-i18n="missionLabel">Our Mission</div>
           <h2 data-i18n="missionTitle">Connect creators.<br />Amplify reach.<br />Build real collaboration.</h2>
-          <p data-i18n="missionP1">100CLAN was built on a single belief: creators are stronger together. In an industry that often pits creators against each other in a race for views, we chose to build a home where collaboration is the strategy — and community is the currency.</p>
-          <p data-i18n="missionP2">We provide the infrastructure, the connections, and the tools that let creators of every size find their people, structure meaningful partnerships, and grow audiences that stick — not just spike.</p>
+          <p data-i18n="missionP1">100CLAN was built on a single belief: creators are stronger together. In an industry that often pits creators against each other in a race for views, we chose to build a home where collaboration is the strategy, and community is the currency.</p>
+          <p data-i18n="missionP2">We provide the infrastructure, the connections, and the tools that let creators of every size find their people, structure meaningful partnerships, and grow audiences that stick, not just spike.</p>
         </div>
         <div class="mission-visual reveal reveal-delay-2">
           <div class="mission-quote">
-            "<span data-i18n="missionQuote">The next era of content doesn't belong to the loudest voice — it belongs to the most connected ones.</span>"
+            "<span data-i18n="missionQuote">The next era of content doesn't belong to the loudest voice, it belongs to the most connected ones.</span>"
           </div>
-          <div class="mission-quote-attr" data-i18n="missionQuoteAttr">— Founder, 100CLAN</div>
+          <div class="mission-quote-attr" data-i18n="missionQuoteAttr">Founder, 100CLAN</div>
         </div>
       </div>
     </div>
@@ -890,21 +902,21 @@
       <div class="story-header">
         <div class="section-label reveal" data-i18n="storyLabel">How We Got Here</div>
         <h2 class="section-title reveal reveal-delay-1" data-i18n="storyTitle">The 100CLAN <span class="text-yellow">story</span></h2>
-        <p class="section-sub reveal reveal-delay-2" style="margin-top:16px" data-i18n="storySub">From a Telegram group to a global creator platform — built by creators, for creators.</p>
+        <p class="section-sub reveal reveal-delay-2" style="margin-top:16px" data-i18n="storySub">From a Telegram group to a global creator platform, built by creators, for creators.</p>
       </div>
       <div class="timeline">
         <div class="timeline-item reveal">
           <div class="timeline-dot">24</div>
           <div class="timeline-content">
-            <div class="timeline-year" data-i18n="tl1Year">Early 2024</div>
+            <div class="timeline-year" data-i18n="tl1Year">Early 2020</div>
             <div class="timeline-title" data-i18n="tl1Title">It Started in a Telegram Group</div>
-            <p class="timeline-desc" data-i18n="tl1Desc">A small group of content creators in the Arab world started a private Telegram group to share collab opportunities. Within weeks, it had grown to over 300 members from across the region — creators who were hungry to work together but had no real infrastructure to do it.</p>
+            <p class="timeline-desc" data-i18n="tl1Desc">A small group of content creators in the Arab world started a private Telegram group to share collab opportunities. Within weeks, it had grown to over 300 members from across the region, creators who were hungry to work together but had no real infrastructure to do it.</p>
           </div>
         </div>
         <div class="timeline-item reveal reveal-delay-1">
           <div class="timeline-dot">24</div>
           <div class="timeline-content">
-            <div class="timeline-year" data-i18n="tl2Year">Mid 2024</div>
+            <div class="timeline-year" data-i18n="tl2Year">Mid 2020</div>
             <div class="timeline-title" data-i18n="tl2Title">The Platform Takes Shape</div>
             <p class="timeline-desc" data-i18n="tl2Desc">The founders recognized that group chats couldn't scale the real problems: finding the right partners, structuring agreements, tracking results. Development began on a purpose-built platform with creator matching, a collaboration hub, and built-in analytics.</p>
           </div>
@@ -920,9 +932,9 @@
         <div class="timeline-item reveal reveal-delay-3">
           <div class="timeline-dot">26</div>
           <div class="timeline-content">
-            <div class="timeline-year" data-i18n="tl4Year">2026 — Today</div>
+            <div class="timeline-year" data-i18n="tl4Year">2026, Today</div>
             <div class="timeline-title" data-i18n="tl4Title">12,000+ Creators Strong</div>
-            <p class="timeline-desc" data-i18n="tl4Desc">Today, 100CLAN is the leading creator collaboration platform in the Arab world and growing globally. We've expanded to include deal management, brand partnership tools, and a full creator resources library — with much more on the way.</p>
+            <p class="timeline-desc" data-i18n="tl4Desc">Today, 100CLAN is the leading creator collaboration platform in the Arab world and growing globally. We've expanded to include deal management, brand partnership tools, and a full creator resources library, with much more on the way.</p>
           </div>
         </div>
       </div>
@@ -941,7 +953,7 @@
         <div class="value-card reveal">
           <div class="value-icon">&#128101;</div>
           <div class="value-title" data-i18n="v1Title">Community First</div>
-          <p class="value-desc" data-i18n="v1Desc">Every product decision starts with a single question: does this make the community stronger? We don't build features to grow revenue — we build them to deepen real creative connections.</p>
+          <p class="value-desc" data-i18n="v1Desc">Every product decision starts with a single question: does this make the community stronger? We don't build features to grow revenue, we build them to deepen real creative connections.</p>
         </div>
         <div class="value-card reveal reveal-delay-1">
           <div class="value-icon">&#127807;</div>
@@ -956,7 +968,7 @@
         <div class="value-card reveal reveal-delay-3">
           <div class="value-icon">&#128270;</div>
           <div class="value-title" data-i18n="v4Title">Transparency</div>
-          <p class="value-desc" data-i18n="v4Desc">From deal splits to platform fees to how our matching algorithm works — we believe in radical transparency. If you're using 100CLAN, you should understand exactly how it works and why.</p>
+          <p class="value-desc" data-i18n="v4Desc">From deal splits to platform fees to how our matching algorithm works, we believe in radical transparency. If you're using 100CLAN, you should understand exactly how it works and why.</p>
         </div>
       </div>
     </div>
@@ -1050,7 +1062,7 @@
           <ul class="footer-links">
             <li><a href="index.html#features" data-i18n="fl1_1">Features</a></li>
             <li><a href="index.html#how" data-i18n="fl1_2">How It Works</a></li>
-            <li><a href="index.html#join" data-i18n="fl1_3">Pricing</a></li>
+            <li><a href="plans.html" data-i18n="fl1_3">Pricing</a></li>
             <li><a href="creator-matching.html" data-i18n="fl1_4">Creator Matching</a></li>
             <li><a href="collaboration-hub.html" data-i18n="fl1_5">Collaboration Hub</a></li>
           </ul>
@@ -1123,31 +1135,31 @@
         navLogin: 'Log In', navJoin: 'Join the Clan',
         bannerLabel: 'Our Story',
         bannerTitle: 'About',
-        bannerSub: 'We exist to close the gap between creative potential and real-world growth — one collaboration at a time.',
+        bannerSub: 'We exist to close the gap between creative potential and real-world growth, one collaboration at a time.',
         missionLabel: 'Our Mission',
         missionTitle: 'Connect creators.\nAmplify reach.\nBuild real collaboration.',
-        missionP1: '100CLAN was built on a single belief: creators are stronger together. In an industry that often pits creators against each other in a race for views, we chose to build a home where collaboration is the strategy — and community is the currency.',
-        missionP2: 'We provide the infrastructure, the connections, and the tools that let creators of every size find their people, structure meaningful partnerships, and grow audiences that stick — not just spike.',
-        missionQuote: 'The next era of content doesn\'t belong to the loudest voice — it belongs to the most connected ones.',
-        missionQuoteAttr: '— Founder, 100CLAN',
+        missionP1: '100CLAN was built on a single belief: creators are stronger together. In an industry that often pits creators against each other in a race for views, we chose to build a home where collaboration is the strategy, and community is the currency.',
+        missionP2: 'We provide the infrastructure, the connections, and the tools that let creators of every size find their people, structure meaningful partnerships, and grow audiences that stick, not just spike.',
+        missionQuote: 'The next era of content doesn\'t belong to the loudest voice, it belongs to the most connected ones.',
+        missionQuoteAttr: 'Founder, 100CLAN',
         stat1: 'Creators Joined', stat2: 'Countries Represented', stat3: 'Combined Reach', stat4: 'Satisfaction Rate',
         storyLabel: 'How We Got Here',
         storyTitle: 'The 100CLAN story',
-        storySub: 'From a Telegram group to a global creator platform — built by creators, for creators.',
-        tl1Year: 'Early 2024', tl1Title: 'It Started in a Telegram Group',
+        storySub: 'From a Telegram group to a global creator platform, built by creators, for creators.',
+        tl1Year: 'Early 2020', tl1Title: 'It Started in a Telegram Group',
         tl1Desc: 'A small group of content creators in the Arab world started a private Telegram group to share collab opportunities. Within weeks, it had grown to over 300 members from across the region.',
-        tl2Year: 'Mid 2024', tl2Title: 'The Platform Takes Shape',
+        tl2Year: 'Mid 2020', tl2Title: 'The Platform Takes Shape',
         tl2Desc: 'The founders recognized that group chats couldn\'t scale the real problems: finding the right partners, structuring agreements, tracking results. Development began on a purpose-built platform.',
         tl3Year: '2025', tl3Title: 'Launch & Global Growth',
         tl3Desc: '100CLAN officially launched to the public. Creators from 45+ countries joined in the first six months, reporting an average 34% increase in audience growth within 90 days.',
-        tl4Year: '2026 — Today', tl4Title: '12,000+ Creators Strong',
+        tl4Year: '2026, Today', tl4Title: '12,000+ Creators Strong',
         tl4Desc: 'Today, 100CLAN is the leading creator collaboration platform in the Arab world and growing globally, with deal management, brand partnership tools, and a full creator resources library.',
         valuesLabel: 'What We Stand For', valuesTitle: 'Our core values',
         valuesSub: 'Everything we build is an expression of these four principles.',
-        v1Title: 'Community First', v1Desc: 'Every product decision starts with a single question: does this make the community stronger? We don\'t build features to grow revenue — we build them to deepen real creative connections.',
+        v1Title: 'Community First', v1Desc: 'Every product decision starts with a single question: does this make the community stronger? We don\'t build features to grow revenue, we build them to deepen real creative connections.',
         v2Title: 'Authentic Growth', v2Desc: 'We believe in growing audiences that are genuinely interested, not inflated numbers. Every tool we offer is designed to build real engagement and lasting relationships.',
         v3Title: 'Creator Empowerment', v3Desc: 'Creators deserve more control over how they collaborate, how they earn, and how they grow. We put the power back in the hands of the people who make the content the world watches.',
-        v4Title: 'Transparency', v4Desc: 'From deal splits to platform fees to how our matching algorithm works — we believe in radical transparency. If you\'re using 100CLAN, you should understand exactly how it works.',
+        v4Title: 'Transparency', v4Desc: 'From deal splits to platform fees to how our matching algorithm works, we believe in radical transparency. If you\'re using 100CLAN, you should understand exactly how it works.',
         teamLabel: 'The Builders', teamTitle: 'Meet the team',
         teamSub: 'A small team of creators, builders, and believers who are obsessed with making creators win.',
         tm1Name: 'Adam Khalil', tm1Role: 'Co-Founder & CEO',
@@ -1176,31 +1188,31 @@
         navLogin: 'تسجيل الدخول', navJoin: 'انضم للكلان',
         bannerLabel: 'قصتنا',
         bannerTitle: 'عن',
-        bannerSub: 'نحن هنا لنسد الفجوة بين الإمكانات الإبداعية والنمو الحقيقي — تعاون واحد في كل مرة.',
+        bannerSub: 'نحن هنا لنسد الفجوة بين الإمكانات الإبداعية والنمو الحقيقي, تعاون واحد في كل مرة.',
         missionLabel: 'مهمتنا',
         missionTitle: 'ربط المبدعين.\nتضخيم الوصول.\nبناء تعاون حقيقي.',
-        missionP1: 'بُني 100CLAN على اعتقاد واحد: المبدعون أقوى معاً. في صناعة تضع المبدعين في منافسة على المشاهدات، اخترنا بناء مكان يكون فيه التعاون هو الاستراتيجية — والمجتمع هو العملة.',
-        missionP2: 'نوفر البنية التحتية والاتصالات والأدوات التي تتيح للمبدعين من كل الأحجام إيجاد مجتمعهم وبناء شراكات هادفة وتنمية جماهير تبقى — لا مجرد ارتفاع مؤقت.',
-        missionQuote: 'الحقبة القادمة من المحتوى لا تنتمي للصوت الأعلى — بل للأكثر اتصالاً.',
-        missionQuoteAttr: '— المؤسس، 100CLAN',
+        missionP1: 'بُني 100CLAN على اعتقاد واحد: المبدعون أقوى معاً. في صناعة تضع المبدعين في منافسة على المشاهدات، اخترنا بناء مكان يكون فيه التعاون هو الاستراتيجية, والمجتمع هو العملة.',
+        missionP2: 'نوفر البنية التحتية والاتصالات والأدوات التي تتيح للمبدعين من كل الأحجام إيجاد مجتمعهم وبناء شراكات هادفة وتنمية جماهير تبقى, لا مجرد ارتفاع مؤقت.',
+        missionQuote: 'الحقبة القادمة من المحتوى لا تنتمي للصوت الأعلى، بل للأكثر اتصالاً.',
+        missionQuoteAttr: 'المؤسس، 100CLAN',
         stat1: 'مبدع انضم', stat2: 'دولة ممثّلة', stat3: 'وصول مشترك', stat4: 'معدل الرضا',
         storyLabel: 'كيف وصلنا إلى هنا',
         storyTitle: 'قصة 100CLAN',
-        storySub: 'من مجموعة تيليغرام إلى منصة مبدعين عالمية — مبنية من المبدعين وللمبدعين.',
-        tl1Year: 'مطلع 2024', tl1Title: 'بدأت في مجموعة تيليغرام',
+        storySub: 'من مجموعة تيليغرام إلى منصة مبدعين عالمية, مبنية من المبدعين وللمبدعين.',
+        tl1Year: 'مطلع 2020', tl1Title: 'بدأت في مجموعة تيليغرام',
         tl1Desc: 'أنشأت مجموعة صغيرة من صنّاع المحتوى في العالم العربي مجموعة تيليغرام خاصة لتبادل فرص التعاون. في غضون أسابيع، تجاوز عدد أعضائها 300 مبدع من المنطقة.',
-        tl2Year: 'منتصف 2024', tl2Title: 'المنصة تأخذ شكلها',
+        tl2Year: 'منتصف 2020', tl2Title: 'المنصة تأخذ شكلها',
         tl2Desc: 'أدرك المؤسسون أن المحادثات الجماعية لا تحل المشكلات الحقيقية: إيجاد الشركاء المناسبين وهيكلة الاتفاقيات وتتبع النتائج. بدأ تطوير منصة متخصصة.',
         tl3Year: '2025', tl3Title: 'الإطلاق والنمو العالمي',
         tl3Desc: 'أُطلق 100CLAN رسمياً للعموم. انضم مبدعون من أكثر من 45 دولة في الأشهر الستة الأولى، مع متوسط نمو 34٪ في الجمهور خلال 90 يوماً.',
-        tl4Year: '2026 — اليوم', tl4Title: '+12,000 مبدع وأكثر',
+        tl4Year: '2026, اليوم', tl4Title: '+12,000 مبدع وأكثر',
         tl4Desc: 'اليوم، 100CLAN هو المنصة الرائدة للتعاون بين المبدعين في العالم العربي وينمو عالمياً، مع إدارة الصفقات وأدوات شراكات العلامات التجارية.',
         valuesLabel: 'ما نؤمن به', valuesTitle: 'قيمنا الأساسية',
         valuesSub: 'كل ما نبنيه هو تعبير عن هذه المبادئ الأربعة.',
-        v1Title: 'المجتمع أولاً', v1Desc: 'كل قرار منتج يبدأ بسؤال واحد: هل هذا يجعل المجتمع أقوى؟ لا نبني ميزات لزيادة الإيرادات — بل لتعميق الروابط الإبداعية الحقيقية.',
+        v1Title: 'المجتمع أولاً', v1Desc: 'كل قرار منتج يبدأ بسؤال واحد: هل هذا يجعل المجتمع أقوى؟ لا نبني ميزات لزيادة الإيرادات, بل لتعميق الروابط الإبداعية الحقيقية.',
         v2Title: 'النمو الأصيل', v2Desc: 'نؤمن بتنمية جماهير مهتمة حقاً، وليس أرقاماً منفوخة. كل أداة نقدمها مصممة لبناء تفاعل حقيقي وعلاقات دائمة.',
         v3Title: 'تمكين المبدع', v3Desc: 'يستحق المبدعون مزيداً من التحكم في كيفية تعاونهم وكسبهم ونموهم. نعيد السلطة إلى أيدي الأشخاص الذين يصنعون المحتوى الذي يشاهده العالم.',
-        v4Title: 'الشفافية', v4Desc: 'من توزيع الصفقات إلى رسوم المنصة وكيفية عمل خوارزمية المطابقة — نؤمن بالشفافية الكاملة. إذا كنت تستخدم 100CLAN، يجب أن تفهم كيف يعمل.',
+        v4Title: 'الشفافية', v4Desc: 'من توزيع الصفقات إلى رسوم المنصة وكيفية عمل خوارزمية المطابقة, نؤمن بالشفافية الكاملة. إذا كنت تستخدم 100CLAN، يجب أن تفهم كيف يعمل.',
         teamLabel: 'البنّاؤون', teamTitle: 'تعرف على الفريق',
         teamSub: 'فريق صغير من المبدعين والبنّائين والمؤمنين المهووسين بجعل المبدعين يفوزون.',
         tm1Name: 'آدم خليل', tm1Role: 'المؤسس المشارك والرئيس التنفيذي',
@@ -1280,6 +1292,60 @@
       btn.addEventListener('click', () => applyLang(btn.dataset.lang));
     });
     window.addEventListener('resize', updateLangSlide);
+    // ─── Lang Switcher: Drag / Swipe Support ───
+    (function() {
+      document.querySelectorAll('.lang-switcher').forEach(function(sw) {
+        var slide = sw.querySelector('.lang-slide');
+        if (!slide) return;
+        var active = false, dragged = false;
+        var startX = 0, startTX = 0, curTX = 0, minTX = 0, maxTX = 0;
+
+        function clientX(e) { return e.touches ? e.touches[0].clientX : e.clientX; }
+        function getTX() {
+          var m = (slide.style.transform || '').match(/translateX\(([^p]+)px\)/);
+          return m ? +m[1] : 0;
+        }
+
+        function start(e) {
+          active = true; dragged = false;
+          startX = clientX(e); startTX = curTX = getTX();
+          var enBtn = sw.querySelector('[data-lang="en"]');
+          var arBtn = sw.querySelector('[data-lang="ar"]');
+          minTX = enBtn ? enBtn.offsetLeft : 0;
+          maxTX = arBtn ? arBtn.offsetLeft : sw.offsetWidth * 0.5;
+          slide.style.transition = 'none';
+        }
+        function move(e) {
+          if (!active) return;
+          var dx = clientX(e) - startX;
+          if (Math.abs(dx) > 4) dragged = true;
+          curTX = Math.max(minTX, Math.min(startTX + dx, maxTX));
+          slide.style.transform = 'translateX(' + curTX + 'px)';
+          if (dragged) e.preventDefault();
+        }
+        function end() {
+          if (!active) return;
+          active = false;
+          slide.style.transition = '';
+          if (dragged) {
+            var mid = (minTX + maxTX) / 2;
+            applyLang(curTX >= mid ? 'ar' : 'en');
+          }
+        }
+
+        // Prevent click from firing after a drag
+        sw.addEventListener('click', function(e) {
+          if (dragged) { e.stopImmediatePropagation(); dragged = false; }
+        }, true);
+
+        sw.addEventListener('mousedown', start);
+        document.addEventListener('mousemove', move);
+        document.addEventListener('mouseup', end);
+        sw.addEventListener('touchstart', start, { passive: true });
+        document.addEventListener('touchmove', move, { passive: false });
+        document.addEventListener('touchend', end);
+      });
+    })();
   </script>
 </body>
 </html>

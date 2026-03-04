@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Collaboration Hub — 100CLAN</title>
+  <title>Collaboration Hub - 100CLAN</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -19,36 +19,66 @@
       display: flex;
       align-items: center;
       background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.14);
-      border-radius: 20px;
+      border: 1.5px solid rgba(255,255,255,0.13);
+      border-radius: 100px;
       padding: 3px;
-      gap: 0;
       position: relative;
+      flex-shrink: 0;
     }
     .lang-slide {
       position: absolute;
-      top: 3px; left: 0;
+      top: 3px;
+      left: 0;
       height: calc(100% - 6px);
-      border-radius: 16px;
+      border-radius: 100px;
       background: var(--yellow);
-      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), width 0.3s cubic-bezier(0.4,0,0.2,1);
+      box-shadow: 0 2px 12px rgba(245,184,0,0.55), 0 1px 4px rgba(0,0,0,0.35);
+      transition: transform 0.42s cubic-bezier(0.34,1.4,0.64,1), width 0.42s cubic-bezier(0.34,1.4,0.64,1);
       pointer-events: none;
     }
     .lang-btn {
-      font-size: 11px; font-weight: 700; letter-spacing: 0.06em;
-      padding: 5px 13px; border-radius: 16px; border: none;
-      background: transparent; color: rgba(255,255,255,0.4); cursor: pointer;
-      transition: color 0.25s ease; font-family: 'Montserrat', sans-serif;
-      line-height: 1; position: relative; z-index: 1;
+      flex: 1;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      padding: 6px 16px;
+      border-radius: 100px;
+      border: none;
+      background: transparent;
+      color: rgba(255,255,255,0.38);
+      cursor: pointer;
+      transition: color 0.25s ease;
+      font-family: 'Montserrat', sans-serif;
+      line-height: 1;
+      position: relative;
+      z-index: 1;
+      text-align: center;
     }
-    .lang-btn.active { background: transparent; color: #111111; }
+    .lang-btn.active { color: #111111; font-weight: 900; }
 
     html.lang-ar, html.lang-ar body,
     html.lang-ar h1, html.lang-ar h2, html.lang-ar h3,
     html.lang-ar p, html.lang-ar a, html.lang-ar span,
     html.lang-ar li, html.lang-ar button, html.lang-ar div,
     html.lang-ar input { font-family: 'ClanArabic', sans-serif; }
-    html.lang-ar .lang-btn { font-family: 'Montserrat', sans-serif; }
+    html.lang-ar .lang-btn {
+      flex: 1;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      padding: 6px 16px;
+      border-radius: 100px;
+      border: none;
+      background: transparent;
+      color: rgba(255,255,255,0.38);
+      cursor: pointer;
+      transition: color 0.25s ease;
+      font-family: 'Montserrat', sans-serif;
+      line-height: 1;
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
     html.lang-ar .nav-links { flex-direction: row-reverse; }
     html.lang-ar .nav-cta { flex-direction: row-reverse; }
     html.lang-ar .section-label { flex-direction: row-reverse; }
@@ -121,9 +151,7 @@
       font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
       color: var(--yellow); margin-bottom: 16px;
     }
-    .section-label::before { content: ''; width: 24px; height: 2px; background: var(--yellow); border-radius: 1px; }
-
-    .section-title { font-size: clamp(32px,5vw,52px); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; }
+.section-title { font-size: clamp(32px,5vw,52px); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; }
     .section-sub { font-size: 17px; color: var(--gray); font-weight: 400; line-height: 1.7; }
 
     .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.7s ease, transform 0.7s ease; }
@@ -383,7 +411,7 @@
           <li><a href="index.html#features" data-i18n="navFeatures">Features</a></li>
           <li><a href="index.html#how" data-i18n="navHow">How It Works</a></li>
           <li><a href="index.html#community" data-i18n="navCommunity">Community</a></li>
-          <li><a href="index.html#join" data-i18n="navPricing">Pricing</a></li>
+          <li><a href="plans.html" data-i18n="navPricing">Pricing</a></li>
         </ul>
         <div class="nav-cta">
           <div class="lang-switcher" role="group" aria-label="Language">
@@ -406,7 +434,7 @@
       <div class="page-banner-inner">
         <div class="section-label reveal" data-i18n="bannerLabel">Core Feature</div>
         <h1 class="reveal reveal-delay-1" data-i18n="bannerH1">Your Creator<br /><span class="text-yellow">Command Center</span></h1>
-        <p class="subtitle reveal reveal-delay-2" data-i18n="bannerSub">Everything you need to plan, execute, and measure a successful collaboration — briefs, schedules, analytics, and file sharing — in a single unified workspace built for creators.</p>
+        <p class="subtitle reveal reveal-delay-2" data-i18n="bannerSub">Everything you need to plan, execute, and measure a successful collaboration, briefs, schedules, analytics, and file sharing, in a single unified workspace built for creators.</p>
       </div>
     </div>
   </section>
@@ -423,7 +451,7 @@
         <div class="feature-item reveal">
           <div class="fi-icon">📅</div>
           <h3 data-i18n="fi1title">Shared Content Calendar</h3>
-          <p data-i18n="fi1desc">Co-build your publishing timeline on a synchronized calendar. Both creators can see deadlines, draft dates, and go-live windows in real time — no more crossed wires on post timing.</p>
+          <p data-i18n="fi1desc">Co-build your publishing timeline on a synchronized calendar. Both creators can see deadlines, draft dates, and go-live windows in real time, no more crossed wires on post timing.</p>
           <span class="fi-badge" data-i18n="fi1badge">Core Tool</span>
         </div>
         <div class="feature-item reveal reveal-delay-1">
@@ -441,7 +469,7 @@
         <div class="feature-item reveal reveal-delay-1">
           <div class="fi-icon">📊</div>
           <h3 data-i18n="fi4title">Analytics Dashboard</h3>
-          <p data-i18n="fi4desc">Track the combined performance of your collab in real time — views, reach, follower gain, and engagement rate for all participating creators on a single unified dashboard.</p>
+          <p data-i18n="fi4desc">Track the combined performance of your collab in real time, views, reach, follower gain, and engagement rate for all participating creators on a single unified dashboard.</p>
           <span class="fi-badge" data-i18n="fi4badge">Pro Tool</span>
         </div>
         <div class="feature-item reveal reveal-delay-2">
@@ -681,14 +709,14 @@
         navPricing: 'Pricing', navLogin: 'Log In', navJoin: 'Join the Clan',
         bannerLabel: 'Core Feature',
         bannerH1: 'Your Creator<br /><span class="text-yellow">Command Center</span>',
-        bannerSub: 'Everything you need to plan, execute, and measure a successful collaboration — briefs, schedules, analytics, and file sharing — in a single unified workspace built for creators.',
+        bannerSub: 'Everything you need to plan, execute, and measure a successful collaboration, briefs, schedules, analytics, and file sharing, in a single unified workspace built for creators.',
         featLabel: "What's Inside",
         featTitle: 'Six tools.<br /><span class="text-yellow">One workspace.</span>',
         featSub: 'Stop juggling spreadsheets, DMs, and email threads. The Collaboration Hub puts your entire collab lifecycle in one clean, collaborative environment.',
         fi1title: 'Shared Content Calendar', fi1desc: 'Co-build your publishing timeline on a synchronized calendar. Both creators can see deadlines, draft dates, and go-live windows in real time.', fi1badge: 'Core Tool',
         fi2title: 'Cross-Post Scheduler', fi2desc: 'Schedule simultaneous posts across Instagram, TikTok, YouTube, and X from one dashboard. Coordinate drop times to maximize algorithmic boost.', fi2badge: 'Pro Tool',
         fi3title: 'Collab Proposal System', fi3desc: 'Draft structured collaboration proposals with defined deliverables, timelines, revenue splits, and content rights. Both parties sign digitally.', fi3badge: 'Core Tool',
-        fi4title: 'Analytics Dashboard', fi4desc: 'Track the combined performance of your collab in real time — views, reach, follower gain, and engagement rate for all participating creators.', fi4badge: 'Pro Tool',
+        fi4title: 'Analytics Dashboard', fi4desc: 'Track the combined performance of your collab in real time, views, reach, follower gain, and engagement rate for all participating creators.', fi4badge: 'Pro Tool',
         fi5title: 'Built-in DM System', fi5desc: 'Keep all collab communication in the Hub. Threaded messages, voice notes, and reaction emojis let you move fast without leaving the platform.', fi5badge: 'Core Tool',
         fi6title: 'File Sharing', fi6desc: 'Share raw footage, brand assets, scripts, and design files up to 10GB per project. Version history, commenting, and approval workflows included.', fi6badge: 'Pro Tool',
         wfLabel: 'How It Flows', wfTitle: 'From idea to <span class="text-yellow">published post</span>',
@@ -724,14 +752,14 @@
         navPricing: 'الأسعار', navLogin: 'تسجيل الدخول', navJoin: 'انضم للكلان',
         bannerLabel: 'الميزة الأساسية',
         bannerH1: 'مركز قيادة<br /><span class="text-yellow">المبدع</span>',
-        bannerSub: 'كل ما تحتاجه لتخطيط تعاون ناجح وتنفيذه وقياسه — الملخصات والجداول والتحليلات ومشاركة الملفات — في مساحة عمل موحدة مصممة للمبدعين.',
+        bannerSub: 'كل ما تحتاجه لتخطيط تعاون ناجح وتنفيذه وقياسه, الملخصات والجداول والتحليلات ومشاركة الملفات, في مساحة عمل موحدة مصممة للمبدعين.',
         featLabel: 'ما بالداخل',
         featTitle: 'ستة أدوات.<br /><span class="text-yellow">مساحة عمل واحدة.</span>',
         featSub: 'توقف عن التنقل بين جداول البيانات والرسائل المباشرة وسلاسل البريد الإلكتروني. يضع مركز التعاون دورة حياة تعاونك الكاملة في بيئة واحدة نظيفة.',
         fi1title: 'تقويم محتوى مشترك', fi1desc: 'أنشئ جدولك الزمني للنشر على تقويم متزامن. يرى كلا المبدعَين المواعيد النهائية وتواريخ المسودة ونوافذ البث المباشر في الوقت الفعلي.', fi1badge: 'أداة أساسية',
         fi2title: 'جدولة النشر المتقاطع', fi2desc: 'جدولة منشورات متزامنة عبر إنستغرام وتيك توك ويوتيوب وX من لوحة واحدة. نسّق أوقات النشر لتعظيم تعزيز الخوارزميات.', fi2badge: 'أداة احترافية',
         fi3title: 'نظام مقترحات التعاون', fi3desc: 'صمّم مقترحات تعاون منظمة مع نواتج محددة وجداول زمنية وتوزيع للإيرادات وحقوق المحتوى. يوقّع الطرفان رقمياً قبل إنشاء أي محتوى.', fi3badge: 'أداة أساسية',
-        fi4title: 'لوحة التحليلات', fi4desc: 'تتبع الأداء المجمّع لتعاونك في الوقت الفعلي — المشاهدات والوصول ومكسب المتابعين ومعدل التفاعل لجميع المبدعين المشاركين.', fi4badge: 'أداة احترافية',
+        fi4title: 'لوحة التحليلات', fi4desc: 'تتبع الأداء المجمّع لتعاونك في الوقت الفعلي, المشاهدات والوصول ومكسب المتابعين ومعدل التفاعل لجميع المبدعين المشاركين.', fi4badge: 'أداة احترافية',
         fi5title: 'نظام الرسائل المباشرة المدمج', fi5desc: 'احتفظ بجميع اتصالات التعاون في المركز. الرسائل المترابطة والملاحظات الصوتية وإيموجيات التفاعل تتيح لك التحرك بسرعة دون مغادرة المنصة.', fi5badge: 'أداة أساسية',
         fi6title: 'مشاركة الملفات', fi6desc: 'شارك اللقطات الخام وأصول العلامة التجارية والنصوص وملفات التصميم حتى 10 جيجابايت لكل مشروع. سجل الإصدارات والتعليقات وسير عمل الموافقة متاحة.', fi6badge: 'أداة احترافية',
         wfLabel: 'كيف يسير', wfTitle: 'من الفكرة إلى <span class="text-yellow">المنشور</span>',
@@ -793,6 +821,60 @@
       btn.addEventListener('click', () => applyLang(btn.dataset.lang));
     });
     window.addEventListener('resize', updateLangSlide);
+    // ─── Lang Switcher: Drag / Swipe Support ───
+    (function() {
+      document.querySelectorAll('.lang-switcher').forEach(function(sw) {
+        var slide = sw.querySelector('.lang-slide');
+        if (!slide) return;
+        var active = false, dragged = false;
+        var startX = 0, startTX = 0, curTX = 0, minTX = 0, maxTX = 0;
+
+        function clientX(e) { return e.touches ? e.touches[0].clientX : e.clientX; }
+        function getTX() {
+          var m = (slide.style.transform || '').match(/translateX\(([^p]+)px\)/);
+          return m ? +m[1] : 0;
+        }
+
+        function start(e) {
+          active = true; dragged = false;
+          startX = clientX(e); startTX = curTX = getTX();
+          var enBtn = sw.querySelector('[data-lang="en"]');
+          var arBtn = sw.querySelector('[data-lang="ar"]');
+          minTX = enBtn ? enBtn.offsetLeft : 0;
+          maxTX = arBtn ? arBtn.offsetLeft : sw.offsetWidth * 0.5;
+          slide.style.transition = 'none';
+        }
+        function move(e) {
+          if (!active) return;
+          var dx = clientX(e) - startX;
+          if (Math.abs(dx) > 4) dragged = true;
+          curTX = Math.max(minTX, Math.min(startTX + dx, maxTX));
+          slide.style.transform = 'translateX(' + curTX + 'px)';
+          if (dragged) e.preventDefault();
+        }
+        function end() {
+          if (!active) return;
+          active = false;
+          slide.style.transition = '';
+          if (dragged) {
+            var mid = (minTX + maxTX) / 2;
+            applyLang(curTX >= mid ? 'ar' : 'en');
+          }
+        }
+
+        // Prevent click from firing after a drag
+        sw.addEventListener('click', function(e) {
+          if (dragged) { e.stopImmediatePropagation(); dragged = false; }
+        }, true);
+
+        sw.addEventListener('mousedown', start);
+        document.addEventListener('mousemove', move);
+        document.addEventListener('mouseup', end);
+        sw.addEventListener('touchstart', start, { passive: true });
+        document.addEventListener('touchmove', move, { passive: false });
+        document.addEventListener('touchend', end);
+      });
+    })();
   </script>
 </body>
 </html>

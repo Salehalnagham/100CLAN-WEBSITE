@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Partnerships — 100CLAN</title>
+  <title>Partnerships - 100CLAN</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -16,33 +16,69 @@
     }
 
     .lang-switcher {
-      display: flex; align-items: center;
+      display: flex;
+      align-items: center;
       background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.14);
-      border-radius: 20px; padding: 3px; gap: 0; position: relative;
+      border: 1.5px solid rgba(255,255,255,0.13);
+      border-radius: 100px;
+      padding: 3px;
+      position: relative;
+      flex-shrink: 0;
     }
     .lang-slide {
-      position: absolute; top: 3px; left: 0;
-      height: calc(100% - 6px); border-radius: 16px;
+      position: absolute;
+      top: 3px;
+      left: 0;
+      height: calc(100% - 6px);
+      border-radius: 100px;
       background: var(--yellow);
-      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), width 0.3s cubic-bezier(0.4,0,0.2,1);
+      box-shadow: 0 2px 12px rgba(245,184,0,0.55), 0 1px 4px rgba(0,0,0,0.35);
+      transition: transform 0.42s cubic-bezier(0.34,1.4,0.64,1), width 0.42s cubic-bezier(0.34,1.4,0.64,1);
       pointer-events: none;
     }
     .lang-btn {
-      font-size: 11px; font-weight: 700; letter-spacing: 0.06em;
-      padding: 5px 13px; border-radius: 16px; border: none;
-      background: transparent; color: rgba(255,255,255,0.4);
-      cursor: pointer; transition: color 0.25s ease;
-      font-family: 'Montserrat', sans-serif; line-height: 1; position: relative; z-index: 1;
+      flex: 1;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      padding: 6px 16px;
+      border-radius: 100px;
+      border: none;
+      background: transparent;
+      color: rgba(255,255,255,0.38);
+      cursor: pointer;
+      transition: color 0.25s ease;
+      font-family: 'Montserrat', sans-serif;
+      line-height: 1;
+      position: relative;
+      z-index: 1;
+      text-align: center;
     }
-    .lang-btn.active { color: #111111; }
+    .lang-btn.active { color: #111111; font-weight: 900; }
 
     html.lang-ar, html.lang-ar body,
     html.lang-ar h1, html.lang-ar h2, html.lang-ar h3,
     html.lang-ar p, html.lang-ar a, html.lang-ar span,
     html.lang-ar li, html.lang-ar button, html.lang-ar div,
     html.lang-ar input, html.lang-ar select, html.lang-ar textarea { font-family: 'ClanArabic', sans-serif; }
-    html.lang-ar .lang-btn { font-family: 'Montserrat', sans-serif; }
+    html.lang-ar .lang-btn {
+      flex: 1;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      padding: 6px 16px;
+      border-radius: 100px;
+      border: none;
+      background: transparent;
+      color: rgba(255,255,255,0.38);
+      cursor: pointer;
+      transition: color 0.25s ease;
+      font-family: 'Montserrat', sans-serif;
+      line-height: 1;
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
     html.lang-ar .nav-links { flex-direction: row-reverse; }
     html.lang-ar .nav-cta   { flex-direction: row-reverse; }
     html.lang-ar .section-label { flex-direction: row-reverse; }
@@ -109,9 +145,7 @@
       font-size: 11px; font-weight: 700; letter-spacing: 0.2em;
       text-transform: uppercase; color: var(--yellow); margin-bottom: 16px;
     }
-    .section-label::before { content: ''; width: 24px; height: 2px; background: var(--yellow); border-radius: 1px; }
-
-    .section-title { font-size: clamp(32px,5vw,52px); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; }
+.section-title { font-size: clamp(32px,5vw,52px); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; }
     .section-sub { font-size: 17px; color: var(--gray); font-weight: 400; line-height: 1.7; }
 
     .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.7s ease, transform 0.7s ease; }
@@ -306,7 +340,7 @@
           <li><a href="index.html#features" data-i18n="navFeatures">Features</a></li>
           <li><a href="index.html#how" data-i18n="navHow">How It Works</a></li>
           <li><a href="index.html#community" data-i18n="navCommunity">Community</a></li>
-          <li><a href="index.html#join" data-i18n="navPricing">Pricing</a></li>
+          <li><a href="plans.html" data-i18n="navPricing">Pricing</a></li>
         </ul>
         <div class="nav-cta">
           <div class="lang-switcher" role="group" aria-label="Language">
@@ -360,7 +394,7 @@
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><polyline points="8 21 12 17 16 21"/></svg>
           </div>
           <div class="pt-title" data-i18n="type2Title">Agency Partnerships</div>
-          <p class="pt-desc" data-i18n="type2Desc">White-label our collaboration tools for your own clients. Give your talent roster the infrastructure they need to collaborate, grow, and close deals — under your brand.</p>
+          <p class="pt-desc" data-i18n="type2Desc">White-label our collaboration tools for your own clients. Give your talent roster the infrastructure they need to collaborate, grow, and close deals, under your brand.</p>
           <ul class="pt-list">
             <li data-i18n="type2f1">White-label platform access with your branding</li>
             <li data-i18n="type2f2">Dedicated account manager and onboarding support</li>
@@ -618,7 +652,7 @@
         type1Title:'Brand Partnerships', type1Desc:'Connect your brand directly with the creators your audience already follows. Launch authentic campaigns at scale through our creator network.',
         type1f1:'Curated creator matching for your target demographic', type1f2:'Managed campaign workflows from brief to delivery',
         type1f3:'Full performance reporting and ROI tracking', type1f4:'Access to 12,000+ verified creators in 45+ countries',
-        type2Title:'Agency Partnerships', type2Desc:'White-label our collaboration tools for your own clients. Give your talent roster the infrastructure they need to collaborate, grow, and close deals — under your brand.',
+        type2Title:'Agency Partnerships', type2Desc:'White-label our collaboration tools for your own clients. Give your talent roster the infrastructure they need to collaborate, grow, and close deals, under your brand.',
         type2f1:'White-label platform access with your branding', type2f2:'Dedicated account manager and onboarding support',
         type2f3:'Revenue sharing on deals closed through the platform', type2f4:'Priority access to new features and beta programs',
         type3Title:'Platform Integrations', type3Desc:'Build on top of 100CLAN through our developer API. Integrate creator data, collaboration workflows, and deal management into your own products.',
@@ -732,6 +766,60 @@
       btn.addEventListener('click', () => applyLang(btn.dataset.lang));
     });
     window.addEventListener('resize', updateLangSlide);
+    // ─── Lang Switcher: Drag / Swipe Support ───
+    (function() {
+      document.querySelectorAll('.lang-switcher').forEach(function(sw) {
+        var slide = sw.querySelector('.lang-slide');
+        if (!slide) return;
+        var active = false, dragged = false;
+        var startX = 0, startTX = 0, curTX = 0, minTX = 0, maxTX = 0;
+
+        function clientX(e) { return e.touches ? e.touches[0].clientX : e.clientX; }
+        function getTX() {
+          var m = (slide.style.transform || '').match(/translateX\(([^p]+)px\)/);
+          return m ? +m[1] : 0;
+        }
+
+        function start(e) {
+          active = true; dragged = false;
+          startX = clientX(e); startTX = curTX = getTX();
+          var enBtn = sw.querySelector('[data-lang="en"]');
+          var arBtn = sw.querySelector('[data-lang="ar"]');
+          minTX = enBtn ? enBtn.offsetLeft : 0;
+          maxTX = arBtn ? arBtn.offsetLeft : sw.offsetWidth * 0.5;
+          slide.style.transition = 'none';
+        }
+        function move(e) {
+          if (!active) return;
+          var dx = clientX(e) - startX;
+          if (Math.abs(dx) > 4) dragged = true;
+          curTX = Math.max(minTX, Math.min(startTX + dx, maxTX));
+          slide.style.transform = 'translateX(' + curTX + 'px)';
+          if (dragged) e.preventDefault();
+        }
+        function end() {
+          if (!active) return;
+          active = false;
+          slide.style.transition = '';
+          if (dragged) {
+            var mid = (minTX + maxTX) / 2;
+            applyLang(curTX >= mid ? 'ar' : 'en');
+          }
+        }
+
+        // Prevent click from firing after a drag
+        sw.addEventListener('click', function(e) {
+          if (dragged) { e.stopImmediatePropagation(); dragged = false; }
+        }, true);
+
+        sw.addEventListener('mousedown', start);
+        document.addEventListener('mousemove', move);
+        document.addEventListener('mouseup', end);
+        sw.addEventListener('touchstart', start, { passive: true });
+        document.addEventListener('touchmove', move, { passive: false });
+        document.addEventListener('touchend', end);
+      });
+    })();
   </script>
 </body>
 </html>

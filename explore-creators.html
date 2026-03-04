@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Explore Creators — 100CLAN</title>
+  <title>Explore Creators - 100CLAN</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -18,27 +18,45 @@
 
     /* ─── Language Switcher ─── */
     .lang-switcher {
-      display: flex; align-items: center;
+      display: flex;
+      align-items: center;
       background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.14);
-      border-radius: 20px; padding: 3px; gap: 0; position: relative;
+      border: 1.5px solid rgba(255,255,255,0.13);
+      border-radius: 100px;
+      padding: 3px;
+      position: relative;
+      flex-shrink: 0;
     }
     .lang-slide {
-      position: absolute; top: 3px; left: 0;
-      height: calc(100% - 6px); border-radius: 16px;
+      position: absolute;
+      top: 3px;
+      left: 0;
+      height: calc(100% - 6px);
+      border-radius: 100px;
       background: var(--yellow);
-      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), width 0.3s cubic-bezier(0.4,0,0.2,1);
+      box-shadow: 0 2px 12px rgba(245,184,0,0.55), 0 1px 4px rgba(0,0,0,0.35);
+      transition: transform 0.42s cubic-bezier(0.34,1.4,0.64,1), width 0.42s cubic-bezier(0.34,1.4,0.64,1);
       pointer-events: none;
     }
     .lang-btn {
-      font-size: 11px; font-weight: 700; letter-spacing: 0.06em;
-      padding: 5px 13px; border-radius: 16px; border: none;
-      background: transparent; color: rgba(255,255,255,0.4);
-      cursor: pointer; transition: color 0.25s ease;
-      font-family: 'Montserrat', sans-serif; line-height: 1;
-      position: relative; z-index: 1;
+      flex: 1;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      padding: 6px 16px;
+      border-radius: 100px;
+      border: none;
+      background: transparent;
+      color: rgba(255,255,255,0.38);
+      cursor: pointer;
+      transition: color 0.25s ease;
+      font-family: 'Montserrat', sans-serif;
+      line-height: 1;
+      position: relative;
+      z-index: 1;
+      text-align: center;
     }
-    .lang-btn.active { background: transparent; color: #111111; }
+    .lang-btn.active { color: #111111; font-weight: 900; }
 
     /* ─── Arabic RTL ─── */
     html.lang-ar,
@@ -46,7 +64,24 @@
     html.lang-ar p, html.lang-ar a, html.lang-ar span, html.lang-ar li,
     html.lang-ar button, html.lang-ar div, html.lang-ar input, html.lang-ar label
     { font-family: 'ClanArabic', sans-serif; }
-    html.lang-ar .lang-btn { font-family: 'Montserrat', sans-serif; }
+    html.lang-ar .lang-btn {
+      flex: 1;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      padding: 6px 16px;
+      border-radius: 100px;
+      border: none;
+      background: transparent;
+      color: rgba(255,255,255,0.38);
+      cursor: pointer;
+      transition: color 0.25s ease;
+      font-family: 'Montserrat', sans-serif;
+      line-height: 1;
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
     html.lang-ar .nav-links { flex-direction: row-reverse; }
     html.lang-ar .nav-cta   { flex-direction: row-reverse; }
     html.lang-ar .page-banner { text-align: right; }
@@ -172,8 +207,7 @@
       font-size: 11px; font-weight: 700; letter-spacing: 0.2em;
       text-transform: uppercase; color: var(--yellow); margin-bottom: 14px;
     }
-    .section-label::before { content: ''; width: 24px; height: 2px; background: var(--yellow); border-radius: 1px; }
-    .page-banner h1 { font-size: clamp(36px, 5vw, 60px); font-weight: 900; line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 14px; }
+.page-banner h1 { font-size: clamp(36px, 5vw, 60px); font-weight: 900; line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 14px; }
     .page-banner p  { font-size: 16px; color: var(--gray); max-width: 560px; line-height: 1.7; }
 
     /* ─── Main Section ─── */
@@ -621,7 +655,7 @@
           <ul class="footer-links">
             <li><a href="index.html#features">Features</a></li>
             <li><a href="index.html#how">How It Works</a></li>
-            <li><a href="index.html#join">Pricing</a></li>
+            <li><a href="plans.html">Pricing</a></li>
             <li><a href="creator-matching.html">Creator Matching</a></li>
             <li><a href="collaboration-hub.html">Collaboration Hub</a></li>
           </ul>
@@ -900,6 +934,60 @@
       btn.addEventListener('click', () => applyLang(btn.dataset.lang));
     });
     window.addEventListener('resize', updateLangSlide);
+    // ─── Lang Switcher: Drag / Swipe Support ───
+    (function() {
+      document.querySelectorAll('.lang-switcher').forEach(function(sw) {
+        var slide = sw.querySelector('.lang-slide');
+        if (!slide) return;
+        var active = false, dragged = false;
+        var startX = 0, startTX = 0, curTX = 0, minTX = 0, maxTX = 0;
+
+        function clientX(e) { return e.touches ? e.touches[0].clientX : e.clientX; }
+        function getTX() {
+          var m = (slide.style.transform || '').match(/translateX\(([^p]+)px\)/);
+          return m ? +m[1] : 0;
+        }
+
+        function start(e) {
+          active = true; dragged = false;
+          startX = clientX(e); startTX = curTX = getTX();
+          var enBtn = sw.querySelector('[data-lang="en"]');
+          var arBtn = sw.querySelector('[data-lang="ar"]');
+          minTX = enBtn ? enBtn.offsetLeft : 0;
+          maxTX = arBtn ? arBtn.offsetLeft : sw.offsetWidth * 0.5;
+          slide.style.transition = 'none';
+        }
+        function move(e) {
+          if (!active) return;
+          var dx = clientX(e) - startX;
+          if (Math.abs(dx) > 4) dragged = true;
+          curTX = Math.max(minTX, Math.min(startTX + dx, maxTX));
+          slide.style.transform = 'translateX(' + curTX + 'px)';
+          if (dragged) e.preventDefault();
+        }
+        function end() {
+          if (!active) return;
+          active = false;
+          slide.style.transition = '';
+          if (dragged) {
+            var mid = (minTX + maxTX) / 2;
+            applyLang(curTX >= mid ? 'ar' : 'en');
+          }
+        }
+
+        // Prevent click from firing after a drag
+        sw.addEventListener('click', function(e) {
+          if (dragged) { e.stopImmediatePropagation(); dragged = false; }
+        }, true);
+
+        sw.addEventListener('mousedown', start);
+        document.addEventListener('mousemove', move);
+        document.addEventListener('mouseup', end);
+        sw.addEventListener('touchstart', start, { passive: true });
+        document.addEventListener('touchmove', move, { passive: false });
+        document.addEventListener('touchend', end);
+      });
+    })();
 
     // Keyboard: Esc closes modal
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });

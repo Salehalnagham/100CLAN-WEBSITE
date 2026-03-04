@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plans & Pricing - 100CLAN</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Arabic Brand Font ─── */
+    @font-face {
+      font-family: 'ClanArabic';
+      src: url('brand_assets/100clanBold 2.ttf') format('truetype');
+      font-weight: 700;
+      font-display: swap;
+    }
+
+    /* ─── Language Switcher ─── */
+    .lang-switcher {
+      display: flex;
+      align-items: center;
+      background: rgba(255,255,255,0.07);
+      border: 1.5px solid rgba(255,255,255,0.13);
+      border-radius: 100px;
+      padding: 3px;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .lang-slide {
+      position: absolute;
+      top: 3px;
+      left: 0;
+      height: calc(100% - 6px);
+      border-radius: 100px;
+      background: var(--yellow);
+      box-shadow: 0 2px 12px rgba(245,184,0,0.55), 0 1px 4px rgba(0,0,0,0.35);
+      transition: transform 0.42s cubic-bezier(0.34,1.4,0.64,1), width 0.42s cubic-bezier(0.34,1.4,0.64,1);
+      pointer-events: none;
+    }
+    .lang-btn {
+      flex: 1;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      padding: 6px 16px;
+      border-radius: 100px;
+      border: none;
+      background: transparent;
+      color: rgba(255,255,255,0.38);
+      cursor: pointer;
+      transition: color 0.25s ease;
+      font-family: 'Montserrat', sans-serif;
+      line-height: 1;
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+    .lang-btn.active { color: #111111; font-weight: 900; }
+
+    /* ─── Arabic / RTL Global Overrides ─── */
+    html.lang-ar,
+    html.lang-ar body,
+    html.lang-ar h1, html.lang-ar h2, html.lang-ar h3,
+    html.lang-ar p, html.lang-ar a, html.lang-ar span,
+    html.lang-ar li, html.lang-ar button, html.lang-ar div,
+    html.lang-ar input { font-family: 'ClanArabic', sans-serif; }
+    html.lang-ar .lang-btn { font-family: 'Montserrat', sans-serif; }
+    html.lang-ar .nav-links            { flex-direction: row-reverse; }
+    html.lang-ar .nav-cta              { flex-direction: row-reverse; }
+    html.lang-ar .section-label        { flex-direction: row-reverse; }
+    html.lang-ar .section-title,
+    html.lang-ar .section-sub          { text-align: right; }
+    html.lang-ar .cta-inner            { text-align: right; }
+    html.lang-ar .footer-tagline       { text-align: right; }
+    html.lang-ar .footer-social        { flex-direction: row-reverse; }
+    html.lang-ar .footer-links         { text-align: right; }
+    html.lang-ar .footer-bottom        { flex-direction: row-reverse; }
+    html.lang-ar .footer-legal         { flex-direction: row-reverse; }
+    html.lang-ar .page-banner          { text-align: right; }
+    html.lang-ar .page-banner .section-label { justify-content: flex-end; }
+    html.lang-ar .plan-card            { text-align: right; }
+    html.lang-ar .plan-features li     { flex-direction: row-reverse; text-align: right; }
+    html.lang-ar .faq-q                { flex-direction: row-reverse; text-align: right; }
+    html.lang-ar .faq-a                { text-align: right; }
+    html.lang-ar .compare-table th,
+    html.lang-ar .compare-table td     { text-align: right; }
+
+    /* ─── CSS Reset & Variables ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --yellow:   #F5B800;
+      --yellow-dark: #D9A200;
+      --yellow-glow: rgba(245, 184, 0, 0.25);
+      --black:    #111111;
+      --dark:     #1A1A1A;
+      --dark-2:   #222222;
+      --dark-3:   #2A2A2A;
+      --dark-card:#1E1E1E;
+      --white:    #FFFFFF;
+      --gray:     #9B9B9B;
+      --gray-light: #D4D4D4;
+      --font:     'Montserrat', sans-serif;
+      --radius:   12px;
+      --radius-lg: 20px;
+      --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: var(--black);
+      color: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--black); }
+    ::-webkit-scrollbar-thumb { background: var(--yellow); border-radius: 2px; }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+    .text-yellow { color: var(--yellow); }
+
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--yellow); color: var(--black); font-family: var(--font);
+      font-weight: 800; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 14px 32px; border-radius: var(--radius); border: none; cursor: pointer;
+      text-decoration: none; transition: var(--transition); position: relative; overflow: hidden;
+    }
+    .btn-primary::before { content: ''; position: absolute; inset: 0; background: rgba(255,255,255,0.15); transform: translateX(-100%); transition: transform 0.4s ease; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px var(--yellow-glow); }
+    .btn-primary:hover::before { transform: translateX(0); }
+
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent; color: var(--white); font-family: var(--font);
+      font-weight: 700; font-size: 14px; letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 13px 32px; border-radius: var(--radius);
+      border: 1.5px solid rgba(255,255,255,0.25); cursor: pointer;
+      text-decoration: none; transition: var(--transition);
+    }
+    .btn-outline:hover { border-color: var(--yellow); color: var(--yellow); transform: translateY(-2px); }
+
+    .section-label {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--yellow); margin-bottom: 16px;
+    }
+
+    .section-title { font-size: clamp(32px, 5vw, 52px); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; }
+    .section-sub { font-size: 17px; color: var(--gray); font-weight: 400; line-height: 1.7; }
+
+    .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ─── Navigation ─── */
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 20px 0; transition: var(--transition); }
+    .nav.scrolled { background: rgba(17,17,17,0.95); backdrop-filter: blur(20px); padding: 14px 0; border-bottom: 1px solid rgba(245,184,0,0.12); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { height: 36px; transition: var(--transition); }
+    .nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
+    .nav-links a { font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--gray-light); text-decoration: none; transition: color var(--transition); }
+    .nav-links a:hover { color: var(--yellow); }
+    .nav-cta { display: flex; align-items: center; gap: 12px; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+    .hamburger span { width: 24px; height: 2px; background: var(--white); border-radius: 1px; transition: var(--transition); }
+
+    .mobile-menu { position: fixed; inset: 0; z-index: 999; background: rgba(17,17,17,0.98); backdrop-filter: blur(20px); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 32px; transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.4,0,0.2,1); }
+    .mobile-menu.open { transform: translateX(0); }
+    .mobile-menu a { font-size: 24px; font-weight: 800; color: var(--white); text-decoration: none; text-transform: uppercase; letter-spacing: 0.06em; transition: color var(--transition); }
+    .mobile-menu a:hover { color: var(--yellow); }
+    .mobile-close { position: absolute; top: 24px; right: 28px; font-size: 28px; color: var(--gray); cursor: pointer; background: none; border: none; font-family: var(--font); transition: color var(--transition); }
+    .mobile-close:hover { color: var(--white); }
+
+    /* ─── Page Banner ─── */
+    .page-banner { background: var(--dark); padding-top: 140px; padding-bottom: 80px; min-height: 320px; display: flex; align-items: flex-end; position: relative; overflow: hidden; }
+    .page-banner::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 80% at 10% 50%, rgba(245,184,0,0.05) 0%, transparent 70%); }
+    .page-banner .container { position: relative; z-index: 1; }
+    .page-banner h1 { font-size: clamp(36px,6vw,64px); font-weight: 900; line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 16px; }
+    .page-banner p { font-size: 18px; color: var(--gray); max-width: 580px; line-height: 1.6; }
+
+    /* ─── Billing Toggle ─── */
+    .billing-toggle {
+      display: flex; align-items: center; justify-content: center; gap: 16px;
+      margin: 56px auto 0; padding: 0;
+    }
+    .billing-label {
+      font-size: 14px; font-weight: 600; color: var(--gray);
+      cursor: pointer; transition: color 0.25s ease;
+    }
+    .billing-label.active { color: var(--white); }
+    .billing-switch {
+      width: 56px; height: 30px; border-radius: 100px;
+      background: var(--dark-3); border: 1.5px solid rgba(255,255,255,0.12);
+      position: relative; cursor: pointer; transition: background 0.3s ease;
+    }
+    .billing-switch.yearly { background: var(--yellow); border-color: var(--yellow-dark); }
+    .billing-switch::after {
+      content: ''; position: absolute; top: 3px; left: 3px;
+      width: 22px; height: 22px; border-radius: 50%;
+      background: var(--white);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      transition: transform 0.35s cubic-bezier(0.34,1.4,0.64,1);
+    }
+    .billing-switch.yearly::after { transform: translateX(26px); }
+    .billing-save {
+      font-size: 11px; font-weight: 800; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--yellow);
+      background: rgba(245,184,0,0.1); border: 1px solid rgba(245,184,0,0.25);
+      padding: 4px 10px; border-radius: 100px; margin-left: 4px;
+    }
+
+    /* ─── Pricing Cards ─── */
+    .plans-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 28px; padding: 64px 0 80px; align-items: start;
+    }
+    .plan-card {
+      background: var(--dark-card); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-lg); padding: 40px 32px;
+      position: relative; transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+    .plan-card:hover { transform: translateY(-4px); border-color: rgba(255,255,255,0.16); }
+    .plan-card.featured {
+      border-color: var(--yellow);
+      background: linear-gradient(175deg, rgba(245,184,0,0.08) 0%, var(--dark-card) 40%);
+    }
+    .plan-card.featured:hover { border-color: var(--yellow); }
+    .plan-badge {
+      position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+      background: var(--yellow); color: var(--black);
+      font-size: 11px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 6px 20px; border-radius: 100px;
+      box-shadow: 0 4px 16px rgba(245,184,0,0.35);
+    }
+    .plan-name {
+      font-size: 13px; font-weight: 700; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--gray); margin-bottom: 8px;
+    }
+    .plan-price {
+      font-size: 52px; font-weight: 900; line-height: 1; letter-spacing: -0.03em;
+      margin-bottom: 4px;
+    }
+    .plan-price .currency { font-size: 24px; font-weight: 700; vertical-align: top; margin-right: 2px; }
+    .plan-price .period { font-size: 15px; font-weight: 500; color: var(--gray); letter-spacing: 0; }
+    .plan-desc {
+      font-size: 14px; color: var(--gray); line-height: 1.6; margin-bottom: 28px; min-height: 44px;
+    }
+    .plan-btn {
+      display: block; text-align: center; width: 100%;
+      padding: 14px 24px; border-radius: var(--radius);
+      font-family: var(--font); font-weight: 800; font-size: 13px;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      text-decoration: none; cursor: pointer; transition: var(--transition);
+      border: none;
+    }
+    .plan-btn-primary {
+      background: var(--yellow); color: var(--black);
+    }
+    .plan-btn-primary:hover { box-shadow: 0 8px 32px var(--yellow-glow); transform: translateY(-2px); }
+    .plan-btn-outline {
+      background: transparent; color: var(--white);
+      border: 1.5px solid rgba(255,255,255,0.2);
+    }
+    .plan-btn-outline:hover { border-color: var(--yellow); color: var(--yellow); transform: translateY(-2px); }
+    .plan-divider {
+      width: 100%; height: 1px;
+      background: rgba(255,255,255,0.08);
+      margin: 28px 0;
+    }
+    .plan-features-title {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--gray); margin-bottom: 16px;
+    }
+    .plan-features { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .plan-features li {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 14px; color: var(--gray-light); line-height: 1.5;
+    }
+    .plan-features li .check {
+      flex-shrink: 0; width: 18px; height: 18px; border-radius: 50%;
+      background: rgba(245,184,0,0.12); color: var(--yellow);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; margin-top: 2px;
+    }
+
+    /* ─── Feature Comparison ─── */
+    .compare-section { padding: 80px 0; }
+    .compare-section .section-title { text-align: center; margin-bottom: 12px; }
+    .compare-section .section-sub { text-align: center; max-width: 600px; margin: 0 auto 48px; }
+    .compare-table {
+      width: 100%; border-collapse: separate; border-spacing: 0;
+      background: var(--dark-card); border-radius: var(--radius-lg);
+      overflow: hidden; border: 1px solid rgba(255,255,255,0.08);
+    }
+    .compare-table th {
+      padding: 20px 24px; font-size: 12px; font-weight: 800;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--gray); background: var(--dark-2);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      text-align: center;
+    }
+    .compare-table th:first-child { text-align: left; }
+    .compare-table th.col-featured { color: var(--yellow); }
+    .compare-table td {
+      padding: 16px 24px; font-size: 14px; color: var(--gray-light);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      text-align: center; vertical-align: middle;
+    }
+    .compare-table td:first-child { text-align: left; font-weight: 600; color: var(--white); }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table .check-icon { color: var(--yellow); font-size: 16px; }
+    .compare-table .dash-icon { color: rgba(255,255,255,0.15); }
+    .compare-cat {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--yellow);
+      background: rgba(245,184,0,0.05) !important;
+    }
+    .compare-cat td { color: var(--yellow) !important; font-weight: 700 !important; }
+
+    /* ─── FAQ ─── */
+    .faq-section { padding: 80px 0 100px; }
+    .faq-section .section-title { text-align: center; margin-bottom: 12px; }
+    .faq-section .section-sub { text-align: center; max-width: 550px; margin: 0 auto 48px; }
+    .faq-list { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+    .faq-item {
+      background: var(--dark-card); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius); overflow: hidden;
+      transition: border-color 0.3s ease;
+    }
+    .faq-item.open { border-color: rgba(245,184,0,0.25); }
+    .faq-q {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 24px; cursor: pointer;
+      font-size: 15px; font-weight: 700; color: var(--white);
+      transition: color 0.2s ease;
+    }
+    .faq-q:hover { color: var(--yellow); }
+    .faq-q .faq-icon {
+      flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%;
+      background: rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: center;
+      font-size: 14px; color: var(--gray); transition: transform 0.3s ease, background 0.3s ease;
+    }
+    .faq-item.open .faq-icon { transform: rotate(45deg); background: rgba(245,184,0,0.15); color: var(--yellow); }
+    .faq-a {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s ease;
+      padding: 0 24px;
+    }
+    .faq-item.open .faq-a { max-height: 300px; padding: 0 24px 20px; }
+    .faq-a p { font-size: 14px; color: var(--gray); line-height: 1.7; }
+
+    /* ─── CTA ─── */
+    .cta-section { padding: 100px 0 120px; position: relative; overflow: hidden; }
+    .cta-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 70% 60% at 50% 60%, rgba(245,184,0,0.06) 0%, transparent 70%); }
+    .cta-inner { max-width: 720px; margin: 0 auto; text-align: center; position: relative; z-index: 1; }
+    .cta-title { font-size: clamp(36px,6vw,64px); font-weight: 900; line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 20px; }
+    .cta-sub { font-size: 18px; color: var(--gray); line-height: 1.6; margin-bottom: 36px; }
+    .cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary-lg {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--yellow); color: var(--black); font-family: var(--font);
+      font-weight: 800; font-size: 16px; letter-spacing: 0.05em; text-transform: uppercase;
+      padding: 18px 44px; border-radius: var(--radius); border: none; cursor: pointer;
+      text-decoration: none; transition: var(--transition);
+    }
+    .btn-primary-lg:hover { transform: translateY(-3px); box-shadow: 0 12px 48px rgba(245,184,0,0.35); }
+    .cta-note { font-size: 13px; color: var(--gray); margin-top: 20px; }
+    .cta-note a { color: var(--yellow); text-decoration: none; font-weight: 600; }
+    .cta-note a:hover { text-decoration: underline; }
+
+    /* ─── Footer ─── */
+    .footer { background: var(--dark); padding: 80px 0 40px; border-top: 1px solid rgba(255,255,255,0.06); }
+    .footer-top { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 64px; }
+    .footer-logo { height: 32px; margin-bottom: 16px; }
+    .footer-tagline { font-size: 14px; color: var(--gray); line-height: 1.7; margin-bottom: 24px; max-width: 280px; }
+    .footer-social { display: flex; gap: 8px; }
+    .social-btn { width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; color: var(--gray); transition: var(--transition); text-decoration: none; }
+    .social-btn:hover { background: var(--yellow); color: var(--black); border-color: var(--yellow); }
+    .footer-col-title { font-size: 12px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--white); margin-bottom: 20px; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .footer-links a { font-size: 14px; color: var(--gray); text-decoration: none; transition: color 0.2s ease; }
+    .footer-links a:hover { color: var(--yellow); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.06); }
+    .footer-copy { font-size: 13px; color: var(--gray); }
+    .footer-legal { display: flex; gap: 24px; }
+    .footer-legal a { font-size: 13px; color: var(--gray); text-decoration: none; transition: color 0.2s ease; }
+    .footer-legal a:hover { color: var(--yellow); }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 1024px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .nav-cta .btn-outline, .nav-cta .btn-primary { display: none; }
+      .plans-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
+      .plan-card.featured { order: -1; }
+      .compare-table { font-size: 13px; }
+      .compare-table th, .compare-table td { padding: 12px 14px; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 640px) {
+      .page-banner { padding-top: 120px; padding-bottom: 56px; min-height: auto; }
+      .footer-top { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+      .footer-legal { flex-wrap: wrap; justify-content: center; }
+      .cta-buttons { flex-direction: column; align-items: center; }
+      .compare-table th:first-child, .compare-table td:first-child { min-width: 120px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-close" id="mobileClose">&#10005;</button>
+    <a href="index.html#features" onclick="closeMobile()">Features</a>
+    <a href="index.html#how" onclick="closeMobile()">How It Works</a>
+    <a href="index.html#community" onclick="closeMobile()">Community</a>
+    <a href="signup.html" class="btn-primary" onclick="closeMobile()" style="font-size:15px;margin-top:12px;">Join the Clan</a>
+  </div>
+
+  <nav class="nav scrolled" id="mainNav">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="index.html">
+          <img src="brand_assets/Logo-100clan.png" alt="100CLAN" class="nav-logo" />
+        </a>
+        <ul class="nav-links">
+          <li><a href="index.html#features" data-i18n="navFeatures">Features</a></li>
+          <li><a href="index.html#how" data-i18n="navHow">How It Works</a></li>
+          <li><a href="index.html#community" data-i18n="navCommunity">Community</a></li>
+          <li><a href="plans.html" data-i18n="navPricing" style="color:var(--yellow)">Pricing</a></li>
+        </ul>
+        <div class="nav-cta">
+          <div class="lang-switcher" role="group" aria-label="Language">
+            <span class="lang-slide"></span>
+            <button class="lang-btn active" data-lang="en">EN</button>
+            <button class="lang-btn" data-lang="ar">AR</button>
+          </div>
+          <a href="login.html" class="btn-outline" data-i18n="navLogin">Log In</a>
+          <a href="signup.html" class="btn-primary" data-i18n="navJoin">Join the Clan</a>
+          <div class="hamburger" id="hamburger">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ─── Page Banner ─── -->
+  <section class="page-banner">
+    <div class="container">
+      <div class="section-label reveal" data-i18n="bannerLabel">Plans & Pricing</div>
+      <h1 class="reveal reveal-delay-1"><span data-i18n="bannerTitle">Simple pricing,</span> <span class="text-yellow" data-i18n="bannerTitle2">powerful tools</span></h1>
+      <p class="reveal reveal-delay-2" data-i18n="bannerSub">Start free. Upgrade when you're ready. No hidden fees, no surprises, just tools that help you grow.</p>
+    </div>
+  </section>
+
+  <!-- ─── Billing Toggle ─── -->
+  <div class="container">
+    <div class="billing-toggle reveal">
+      <span class="billing-label active" id="monthlyLabel" data-i18n="monthly">Monthly</span>
+      <div class="billing-switch" id="billingSwitch"></div>
+      <span class="billing-label" id="yearlyLabel" data-i18n="yearly">Yearly</span>
+      <span class="billing-save" data-i18n="save">SAVE 20%</span>
+    </div>
+  </div>
+
+  <!-- ─── Pricing Cards ─── -->
+  <div class="container">
+    <div class="plans-grid">
+
+      <!-- Free -->
+      <div class="plan-card reveal">
+        <div class="plan-name" data-i18n="freeName">Starter</div>
+        <div class="plan-price"><span class="currency">$</span>0<span class="period" data-i18n="freePrice"> / forever</span></div>
+        <p class="plan-desc" data-i18n="freeDesc">Everything you need to start connecting with creators and growing your audience.</p>
+        <a href="signup.html" class="plan-btn plan-btn-outline" data-i18n="freeBtn">Get Started Free</a>
+        <div class="plan-divider"></div>
+        <div class="plan-features-title" data-i18n="freeInc">What's included</div>
+        <ul class="plan-features">
+          <li><span class="check">&#10003;</span><span data-i18n="f1">Creator profile & portfolio page</span></li>
+          <li><span class="check">&#10003;</span><span data-i18n="f2">Browse & discover creators</span></li>
+          <li><span class="check">&#10003;</span><span data-i18n="f3">Up to 5 collab requests / month</span></li>
+          <li><span class="check">&#10003;</span><span data-i18n="f4">Basic niche matching</span></li>
+          <li><span class="check">&#10003;</span><span data-i18n="f5">Community access & events</span></li>
+          <li><span class="check">&#10003;</span><span data-i18n="f6">Creator resources library</span></li>
+        </ul>
+      </div>
+
+      <!-- Pro -->
+      <div class="plan-card featured reveal reveal-delay-1">
+        <div class="plan-badge" data-i18n="proBadge">Most Popular</div>
+        <div class="plan-name" data-i18n="proName">Pro Creator</div>
+        <div class="plan-price"><span class="currency">$</span><span id="proPrice">12</span><span class="period" data-i18n="proPerMonth"> / month</span></div>
+        <p class="plan-desc" data-i18n="proDesc">Advanced tools to find the perfect partners, grow faster, and manage collaborations like a pro.</p>
+        <a href="signup.html" class="plan-btn plan-btn-primary" data-i18n="proBtn">Start Pro Trial</a>
+        <div class="plan-divider"></div>
+        <div class="plan-features-title" data-i18n="proInc">Everything in Starter, plus</div>
+        <ul class="plan-features">
+          <li><span class="check">&#10003;</span><span data-i18n="p1">Unlimited collab requests</span></li>
+          <li><span class="check">&#10003;</span><span data-i18n="p2">Advanced AI-powered matching</span></li>
+          <li><span class="check">&#10003;</span><span data-i18n="p3">Collaboration agreement templates</span></li>
+          <li><span class="check">&#10003;</span><span data-i18n="p4">Analytics dashboard & growth insights</span></li>
+          <li><span class="check">&#10003;</span><span data-i18n="p5">Priority profile visibility</span></li>
+          <li><span class="check">&#10003;</span><span data-i18n="p6">Direct messaging</span></li>
+          <li><span class="check">&#10003;</span><span data-i18n="p7">Brand deal marketplace access</span></li>
+        </ul>
+      </div>
+
+      <!-- Agency -->
+      <div class="plan-card reveal reveal-delay-2">
+        <div class="plan-name" data-i18n="agencyName">Agency / Team</div>
+        <div class="plan-price"><span class="currency">$</span><span id="agencyPrice">39</span><span class="period" data-i18n="agencyPerMonth"> / month</span></div>
+        <p class="plan-desc" data-i18n="agencyDesc">For teams managing multiple creators. Centralize collabs, track results, and scale operations.</p>
+        <a href="contact.html" class="plan-btn plan-btn-outline" data-i18n="agencyBtn">Contact Sales</a>
+        <div class="plan-divider"></div>
+        <div class="plan-features-title" data-i18n="agencyInc">Everything in Pro, plus</div>
+        <ul class="plan-features">
+          <li><span class="check">&#10003;</span><span data-i18n="a1">Up to 10 team member seats</span></li>
+          <li><span class="check">&#10003;</span><span data-i18n="a2">Multi-creator management dashboard</span></li>
+          <li><span class="check">&#10003;</span><span data-i18n="a3">Bulk collab outreach tools</span></li>
+          <li><span class="check">&#10003;</span><span data-i18n="a4">Custom branded proposals</span></li>
+          <li><span class="check">&#10003;</span><span data-i18n="a5">Revenue & ROI tracking</span></li>
+          <li><span class="check">&#10003;</span><span data-i18n="a6">Dedicated account manager</span></li>
+          <li><span class="check">&#10003;</span><span data-i18n="a7">Priority support & onboarding</span></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ─── Feature Comparison ─── -->
+  <section class="compare-section">
+    <div class="container">
+      <div class="section-label reveal" style="justify-content:center" data-i18n="compareLabel">Compare Plans</div>
+      <h2 class="section-title reveal reveal-delay-1"><span data-i18n="compareTitle1">Full feature</span> <span class="text-yellow" data-i18n="compareTitle2">breakdown</span></h2>
+      <p class="section-sub reveal reveal-delay-2" data-i18n="compareSub">See exactly what's included in each plan so you can choose the best fit for your journey.</p>
+
+      <div class="reveal reveal-delay-3">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th data-i18n="colFeature">Feature</th>
+              <th data-i18n="colStarter">Starter</th>
+              <th class="col-featured" data-i18n="colPro">Pro Creator</th>
+              <th data-i18n="colAgency">Agency</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="compare-cat"><td colspan="4" data-i18n="catProfile">Profile & Discovery</td></tr>
+            <tr><td data-i18n="r1">Creator profile page</td><td class="check-icon">&#10003;</td><td class="check-icon">&#10003;</td><td class="check-icon">&#10003;</td></tr>
+            <tr><td data-i18n="r2">Browse & discover creators</td><td class="check-icon">&#10003;</td><td class="check-icon">&#10003;</td><td class="check-icon">&#10003;</td></tr>
+            <tr><td data-i18n="r3">Priority profile visibility</td><td class="dash-icon">—</td><td class="check-icon">&#10003;</td><td class="check-icon">&#10003;</td></tr>
+            <tr><td data-i18n="r4">Verified badge</td><td class="dash-icon">—</td><td class="check-icon">&#10003;</td><td class="check-icon">&#10003;</td></tr>
+            <tr class="compare-cat"><td colspan="4" data-i18n="catCollab">Collaboration</td></tr>
+            <tr><td data-i18n="r5">Collab requests</td><td>5 / mo</td><td data-i18n="unlimited">Unlimited</td><td data-i18n="unlimited2">Unlimited</td></tr>
+            <tr><td data-i18n="r6">Niche matching</td><td data-i18n="basic">Basic</td><td data-i18n="aiPowered">AI-Powered</td><td data-i18n="aiPowered2">AI-Powered</td></tr>
+            <tr><td data-i18n="r7">Agreement templates</td><td class="dash-icon">—</td><td class="check-icon">&#10003;</td><td class="check-icon">&#10003;</td></tr>
+            <tr><td data-i18n="r8">Direct messaging</td><td class="dash-icon">—</td><td class="check-icon">&#10003;</td><td class="check-icon">&#10003;</td></tr>
+            <tr><td data-i18n="r9">Bulk outreach tools</td><td class="dash-icon">—</td><td class="dash-icon">—</td><td class="check-icon">&#10003;</td></tr>
+            <tr class="compare-cat"><td colspan="4" data-i18n="catGrowth">Growth & Analytics</td></tr>
+            <tr><td data-i18n="r10">Analytics dashboard</td><td class="dash-icon">—</td><td class="check-icon">&#10003;</td><td class="check-icon">&#10003;</td></tr>
+            <tr><td data-i18n="r11">Growth insights</td><td class="dash-icon">—</td><td class="check-icon">&#10003;</td><td class="check-icon">&#10003;</td></tr>
+            <tr><td data-i18n="r12">Revenue & ROI tracking</td><td class="dash-icon">—</td><td class="dash-icon">—</td><td class="check-icon">&#10003;</td></tr>
+            <tr><td data-i18n="r13">Brand deal marketplace</td><td class="dash-icon">—</td><td class="check-icon">&#10003;</td><td class="check-icon">&#10003;</td></tr>
+            <tr class="compare-cat"><td colspan="4" data-i18n="catSupport">Support & Team</td></tr>
+            <tr><td data-i18n="r14">Community & events</td><td class="check-icon">&#10003;</td><td class="check-icon">&#10003;</td><td class="check-icon">&#10003;</td></tr>
+            <tr><td data-i18n="r15">Creator resources library</td><td class="check-icon">&#10003;</td><td class="check-icon">&#10003;</td><td class="check-icon">&#10003;</td></tr>
+            <tr><td data-i18n="r16">Priority support</td><td class="dash-icon">—</td><td class="dash-icon">—</td><td class="check-icon">&#10003;</td></tr>
+            <tr><td data-i18n="r17">Team member seats</td><td class="dash-icon">—</td><td class="dash-icon">—</td><td data-i18n="upTo10">Up to 10</td></tr>
+            <tr><td data-i18n="r18">Dedicated account manager</td><td class="dash-icon">—</td><td class="dash-icon">—</td><td class="check-icon">&#10003;</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FAQ ─── -->
+  <section class="faq-section">
+    <div class="container">
+      <div class="section-label reveal" style="justify-content:center" data-i18n="faqLabel">Questions?</div>
+      <h2 class="section-title reveal reveal-delay-1" style="text-align:center"><span data-i18n="faqTitle1">Frequently asked</span> <span class="text-yellow" data-i18n="faqTitle2">questions</span></h2>
+      <p class="section-sub reveal reveal-delay-2" data-i18n="faqSub">Everything you need to know about 100CLAN plans and billing.</p>
+
+      <div class="faq-list reveal reveal-delay-3">
+        <div class="faq-item">
+          <div class="faq-q" data-i18n-q="faq1q"><span data-i18n="faq1q">Is 100CLAN really free?</span><span class="faq-icon">+</span></div>
+          <div class="faq-a"><p data-i18n="faq1a">Yes! The Starter plan is completely free forever. You get a full creator profile, discovery access, up to 5 collab requests per month, community access, and our creator resources library, no credit card required.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q"><span data-i18n="faq2q">Can I switch plans anytime?</span><span class="faq-icon">+</span></div>
+          <div class="faq-a"><p data-i18n="faq2a">Absolutely. You can upgrade, downgrade, or cancel your plan at any time. When upgrading, you'll get immediate access to new features. When downgrading, you keep your current plan until the billing period ends.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q"><span data-i18n="faq3q">What payment methods do you accept?</span><span class="faq-icon">+</span></div>
+          <div class="faq-a"><p data-i18n="faq3a">We accept all major credit and debit cards (Visa, Mastercard, Amex), Apple Pay, Google Pay, and PayPal. For Agency plans, we also offer invoicing and bank transfers.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q"><span data-i18n="faq4q">Is there a free trial for Pro?</span><span class="faq-icon">+</span></div>
+          <div class="faq-a"><p data-i18n="faq4a">Yes! Every new Pro Creator subscription starts with a 14-day free trial. You get full access to all Pro features, if you decide it's not for you, cancel before the trial ends and you won't be charged.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q"><span data-i18n="faq5q">What happens to my data if I downgrade?</span><span class="faq-icon">+</span></div>
+          <div class="faq-a"><p data-i18n="faq5a">Your profile, connections, and collaboration history are never deleted. If you downgrade, Pro-only features become locked but your data is preserved. Upgrade again anytime to regain full access.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q"><span data-i18n="faq6q">Do you offer discounts for creators from developing countries?</span><span class="faq-icon">+</span></div>
+          <div class="faq-a"><p data-i18n="faq6a">Yes. We offer regional pricing and creator grants for qualifying creators. Reach out to our team at support@100clan.com and we'll work with you to find a plan that fits your budget.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CTA ─── -->
+  <section class="cta-section">
+    <div class="cta-bg"></div>
+    <div class="container">
+      <div class="cta-inner">
+        <div class="section-label reveal" style="justify-content:center" data-i18n="ctaLabel">Start Free Today</div>
+        <h2 class="cta-title reveal reveal-delay-1">
+          <span data-i18n="ctaTitle1">Ready to grow with</span> <span class="text-yellow" data-i18n="ctaTitle2">your clan?</span>
+        </h2>
+        <p class="cta-sub reveal reveal-delay-2" data-i18n="ctaSub">Join 2,400+ creators already collaborating, growing, and winning together.</p>
+        <div class="cta-buttons reveal reveal-delay-3">
+          <a href="signup.html" class="btn-primary-lg" data-i18n="ctaBtn">
+            Join 100CLAN Free
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9h12M11 5l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+        <p class="cta-note reveal reveal-delay-4" data-i18n="ctaNote">No credit card required. Free forever for core features.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Footer ─── -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="brand_assets/Logo-100clan.png" alt="100CLAN" class="footer-logo" />
+          <p class="footer-tagline" data-i18n="footerTagline">The platform where content creators find their tribe, collaborate, and grow together.</p>
+          <div class="footer-social">
+            <a href="https://www.instagram.com/100clan" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Instagram">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+            <a href="https://www.tiktok.com/@100clan" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="TikTok">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.22 8.22 0 0 0 4.81 1.54V6.79a4.85 4.85 0 0 1-1.04-.1z"/></svg>
+            </a>
+            <a href="https://www.youtube.com/@100clanshorts" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="YouTube">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
+            </a>
+            <a href="https://www.x.com/100clan" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="X">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-col-title" data-i18n="footerCol1">Platform</div>
+          <ul class="footer-links">
+            <li><a href="index.html#features">Features</a></li>
+            <li><a href="index.html#how">How It Works</a></li>
+            <li><a href="plans.html">Pricing</a></li>
+            <li><a href="creator-matching.html">Creator Matching</a></li>
+            <li><a href="collaboration-hub.html">Collaboration Hub</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title" data-i18n="footerCol2">Community</div>
+          <ul class="footer-links">
+            <li><a href="creator-stories.html">Creator Stories</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="events.html">Events</a></li>
+            <li><a href="creator-resources.html">Creator Resources</a></li>
+            <li><a href="newsletter.html">Newsletter</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title" data-i18n="footerCol3">Company</div>
+          <ul class="footer-links">
+            <li><a href="about.html">About 100CLAN</a></li>
+            <li><a href="careers.html">Careers</a></li>
+            <li><a href="press.html">Press Kit</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="partnerships.html">Partnerships</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy" data-i18n="footerCopy">&#169; 2026 100CLAN. All rights reserved.</p>
+        <div class="footer-legal">
+          <a href="privacy.html" data-i18n="footerPrivacy">Privacy Policy</a>
+          <a href="terms.html" data-i18n="footerTerms">Terms of Service</a>
+          <a href="cookies.html" data-i18n="footerCookies">Cookie Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ─── Navigation ───
+    const nav = document.getElementById('mainNav');
+    function updateNav() { nav.classList.toggle('scrolled', window.scrollY > 40); }
+    window.addEventListener('scroll', updateNav);
+    updateNav();
+
+    // ─── Mobile menu ───
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileClose = document.getElementById('mobileClose');
+    hamburger.addEventListener('click', () => mobileMenu.classList.add('open'));
+    mobileClose.addEventListener('click', closeMobile);
+    function closeMobile() { mobileMenu.classList.remove('open'); }
+
+    // ─── Scroll reveal ───
+    const revealEls = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObserver.unobserve(e.target); } });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => revealObserver.observe(el));
+
+    // ─── Billing Toggle ───
+    const billingSwitch = document.getElementById('billingSwitch');
+    const monthlyLabel = document.getElementById('monthlyLabel');
+    const yearlyLabel = document.getElementById('yearlyLabel');
+    const proPrice = document.getElementById('proPrice');
+    const agencyPrice = document.getElementById('agencyPrice');
+    let isYearly = false;
+
+    function toggleBilling() {
+      isYearly = !isYearly;
+      billingSwitch.classList.toggle('yearly', isYearly);
+      monthlyLabel.classList.toggle('active', !isYearly);
+      yearlyLabel.classList.toggle('active', isYearly);
+      proPrice.textContent = isYearly ? '9' : '12';
+      agencyPrice.textContent = isYearly ? '29' : '39';
+    }
+
+    billingSwitch.addEventListener('click', toggleBilling);
+    monthlyLabel.addEventListener('click', function() { if (isYearly) toggleBilling(); });
+    yearlyLabel.addEventListener('click', function() { if (!isYearly) toggleBilling(); });
+
+    // ─── FAQ Accordion ───
+    document.querySelectorAll('.faq-q').forEach(function(q) {
+      q.addEventListener('click', function() {
+        var item = q.closest('.faq-item');
+        var wasOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(function(i) { i.classList.remove('open'); });
+        if (!wasOpen) item.classList.add('open');
+      });
+    });
+
+    // ─── Language / i18n ───
+    const i18n = {
+      en: {
+        navFeatures: 'Features', navHow: 'How It Works', navCommunity: 'Community', navPricing: 'Pricing',
+        navLogin: 'Log In', navJoin: 'Join the Clan',
+        bannerLabel: 'Plans & Pricing', bannerTitle: 'Simple pricing,', bannerTitle2: 'powerful tools',
+        bannerSub: 'Start free. Upgrade when you\'re ready. No hidden fees, no surprises, just tools that help you grow.',
+        monthly: 'Monthly', yearly: 'Yearly', save: 'SAVE 20%',
+        freeName: 'Starter', freePrice: ' / forever',
+        freeDesc: 'Everything you need to start connecting with creators and growing your audience.',
+        freeBtn: 'Get Started Free', freeInc: 'What\'s included',
+        f1: 'Creator profile & portfolio page', f2: 'Browse & discover creators',
+        f3: 'Up to 5 collab requests / month', f4: 'Basic niche matching',
+        f5: 'Community access & events', f6: 'Creator resources library',
+        proName: 'Pro Creator', proBadge: 'Most Popular', proPerMonth: ' / month',
+        proDesc: 'Advanced tools to find the perfect partners, grow faster, and manage collaborations like a pro.',
+        proBtn: 'Start Pro Trial', proInc: 'Everything in Starter, plus',
+        p1: 'Unlimited collab requests', p2: 'Advanced AI-powered matching',
+        p3: 'Collaboration agreement templates', p4: 'Analytics dashboard & growth insights',
+        p5: 'Priority profile visibility', p6: 'Direct messaging', p7: 'Brand deal marketplace access',
+        agencyName: 'Agency / Team', agencyPerMonth: ' / month',
+        agencyDesc: 'For teams managing multiple creators. Centralize collabs, track results, and scale operations.',
+        agencyBtn: 'Contact Sales', agencyInc: 'Everything in Pro, plus',
+        a1: 'Up to 10 team member seats', a2: 'Multi-creator management dashboard',
+        a3: 'Bulk collab outreach tools', a4: 'Custom branded proposals',
+        a5: 'Revenue & ROI tracking', a6: 'Dedicated account manager', a7: 'Priority support & onboarding',
+        compareLabel: 'Compare Plans', compareTitle1: 'Full feature', compareTitle2: 'breakdown',
+        compareSub: 'See exactly what\'s included in each plan so you can choose the best fit for your journey.',
+        colFeature: 'Feature', colStarter: 'Starter', colPro: 'Pro Creator', colAgency: 'Agency',
+        catProfile: 'Profile & Discovery', catCollab: 'Collaboration', catGrowth: 'Growth & Analytics', catSupport: 'Support & Team',
+        r1: 'Creator profile page', r2: 'Browse & discover creators', r3: 'Priority profile visibility', r4: 'Verified badge',
+        r5: 'Collab requests', r6: 'Niche matching', r7: 'Agreement templates', r8: 'Direct messaging', r9: 'Bulk outreach tools',
+        basic: 'Basic', aiPowered: 'AI-Powered', aiPowered2: 'AI-Powered', unlimited: 'Unlimited', unlimited2: 'Unlimited',
+        r10: 'Analytics dashboard', r11: 'Growth insights', r12: 'Revenue & ROI tracking', r13: 'Brand deal marketplace',
+        r14: 'Community & events', r15: 'Creator resources library', r16: 'Priority support', r17: 'Team member seats', r18: 'Dedicated account manager',
+        upTo10: 'Up to 10',
+        faqLabel: 'Questions?', faqTitle1: 'Frequently asked', faqTitle2: 'questions',
+        faqSub: 'Everything you need to know about 100CLAN plans and billing.',
+        faq1q: 'Is 100CLAN really free?',
+        faq1a: 'Yes! The Starter plan is completely free forever. You get a full creator profile, discovery access, up to 5 collab requests per month, community access, and our creator resources library, no credit card required.',
+        faq2q: 'Can I switch plans anytime?',
+        faq2a: 'Absolutely. You can upgrade, downgrade, or cancel your plan at any time. When upgrading, you\'ll get immediate access to new features. When downgrading, you keep your current plan until the billing period ends.',
+        faq3q: 'What payment methods do you accept?',
+        faq3a: 'We accept all major credit and debit cards (Visa, Mastercard, Amex), Apple Pay, Google Pay, and PayPal. For Agency plans, we also offer invoicing and bank transfers.',
+        faq4q: 'Is there a free trial for Pro?',
+        faq4a: 'Yes! Every new Pro Creator subscription starts with a 14-day free trial. You get full access to all Pro features, if you decide it\'s not for you, cancel before the trial ends and you won\'t be charged.',
+        faq5q: 'What happens to my data if I downgrade?',
+        faq5a: 'Your profile, connections, and collaboration history are never deleted. If you downgrade, Pro-only features become locked but your data is preserved. Upgrade again anytime to regain full access.',
+        faq6q: 'Do you offer discounts for creators from developing countries?',
+        faq6a: 'Yes. We offer regional pricing and creator grants for qualifying creators. Reach out to our team at support@100clan.com and we\'ll work with you to find a plan that fits your budget.',
+        ctaLabel: 'Start Free Today', ctaTitle1: 'Ready to grow with', ctaTitle2: 'your clan?',
+        ctaSub: 'Join 2,400+ creators already collaborating, growing, and winning together.',
+        ctaBtn: 'Join 100CLAN Free',
+        ctaNote: 'No credit card required. Free forever for core features.',
+        footerTagline: 'The platform where content creators find their tribe, collaborate, and grow together.',
+        footerCol1: 'Platform', footerCol2: 'Community', footerCol3: 'Company',
+        footerCopy: '\u00A9 2026 100CLAN. All rights reserved.',
+        footerPrivacy: 'Privacy Policy', footerTerms: 'Terms of Service', footerCookies: 'Cookie Policy',
+      },
+      ar: {
+        navFeatures: 'المميزات', navHow: 'كيف يعمل', navCommunity: 'المجتمع', navPricing: 'الأسعار',
+        navLogin: 'تسجيل الدخول', navJoin: 'انضم للكلان',
+        bannerLabel: 'الخطط والأسعار', bannerTitle: 'أسعار بسيطة،', bannerTitle2: 'أدوات قوية',
+        bannerSub: 'ابدأ مجاناً. ترقّى عندما تكون جاهزاً. بدون رسوم خفية أو مفاجآت.',
+        monthly: 'شهري', yearly: 'سنوي', save: 'وفّر 20%',
+        freeName: 'مجاني', freePrice: ' / للأبد',
+        freeDesc: 'كل ما تحتاجه لبدء التواصل مع المبدعين وتنمية جمهورك.',
+        freeBtn: 'ابدأ مجاناً', freeInc: 'ما يشمله',
+        f1: 'صفحة ملف شخصي ومعرض أعمال', f2: 'تصفح واكتشف المبدعين',
+        f3: 'حتى 5 طلبات تعاون شهرياً', f4: 'مطابقة أساسية حسب التخصص',
+        f5: 'الوصول للمجتمع والفعاليات', f6: 'مكتبة موارد المبدعين',
+        proName: 'المبدع المحترف', proBadge: 'الأكثر شعبية', proPerMonth: ' / شهرياً',
+        proDesc: 'أدوات متقدمة للعثور على الشركاء المثاليين والنمو بشكل أسرع وإدارة التعاونات باحتراف.',
+        proBtn: 'ابدأ التجربة المجانية', proInc: 'كل ما في المجاني، بالإضافة إلى',
+        p1: 'طلبات تعاون غير محدودة', p2: 'مطابقة متقدمة بالذكاء الاصطناعي',
+        p3: 'قوالب اتفاقيات التعاون', p4: 'لوحة تحليلات ورؤى النمو',
+        p5: 'أولوية في ظهور الملف الشخصي', p6: 'رسائل مباشرة', p7: 'الوصول لسوق صفقات العلامات التجارية',
+        agencyName: 'وكالة / فريق', agencyPerMonth: ' / شهرياً',
+        agencyDesc: 'للفرق التي تدير عدة مبدعين. مركزة التعاونات وتتبع النتائج وتوسيع العمليات.',
+        agencyBtn: 'تواصل مع المبيعات', agencyInc: 'كل ما في المحترف، بالإضافة إلى',
+        a1: 'حتى 10 مقاعد لأعضاء الفريق', a2: 'لوحة إدارة متعددة المبدعين',
+        a3: 'أدوات تواصل جماعي', a4: 'عروض مخصصة بعلامتك التجارية',
+        a5: 'تتبع الإيرادات والعائد على الاستثمار', a6: 'مدير حساب مخصص', a7: 'دعم وتأهيل بأولوية',
+        compareLabel: 'قارن الخطط', compareTitle1: 'مقارنة', compareTitle2: 'شاملة للمميزات',
+        compareSub: 'شاهد بالضبط ما تتضمنه كل خطة لتختار الأنسب لرحلتك.',
+        colFeature: 'الميزة', colStarter: 'مجاني', colPro: 'المحترف', colAgency: 'الوكالة',
+        catProfile: 'الملف الشخصي والاكتشاف', catCollab: 'التعاون', catGrowth: 'النمو والتحليلات', catSupport: 'الدعم والفريق',
+        r1: 'صفحة الملف الشخصي', r2: 'تصفح واكتشف المبدعين', r3: 'أولوية ظهور الملف', r4: 'شارة التوثيق',
+        r5: 'طلبات التعاون', r6: 'مطابقة التخصص', r7: 'قوالب الاتفاقيات', r8: 'رسائل مباشرة', r9: 'أدوات تواصل جماعي',
+        basic: 'أساسي', aiPowered: 'بالذكاء الاصطناعي', aiPowered2: 'بالذكاء الاصطناعي', unlimited: 'غير محدود', unlimited2: 'غير محدود',
+        r10: 'لوحة التحليلات', r11: 'رؤى النمو', r12: 'تتبع الإيرادات', r13: 'سوق صفقات العلامات',
+        r14: 'المجتمع والفعاليات', r15: 'مكتبة موارد المبدعين', r16: 'دعم بأولوية', r17: 'مقاعد أعضاء الفريق', r18: 'مدير حساب مخصص',
+        upTo10: 'حتى 10',
+        faqLabel: 'أسئلة؟', faqTitle1: 'الأسئلة', faqTitle2: 'الشائعة',
+        faqSub: 'كل ما تحتاج معرفته عن خطط 100CLAN والفوترة.',
+        faq1q: 'هل 100CLAN مجاني حقاً؟',
+        faq1a: 'نعم! خطة المجاني مجانية للأبد. تحصل على ملف شخصي كامل وإمكانية الاكتشاف وحتى 5 طلبات تعاون شهرياً والوصول للمجتمع ومكتبة الموارد, بدون بطاقة ائتمانية.',
+        faq2q: 'هل يمكنني تغيير الخطة في أي وقت؟',
+        faq2a: 'بالتأكيد. يمكنك الترقية أو التخفيض أو الإلغاء في أي وقت. عند الترقية تحصل على وصول فوري للمميزات الجديدة.',
+        faq3q: 'ما طرق الدفع المقبولة؟',
+        faq3a: 'نقبل جميع بطاقات الائتمان والخصم الرئيسية (فيزا، ماستركارد، أمكس)، آبل باي، جوجل باي، وباي بال. لخطط الوكالات نوفر أيضاً الفوترة والتحويلات البنكية.',
+        faq4q: 'هل هناك فترة تجريبية مجانية للمحترف؟',
+        faq4a: 'نعم! كل اشتراك جديد في المحترف يبدأ بتجربة مجانية لمدة 14 يوماً. تحصل على وصول كامل لجميع مميزات المحترف.',
+        faq5q: 'ماذا يحدث لبياناتي إذا خفّضت الخطة؟',
+        faq5a: 'ملفك الشخصي واتصالاتك وتاريخ التعاون لا تُحذف أبداً. عند التخفيض تُقفل المميزات المتقدمة لكن بياناتك محفوظة.',
+        faq6q: 'هل تقدمون خصومات للمبدعين من الدول النامية؟',
+        faq6a: 'نعم. نقدم أسعاراً إقليمية ومنحاً للمبدعين المؤهلين. تواصل مع فريقنا على support@100clan.com وسنعمل معك.',
+        ctaLabel: 'ابدأ مجاناً اليوم', ctaTitle1: 'مستعد للنمو مع', ctaTitle2: 'كلانك؟',
+        ctaSub: 'أكثر من 2,400 مبدع يتعاونون وينمون ويفوزون معاً بالفعل.',
+        ctaBtn: 'انضم إلى 100CLAN مجاناً',
+        ctaNote: 'لا يلزم بطاقة ائتمانية. مجاني للأبد للمميزات الأساسية.',
+        footerTagline: 'المنصة التي يجد فيها صنّاع المحتوى قبيلتهم ويتعاونون وينمون معاً.',
+        footerCol1: 'المنصة', footerCol2: 'المجتمع', footerCol3: 'الشركة',
+        footerCopy: '© 2026 100CLAN. جميع الحقوق محفوظة.',
+        footerPrivacy: 'سياسة الخصوصية', footerTerms: 'شروط الخدمة', footerCookies: 'سياسة ملفات تعريف الارتباط',
+      }
+    };
+
+    function applyLang(lang) {
+      const t = i18n[lang];
+      document.documentElement.lang = lang;
+      document.documentElement.dir  = lang === 'ar' ? 'rtl' : 'ltr';
+      document.documentElement.classList.toggle('lang-ar', lang === 'ar');
+      document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+      requestAnimationFrame(updateLangSlide);
+
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[key] !== undefined) {
+          if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') el.placeholder = t[key];
+          else el.textContent = t[key];
+        }
+      });
+
+      localStorage.setItem('clan-lang', lang);
+    }
+
+    function updateLangSlide() {
+      document.querySelectorAll('.lang-switcher').forEach(switcher => {
+        const slide = switcher.querySelector('.lang-slide');
+        const activeBtn = switcher.querySelector('.lang-btn.active');
+        if (!slide || !activeBtn) return;
+        slide.style.width = activeBtn.offsetWidth + 'px';
+        slide.style.transform = `translateX(${activeBtn.offsetLeft}px)`;
+      });
+    }
+
+    applyLang(localStorage.getItem('clan-lang') || 'en');
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => applyLang(btn.dataset.lang));
+    });
+    window.addEventListener('resize', updateLangSlide);
+
+    // ─── Lang Switcher: Drag / Swipe Support ───
+    (function() {
+      document.querySelectorAll('.lang-switcher').forEach(function(sw) {
+        var slide = sw.querySelector('.lang-slide');
+        if (!slide) return;
+        var active = false, dragged = false;
+        var startX = 0, startTX = 0, curTX = 0, minTX = 0, maxTX = 0;
+
+        function clientX(e) { return e.touches ? e.touches[0].clientX : e.clientX; }
+        function getTX() {
+          var m = (slide.style.transform || '').match(/translateX\(([^p]+)px\)/);
+          return m ? +m[1] : 0;
+        }
+
+        function start(e) {
+          active = true; dragged = false;
+          startX = clientX(e); startTX = curTX = getTX();
+          var enBtn = sw.querySelector('[data-lang="en"]');
+          var arBtn = sw.querySelector('[data-lang="ar"]');
+          minTX = enBtn ? enBtn.offsetLeft : 0;
+          maxTX = arBtn ? arBtn.offsetLeft : sw.offsetWidth * 0.5;
+          slide.style.transition = 'none';
+        }
+        function move(e) {
+          if (!active) return;
+          var dx = clientX(e) - startX;
+          if (Math.abs(dx) > 4) dragged = true;
+          curTX = Math.max(minTX, Math.min(startTX + dx, maxTX));
+          slide.style.transform = 'translateX(' + curTX + 'px)';
+          if (dragged) e.preventDefault();
+        }
+        function end() {
+          if (!active) return;
+          active = false;
+          slide.style.transition = '';
+          if (dragged) {
+            var mid = (minTX + maxTX) / 2;
+            applyLang(curTX >= mid ? 'ar' : 'en');
+          }
+        }
+
+        sw.addEventListener('click', function(e) {
+          if (dragged) { e.stopImmediatePropagation(); dragged = false; }
+        }, true);
+
+        sw.addEventListener('mousedown', start);
+        document.addEventListener('mousemove', move);
+        document.addEventListener('mouseup', end);
+        sw.addEventListener('touchstart', start, { passive: true });
+        document.addEventListener('touchmove', move, { passive: false });
+        document.addEventListener('touchend', end);
+      });
+    })();
+
+    // ─── Nav: swap Log In / Join for Dashboard if logged in ───
+    (function() {
+      var user = JSON.parse(localStorage.getItem('clan-user') || 'null');
+      if (!user) return;
+      var loginBtn = document.querySelector('.nav-cta .btn-outline');
+      var joinBtn  = document.querySelector('.nav-cta .btn-primary');
+      if (loginBtn) { loginBtn.textContent = user.name ? user.name.split(' ')[0] : 'Dashboard'; loginBtn.href = 'dashboard.html'; }
+      if (joinBtn)  { joinBtn.textContent = 'Dashboard'; joinBtn.href = 'dashboard.html'; }
+    })();
+  </script>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Join the Clan — 100CLAN Creator Registration</title>
+  <title>Join the Clan - 100CLAN Creator Registration</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -18,27 +18,45 @@
 
     /* ─── Language Switcher ─── */
     .lang-switcher {
-      display: flex; align-items: center;
+      display: flex;
+      align-items: center;
       background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.14);
-      border-radius: 20px; padding: 3px; gap: 0; position: relative;
+      border: 1.5px solid rgba(255,255,255,0.13);
+      border-radius: 100px;
+      padding: 3px;
+      position: relative;
+      flex-shrink: 0;
     }
     .lang-slide {
-      position: absolute; top: 3px; left: 0;
-      height: calc(100% - 6px); border-radius: 16px;
+      position: absolute;
+      top: 3px;
+      left: 0;
+      height: calc(100% - 6px);
+      border-radius: 100px;
       background: var(--yellow);
-      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), width 0.3s cubic-bezier(0.4,0,0.2,1);
+      box-shadow: 0 2px 12px rgba(245,184,0,0.55), 0 1px 4px rgba(0,0,0,0.35);
+      transition: transform 0.42s cubic-bezier(0.34,1.4,0.64,1), width 0.42s cubic-bezier(0.34,1.4,0.64,1);
       pointer-events: none;
     }
     .lang-btn {
-      font-size: 11px; font-weight: 700; letter-spacing: 0.06em;
-      padding: 5px 13px; border-radius: 16px; border: none;
-      background: transparent; color: rgba(255,255,255,0.4);
-      cursor: pointer; transition: color 0.25s ease;
-      font-family: 'Montserrat', sans-serif; line-height: 1;
-      position: relative; z-index: 1;
+      flex: 1;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      padding: 6px 16px;
+      border-radius: 100px;
+      border: none;
+      background: transparent;
+      color: rgba(255,255,255,0.38);
+      cursor: pointer;
+      transition: color 0.25s ease;
+      font-family: 'Montserrat', sans-serif;
+      line-height: 1;
+      position: relative;
+      z-index: 1;
+      text-align: center;
     }
-    .lang-btn.active { background: transparent; color: #111111; }
+    .lang-btn.active { color: #111111; font-weight: 900; }
 
     /* ─── Arabic RTL Overrides ─── */
     html.lang-ar,
@@ -139,9 +157,7 @@
       font-size: 11px; font-weight: 700; letter-spacing: 0.2em;
       text-transform: uppercase; color: var(--yellow); margin-bottom: 16px;
     }
-    .section-label::before { content: ''; width: 24px; height: 2px; background: var(--yellow); border-radius: 1px; }
-
-    .section-title { font-size: clamp(32px, 5vw, 52px); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; }
+.section-title { font-size: clamp(32px, 5vw, 52px); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; }
     .section-sub   { font-size: 17px; color: var(--gray); font-weight: 400; line-height: 1.7; }
 
     .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.7s ease, transform 0.7s ease; }
@@ -324,6 +340,51 @@
       color: var(--yellow);
     }
     .platform-card:hover:not(.active) { border-color: rgba(255,255,255,0.2); color: var(--white); }
+
+    /* Per-platform username inputs */
+    .platform-handles {
+      display: flex; flex-direction: column; gap: 10px;
+      margin-top: 16px;
+    }
+    .platform-handle-row {
+      display: flex; align-items: center; gap: 10px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px;
+      padding: 10px 14px;
+      animation: phSlideIn 0.3s ease;
+    }
+    @keyframes phSlideIn {
+      from { opacity: 0; transform: translateY(-8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .ph-icon {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      font-size: 14px; color: var(--yellow);
+      background: rgba(245,184,0,0.1);
+      border: 1px solid rgba(245,184,0,0.2);
+    }
+    .ph-label {
+      font-size: 12px; font-weight: 700; color: var(--gray-light);
+      min-width: 72px; flex-shrink: 0;
+    }
+    .ph-input {
+      flex: 1;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 13px; font-weight: 500;
+      color: var(--white);
+      font-family: var(--font);
+      outline: none;
+      transition: border-color 0.25s ease;
+    }
+    .ph-input:focus { border-color: rgba(245,184,0,0.5); }
+    .ph-input::placeholder { color: rgba(255,255,255,0.25); }
 
     /* Follower range pills */
     .follower-pills { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -547,7 +608,7 @@
               <div class="step-dot" id="dot1"></div>
               <div class="step-dot" id="dot2"></div>
               <div class="step-dot" id="dot3"></div>
-              <span class="step-label" id="stepLabel" data-i18n="stepLabel">Step 1 of 4 — Your Details</span>
+              <span class="step-label" id="stepLabel" data-i18n="stepLabel">Step 1 of 4, Your Details</span>
             </div>
 
             <form class="join-form" id="joinForm" onsubmit="handleJoin(event)">
@@ -651,8 +712,10 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="handle" data-i18n="labelHandle">Primary Handle / Username</label>
-                  <input id="handle" type="text" class="form-field" data-i18n-ph="phHandle" placeholder="@yourhandle" />
+                  <div class="niche-section-label" data-i18n="labelHandles">Your usernames</div>
+                  <div class="platform-handles" id="platformHandles">
+                    <p style="font-size:12px;color:var(--gray);margin:0;" id="phEmpty" data-i18n="phEmpty">Select a platform above to enter your username.</p>
+                  </div>
                 </div>
 
                 <div class="form-group">
@@ -680,7 +743,7 @@
               <!-- ─ STEP 3: Niche ─ -->
               <div id="step3" class="form-step" style="display:none">
                 <div class="form-section-title" data-i18n="step3Title">Your niche &amp; content</div>
-                <p class="form-section-sub" data-i18n="step3Sub">What kind of content do you make? Select all that apply — this powers our matching engine.</p>
+                <p class="form-section-sub" data-i18n="step3Sub">What kind of content do you make? Select all that apply, this powers our matching engine.</p>
 
                 <div class="form-group">
                   <div class="niche-section-label" data-i18n="labelNiche">Content Niche</div>
@@ -789,23 +852,23 @@
             <ul class="perks-list">
               <li class="perk-item">
                 <span class="perk-icon">&#9733;</span>
-                <span class="perk-text" data-i18n="perk1"><strong>Smart Matching</strong> — Get paired with creators who align with your niche, style, and audience.</span>
+                <span class="perk-text" data-i18n="perk1"><strong>Smart Matching</strong>, Get paired with creators who align with your niche, style, and audience.</span>
               </li>
               <li class="perk-item">
                 <span class="perk-icon">&#9733;</span>
-                <span class="perk-text" data-i18n="perk2"><strong>Collaboration Hub</strong> — Manage every collab from brief to publish in one clean workspace.</span>
+                <span class="perk-text" data-i18n="perk2"><strong>Collaboration Hub</strong>, Manage every collab from brief to publish in one clean workspace.</span>
               </li>
               <li class="perk-item">
                 <span class="perk-icon">&#9733;</span>
-                <span class="perk-text" data-i18n="perk3"><strong>Growth Analytics</strong> — See exactly how each collab is growing your audience in real time.</span>
+                <span class="perk-text" data-i18n="perk3"><strong>Growth Analytics</strong>, See exactly how each collab is growing your audience in real time.</span>
               </li>
               <li class="perk-item">
                 <span class="perk-icon">&#9733;</span>
-                <span class="perk-text" data-i18n="perk4"><strong>Protected Deals</strong> — Every collaboration is backed by a digital agreement to protect your work.</span>
+                <span class="perk-text" data-i18n="perk4"><strong>Protected Deals</strong>, Every collaboration is backed by a digital agreement to protect your work.</span>
               </li>
               <li class="perk-item">
                 <span class="perk-icon">&#9733;</span>
-                <span class="perk-text" data-i18n="perk5"><strong>Creator Community</strong> — Access a vetted network of ambitious creators from 45+ countries.</span>
+                <span class="perk-text" data-i18n="perk5"><strong>Creator Community</strong>, Access a vetted network of ambitious creators from 45+ countries.</span>
               </li>
             </ul>
           </div>
@@ -825,7 +888,7 @@
 
           <div class="sidebar-card reveal reveal-delay-3" style="background:rgba(245,184,0,0.06);border-color:rgba(245,184,0,0.2)">
             <div class="sidebar-card-title" style="color:var(--yellow)" data-i18n="freeTitle">100% Free to Join</div>
-            <p style="font-size:14px;color:var(--gray);line-height:1.7" data-i18n="freeDesc">Core features — creator matching, collaboration tools, and community access — are free forever. No credit card needed to get started.</p>
+            <p style="font-size:14px;color:var(--gray);line-height:1.7" data-i18n="freeDesc">Core features, creator matching, collaboration tools, and community access, are free forever. No credit card needed to get started.</p>
           </div>
         </div>
 
@@ -860,7 +923,7 @@
           <ul class="footer-links">
             <li><a href="index.html#features" data-i18n="fl1_1">Features</a></li>
             <li><a href="index.html#how" data-i18n="fl1_2">How It Works</a></li>
-            <li><a href="index.html#join" data-i18n="fl1_3">Pricing</a></li>
+            <li><a href="plans.html" data-i18n="fl1_3">Pricing</a></li>
             <li><a href="creator-matching.html" data-i18n="fl1_4">Creator Matching</a></li>
             <li><a href="collaboration-hub.html" data-i18n="fl1_5">Collaboration Hub</a></li>
           </ul>
@@ -928,8 +991,8 @@
     // ─── Multi-step form ───
     let currentStep = 1;
     const stepLabels = {
-      en: ['Step 1 of 4 — Your Details', 'Step 2 of 4 — Your Platforms', 'Step 3 of 4 — Your Niche', 'Step 4 of 4 — Collab Style'],
-      ar: ['الخطوة 1 من 4 — تفاصيلك', 'الخطوة 2 من 4 — منصاتك', 'الخطوة 3 من 4 — مجالك', 'الخطوة 4 من 4 — أسلوب التعاون'],
+      en: ['Step 1 of 4, Your Details', 'Step 2 of 4, Your Platforms', 'Step 3 of 4, Your Niche', 'Step 4 of 4, Collab Style'],
+      ar: ['الخطوة 1 من 4, تفاصيلك', 'الخطوة 2 من 4, منصاتك', 'الخطوة 3 من 4, مجالك', 'الخطوة 4 من 4, أسلوب التعاون'],
     };
 
     function goStep(n) {
@@ -953,8 +1016,52 @@
       if (lbl) lbl.textContent = (stepLabels[lang] || stepLabels.en)[currentStep - 1];
     }
 
-    // ─── Platform toggle ───
-    function togglePlatform(card) { card.classList.toggle('active'); }
+    // ─── Platform toggle + per-platform username inputs ───
+    var platformIcons = {
+      'instagram':  '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>',
+      'tiktok':     '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.22 8.22 0 0 0 4.81 1.54V6.79a4.85 4.85 0 0 1-1.04-.1z"/></svg>',
+      'youtube':    '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>',
+      'x':          '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>',
+      'facebook':   '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1C5.92 1 1 5.92 1 12s4.92 11 11 11 11-4.92 11-11S18.08 1 12 1zm5.5 7.5h-2c-.83 0-1 .42-1 1V11h3l-.5 3h-2.5v7.5h-3V14h-2v-3h2V9.5C11.5 7 13 5.5 15.5 5.5c.96 0 2.5.17 2.5.17V8.5z"/></svg>',
+      'snapchat':   '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12.166 8.94c-.524 1.962-1.492 6.07-1.873 7.963-.29 1.47-.58 2.25-1.16 2.25s-.96-.87-1.4-2.43c-.44-1.56-1.17-5.22-1.59-6.56-.42-1.34-.58-1.46-1.3-1.46h-.78V7.18h.78c1.44 0 1.87.42 2.43 2.05.56 1.64 1.05 4.19 1.34 5.47.29-1.28.9-3.83 1.3-5.47.4-1.64.87-2.05 1.59-2.05h.58l1.87 7.52h.03c.43-2.78.84-5.55 1.47-7.52h1.72l-2.4 9.46h-2.17z"/></svg>',
+      'podcast':    '&#127911;',
+      'blog':       '&#9997;'
+    };
+    var platformLabels = {
+      'instagram': 'Instagram', 'tiktok': 'TikTok', 'youtube': 'YouTube',
+      'x': 'X (Twitter)', 'facebook': 'Facebook', 'snapchat': 'Snapchat',
+      'podcast': 'Podcast', 'blog': 'Blog'
+    };
+
+    function getPlatformKey(card) {
+      return card.textContent.trim().toLowerCase().split(/[\s(]+/)[0];
+    }
+
+    function togglePlatform(card) {
+      card.classList.toggle('active');
+      var key = getPlatformKey(card);
+      var container = document.getElementById('platformHandles');
+      var emptyMsg = document.getElementById('phEmpty');
+      var existing = document.getElementById('ph-' + key);
+
+      if (card.classList.contains('active')) {
+        // Add username input
+        var row = document.createElement('div');
+        row.className = 'platform-handle-row';
+        row.id = 'ph-' + key;
+        row.innerHTML =
+          '<div class="ph-icon">' + (platformIcons[key] || '') + '</div>' +
+          '<div class="ph-label">' + (platformLabels[key] || key) + '</div>' +
+          '<input type="text" class="ph-input" data-platform="' + key + '" placeholder="@username" />';
+        container.appendChild(row);
+        row.querySelector('.ph-input').focus();
+      } else {
+        // Remove username input
+        if (existing) existing.remove();
+      }
+      // Toggle empty message
+      if (emptyMsg) emptyMsg.style.display = container.querySelectorAll('.platform-handle-row').length ? 'none' : '';
+    }
 
     // ─── Follower pill ───
     function selectPill(pill) {
@@ -984,9 +1091,6 @@
       const lastName   = (document.getElementById('lastName')?.value  || '').trim();
       const fullName   = (firstName + ' ' + lastName).trim() || 'Creator';
 
-      // Generate handle from name
-      const rawHandle  = '@' + fullName.toLowerCase().replace(/\s+/g, '').replace(/[^a-z0-9]/g, '');
-
       // Bio
       const bio        = (document.getElementById('bio')?.value || '').trim();
 
@@ -995,10 +1099,19 @@
       const niches     = Array.from(nicheEls).map(el => el.textContent.trim()).filter(Boolean);
       if (niches.length === 0) niches.push('Lifestyle');
 
-      // Platforms
+      // Platforms + per-platform usernames
       const platformEls = document.querySelectorAll('.platform-card.active');
-      const platforms   = Array.from(platformEls).map(el => el.textContent.trim().toLowerCase().split(/\s+/)[0]).filter(Boolean);
+      const platforms   = Array.from(platformEls).map(el => el.textContent.trim().toLowerCase().split(/[\s(]+/)[0]).filter(Boolean);
       if (platforms.length === 0) platforms.push('instagram');
+
+      const platformHandles = {};
+      document.querySelectorAll('.ph-input').forEach(function(inp) {
+        var val = inp.value.trim();
+        if (val && inp.dataset.platform) platformHandles[inp.dataset.platform] = val.startsWith('@') ? val : '@' + val;
+      });
+
+      // Primary handle: first platform username or generated from name
+      const rawHandle = Object.values(platformHandles)[0] || ('@' + fullName.toLowerCase().replace(/\s+/g, '').replace(/[^a-z0-9@]/g, ''));
 
       // Followers
       const activePill  = document.querySelector('.follower-pill.active');
@@ -1019,6 +1132,7 @@
         bio:            bio || 'Content creator on 100CLAN.',
         niches:         niches,
         platforms:      platforms,
+        platformHandles: platformHandles,
         followersLabel: followersLabel,
         avatar:         avatarStr,
         joined:         joined
@@ -1052,17 +1166,16 @@
         bannerLabel: 'Creator Registration',
         bannerTitle1: 'Join the',
         bannerSub: 'Set up your creator profile in under 5 minutes and start finding your perfect collaboration partners today.',
-        stepLabel: 'Step 1 of 4 — Your Details',
+        stepLabel: 'Step 1 of 4, Your Details',
         step1Title: 'Tell us about yourself', step1Sub: 'Start with the basics. We\'ll use this to build your creator profile.',
         labelFirst: 'First Name', labelLast: 'Last Name', labelEmail: 'Email Address', labelPassword: 'Create Password',
         labelCountry: 'Country', phFirst: 'Maya', phLast: 'Kowalski', phPassword: 'At least 8 characters',
         optCountry: 'Select your country',
         btnNext1: 'Next: Your Platforms',
         step2Title: 'Your platforms', step2Sub: 'Where do you create? Select all that apply.',
-        labelPlatforms: 'Select Platforms', labelHandle: 'Primary Handle / Username', labelFollowers: 'Total Followers / Subscribers',
-        phHandle: '@yourhandle',
+        labelPlatforms: 'Select Platforms', labelHandles: 'Your usernames', phEmpty: 'Select a platform above to enter your username.', labelFollowers: 'Total Followers / Subscribers',
         btnBack: 'Back', btnNext2: 'Next: Your Niche',
-        step3Title: 'Your niche & content', step3Sub: 'What kind of content do you make? Select all that apply — this powers our matching engine.',
+        step3Title: 'Your niche & content', step3Sub: 'What kind of content do you make? Select all that apply, this powers our matching engine.',
         labelNiche: 'Content Niche', labelBio: 'Short Bio', phNicheOther: 'Describe your content type...',
         phBio: 'Tell the community about yourself and what you create...',
         btnNext3: 'Next: Collab Style',
@@ -1075,15 +1188,15 @@
         legalNote: 'By joining, you agree to our <a href="terms.html">Terms of Service</a> and <a href="privacy.html">Privacy Policy</a>. No credit card required.',
         altLink: 'Already have an account? <a href="login.html">Log In</a>',
         perksTitle: 'What you get',
-        perk1: '<strong>Smart Matching</strong> — Get paired with creators who align with your niche, style, and audience.',
-        perk2: '<strong>Collaboration Hub</strong> — Manage every collab from brief to publish in one clean workspace.',
-        perk3: '<strong>Growth Analytics</strong> — See exactly how each collab is growing your audience in real time.',
-        perk4: '<strong>Protected Deals</strong> — Every collaboration is backed by a digital agreement to protect your work.',
-        perk5: '<strong>Creator Community</strong> — Access a vetted network of ambitious creators from 45+ countries.',
+        perk1: '<strong>Smart Matching</strong>, Get paired with creators who align with your niche, style, and audience.',
+        perk2: '<strong>Collaboration Hub</strong>, Manage every collab from brief to publish in one clean workspace.',
+        perk3: '<strong>Growth Analytics</strong>, See exactly how each collab is growing your audience in real time.',
+        perk4: '<strong>Protected Deals</strong>, Every collaboration is backed by a digital agreement to protect your work.',
+        perk5: '<strong>Creator Community</strong>, Access a vetted network of ambitious creators from 45+ countries.',
         socialTitle: 'Creators already inside',
         proofText: 'Join <strong>12,000+</strong> creators from 45+ countries already growing together.',
         freeTitle: '100% Free to Join',
-        freeDesc: 'Core features — creator matching, collaboration tools, and community access — are free forever. No credit card needed to get started.',
+        freeDesc: 'Core features, creator matching, collaboration tools, and community access, are free forever. No credit card needed to get started.',
         footerTagline: 'The platform where content creators find their tribe, collaborate, and grow together.',
         footerCol1: 'Platform', footerCol2: 'Community', footerCol3: 'Company',
         fl1_1: 'Features', fl1_2: 'How It Works', fl1_3: 'Pricing', fl1_4: 'Creator Matching', fl1_5: 'Collaboration Hub',
@@ -1098,17 +1211,16 @@
         bannerLabel: 'تسجيل المبدعين',
         bannerTitle1: 'انضم إلى',
         bannerSub: 'أنشئ ملفك كمبدع في أقل من 5 دقائق وابدأ في إيجاد شركاء التعاون المثاليين اليوم.',
-        stepLabel: 'الخطوة 1 من 4 — تفاصيلك',
+        stepLabel: 'الخطوة 1 من 4, تفاصيلك',
         step1Title: 'أخبرنا عن نفسك', step1Sub: 'ابدأ بالأساسيات. سنستخدم هذا لبناء ملفك الشخصي كمبدع.',
         labelFirst: 'الاسم الأول', labelLast: 'اسم العائلة', labelEmail: 'البريد الإلكتروني', labelPassword: 'إنشاء كلمة مرور',
         labelCountry: 'الدولة', phFirst: 'مايا', phLast: 'كوالسكي', phPassword: '8 أحرف على الأقل',
         optCountry: 'اختر دولتك',
         btnNext1: 'التالي: منصاتك',
         step2Title: 'منصاتك', step2Sub: 'أين تنشئ المحتوى؟ اختر كل ما ينطبق.',
-        labelPlatforms: 'اختر المنصات', labelHandle: 'المعرّف الرئيسي / اسم المستخدم', labelFollowers: 'إجمالي المتابعين / المشتركين',
-        phHandle: '@معرفك',
+        labelPlatforms: 'اختر المنصات', labelHandles: 'أسماء المستخدم', phEmpty: 'اختر منصة أعلاه لإدخال اسم المستخدم.', labelFollowers: 'إجمالي المتابعين / المشتركين',
         btnBack: 'السابق', btnNext2: 'التالي: مجالك',
-        step3Title: 'مجالك ومحتواك', step3Sub: 'ما نوع المحتوى الذي تنشئه؟ اختر كل ما ينطبق — هذا يشغّل محرك المطابقة لدينا.',
+        step3Title: 'مجالك ومحتواك', step3Sub: 'ما نوع المحتوى الذي تنشئه؟ اختر كل ما ينطبق, هذا يشغّل محرك المطابقة لدينا.',
         labelNiche: 'مجال المحتوى', labelBio: 'نبذة قصيرة', phNicheOther: 'صف نوع محتواك...',
         phBio: 'أخبر المجتمع عن نفسك وما تنشئه...',
         btnNext3: 'التالي: أسلوب التعاون',
@@ -1121,15 +1233,15 @@
         legalNote: 'بالانضمام، أنت توافق على <a href="terms.html">شروط الخدمة</a> و<a href="privacy.html">سياسة الخصوصية</a>. لا يلزم بطاقة ائتمانية.',
         altLink: 'لديك حساب بالفعل؟ <a href="login.html">تسجيل الدخول</a>',
         perksTitle: 'ما ستحصل عليه',
-        perk1: '<strong>مطابقة ذكية</strong> — يتم تزويجك بمبدعين يتوافقون مع مجالك وأسلوبك وجمهورك.',
-        perk2: '<strong>مركز التعاون</strong> — أدر كل تعاون من الملخص إلى النشر في مساحة عمل واحدة.',
-        perk3: '<strong>تحليلات النمو</strong> — اعرف بالضبط كيف يُنمّي كل تعاون جمهورك في الوقت الفعلي.',
-        perk4: '<strong>صفقات محمية</strong> — كل تعاون مدعوم باتفاقية رقمية لحماية عملك.',
-        perk5: '<strong>مجتمع المبدعين</strong> — وصول إلى شبكة منتقاة من المبدعين الطموحين من أكثر من 45 دولة.',
+        perk1: '<strong>مطابقة ذكية</strong>, يتم تزويجك بمبدعين يتوافقون مع مجالك وأسلوبك وجمهورك.',
+        perk2: '<strong>مركز التعاون</strong>, أدر كل تعاون من الملخص إلى النشر في مساحة عمل واحدة.',
+        perk3: '<strong>تحليلات النمو</strong>, اعرف بالضبط كيف يُنمّي كل تعاون جمهورك في الوقت الفعلي.',
+        perk4: '<strong>صفقات محمية</strong>, كل تعاون مدعوم باتفاقية رقمية لحماية عملك.',
+        perk5: '<strong>مجتمع المبدعين</strong>, وصول إلى شبكة منتقاة من المبدعين الطموحين من أكثر من 45 دولة.',
         socialTitle: 'مبدعون بداخل المنصة بالفعل',
         proofText: 'انضم إلى أكثر من <strong>12,000</strong> مبدع من 45+ دولة ينمون معاً.',
         freeTitle: 'انضمام مجاني 100%',
-        freeDesc: 'الميزات الأساسية — مطابقة المبدعين وأدوات التعاون والوصول إلى المجتمع — مجانية للأبد. لا حاجة لبطاقة ائتمانية للبدء.',
+        freeDesc: 'الميزات الأساسية, مطابقة المبدعين وأدوات التعاون والوصول إلى المجتمع, مجانية للأبد. لا حاجة لبطاقة ائتمانية للبدء.',
         footerTagline: 'المنصة التي يجد فيها صنّاع المحتوى قبيلتهم ويتعاونون وينمون معاً.',
         footerCol1: 'المنصة', footerCol2: 'المجتمع', footerCol3: 'الشركة',
         fl1_1: 'المميزات', fl1_2: 'كيف يعمل', fl1_3: 'الأسعار', fl1_4: 'مطابقة المبدعين', fl1_5: 'مركز التعاون',
@@ -1192,6 +1304,60 @@
       btn.addEventListener('click', () => applyLang(btn.dataset.lang));
     });
     window.addEventListener('resize', updateLangSlide);
+    // ─── Lang Switcher: Drag / Swipe Support ───
+    (function() {
+      document.querySelectorAll('.lang-switcher').forEach(function(sw) {
+        var slide = sw.querySelector('.lang-slide');
+        if (!slide) return;
+        var active = false, dragged = false;
+        var startX = 0, startTX = 0, curTX = 0, minTX = 0, maxTX = 0;
+
+        function clientX(e) { return e.touches ? e.touches[0].clientX : e.clientX; }
+        function getTX() {
+          var m = (slide.style.transform || '').match(/translateX\(([^p]+)px\)/);
+          return m ? +m[1] : 0;
+        }
+
+        function start(e) {
+          active = true; dragged = false;
+          startX = clientX(e); startTX = curTX = getTX();
+          var enBtn = sw.querySelector('[data-lang="en"]');
+          var arBtn = sw.querySelector('[data-lang="ar"]');
+          minTX = enBtn ? enBtn.offsetLeft : 0;
+          maxTX = arBtn ? arBtn.offsetLeft : sw.offsetWidth * 0.5;
+          slide.style.transition = 'none';
+        }
+        function move(e) {
+          if (!active) return;
+          var dx = clientX(e) - startX;
+          if (Math.abs(dx) > 4) dragged = true;
+          curTX = Math.max(minTX, Math.min(startTX + dx, maxTX));
+          slide.style.transform = 'translateX(' + curTX + 'px)';
+          if (dragged) e.preventDefault();
+        }
+        function end() {
+          if (!active) return;
+          active = false;
+          slide.style.transition = '';
+          if (dragged) {
+            var mid = (minTX + maxTX) / 2;
+            applyLang(curTX >= mid ? 'ar' : 'en');
+          }
+        }
+
+        // Prevent click from firing after a drag
+        sw.addEventListener('click', function(e) {
+          if (dragged) { e.stopImmediatePropagation(); dragged = false; }
+        }, true);
+
+        sw.addEventListener('mousedown', start);
+        document.addEventListener('mousemove', move);
+        document.addEventListener('mouseup', end);
+        sw.addEventListener('touchstart', start, { passive: true });
+        document.addEventListener('touchmove', move, { passive: false });
+        document.addEventListener('touchend', end);
+      });
+    })();
   </script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Creator Resources — 100CLAN</title>
+  <title>Creator Resources - 100CLAN</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -21,39 +21,42 @@
       display: flex;
       align-items: center;
       background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.14);
-      border-radius: 20px;
+      border: 1.5px solid rgba(255,255,255,0.13);
+      border-radius: 100px;
       padding: 3px;
-      gap: 0;
       position: relative;
+      flex-shrink: 0;
     }
     .lang-slide {
       position: absolute;
       top: 3px;
       left: 0;
       height: calc(100% - 6px);
-      border-radius: 16px;
+      border-radius: 100px;
       background: var(--yellow);
-      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), width 0.3s cubic-bezier(0.4,0,0.2,1);
+      box-shadow: 0 2px 12px rgba(245,184,0,0.55), 0 1px 4px rgba(0,0,0,0.35);
+      transition: transform 0.42s cubic-bezier(0.34,1.4,0.64,1), width 0.42s cubic-bezier(0.34,1.4,0.64,1);
       pointer-events: none;
     }
     .lang-btn {
+      flex: 1;
       font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      padding: 5px 13px;
-      border-radius: 16px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      padding: 6px 16px;
+      border-radius: 100px;
       border: none;
       background: transparent;
-      color: rgba(255,255,255,0.4);
+      color: rgba(255,255,255,0.38);
       cursor: pointer;
       transition: color 0.25s ease;
       font-family: 'Montserrat', sans-serif;
       line-height: 1;
       position: relative;
       z-index: 1;
+      text-align: center;
     }
-    .lang-btn.active { background: transparent; color: #111111; }
+    .lang-btn.active { color: #111111; font-weight: 900; }
 
     /* ─── Arabic / RTL Global Overrides ─── */
     html.lang-ar,
@@ -62,7 +65,24 @@
     html.lang-ar p, html.lang-ar a, html.lang-ar span,
     html.lang-ar li, html.lang-ar button, html.lang-ar div,
     html.lang-ar input, html.lang-ar select { font-family: 'ClanArabic', sans-serif; }
-    html.lang-ar .lang-btn { font-family: 'Montserrat', sans-serif; }
+    html.lang-ar .lang-btn {
+      flex: 1;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      padding: 6px 16px;
+      border-radius: 100px;
+      border: none;
+      background: transparent;
+      color: rgba(255,255,255,0.38);
+      cursor: pointer;
+      transition: color 0.25s ease;
+      font-family: 'Montserrat', sans-serif;
+      line-height: 1;
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
     html.lang-ar .nav-links          { flex-direction: row-reverse; }
     html.lang-ar .nav-cta            { flex-direction: row-reverse; }
     html.lang-ar .section-label      { flex-direction: row-reverse; }
@@ -150,9 +170,7 @@
       font-size: 11px; font-weight: 700; letter-spacing: 0.2em;
       text-transform: uppercase; color: var(--yellow); margin-bottom: 16px;
     }
-    .section-label::before { content: ''; width: 24px; height: 2px; background: var(--yellow); border-radius: 1px; }
-
-    .section-title { font-size: clamp(32px, 5vw, 52px); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; }
+.section-title { font-size: clamp(32px, 5vw, 52px); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; }
     .section-sub { font-size: 17px; color: var(--gray); font-weight: 400; line-height: 1.7; }
 
     .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.7s ease, transform 0.7s ease; }
@@ -379,7 +397,7 @@
           <li><a href="index.html#features" data-i18n="navFeatures">Features</a></li>
           <li><a href="index.html#how" data-i18n="navHow">How It Works</a></li>
           <li><a href="index.html#community" data-i18n="navCommunity">Community</a></li>
-          <li><a href="index.html#join" data-i18n="navPricing">Pricing</a></li>
+          <li><a href="plans.html" data-i18n="navPricing">Pricing</a></li>
         </ul>
         <div class="nav-cta">
           <div class="lang-switcher" role="group" aria-label="Language">
@@ -407,7 +425,7 @@
           <span data-i18n="bannerH1a">Level Up Your</span>
           <span class="text-yellow" data-i18n="bannerH1b"> Creator Game</span>
         </h1>
-        <p class="page-banner-sub reveal reveal-delay-2" data-i18n="bannerSub">Free tools, guides, templates, and playbooks to help you grow faster, create smarter, and earn more — all in one place.</p>
+        <p class="page-banner-sub reveal reveal-delay-2" data-i18n="bannerSub">Free tools, guides, templates, and playbooks to help you grow faster, create smarter, and earn more, all in one place.</p>
       </div>
     </div>
   </div>
@@ -511,7 +529,7 @@
             <span class="resource-icon">🎵</span>
           </div>
           <div class="resource-title" data-i18n="res3Title">TikTok Algorithm Decoded 2026</div>
-          <p class="resource-desc" data-i18n="res3Desc">An in-depth breakdown of how the TikTok FYP algorithm works — watch time, completion rate, shares, sounds, and the 9 ranking signals that matter most. With a practical posting framework.</p>
+          <p class="resource-desc" data-i18n="res3Desc">An in-depth breakdown of how the TikTok FYP algorithm works, watch time, completion rate, shares, sounds, and the 9 ranking signals that matter most. With a practical posting framework.</p>
           <div class="resource-meta">
             <span class="resource-meta-item">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
@@ -607,7 +625,7 @@
       <div class="cta-inner">
         <div class="section-label reveal" style="justify-content:center" data-i18n="ctaLabel">Get All Resources</div>
         <h2 class="cta-title reveal reveal-delay-1" data-i18n="ctaTitle">Unlock every resource <span class="text-yellow">for free</span></h2>
-        <p class="cta-sub reveal reveal-delay-2" data-i18n="ctaSub">Create a free 100CLAN account and get full access to every guide, template, and tool — plus a whole community to grow alongside.</p>
+        <p class="cta-sub reveal reveal-delay-2" data-i18n="ctaSub">Create a free 100CLAN account and get full access to every guide, template, and tool, plus a whole community to grow alongside.</p>
         <div class="cta-buttons reveal reveal-delay-3">
           <a href="signup.html" class="btn-primary-lg" data-i18n="ctaBtn">
             Join 100CLAN Free
@@ -738,7 +756,7 @@
         navLogin: 'Log In', navJoin: 'Join the Clan',
         bannerLabel: 'Creator Resources',
         bannerH1a: 'Level Up Your', bannerH1b: ' Creator Game',
-        bannerSub: 'Free tools, guides, templates, and playbooks to help you grow faster, create smarter, and earn more — all in one place.',
+        bannerSub: 'Free tools, guides, templates, and playbooks to help you grow faster, create smarter, and earn more, all in one place.',
         catLabel: 'Browse by Category', catTitle: 'Find exactly what you need',
         cat1Title: 'Guides & Playbooks', cat1Count: '14 Resources',
         cat2Title: 'Video Templates',    cat2Count: '9 Resources',
@@ -754,7 +772,7 @@
         res2Desc: '8 done-for-you pitch templates for reaching out to brands, fellow creators, and potential collab partners. Includes DM scripts, email pitches, and a media kit outline that converts.',
         res2Pages: '8 templates', res2Downloads: '2.8K downloads',
         res3Title: 'TikTok Algorithm Decoded 2026',
-        res3Desc: 'An in-depth breakdown of how the TikTok FYP algorithm works — watch time, completion rate, shares, sounds, and the 9 ranking signals that matter most. With a practical posting framework.',
+        res3Desc: 'An in-depth breakdown of how the TikTok FYP algorithm works, watch time, completion rate, shares, sounds, and the 9 ranking signals that matter most. With a practical posting framework.',
         res3Pages: '28 pages', res3Downloads: '5.1K downloads',
         res4Title: 'Brand Partnership Contract Template',
         res4Desc: 'A legally-reviewed contract template for brand partnerships and sponsored content. Covers deliverables, usage rights, payment terms, kill fees, and exclusivity clauses. Ready to customise and use.',
@@ -768,7 +786,7 @@
         downloadFree: 'Download Free', accessFree: 'Access Free',
         ctaLabel: 'Get All Resources',
         ctaTitle: 'Unlock every resource for free',
-        ctaSub: 'Create a free 100CLAN account and get full access to every guide, template, and tool — plus a whole community to grow alongside.',
+        ctaSub: 'Create a free 100CLAN account and get full access to every guide, template, and tool, plus a whole community to grow alongside.',
         ctaBtn: 'Join 100CLAN Free',
         footerTagline: 'The platform where content creators find their tribe, collaborate, and grow together.',
         footerCol1: 'Platform', footerCol2: 'Community', footerCol3: 'Company',
@@ -799,7 +817,7 @@
         res2Desc: '٨ قوالب جاهزة للتواصل مع العلامات التجارية والمبدعين وشركاء التعاون المحتملين. تشمل نصوص الرسائل المباشرة والبريد الإلكتروني وملخصاً للكيت الإعلامي المقنع.',
         res2Pages: '٨ قوالب', res2Downloads: '٢٨٠٠ تنزيل',
         res3Title: 'فك رموز خوارزمية تيك توك ٢٠٢٦',
-        res3Desc: 'شرح متعمق لآلية عمل خوارزمية صفحة اكتشاف تيك توك — وقت المشاهدة، معدل الإكمال، المشاركات، الأصوات، وتسعة إشارات ترتيب رئيسية مع إطار نشر عملي.',
+        res3Desc: 'شرح متعمق لآلية عمل خوارزمية صفحة اكتشاف تيك توك, وقت المشاهدة، معدل الإكمال، المشاركات، الأصوات، وتسعة إشارات ترتيب رئيسية مع إطار نشر عملي.',
         res3Pages: '٢٨ صفحة', res3Downloads: '٥١٠٠ تنزيل',
         res4Title: 'قالب عقد شراكة العلامة التجارية',
         res4Desc: 'قالب عقد مراجَع قانونياً لشراكات العلامات التجارية والمحتوى المدعوم. يشمل التسليمات وحقوق الاستخدام وشروط الدفع ورسوم الإلغاء وبنود الحصرية.',
@@ -813,7 +831,7 @@
         downloadFree: 'تنزيل مجاني', accessFree: 'الوصول المجاني',
         ctaLabel: 'احصل على جميع الموارد',
         ctaTitle: 'افتح جميع الموارد مجاناً',
-        ctaSub: 'أنشئ حساباً مجانياً على 100CLAN واحصل على وصول كامل إلى كل دليل وقالب وأداة — إلى جانب مجتمع كامل للنمو معاً.',
+        ctaSub: 'أنشئ حساباً مجانياً على 100CLAN واحصل على وصول كامل إلى كل دليل وقالب وأداة, إلى جانب مجتمع كامل للنمو معاً.',
         ctaBtn: 'انضم إلى 100CLAN مجاناً',
         footerTagline: 'المنصة التي يجد فيها صنّاع المحتوى قبيلتهم ويتعاونون وينمون معاً.',
         footerCol1: 'المنصة', footerCol2: 'المجتمع', footerCol3: 'الشركة',
@@ -847,6 +865,60 @@
       btn.addEventListener('click', () => applyLang(btn.dataset.lang));
     });
     window.addEventListener('resize', updateLangSlide);
+    // ─── Lang Switcher: Drag / Swipe Support ───
+    (function() {
+      document.querySelectorAll('.lang-switcher').forEach(function(sw) {
+        var slide = sw.querySelector('.lang-slide');
+        if (!slide) return;
+        var active = false, dragged = false;
+        var startX = 0, startTX = 0, curTX = 0, minTX = 0, maxTX = 0;
+
+        function clientX(e) { return e.touches ? e.touches[0].clientX : e.clientX; }
+        function getTX() {
+          var m = (slide.style.transform || '').match(/translateX\(([^p]+)px\)/);
+          return m ? +m[1] : 0;
+        }
+
+        function start(e) {
+          active = true; dragged = false;
+          startX = clientX(e); startTX = curTX = getTX();
+          var enBtn = sw.querySelector('[data-lang="en"]');
+          var arBtn = sw.querySelector('[data-lang="ar"]');
+          minTX = enBtn ? enBtn.offsetLeft : 0;
+          maxTX = arBtn ? arBtn.offsetLeft : sw.offsetWidth * 0.5;
+          slide.style.transition = 'none';
+        }
+        function move(e) {
+          if (!active) return;
+          var dx = clientX(e) - startX;
+          if (Math.abs(dx) > 4) dragged = true;
+          curTX = Math.max(minTX, Math.min(startTX + dx, maxTX));
+          slide.style.transform = 'translateX(' + curTX + 'px)';
+          if (dragged) e.preventDefault();
+        }
+        function end() {
+          if (!active) return;
+          active = false;
+          slide.style.transition = '';
+          if (dragged) {
+            var mid = (minTX + maxTX) / 2;
+            applyLang(curTX >= mid ? 'ar' : 'en');
+          }
+        }
+
+        // Prevent click from firing after a drag
+        sw.addEventListener('click', function(e) {
+          if (dragged) { e.stopImmediatePropagation(); dragged = false; }
+        }, true);
+
+        sw.addEventListener('mousedown', start);
+        document.addEventListener('mousemove', move);
+        document.addEventListener('mouseup', end);
+        sw.addEventListener('touchstart', start, { passive: true });
+        document.addEventListener('touchmove', move, { passive: false });
+        document.addEventListener('touchend', end);
+      });
+    })();
   </script>
 </body>
 </html>

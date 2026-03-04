@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Admin Panel — 100CLAN</title>
+  <title>Admin Panel - 100CLAN</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -525,11 +525,11 @@
       </div>
       <div class="cg">
         <div class="cc">
-          <div class="cc-title">Hero Headline — Line 1</div><div class="cc-desc">First line of the main hero</div>
+          <div class="cc-title">Hero Headline, Line 1</div><div class="cc-desc">First line of the main hero</div>
           <input type="text" class="c-in" id="c-h1" placeholder="Where Creators" />
-          <div class="cc-title" style="margin-top:10px">Hero Headline — Line 2</div><div class="cc-desc">Line with animated underline</div>
+          <div class="cc-title" style="margin-top:10px">Hero Headline, Line 2</div><div class="cc-desc">Line with animated underline</div>
           <input type="text" class="c-in" id="c-h2" placeholder="Don't Compete" />
-          <div class="cc-title" style="margin-top:10px">Hero Headline — Line 3</div>
+          <div class="cc-title" style="margin-top:10px">Hero Headline, Line 3</div>
           <input type="text" class="c-in" id="c-h3" placeholder="They Collaborate." />
         </div>
         <div class="cc">
@@ -540,7 +540,7 @@
         </div>
         <div class="cc">
           <div class="cc-title">Announcement Banner</div><div class="cc-desc">Sitewide banner (leave empty to hide)</div>
-          <input type="text" class="c-in" id="c-ann" placeholder="🎉 Beta launch — join free!" />
+          <input type="text" class="c-in" id="c-ann" placeholder="🎉 Beta launch, join free!" />
           <div class="cc-title" style="margin-top:10px">Maintenance Message</div><div class="cc-desc">Shown during maintenance mode</div>
           <input type="text" class="c-in" id="c-maint" placeholder="We'll be back shortly…" />
         </div>
@@ -552,7 +552,7 @@
         </div>
         <div class="cc" style="grid-column:span 2">
           <div class="cc-title">Footer Tagline</div>
-          <input type="text" class="c-in" id="c-ftag" placeholder="Where creators don't compete — they collaborate." />
+          <input type="text" class="c-in" id="c-ftag" placeholder="Where creators don't compete, they collaborate." />
           <div class="cc-title" style="margin-top:10px">Copyright Text</div>
           <input type="text" class="c-in" id="c-copy" placeholder="© 2026 100CLAN. All rights reserved." />
         </div>
@@ -666,7 +666,7 @@
         <h3>⚠️ Danger Zone</h3>
         <div class="set-row"><div><div class="set-lbl">Clear All Collab Requests</div><div class="set-desc">Permanently delete all request data</div></div><button class="btn btn-d" onclick="dangerAction('clearReqs')">Clear All</button></div>
         <div class="set-row"><div><div class="set-lbl">Reset Platform Content</div><div class="set-desc">Restore all homepage content to defaults</div></div><button class="btn btn-d" onclick="dangerAction('resetContent')">Reset</button></div>
-        <div class="set-row"><div><div class="set-lbl">Wipe All User Data</div><div class="set-desc">Remove all users from storage — irreversible</div></div><button class="btn btn-d" onclick="dangerAction('wipeUsers')">Wipe Users</button></div>
+        <div class="set-row"><div><div class="set-lbl">Wipe All User Data</div><div class="set-desc">Remove all users from storage, irreversible</div></div><button class="btn btn-d" onclick="dangerAction('wipeUsers')">Wipe Users</button></div>
       </div>
     </div>
 
@@ -814,7 +814,7 @@
     cta:'Join Free Today', ann:'', maint:"We'll be back shortly.",
     abt:'Built for Creators, By Creators',
     abody:'100CLAN is the platform where content creators across all niches come together.',
-    ftag:"Where creators don't compete — they collaborate.",
+    ftag:"Where creators don't compete, they collaborate.",
     copy:'© 2026 100CLAN. All rights reserved.'
   };
 
@@ -963,7 +963,7 @@
     const pending = getUsers().filter(u => u.status === 'pending');
     const c = document.getElementById('approvalsCont');
     if (!pending.length) {
-      c.innerHTML = `<div class="empty"><div class="empty-icon">✅</div><p>No pending approvals — all profiles are reviewed.</p></div>`;
+      c.innerHTML = `<div class="empty"><div class="empty-icon">✅</div><p>No pending approvals, all profiles are reviewed.</p></div>`;
       return;
     }
     c.innerHTML = pending.map(u => `

@@ -152,14 +152,45 @@
     /* ── Item Cards (for CRUD lists) ── */
     .item-card { background: var(--dark-3); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 18px 20px; display: flex; align-items: center; gap: 16px; margin-bottom: 12px; transition: var(--transition); }
     .item-card:hover { border-color: rgba(245,184,0,0.2); }
-    .item-avatar { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 15px; color: #fff; flex-shrink: 0; overflow: hidden; }
+    .item-avatar { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 15px; color: #fff; flex-shrink: 0; overflow: hidden; }
     .item-avatar img { width: 100%; height: 100%; object-fit: cover; }
     .photo-upload-area { border: 2px dashed rgba(245,184,0,0.3); border-radius: 12px; padding: 20px; text-align: center; cursor: pointer; transition: border-color .2s, background .2s; margin-bottom: 8px; }
     .photo-upload-area:hover { border-color: #F5B800; background: rgba(245,184,0,0.05); }
     .photo-upload-area.has-photo { border-color: #F5B800; padding: 8px; }
-    .photo-upload-area img { max-width: 120px; max-height: 120px; border-radius: 10px; object-fit: cover; }
+    .photo-upload-area img { max-width: 120px; max-height: 120px; border-radius: 50%; object-fit: cover; }
     .photo-upload-area .upload-label { color: #aaa; font-size: 13px; margin-top: 6px; }
     .photo-upload-area .upload-icon { font-size: 28px; margin-bottom: 4px; }
+
+    /* ── Image Cropper ── */
+    .cropper-overlay { display: none; position: fixed; inset: 0; z-index: 600; background: rgba(0,0,0,0.92); backdrop-filter: blur(8px); flex-direction: column; align-items: center; justify-content: center; }
+    .cropper-overlay.open { display: flex; }
+    .cropper-header { color: #fff; font-size: 16px; font-weight: 700; margin-bottom: 16px; text-align: center; }
+    .cropper-header span { font-size: 13px; font-weight: 400; color: var(--gray); display: block; margin-top: 4px; }
+    .cropper-container { position: relative; width: 320px; height: 320px; border-radius: 50%; overflow: hidden; background: #000; cursor: grab; touch-action: none; box-shadow: 0 0 0 4px var(--yellow), 0 0 40px rgba(245,184,0,0.15); }
+    .cropper-container:active { cursor: grabbing; }
+    .cropper-container img { position: absolute; top: 0; left: 0; transform-origin: 0 0; user-select: none; pointer-events: none; -webkit-user-drag: none; will-change: transform; }
+    .cropper-guide { position: absolute; inset: 0; border-radius: 50%; border: 2px solid rgba(255,255,255,0.15); pointer-events: none; z-index: 2; }
+    .cropper-guide::before, .cropper-guide::after { content: ''; position: absolute; background: rgba(255,255,255,0.08); }
+    .cropper-guide::before { top: 50%; left: 0; right: 0; height: 1px; }
+    .cropper-guide::after { left: 50%; top: 0; bottom: 0; width: 1px; }
+    .cropper-corners { position: absolute; inset: -2000px; pointer-events: none; z-index: 1; }
+    .cropper-corners::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at center, transparent 159px, rgba(0,0,0,0.6) 160px); }
+    .cropper-controls { display: flex; align-items: center; gap: 16px; margin-top: 24px; }
+    .cropper-controls label { font-size: 12px; color: var(--gray); font-weight: 600; }
+    .cropper-zoom-slider { -webkit-appearance: none; appearance: none; width: 200px; height: 4px; border-radius: 2px; background: rgba(255,255,255,0.15); outline: none; }
+    .cropper-zoom-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 18px; height: 18px; border-radius: 50%; background: var(--yellow); cursor: pointer; box-shadow: 0 0 6px rgba(245,184,0,0.4); }
+    .cropper-zoom-slider::-moz-range-thumb { width: 18px; height: 18px; border-radius: 50%; background: var(--yellow); cursor: pointer; border: none; }
+    .cropper-zoom-val { font-size: 12px; color: var(--yellow); font-weight: 700; min-width: 36px; text-align: center; }
+    .cropper-actions { display: flex; gap: 12px; margin-top: 24px; }
+    .cropper-actions .btn { min-width: 120px; font-size: 14px; padding: 12px 24px; }
+    .cropper-rotate-btns { display: flex; gap: 8px; margin-top: 12px; }
+    .cropper-rotate-btns button { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); color: #fff; font-family: var(--font); font-size: 12px; font-weight: 600; padding: 6px 14px; border-radius: 6px; cursor: pointer; transition: var(--transition); }
+    .cropper-rotate-btns button:hover { border-color: var(--yellow); color: var(--yellow); }
+    @media (max-width: 480px) {
+      .cropper-container { width: 260px; height: 260px; }
+      .cropper-corners::before { background: radial-gradient(circle at center, transparent 129px, rgba(0,0,0,0.6) 130px); }
+      .cropper-zoom-slider { width: 150px; }
+    }
     .item-info { flex: 1; min-width: 0; }
     .item-name { font-size: 14px; font-weight: 700; }
     .item-meta { font-size: 12px; color: var(--gray); margin-top: 2px; }
@@ -527,9 +558,333 @@
 <div class="modal" id="modalUser"><div class="modal-box"><div class="modal-title" id="modalUserTitle">Add User</div><div id="modalUserBody"></div></div></div>
 <div class="modal" id="modalConfirm"><div class="modal-box"><div class="modal-title" id="confirmTitle">Confirm</div><p id="confirmDesc" style="color:var(--gray);font-size:14px;margin-bottom:20px;"></p><div class="modal-actions"><button class="btn btn-ghost" onclick="closeModal('modalConfirm')">Cancel</button><button class="btn btn-r" id="confirmBtn">Confirm</button></div></div></div>
 
+<!-- ── Image Cropper ── -->
+<div class="cropper-overlay" id="cropperOverlay">
+  <div class="cropper-header">Adjust Profile Photo<span>Drag to reposition, scroll or use slider to zoom</span></div>
+  <div class="cropper-container" id="cropperContainer">
+    <img id="cropperImg" src="" alt="Crop preview">
+    <div class="cropper-corners"></div>
+    <div class="cropper-guide"></div>
+  </div>
+  <div class="cropper-controls">
+    <label>&#128269; Zoom</label>
+    <input type="range" class="cropper-zoom-slider" id="cropperZoom" min="100" max="400" value="100" step="1">
+    <span class="cropper-zoom-val" id="cropperZoomVal">1.0x</span>
+  </div>
+  <div class="cropper-rotate-btns">
+    <button onclick="cropperRotate(-90)">&#8634; Rotate Left</button>
+    <button onclick="cropperRotate(90)">&#8635; Rotate Right</button>
+    <button onclick="cropperFlip()">&#8596; Flip</button>
+  </div>
+  <div class="cropper-actions">
+    <button class="btn btn-ghost" onclick="cropperCancel()">Cancel</button>
+    <button class="btn btn-y" onclick="cropperApply()">Apply Crop</button>
+  </div>
+</div>
+
 <div class="toast-wrap" id="toastWrap"></div>
 
 <script>
+// ══════════════════════════════════════════
+// ──── IMAGE CROPPER ENGINE ────
+// ══════════════════════════════════════════
+var cropper = {
+  active: false,
+  img: null,
+  container: null,
+  imgEl: null,
+  // Image natural dimensions
+  natW: 0, natH: 0,
+  // Transform state
+  scale: 1, minScale: 1,
+  posX: 0, posY: 0,
+  rotation: 0, flipX: 1,
+  // Drag state
+  dragging: false, dragStartX: 0, dragStartY: 0, startPosX: 0, startPosY: 0,
+  // Pinch state
+  pinching: false, pinchStartDist: 0, pinchStartScale: 1,
+  // Callback
+  onDone: null,
+  // Container size
+  size: 320,
+
+  open: function(imageSrc, callback) {
+    this.onDone = callback;
+    this.rotation = 0;
+    this.flipX = 1;
+    this.container = document.getElementById('cropperContainer');
+    this.imgEl = document.getElementById('cropperImg');
+    this.size = this.container.offsetWidth;
+
+    var self = this;
+    var img = new Image();
+    img.onload = function() {
+      self.natW = img.naturalWidth;
+      self.natH = img.naturalHeight;
+      self.imgEl.src = imageSrc;
+      // Fit: scale so shorter side fills the circle
+      var fitScale = Math.max(self.size / self.natW, self.size / self.natH);
+      self.minScale = fitScale;
+      self.scale = fitScale;
+      // Center the image
+      self.posX = (self.size - self.natW * fitScale) / 2;
+      self.posY = (self.size - self.natH * fitScale) / 2;
+      self.updateTransform();
+      // Set slider
+      var slider = document.getElementById('cropperZoom');
+      slider.min = 100;
+      slider.max = 400;
+      slider.value = 100;
+      document.getElementById('cropperZoomVal').textContent = '1.0x';
+      // Show overlay
+      document.getElementById('cropperOverlay').classList.add('open');
+      self.active = true;
+    };
+    img.src = imageSrc;
+  },
+
+  updateTransform: function() {
+    // Apply scale, position, rotation, flip via CSS transform
+    var tx = this.posX;
+    var ty = this.posY;
+    var s = this.scale;
+    this.imgEl.style.transform =
+      'translate(' + tx + 'px,' + ty + 'px) scale(' + (s * this.flipX) + ',' + s + ') rotate(' + this.rotation + 'deg)';
+    // When rotated, adjust transform-origin
+    if (this.rotation % 360 !== 0) {
+      this.imgEl.style.transformOrigin = 'center center';
+      // Recalculate using center-based positioning
+      var cx = this.posX + (this.natW * this.scale) / 2;
+      var cy = this.posY + (this.natH * this.scale) / 2;
+      this.imgEl.style.transform =
+        'translate(' + cx + 'px,' + cy + 'px) rotate(' + this.rotation + 'deg) scale(' + (this.scale * this.flipX) + ',' + this.scale + ') translate(-50%,-50%)';
+      this.imgEl.style.transformOrigin = '0 0';
+    }
+  },
+
+  clampPosition: function() {
+    // Ensure the image covers the entire circular viewport
+    var sw = this.natW * this.scale;
+    var sh = this.natH * this.scale;
+    // Max posX is 0 (left edge at 0 or further left)
+    // Min posX is size - sw (right edge at size or further right)
+    if (this.rotation % 180 !== 0) {
+      // When rotated 90/270, width and height swap
+      var tmp = sw; sw = sh; sh = tmp;
+    }
+    var maxX = Math.max(0, (this.size - sw) / 2);
+    var minX = Math.min(0, this.size - sw + (this.size - sw) / 2);
+    // Simplified: just don't let edges show
+    if (sw >= this.size) {
+      if (this.posX > 0) this.posX = 0;
+      if (this.posX < this.size - sw) this.posX = this.size - sw;
+    } else {
+      this.posX = (this.size - sw) / 2;
+    }
+    if (sh >= this.size) {
+      if (this.posY > 0) this.posY = 0;
+      if (this.posY < this.size - sh) this.posY = this.size - sh;
+    } else {
+      this.posY = (this.size - sh) / 2;
+    }
+  },
+
+  setZoom: function(zoomPercent) {
+    // zoomPercent: 100 = minScale, 400 = minScale * 4
+    var factor = zoomPercent / 100;
+    var newScale = this.minScale * factor;
+    // Zoom toward center
+    var cx = this.size / 2;
+    var cy = this.size / 2;
+    var ratio = newScale / this.scale;
+    this.posX = cx - (cx - this.posX) * ratio;
+    this.posY = cy - (cy - this.posY) * ratio;
+    this.scale = newScale;
+    this.clampPosition();
+    this.updateTransform();
+    document.getElementById('cropperZoomVal').textContent = factor.toFixed(1) + 'x';
+  },
+
+  handleWheel: function(e) {
+    if (!this.active) return;
+    e.preventDefault();
+    var slider = document.getElementById('cropperZoom');
+    var val = parseInt(slider.value) - Math.sign(e.deltaY) * 8;
+    val = Math.max(100, Math.min(400, val));
+    slider.value = val;
+    this.setZoom(val);
+  },
+
+  startDrag: function(x, y) {
+    this.dragging = true;
+    this.dragStartX = x;
+    this.dragStartY = y;
+    this.startPosX = this.posX;
+    this.startPosY = this.posY;
+  },
+
+  moveDrag: function(x, y) {
+    if (!this.dragging) return;
+    this.posX = this.startPosX + (x - this.dragStartX);
+    this.posY = this.startPosY + (y - this.dragStartY);
+    this.clampPosition();
+    this.updateTransform();
+  },
+
+  endDrag: function() {
+    this.dragging = false;
+  },
+
+  startPinch: function(touches) {
+    this.pinching = true;
+    var dx = touches[0].clientX - touches[1].clientX;
+    var dy = touches[0].clientY - touches[1].clientY;
+    this.pinchStartDist = Math.sqrt(dx * dx + dy * dy);
+    this.pinchStartScale = this.scale;
+  },
+
+  movePinch: function(touches) {
+    if (!this.pinching) return;
+    var dx = touches[0].clientX - touches[1].clientX;
+    var dy = touches[0].clientY - touches[1].clientY;
+    var dist = Math.sqrt(dx * dx + dy * dy);
+    var ratio = dist / this.pinchStartDist;
+    var newScale = this.pinchStartScale * ratio;
+    newScale = Math.max(this.minScale, Math.min(this.minScale * 4, newScale));
+    var cx = this.size / 2;
+    var cy = this.size / 2;
+    var scaleRatio = newScale / this.scale;
+    this.posX = cx - (cx - this.posX) * scaleRatio;
+    this.posY = cy - (cy - this.posY) * scaleRatio;
+    this.scale = newScale;
+    this.clampPosition();
+    this.updateTransform();
+    // Update slider
+    var pct = Math.round((this.scale / this.minScale) * 100);
+    pct = Math.max(100, Math.min(400, pct));
+    document.getElementById('cropperZoom').value = pct;
+    document.getElementById('cropperZoomVal').textContent = (pct / 100).toFixed(1) + 'x';
+  },
+
+  endPinch: function() {
+    this.pinching = false;
+  },
+
+  exportCropped: function() {
+    // Draw the visible circular region to a canvas, output as square PNG
+    var canvas = document.createElement('canvas');
+    var outputSize = 512;
+    canvas.width = outputSize;
+    canvas.height = outputSize;
+    var ctx = canvas.getContext('2d');
+    // Clip to circle
+    ctx.beginPath();
+    ctx.arc(outputSize / 2, outputSize / 2, outputSize / 2, 0, Math.PI * 2);
+    ctx.closePath();
+    ctx.clip();
+    // Calculate which portion of the source image is visible
+    var ratio = outputSize / this.size;
+    ctx.save();
+    ctx.translate(this.posX * ratio, this.posY * ratio);
+    if (this.rotation !== 0 || this.flipX !== 1) {
+      var cx = (this.natW * this.scale * ratio) / 2;
+      var cy = (this.natH * this.scale * ratio) / 2;
+      ctx.translate(cx, cy);
+      ctx.rotate(this.rotation * Math.PI / 180);
+      ctx.scale(this.flipX, 1);
+      ctx.translate(-cx, -cy);
+    }
+    ctx.drawImage(this.imgEl, 0, 0, this.natW * this.scale * ratio, this.natH * this.scale * ratio);
+    ctx.restore();
+    // Return as JPEG for smaller size (quality 0.92)
+    return canvas.toDataURL('image/jpeg', 0.92);
+  },
+
+  close: function() {
+    this.active = false;
+    document.getElementById('cropperOverlay').classList.remove('open');
+    this.imgEl.src = '';
+  }
+};
+
+// Cropper event listeners
+(function() {
+  var cont = document.getElementById('cropperContainer');
+  // Mouse events
+  cont.addEventListener('mousedown', function(e) {
+    e.preventDefault();
+    cropper.startDrag(e.clientX, e.clientY);
+  });
+  document.addEventListener('mousemove', function(e) {
+    if (cropper.dragging) { e.preventDefault(); cropper.moveDrag(e.clientX, e.clientY); }
+  });
+  document.addEventListener('mouseup', function() { cropper.endDrag(); });
+  // Mouse wheel zoom
+  cont.addEventListener('wheel', function(e) { cropper.handleWheel(e); }, { passive: false });
+  // Touch events
+  cont.addEventListener('touchstart', function(e) {
+    e.preventDefault();
+    if (e.touches.length === 2) {
+      cropper.endDrag();
+      cropper.startPinch(e.touches);
+    } else if (e.touches.length === 1) {
+      cropper.startDrag(e.touches[0].clientX, e.touches[0].clientY);
+    }
+  }, { passive: false });
+  cont.addEventListener('touchmove', function(e) {
+    e.preventDefault();
+    if (e.touches.length === 2 && cropper.pinching) {
+      cropper.movePinch(e.touches);
+    } else if (e.touches.length === 1 && cropper.dragging) {
+      cropper.moveDrag(e.touches[0].clientX, e.touches[0].clientY);
+    }
+  }, { passive: false });
+  cont.addEventListener('touchend', function(e) {
+    cropper.endDrag();
+    cropper.endPinch();
+  });
+  // Zoom slider
+  document.getElementById('cropperZoom').addEventListener('input', function() {
+    cropper.setZoom(parseInt(this.value));
+  });
+})();
+
+function cropperRotate(deg) {
+  cropper.rotation = (cropper.rotation + deg) % 360;
+  // Recalculate min scale for rotated dimensions
+  var w = cropper.natW, h = cropper.natH;
+  if (Math.abs(cropper.rotation) % 180 !== 0) { var tmp = w; w = h; h = tmp; }
+  cropper.minScale = Math.max(cropper.size / w, cropper.size / h);
+  if (cropper.scale < cropper.minScale) cropper.scale = cropper.minScale;
+  cropper.clampPosition();
+  cropper.updateTransform();
+}
+function cropperFlip() {
+  cropper.flipX *= -1;
+  cropper.updateTransform();
+}
+function cropperCancel() {
+  cropper.close();
+}
+function cropperApply() {
+  var result = cropper.exportCropped();
+  cropper.close();
+  if (cropper.onDone) cropper.onDone(result);
+}
+
+// ── Generic photo handler that opens cropper ──
+var _photoCropTarget = null;
+function openPhotoCropper(file, callback) {
+  if (!file) return;
+  if (file.size > 8 * 1024 * 1024) { toast('&#9888; Image must be under 8MB'); return; }
+  if (!file.type.startsWith('image/')) { toast('&#9888; Please select an image file'); return; }
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    cropper.open(e.target.result, callback);
+  };
+  reader.readAsDataURL(file);
+}
+
 // ══════════════════════════════════════════
 // ──── AUTH & NAVIGATION ────
 // ══════════════════════════════════════════
@@ -925,10 +1280,8 @@ function openTeamModal(id) {
 function handleTeamPhoto(input) {
   var file = input.files[0];
   if (!file) return;
-  if (file.size > 2 * 1024 * 1024) { toast('&#9888; Image must be under 2MB'); input.value = ''; return; }
-  var reader = new FileReader();
-  reader.onload = function(e) {
-    teamPhotoBase64 = e.target.result;
+  openPhotoCropper(file, function(croppedBase64) {
+    teamPhotoBase64 = croppedBase64;
     var area = document.getElementById('tmPhotoArea');
     area.classList.add('has-photo');
     area.innerHTML = '<img src="' + teamPhotoBase64 + '" id="tmPhotoPreview">';
@@ -941,8 +1294,8 @@ function handleTeamPhoto(input) {
       btn.onclick = removeTeamPhoto;
       area.parentElement.appendChild(btn);
     }
-  };
-  reader.readAsDataURL(file);
+  });
+  input.value = '';
 }
 function removeTeamPhoto() {
   teamPhotoBase64 = '';
@@ -1013,10 +1366,8 @@ function openStoryModal(id) {
 function handleStoryPhoto(input) {
   var file = input.files[0];
   if (!file) return;
-  if (file.size > 2 * 1024 * 1024) { toast('&#9888; Image must be under 2MB'); input.value = ''; return; }
-  var reader = new FileReader();
-  reader.onload = function(e) {
-    storyPhotoBase64 = e.target.result;
+  openPhotoCropper(file, function(croppedBase64) {
+    storyPhotoBase64 = croppedBase64;
     var area = document.getElementById('stPhotoArea');
     area.classList.add('has-photo');
     area.innerHTML = '<img src="' + storyPhotoBase64 + '" id="stPhotoPreview">';
@@ -1029,8 +1380,8 @@ function handleStoryPhoto(input) {
       btn.onclick = removeStoryPhoto;
       area.parentElement.appendChild(btn);
     }
-  };
-  reader.readAsDataURL(file);
+  });
+  input.value = '';
 }
 function removeStoryPhoto() {
   storyPhotoBase64 = '';

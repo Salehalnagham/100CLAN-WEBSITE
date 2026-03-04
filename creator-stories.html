@@ -224,7 +224,8 @@
     }
     .story-card:hover { transform: translateY(-4px); border-color: rgba(245,184,0,0.35); box-shadow: 0 16px 48px rgba(245,184,0,0.1); }
     .sc-top { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
-    .sc-avatar { width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 16px; flex-shrink: 0; }
+    .sc-avatar { width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 16px; flex-shrink: 0; overflow: hidden; }
+    .sc-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
     .sc-name { font-size: 15px; font-weight: 800; margin-bottom: 2px; }
     .sc-niche {
       display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
@@ -939,6 +940,33 @@
         var els = document.querySelectorAll('[data-i18n="' + base + '"]');
         if (pageData[key]) els.forEach(function(el) { el.textContent = pageData[key]; });
       });
+    }
+
+    // Load creator stories from admin
+    var stories = JSON.parse(localStorage.getItem('clan-content-stories') || 'null');
+    if (stories && stories.length) {
+      var lang = localStorage.getItem('clan-lang') || 'en';
+      var grid = document.querySelector('.stories-grid');
+      if (grid) {
+        grid.innerHTML = stories.map(function(s, i) {
+          var quote = lang === 'ar' ? (s.quoteAr || s.quoteEn) : s.quoteEn;
+          var initials = (s.name || '').split(' ').map(function(w){return w[0]||'';}).join('').substring(0,2).toUpperCase();
+          var avatarContent = s.image
+            ? '<img src="' + s.image + '" alt="' + s.name + '">'
+            : initials;
+          var avatarBg = s.image ? 'transparent' : (s.color || 'linear-gradient(135deg,#F5B800,#D9A200)');
+          var delay = i % 3 > 0 ? ' reveal-delay-' + (i % 3) : '';
+          return '<div class="story-card reveal' + delay + '">' +
+            '<div class="sc-top">' +
+              '<div class="sc-avatar" style="background:' + avatarBg + '">' + avatarContent + '</div>' +
+              '<div><div class="sc-name">' + s.name + '</div><span class="sc-niche">' + (s.niche || '') + '</span></div>' +
+            '</div>' +
+            '<p class="sc-quote">' + quote + '</p>' +
+            '<div class="sc-author"><div style="width:6px;height:6px;border-radius:50%;background:var(--yellow);flex-shrink:0"></div><div><div class="sc-author-platform">' + (s.platform || '') + '</div></div></div>' +
+            '<div class="sc-stats"><div class="sc-stat-item"><div class="sc-stat-key">Followers</div><div class="sc-stat-vals"><span class="sc-val-before">' + (s.statBefore||'') + '</span><span class="sc-val-after">' + (s.statAfter||'') + '</span><span class="sc-val-growth">' + (s.growth||'') + '</span></div></div></div>' +
+          '</div>';
+        }).join('');
+      }
     }
 
     // Load footer overrides

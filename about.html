@@ -615,6 +615,13 @@
       color: var(--black);
       margin: 0 auto 20px;
       position: relative;
+      overflow: hidden;
+    }
+    .team-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
     }
     .team-avatar::after {
       content: '';
@@ -1397,6 +1404,30 @@
         var els = document.querySelectorAll('[data-i18n="' + base + '"]');
         if (pageData[key]) els.forEach(function(el) { el.textContent = pageData[key]; });
       });
+    }
+
+    // Load team members from admin
+    var team = JSON.parse(localStorage.getItem('clan-content-team') || 'null');
+    if (team && team.length) {
+      var lang = localStorage.getItem('clan-lang') || 'en';
+      var grid = document.querySelector('.team-grid');
+      if (grid) {
+        grid.innerHTML = team.map(function(t, i) {
+          var name = lang === 'ar' ? (t.nameAr || t.nameEn) : t.nameEn;
+          var role = lang === 'ar' ? (t.roleAr || t.roleEn) : t.roleEn;
+          var bio = lang === 'ar' ? (t.bioAr || t.bioEn) : t.bioEn;
+          var avatarContent = t.image
+            ? '<img src="' + t.image + '" alt="' + t.nameEn + '">'
+            : (t.nameEn || '').split(' ').map(function(w){return w[0]||'';}).join('').substring(0,2).toUpperCase();
+          var delay = i > 0 ? ' reveal-delay-' + i : '';
+          return '<div class="team-card reveal' + delay + '">' +
+            '<div class="team-avatar" style="background:' + (t.image ? 'transparent' : (t.color || 'linear-gradient(135deg,#F5B800,#D9A200)')) + '">' + avatarContent + '</div>' +
+            '<div class="team-name">' + name + '</div>' +
+            '<div class="team-role">' + role + '</div>' +
+            '<p class="team-bio">' + bio + '</p>' +
+          '</div>';
+        }).join('');
+      }
     }
 
     // Load footer overrides

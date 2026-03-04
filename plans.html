@@ -1001,5 +1001,62 @@
       if (joinBtn)  { joinBtn.textContent = 'Dashboard'; joinBtn.href = 'dashboard.html'; }
     })();
   </script>
+
+<!-- ── Admin Content Loader ── -->
+<script>
+(function(){
+  try {
+    // Load page-specific content overrides
+    var pages = JSON.parse(localStorage.getItem('clan-content-pages') || '{}');
+    var pageName = location.pathname.split('/').pop().replace('.html','') || 'index';
+    var pageData = pages[pageName];
+    if (pageData) {
+      var lang = localStorage.getItem('clan-lang') || 'en';
+      var suffix = '_' + lang;
+      Object.keys(pageData).forEach(function(key) {
+        if (!key.endsWith(suffix)) return;
+        var base = key.replace(suffix, '');
+        var els = document.querySelectorAll('[data-i18n="' + base + '"]');
+        if (pageData[key]) els.forEach(function(el) { el.textContent = pageData[key]; });
+      });
+    }
+
+    // Load footer overrides
+    var footer = JSON.parse(localStorage.getItem('clan-content-footer') || 'null');
+    if (footer) {
+      var lang = localStorage.getItem('clan-lang') || 'en';
+      var tagEl = document.querySelector('[data-i18n="footerTagline"]');
+      if (tagEl) tagEl.textContent = lang === 'ar' ? (footer.taglineAr || footer.taglineEn) : footer.taglineEn;
+      var copyEl = document.querySelector('[data-i18n="footerCopy"]');
+      if (copyEl) copyEl.textContent = lang === 'ar' ? (footer.copyAr || footer.copyEn) : footer.copyEn;
+      // Social links
+      var socials = footer.social || {};
+      document.querySelectorAll('.footer-social a').forEach(function(a) {
+        var href = a.getAttribute('href') || '';
+        if (href.includes('instagram') && socials.instagram) a.href = socials.instagram;
+        if (href.includes('tiktok') && socials.tiktok) a.href = socials.tiktok;
+        if (href.includes('youtube') && socials.youtube) a.href = socials.youtube;
+        if ((href.includes('x.com') || href.includes('twitter')) && socials.x) a.href = socials.x;
+      });
+    }
+
+    // Load nav overrides
+    var nav = JSON.parse(localStorage.getItem('clan-content-nav') || 'null');
+    if (nav) {
+      var lang = localStorage.getItem('clan-lang') || 'en';
+      var navLinks = document.querySelectorAll('.nav-links li a');
+      if (nav.links) {
+        nav.links.forEach(function(link, i) {
+          if (navLinks[i]) {
+            navLinks[i].textContent = lang === 'ar' ? (link.labelAr || link.labelEn) : link.labelEn;
+            navLinks[i].href = link.url;
+          }
+        });
+      }
+    }
+  } catch(e) { /* silent fail */ }
+})();
+</script>
+
 </body>
 </html>

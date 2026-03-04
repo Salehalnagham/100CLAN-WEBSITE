@@ -541,8 +541,26 @@
       .form-row   { grid-template-columns: 1fr; }
       .signup-sidebar { grid-template-columns: 1fr; }
       .join-form-card { padding: 28px 24px; }
+      .page-banner { padding-top: 110px; padding-bottom: 48px; min-height: auto; }
+      .page-banner h1 { font-size: clamp(28px, 7vw, 44px); }
+      .section-title { font-size: clamp(28px, 7vw, 42px); }
+      .signup-section { padding: 64px 0; }
+      .platform-card { padding: 14px; }
+      .platform-handle-row { flex-wrap: wrap; }
       .footer-top { grid-template-columns: 1fr; }
       .footer-bottom { flex-direction: column; text-align: center; }
+      .footer { padding: 64px 0 32px; }
+      .footer-legal { flex-wrap: wrap; justify-content: center; }
+    }
+    @media (max-width: 480px) {
+      .container { padding: 0 16px; }
+      .join-form-card { padding: 24px 16px; }
+      .platform-card { padding: 12px; min-width: auto; }
+      .platforms-grid { gap: 8px; }
+      .step-indicators { gap: 4px; }
+      .ph-input { width: 100%; }
+      .btn-primary-lg { width: 100%; justify-content: center; padding: 14px 24px; font-size: 14px; }
+      .footer-legal { flex-wrap: wrap; justify-content: center; gap: 8px; }
     }
   </style>
 </head>

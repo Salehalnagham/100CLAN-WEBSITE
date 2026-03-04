@@ -694,6 +694,35 @@
       .facts-grid { grid-template-columns: 1fr; }
       .footer-top { grid-template-columns: 1fr; }
       .footer-bottom { flex-direction: column; text-align: center; }
+      .page-banner { padding-top: 110px; padding-bottom: 48px; min-height: auto; }
+      .page-banner h1 { font-size: clamp(28px, 7vw, 44px); }
+      .section-title { font-size: clamp(28px, 7vw, 42px); }
+      .section-sub { font-size: 15px; }
+      .press-stats { grid-template-columns: repeat(2, 1fr); }
+      .press-section { padding: 64px 0; }
+      .brand-section { padding: 64px 0; }
+      .cta-section { padding: 64px 0; }
+      .cta-title { font-size: clamp(28px, 7vw, 48px); }
+      .btn-primary-lg { padding: 14px 28px; font-size: 14px; }
+      .footer { padding: 64px 0 32px; }
+      .footer-legal { flex-wrap: wrap; justify-content: center; }
+
+    }
+
+    @media (max-width: 480px) {
+      .container { padding: 0 16px; }
+      .page-banner { padding-top: 100px; padding-bottom: 40px; }
+      .page-banner h1 { font-size: clamp(24px, 8vw, 36px); }
+      .section-title { font-size: clamp(24px, 8vw, 36px); }
+      .btn-primary-lg { width: 100%; justify-content: center; padding: 14px 24px; font-size: 14px; }
+      .cta-buttons { flex-direction: column; width: 100%; }
+      .cta-buttons .btn-primary-lg,
+      .cta-buttons .btn-outline { width: 100%; justify-content: center; text-align: center; }
+      .footer-legal { flex-wrap: wrap; justify-content: center; gap: 8px; }
+    
+      .press-stats { grid-template-columns: 1fr; }
+      .assets-grid { grid-template-columns: 1fr; }
+      .coverage-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>

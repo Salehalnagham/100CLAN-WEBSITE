@@ -567,12 +567,24 @@
       .nav-links { display: none; }
       .nav-cta .btn-primary { display: none; }
       .hamburger { display: flex; }
+      .page-banner { padding-top: 110px; padding-bottom: 48px; min-height: auto; }
+      .page-banner h1 { font-size: clamp(28px, 7vw, 44px); }
       .legal-content { padding: 48px 0; }
       .legal-toc { padding: 24px; }
       .cookie-table thead th,
       .cookie-table tbody td { padding: 10px 12px; }
+      .cookie-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
       .footer-top { grid-template-columns: 1fr; }
       .footer-bottom { flex-direction: column; text-align: center; }
+      .footer { padding: 64px 0 32px; }
+      .footer-legal { flex-wrap: wrap; justify-content: center; }
+    }
+    @media (max-width: 480px) {
+      .container { padding: 0 16px; }
+      .page-banner h1 { font-size: clamp(24px, 8vw, 36px); }
+      .cookie-table { font-size: 12px; }
+      .legal-toc { padding: 16px; }
+      .footer-legal { flex-wrap: wrap; justify-content: center; gap: 8px; }
     }
   </style>
 </head>

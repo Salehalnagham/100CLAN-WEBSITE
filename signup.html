@@ -1156,8 +1156,34 @@
         joined:         joined
       };
 
+      // ── Username uniqueness check ──
+      var adminUsers = [];
+      try { adminUsers = JSON.parse(localStorage.getItem('clan-admin-users') || '[]'); } catch(e) { adminUsers = []; }
+      if (!Array.isArray(adminUsers)) adminUsers = [];
+      var handleLower = rawHandle.toLowerCase();
+      var taken = adminUsers.some(function(u) { return u.handle && u.handle.toLowerCase() === handleLower; });
+      if (taken) {
+        alert('The username ' + rawHandle + ' is already taken. Please choose a different username on your platforms or change your name.');
+        return;
+      }
+
       // Save to localStorage
       localStorage.setItem('clan-user', JSON.stringify(userData));
+
+      // ── Register user in admin user list ──
+      var email = (document.getElementById('email')?.value || '').trim();
+      var adminUser = {
+        id: 'u-' + Date.now() + '-' + Math.random().toString(36).substr(2,5),
+        name: fullName,
+        handle: rawHandle,
+        email: email,
+        niche: niches[0] || 'Lifestyle',
+        followers: followersLabel,
+        status: 'active',
+        joined: joined
+      };
+      adminUsers.push(adminUser);
+      localStorage.setItem('clan-admin-users', JSON.stringify(adminUsers));
 
       // Show success animation
       document.querySelector('.join-form-card').innerHTML = `

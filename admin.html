@@ -924,7 +924,16 @@ function renderSection(id) {
   };
   if (map[id]) map[id]();
 }
-function initApp() { renderOverview(); updateBadges(); }
+function initApp() {
+  // Auto-persist seed data to localStorage if not yet saved
+  // This ensures public pages can read admin content
+  if (!localStorage.getItem('clan-admin-users')) setJSON('clan-admin-users', SEED_USERS);
+  if (!localStorage.getItem('clan-content-team')) setJSON('clan-content-team', SEED_TEAM);
+  if (!localStorage.getItem('clan-content-stories')) setJSON('clan-content-stories', SEED_STORIES);
+  if (!localStorage.getItem('clan-content-blog')) setJSON('clan-content-blog', SEED_BLOGS);
+  if (!localStorage.getItem('clan-content-events')) setJSON('clan-content-events', SEED_EVENTS);
+  renderOverview(); updateBadges();
+}
 
 // ── Helpers ──
 function toast(msg, icon) {

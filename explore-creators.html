@@ -722,10 +722,9 @@
   </footer>
 
   <script>
-    // ─── Auth Guard ───
+    // ─── Auth (optional — page works for public users too) ───
     const storedUser = localStorage.getItem('clan-user');
-    if (!storedUser) { window.location.href = 'login.html'; }
-    const user = JSON.parse(storedUser || '{}');
+    const user = storedUser ? JSON.parse(storedUser) : {};
 
     // ─── MOCK_CREATORS ───
     const MOCK_CREATORS = [
@@ -758,6 +757,40 @@
       youtube:   `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>`,
       twitch:    `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714z"/></svg>`,
     };
+
+    // ─── Merge real users from admin list into creators ───
+    (function() {
+      var adminUsers = [];
+      try { adminUsers = JSON.parse(localStorage.getItem('clan-admin-users') || '[]'); } catch(e) {}
+      if (!Array.isArray(adminUsers)) adminUsers = [];
+      var existingHandles = {};
+      MOCK_CREATORS.forEach(function(c) { existingHandles[c.handle.toLowerCase()] = true; });
+      adminUsers.forEach(function(u) {
+        if (!u.handle || existingHandles[u.handle.toLowerCase()]) return;
+        if (u.status && u.status !== 'active') return;
+        var nameParts = (u.name || '').split(' ');
+        var av = nameParts.length >= 2 ? (nameParts[0][0] + nameParts[1][0]).toUpperCase() : (u.name || '??').slice(0,2).toUpperCase();
+        var followersNum = 0;
+        var fl = (u.followers || '0').replace(/[^0-9kKmM.]/g, '');
+        if (/k/i.test(fl)) followersNum = parseFloat(fl) * 1000;
+        else if (/m/i.test(fl)) followersNum = parseFloat(fl) * 1000000;
+        else followersNum = parseInt(fl) || 0;
+        MOCK_CREATORS.push({
+          name: u.name || 'Creator',
+          handle: u.handle,
+          avatar: av,
+          niche: u.niche || 'Lifestyle',
+          niches: [u.niche || 'Lifestyle'],
+          platforms: u.platforms || ['instagram'],
+          followers: u.followers || '0',
+          followersNum: followersNum,
+          engagement: u.engagement || '0%',
+          engagementNum: parseFloat(u.engagement) || 0,
+          bio: u.bio || 'Content creator on 100CLAN.'
+        });
+        existingHandles[u.handle.toLowerCase()] = true;
+      });
+    })();
 
     let activeNicheFilter = 'All';
     let currentCreator = null;

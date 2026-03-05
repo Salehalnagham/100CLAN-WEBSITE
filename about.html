@@ -1406,6 +1406,55 @@
       });
     }
 
+    var lang = localStorage.getItem('clan-lang') || 'en';
+
+    // Load about stats
+    var aboutStats = JSON.parse(localStorage.getItem('clan-content-about-stats') || 'null');
+    if (aboutStats && aboutStats.length) {
+      var asg = document.querySelector('.about-stats .stats-grid') || document.querySelector('.stats-grid');
+      if (asg) {
+        var asEls = asg.querySelectorAll('.stat-block');
+        aboutStats.sort(function(a,b){return (a.order||0)-(b.order||0);}).forEach(function(s, i) {
+          if (asEls[i]) {
+            var numEl = asEls[i].querySelector('.stat-number');
+            var lblEl = asEls[i].querySelector('.stat-label');
+            if (numEl) numEl.textContent = lang === 'ar' ? (s.valueAr || s.valueEn) : s.valueEn;
+            if (lblEl) lblEl.textContent = lang === 'ar' ? (s.labelAr || s.labelEn) : s.labelEn;
+          }
+        });
+      }
+    }
+
+    // Load timeline
+    var timeline = JSON.parse(localStorage.getItem('clan-content-timeline') || 'null');
+    if (timeline && timeline.length) {
+      var tl = document.querySelector('.timeline');
+      if (tl) {
+        tl.innerHTML = timeline.sort(function(a,b){return (a.order||0)-(b.order||0);}).map(function(t, i) {
+          var year = lang === 'ar' ? (t.yearAr || t.yearEn) : t.yearEn;
+          var title = lang === 'ar' ? (t.titleAr || t.titleEn) : t.titleEn;
+          var desc = lang === 'ar' ? (t.descAr || t.descEn) : t.descEn;
+          var side = i % 2 === 0 ? 'left' : 'right';
+          var delay = i > 0 ? ' reveal-delay-' + Math.min(i, 2) : '';
+          return '<div class="timeline-entry timeline-' + side + ' reveal' + delay + '"><div class="timeline-dot"></div><div class="timeline-content"><div class="timeline-year">' + year + '</div><h3 class="timeline-title">' + title + '</h3><p class="timeline-desc">' + desc + '</p></div></div>';
+        }).join('');
+      }
+    }
+
+    // Load values
+    var values = JSON.parse(localStorage.getItem('clan-content-values') || 'null');
+    if (values && values.length) {
+      var vg = document.querySelector('.values-grid');
+      if (vg) {
+        vg.innerHTML = values.sort(function(a,b){return (a.order||0)-(b.order||0);}).map(function(v, i) {
+          var title = lang === 'ar' ? (v.titleAr || v.titleEn) : v.titleEn;
+          var desc = lang === 'ar' ? (v.descAr || v.descEn) : v.descEn;
+          var delay = i > 0 ? ' reveal-delay-' + Math.min(i, 3) : '';
+          return '<div class="value-card reveal' + delay + '"><div class="value-icon">' + (v.icon || '') + '</div><h3 class="value-title">' + title + '</h3><p class="value-desc">' + desc + '</p></div>';
+        }).join('');
+      }
+    }
+
     // Load team members from admin
     var team = JSON.parse(localStorage.getItem('clan-content-team') || 'null');
     if (team && team.length) {

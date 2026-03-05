@@ -984,6 +984,45 @@
         });
       }
     }
+    // ── Resource categories from admin ──
+    var rcats = JSON.parse(localStorage.getItem('clan-content-res-categories') || 'null');
+    if (rcats && rcats.length) {
+      var lang = localStorage.getItem('clan-lang') || 'en';
+      var grid = document.querySelector('.cat-grid');
+      if (grid) {
+        rcats.sort(function(a,b){ return (a.order||0)-(b.order||0); });
+        grid.innerHTML = rcats.map(function(c, i) {
+          var delay = i > 0 ? ' reveal-delay-' + i : '';
+          return '<div class="cat-card reveal' + delay + '">' +
+            '<div class="cat-icon">' + (c.icon||'') + '</div>' +
+            '<div class="cat-title">' + (lang==='ar' ? (c.titleAr||c.titleEn) : c.titleEn) + '</div>' +
+            '<div class="cat-count">' + (lang==='ar' ? (c.descAr||c.descEn) : c.descEn) + '</div></div>';
+        }).join('');
+      }
+    }
+
+    // ── Resource items from admin ──
+    var ritems = JSON.parse(localStorage.getItem('clan-content-res-items') || 'null');
+    if (ritems && ritems.length) {
+      var lang = localStorage.getItem('clan-lang') || 'en';
+      var grid = document.querySelector('.resources-grid') || document.getElementById('resourcesGrid');
+      if (grid) {
+        ritems.sort(function(a,b){ return (a.order||0)-(b.order||0); });
+        grid.innerHTML = ritems.map(function(r, i) {
+          var delay = i > 0 ? ' reveal-delay-' + ((i%3)+1) : '';
+          var type = lang==='ar' ? (r.typeAr||r.typeEn) : r.typeEn;
+          var title = lang==='ar' ? (r.titleAr||r.titleEn) : r.titleEn;
+          var desc = lang==='ar' ? (r.descAr||r.descEn) : r.descEn;
+          var badgeClass = (r.typeEn||'').toLowerCase().replace(/\s+/g,'-');
+          return '<div class="resource-card reveal' + delay + '" data-title="' + title.toLowerCase() + '">' +
+            '<div class="resource-header"><span class="resource-type-badge badge-' + badgeClass + '">' + type + '</span></div>' +
+            '<div class="resource-title">' + title + '</div>' +
+            '<p class="resource-desc">' + desc + '</p>' +
+            '<div class="resource-card-footer"><a href="signup.html" class="btn-download">' + (lang==='ar'?'تحميل مجاناً':'Download Free') + '</a></div></div>';
+        }).join('');
+      }
+    }
+
   } catch(e) { /* silent fail */ }
 })();
 </script>

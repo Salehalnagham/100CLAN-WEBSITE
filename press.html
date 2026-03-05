@@ -1271,6 +1271,59 @@
         });
       }
     }
+    // ── Press stats from admin ──
+    var pstats = JSON.parse(localStorage.getItem('clan-content-press-stats') || 'null');
+    if (pstats && pstats.length) {
+      var lang = localStorage.getItem('clan-lang') || 'en';
+      var grid = document.querySelector('.press-stats');
+      if (grid) {
+        pstats.sort(function(a,b){ return (a.order||0)-(b.order||0); });
+        grid.innerHTML = pstats.map(function(s, i) {
+          var delay = i > 0 ? ' reveal-delay-' + i : '';
+          return '<div class="press-stat reveal' + delay + '">' +
+            '<div class="press-stat-value">' + (lang==='ar' ? (s.valueAr||s.valueEn) : s.valueEn) + '</div>' +
+            '<div class="press-stat-label">' + (lang==='ar' ? (s.labelAr||s.labelEn) : s.labelEn) + '</div>' +
+            '</div>';
+        }).join('');
+      }
+    }
+
+    // ── Brand assets from admin ──
+    var assets = JSON.parse(localStorage.getItem('clan-content-brand-assets') || 'null');
+    if (assets && assets.length) {
+      var lang = localStorage.getItem('clan-lang') || 'en';
+      var grid = document.querySelector('.assets-grid');
+      if (grid) {
+        assets.sort(function(a,b){ return (a.order||0)-(b.order||0); });
+        grid.innerHTML = assets.map(function(a, i) {
+          var delay = i > 0 ? ' reveal-delay-' + i : '';
+          return '<div class="asset-card reveal' + delay + '">' +
+            '<div class="asset-icon"><span style="font-size:22px;">' + (a.icon||'') + '</span></div>' +
+            '<div><div class="asset-title">' + (lang==='ar' ? (a.titleAr||a.titleEn) : a.titleEn) + '</div>' +
+            '<p class="asset-desc">' + (lang==='ar' ? (a.descAr||a.descEn) : a.descEn) + '</p></div>' +
+            '<a href="#" class="btn-outline" style="font-size:12px;padding:10px 20px;">' + (lang==='ar'?'تحميل':'Download') + '</a></div>';
+        }).join('');
+      }
+    }
+
+    // ── Press mentions from admin ──
+    var mentions = JSON.parse(localStorage.getItem('clan-content-press-mentions') || 'null');
+    if (mentions && mentions.length) {
+      var lang = localStorage.getItem('clan-lang') || 'en';
+      var grid = document.querySelector('.press-quotes-grid');
+      if (grid) {
+        mentions.sort(function(a,b){ return (a.order||0)-(b.order||0); });
+        grid.innerHTML = mentions.map(function(m, i) {
+          var delay = i > 0 ? ' reveal-delay-' + i : '';
+          return '<div class="press-quote-card reveal' + delay + '">' +
+            '<div class="press-pub-placeholder">' + (m.pubName||'') + '</div>' +
+            '<p class="press-quote-text">' + (lang==='ar' ? (m.quoteAr||m.quoteEn) : m.quoteEn) + '</p>' +
+            '<div class="press-quote-meta"><span class="press-pub-name">' + (m.pubName||'') + '</span>' +
+            '<span class="press-pub-date">' + (lang==='ar' ? (m.pubDateAr||m.pubDateEn) : m.pubDateEn) + '</span></div></div>';
+        }).join('');
+      }
+    }
+
   } catch(e) { /* silent fail */ }
 })();
 </script>

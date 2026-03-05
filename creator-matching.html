@@ -1602,6 +1602,38 @@
         });
       }
     }
+    // ── Matching steps from admin ──
+    var msteps = JSON.parse(localStorage.getItem('clan-content-match-steps') || 'null');
+    if (msteps && msteps.length) {
+      var lang = localStorage.getItem('clan-lang') || 'en';
+      var row = document.querySelector('.steps-row');
+      if (row) {
+        msteps.sort(function(a,b){ return (a.order||0)-(b.order||0); });
+        row.innerHTML = msteps.map(function(s) {
+          return '<div class="step-item">' +
+            '<div class="step-icon" data-num="' + (s.number||'') + '">&#128161;</div>' +
+            '<h3>' + (lang==='ar' ? (s.titleAr||s.titleEn) : s.titleEn) + '</h3>' +
+            '<p>' + (lang==='ar' ? (s.descAr||s.descEn) : s.descEn) + '</p></div>';
+        }).join('');
+      }
+    }
+
+    // ── Matching criteria from admin ──
+    var mcrit = JSON.parse(localStorage.getItem('clan-content-match-criteria') || 'null');
+    if (mcrit && mcrit.length) {
+      var lang = localStorage.getItem('clan-lang') || 'en';
+      var grid = document.querySelector('.criteria-grid');
+      if (grid) {
+        mcrit.sort(function(a,b){ return (a.order||0)-(b.order||0); });
+        grid.innerHTML = mcrit.map(function(c, i) {
+          var delay = i > 0 ? ' reveal-delay-' + ((i%3)+1) : '';
+          return '<div class="criteria-card reveal' + delay + '">' +
+            '<div class="criteria-icon">' + (c.icon||'') + '</div>' +
+            '<h3>' + (lang==='ar' ? (c.titleAr||c.titleEn) : c.titleEn) + '</h3></div>';
+        }).join('');
+      }
+    }
+
   } catch(e) { /* silent fail */ }
 })();
 </script>

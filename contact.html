@@ -1178,6 +1178,49 @@
         });
       }
     }
+    // ── Contact info from admin ──
+    var ci = JSON.parse(localStorage.getItem('clan-content-contact-info') || 'null');
+    if (ci) {
+      var lang = localStorage.getItem('clan-lang') || 'en';
+      var emailVal = document.querySelector('.contact-info-value');
+      if (emailVal && ci.emailValue) emailVal.textContent = ci.emailValue;
+      var items = document.querySelectorAll('.contact-info-item');
+      if (items[0]) {
+        var noteEl = items[0].querySelector('.contact-info-note');
+        if (noteEl) noteEl.textContent = lang==='ar' ? (ci.emailNoteAr||ci.emailNoteEn) : ci.emailNoteEn;
+      }
+      if (items[1]) {
+        var valEl = items[1].querySelector('.contact-info-value');
+        if (valEl) valEl.textContent = lang==='ar' ? (ci.responseValueAr||ci.responseValueEn) : ci.responseValueEn;
+        var noteEl2 = items[1].querySelector('.contact-info-note');
+        if (noteEl2) noteEl2.textContent = lang==='ar' ? (ci.responseNoteAr||ci.responseNoteEn) : ci.responseNoteEn;
+      }
+      if (items[2]) {
+        var valEl2 = items[2].querySelector('.contact-info-value');
+        if (valEl2) valEl2.textContent = lang==='ar' ? (ci.hqValueAr||ci.hqValueEn) : ci.hqValueEn;
+        var noteEl3 = items[2].querySelector('.contact-info-note');
+        if (noteEl3) noteEl3.textContent = lang==='ar' ? (ci.hqNoteAr||ci.hqNoteEn) : ci.hqNoteEn;
+      }
+    }
+
+    // ── Contact FAQs from admin ──
+    var cfaqs = JSON.parse(localStorage.getItem('clan-content-contact-faqs') || 'null');
+    if (cfaqs && cfaqs.length) {
+      var lang = localStorage.getItem('clan-lang') || 'en';
+      var faqList = document.querySelector('.faq-list');
+      if (faqList) {
+        cfaqs.sort(function(a,b){ return (a.order||0)-(b.order||0); });
+        faqList.innerHTML = cfaqs.map(function(f, i) {
+          var delay = i > 0 ? ' reveal-delay-' + i : '';
+          var q = lang==='ar' ? (f.questionAr||f.questionEn) : f.questionEn;
+          var a = lang==='ar' ? (f.answerAr||f.answerEn) : f.answerEn;
+          return '<div class="faq-item reveal' + delay + '" onclick="toggleFaq(this)">' +
+            '<div class="faq-question"><span>' + q + '</span><div class="faq-icon">+</div></div>' +
+            '<div class="faq-answer"><p>' + a + '</p></div></div>';
+        }).join('');
+      }
+    }
+
   } catch(e) { /* silent fail */ }
 })();
 </script>

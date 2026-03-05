@@ -296,6 +296,20 @@
     <a onclick="showSec('pricing')"><span class="icon">&#128176;</span> Pricing & Plans</a>
   </div>
   <div class="sidebar-group">
+    <div class="sidebar-label">Page Sections</div>
+    <a onclick="showSec('ps-home')"><span class="icon">&#127968;</span> Homepage</a>
+    <a onclick="showSec('ps-about')"><span class="icon">&#128712;</span> About</a>
+    <a onclick="showSec('ps-careers')"><span class="icon">&#128188;</span> Careers</a>
+    <a onclick="showSec('ps-contact')"><span class="icon">&#128231;</span> Contact</a>
+    <a onclick="showSec('ps-plans')"><span class="icon">&#128179;</span> Plans FAQs & Table</a>
+    <a onclick="showSec('ps-press')"><span class="icon">&#128240;</span> Press</a>
+    <a onclick="showSec('ps-partnerships')"><span class="icon">&#129309;</span> Partnerships</a>
+    <a onclick="showSec('ps-newsletter')"><span class="icon">&#128232;</span> Newsletter</a>
+    <a onclick="showSec('ps-resources')"><span class="icon">&#128218;</span> Resources</a>
+    <a onclick="showSec('ps-matching')"><span class="icon">&#127919;</span> Creator Matching</a>
+    <a onclick="showSec('ps-collabhub')"><span class="icon">&#128736;</span> Collab Hub</a>
+  </div>
+  <div class="sidebar-group">
     <div class="sidebar-label">Site Structure</div>
     <a onclick="showSec('navigation')"><span class="icon">&#9881;</span> Navigation</a>
     <a onclick="showSec('footer')"><span class="icon">&#128907;</span> Footer</a>
@@ -310,6 +324,7 @@
     <div class="sidebar-label">Operations</div>
     <a onclick="showSec('notifications')"><span class="icon">&#128276;</span> Notifications</a>
     <a onclick="showSec('reports')"><span class="icon">&#9888;</span> Reports <span class="badge-count" id="bReports">0</span></a>
+    <a onclick="showSec('activity')"><span class="icon">&#128203;</span> Activity Log</a>
     <a onclick="showSec('analytics')"><span class="icon">&#128200;</span> Analytics</a>
     <a onclick="showSec('settings')"><span class="icon">&#9881;</span> Settings</a>
   </div>
@@ -548,6 +563,133 @@
   </div>
 </div>
 
+<!-- ════════ ACTIVITY LOG ════════ -->
+<div class="sec" id="sec-activity">
+  <h1 class="sec-title">Activity Log</h1>
+  <p class="sec-sub">Track all changes made from the admin panel.</p>
+  <div class="search-bar" style="margin-bottom:16px;">
+    <input class="search-input" id="activitySearch" placeholder="Search actions..." oninput="renderActivity()" />
+    <select class="form-select" id="activityFilter" onchange="renderActivity()" style="width:160px;flex:none;">
+      <option value="all">All Actions</option>
+      <option value="create">Created</option>
+      <option value="edit">Edited</option>
+      <option value="delete">Deleted</option>
+      <option value="settings">Settings</option>
+    </select>
+    <button class="btn btn-r" onclick="confirm_('Clear Log','Clear the entire activity log?',()=>{setJSON('clan-activity-log',[]);renderActivity();toast('&#9989; Log cleared');})">Clear Log</button>
+  </div>
+  <div id="activityList"></div>
+</div>
+
+<!-- ════════ PAGE SECTIONS: HOMEPAGE ════════ -->
+<div class="sec" id="sec-ps-home">
+  <h1 class="sec-title">Homepage Sections</h1>
+  <p class="sec-sub">Manage all dynamic content on the homepage: stats, features, steps, testimonials, and sponsors.</p>
+
+  <div class="card"><div class="card-title">Stats Bar <button class="btn btn-y" onclick="openGenericModal('stats')">&#9998; Edit Stats</button></div><div id="psHomeStats"></div></div>
+  <div class="card"><div class="card-title">Feature Cards <button class="btn btn-y" onclick="openGenericModal('features')">+ Add Feature</button></div><div id="psHomeFeatures"></div></div>
+  <div class="card"><div class="card-title">How It Works Steps <button class="btn btn-y" onclick="openGenericModal('steps')">+ Add Step</button></div><div id="psHomeSteps"></div></div>
+  <div class="card"><div class="card-title">Testimonials <button class="btn btn-y" onclick="openGenericModal('testimonials')">+ Add Testimonial</button></div><div id="psHomeTestimonials"></div></div>
+</div>
+
+<!-- ════════ PAGE SECTIONS: ABOUT ════════ -->
+<div class="sec" id="sec-ps-about">
+  <h1 class="sec-title">About Page Sections</h1>
+  <p class="sec-sub">Manage the About page: stats, timeline, and values.</p>
+
+  <div class="card"><div class="card-title">About Stats <button class="btn btn-y" onclick="openGenericModal('aboutStats')">&#9998; Edit Stats</button></div><div id="psAboutStats"></div></div>
+  <div class="card"><div class="card-title">Timeline <button class="btn btn-y" onclick="openGenericModal('timeline')">+ Add Entry</button></div><div id="psAboutTimeline"></div></div>
+  <div class="card"><div class="card-title">Core Values <button class="btn btn-y" onclick="openGenericModal('values')">+ Add Value</button></div><div id="psAboutValues"></div></div>
+</div>
+
+<!-- ════════ PAGE SECTIONS: CAREERS ════════ -->
+<div class="sec" id="sec-ps-careers">
+  <h1 class="sec-title">Careers Page Sections</h1>
+  <p class="sec-sub">Manage culture principles, benefits, and job listings.</p>
+
+  <div class="card"><div class="card-title">Culture Principles <button class="btn btn-y" onclick="openGenericModal('culture')">+ Add Principle</button></div><div id="psCulture"></div></div>
+  <div class="card"><div class="card-title">Benefits <button class="btn btn-y" onclick="openGenericModal('careerBenefits')">+ Add Benefit</button></div><div id="psCareerBenefits"></div></div>
+  <div class="card"><div class="card-title">Job Listings <button class="btn btn-y" onclick="openGenericModal('jobs')">+ Add Job</button></div><div id="psJobs"></div></div>
+</div>
+
+<!-- ════════ PAGE SECTIONS: CONTACT ════════ -->
+<div class="sec" id="sec-ps-contact">
+  <h1 class="sec-title">Contact Page Sections</h1>
+  <p class="sec-sub">Manage contact info and FAQs.</p>
+
+  <div class="card"><div class="card-title">Contact Information</div><div id="psContactInfo"></div>
+    <button class="btn btn-y" onclick="saveContactInfo()" style="margin-top:12px;">&#128190; Save Contact Info</button>
+  </div>
+  <div class="card"><div class="card-title">FAQs <button class="btn btn-y" onclick="openGenericModal('contactFaqs')">+ Add FAQ</button></div><div id="psContactFaqs"></div></div>
+</div>
+
+<!-- ════════ PAGE SECTIONS: PLANS ════════ -->
+<div class="sec" id="sec-ps-plans">
+  <h1 class="sec-title">Plans Page Sections</h1>
+  <p class="sec-sub">Manage comparison table and pricing FAQs.</p>
+
+  <div class="card"><div class="card-title">Comparison Table</div><div id="psComparison"></div>
+    <button class="btn btn-y" onclick="addCompRow()" style="margin-top:12px;">+ Add Row</button>
+    <button class="btn btn-g" onclick="saveComparison()" style="margin-top:12px;margin-left:8px;">&#128190; Save Table</button>
+  </div>
+  <div class="card"><div class="card-title">Pricing FAQs <button class="btn btn-y" onclick="openGenericModal('plansFaqs')">+ Add FAQ</button></div><div id="psPlansFaqs"></div></div>
+</div>
+
+<!-- ════════ PAGE SECTIONS: PRESS ════════ -->
+<div class="sec" id="sec-ps-press">
+  <h1 class="sec-title">Press Page Sections</h1>
+  <p class="sec-sub">Manage press stats, brand assets, and press mentions.</p>
+
+  <div class="card"><div class="card-title">Press Stats <button class="btn btn-y" onclick="openGenericModal('pressStats')">&#9998; Edit Stats</button></div><div id="psPressStats"></div></div>
+  <div class="card"><div class="card-title">Brand Assets <button class="btn btn-y" onclick="openGenericModal('brandAssets')">+ Add Asset</button></div><div id="psBrandAssets"></div></div>
+  <div class="card"><div class="card-title">Press Mentions <button class="btn btn-y" onclick="openGenericModal('pressMentions')">+ Add Mention</button></div><div id="psPressMentions"></div></div>
+</div>
+
+<!-- ════════ PAGE SECTIONS: PARTNERSHIPS ════════ -->
+<div class="sec" id="sec-ps-partnerships">
+  <h1 class="sec-title">Partnerships Page Sections</h1>
+  <p class="sec-sub">Manage partnership types and benefits.</p>
+
+  <div class="card"><div class="card-title">Partnership Types <button class="btn btn-y" onclick="openGenericModal('partnerTypes')">+ Add Type</button></div><div id="psPartnerTypes"></div></div>
+  <div class="card"><div class="card-title">Partnership Benefits <button class="btn btn-y" onclick="openGenericModal('partnerBenefits')">+ Add Benefit</button></div><div id="psPartnerBenefits"></div></div>
+</div>
+
+<!-- ════════ PAGE SECTIONS: NEWSLETTER ════════ -->
+<div class="sec" id="sec-ps-newsletter">
+  <h1 class="sec-title">Newsletter Page Sections</h1>
+  <p class="sec-sub">Manage newsletter benefits and past issues.</p>
+
+  <div class="card"><div class="card-title">Benefits <button class="btn btn-y" onclick="openGenericModal('nlBenefits')">+ Add Benefit</button></div><div id="psNlBenefits"></div></div>
+  <div class="card"><div class="card-title">Past Issues <button class="btn btn-y" onclick="openGenericModal('nlIssues')">+ Add Issue</button></div><div id="psNlIssues"></div></div>
+</div>
+
+<!-- ════════ PAGE SECTIONS: RESOURCES ════════ -->
+<div class="sec" id="sec-ps-resources">
+  <h1 class="sec-title">Creator Resources Sections</h1>
+  <p class="sec-sub">Manage resource categories and items.</p>
+
+  <div class="card"><div class="card-title">Resource Categories <button class="btn btn-y" onclick="openGenericModal('resCategories')">+ Add Category</button></div><div id="psResCategories"></div></div>
+  <div class="card"><div class="card-title">Resource Items <button class="btn btn-y" onclick="openGenericModal('resItems')">+ Add Resource</button></div><div id="psResItems"></div></div>
+</div>
+
+<!-- ════════ PAGE SECTIONS: MATCHING ════════ -->
+<div class="sec" id="sec-ps-matching">
+  <h1 class="sec-title">Creator Matching Sections</h1>
+  <p class="sec-sub">Manage matching steps and analysis criteria.</p>
+
+  <div class="card"><div class="card-title">How Matching Works <button class="btn btn-y" onclick="openGenericModal('matchSteps')">+ Add Step</button></div><div id="psMatchSteps"></div></div>
+  <div class="card"><div class="card-title">Analysis Criteria <button class="btn btn-y" onclick="openGenericModal('matchCriteria')">+ Add Criterion</button></div><div id="psMatchCriteria"></div></div>
+</div>
+
+<!-- ════════ PAGE SECTIONS: COLLAB HUB ════════ -->
+<div class="sec" id="sec-ps-collabhub">
+  <h1 class="sec-title">Collaboration Hub Sections</h1>
+  <p class="sec-sub">Manage collab tools and workflow steps.</p>
+
+  <div class="card"><div class="card-title">Collaboration Tools <button class="btn btn-y" onclick="openGenericModal('collabTools')">+ Add Tool</button></div><div id="psCollabTools"></div></div>
+  <div class="card"><div class="card-title">Workflow Steps <button class="btn btn-y" onclick="openGenericModal('collabWorkflow')">+ Add Step</button></div><div id="psCollabWorkflow"></div></div>
+</div>
+
 </div><!-- /main -->
 
 <!-- ── Modals ── -->
@@ -556,6 +698,7 @@
 <div class="modal" id="modalBlog"><div class="modal-box modal-box-lg"><div class="modal-title" id="modalBlogTitle">New Blog Post</div><div id="modalBlogBody"></div></div></div>
 <div class="modal" id="modalEvent"><div class="modal-box modal-box-lg"><div class="modal-title" id="modalEventTitle">New Event</div><div id="modalEventBody"></div></div></div>
 <div class="modal" id="modalUser"><div class="modal-box"><div class="modal-title" id="modalUserTitle">Add User</div><div id="modalUserBody"></div></div></div>
+<div class="modal" id="modalGeneric"><div class="modal-box modal-box-lg"><div class="modal-title" id="modalGenericTitle">Edit Item</div><div id="modalGenericBody"></div></div></div>
 <div class="modal" id="modalConfirm"><div class="modal-box"><div class="modal-title" id="confirmTitle">Confirm</div><p id="confirmDesc" style="color:var(--gray);font-size:14px;margin-bottom:20px;"></p><div class="modal-actions"><button class="btn btn-ghost" onclick="closeModal('modalConfirm')">Cancel</button><button class="btn btn-r" id="confirmBtn">Confirm</button></div></div></div>
 
 <!-- ── Image Cropper ── -->
@@ -917,21 +1060,40 @@ function showSec(id) {
 function renderSection(id) {
   const map = {
     overview: renderOverview, users: renderUsers, approvals: renderApprovals,
-    pages: () => {}, team: renderTeam, stories: renderStories, blog: renderBlog,
+    pages: function(){}, team: renderTeam, stories: renderStories, blog: renderBlog,
     events: renderEvents, pricing: renderPricing, navigation: renderNav,
     footer: renderFooter, media: renderMedia, notifications: renderAnn,
-    reports: renderReports, analytics: renderAnalytics, settings: renderSettings
+    reports: renderReports, analytics: renderAnalytics, settings: renderSettings,
+    activity: renderActivity,
+    'ps-home': function(){ ['stats','features','steps','testimonials'].forEach(renderCT); },
+    'ps-about': function(){ ['aboutStats','timeline','values'].forEach(renderCT); },
+    'ps-careers': function(){ ['culture','careerBenefits','jobs'].forEach(renderCT); },
+    'ps-contact': function(){ renderContactInfo(); renderCT('contactFaqs'); },
+    'ps-plans': function(){ renderComparison(); renderCT('plansFaqs'); },
+    'ps-press': function(){ ['pressStats','brandAssets','pressMentions'].forEach(renderCT); },
+    'ps-partnerships': function(){ ['partnerTypes','partnerBenefits'].forEach(renderCT); },
+    'ps-newsletter': function(){ ['nlBenefits','nlIssues'].forEach(renderCT); },
+    'ps-resources': function(){ ['resCategories','resItems'].forEach(renderCT); },
+    'ps-matching': function(){ ['matchSteps','matchCriteria'].forEach(renderCT); },
+    'ps-collabhub': function(){ ['collabTools','collabWorkflow'].forEach(renderCT); }
   };
   if (map[id]) map[id]();
 }
 function initApp() {
-  // Auto-persist seed data to localStorage if not yet saved
-  // This ensures public pages can read admin content
+  // Auto-persist all seed data to localStorage if not yet saved
   if (!localStorage.getItem('clan-admin-users')) setJSON('clan-admin-users', SEED_USERS);
   if (!localStorage.getItem('clan-content-team')) setJSON('clan-content-team', SEED_TEAM);
   if (!localStorage.getItem('clan-content-stories')) setJSON('clan-content-stories', SEED_STORIES);
   if (!localStorage.getItem('clan-content-blog')) setJSON('clan-content-blog', SEED_BLOGS);
   if (!localStorage.getItem('clan-content-events')) setJSON('clan-content-events', SEED_EVENTS);
+  // Persist new content type seeds
+  Object.keys(CONTENT_TYPES).forEach(function(type) {
+    var ct = CONTENT_TYPES[type];
+    if (!localStorage.getItem(ct.key)) setJSON(ct.key, ct.seed);
+  });
+  if (!localStorage.getItem('clan-content-contact-info')) setJSON('clan-content-contact-info', SEED_CONTACT_INFO);
+  if (!localStorage.getItem('clan-content-plan-comparison')) setJSON('clan-content-plan-comparison', SEED_COMPARISON);
+  logActivity('login', 'system', 'Admin logged in', '');
   renderOverview(); updateBadges();
 }
 
@@ -1095,6 +1257,390 @@ const SEED_PRICING = {
 };
 
 // ══════════════════════════════════════════
+// ──── NEW SEED DATA ────
+// ══════════════════════════════════════════
+const SEED_STATS = [
+  { id:'st1', valueEn:'2,400+', valueAr:'2,400+', labelEn:'Active Creators', labelAr:'صانع محتوى نشط', order:0 },
+  { id:'st2', valueEn:'8,500+', valueAr:'8,500+', labelEn:'Collabs Completed', labelAr:'تعاون مكتمل', order:1 },
+  { id:'st3', valueEn:'340%', valueAr:'340%', labelEn:'Avg. Audience Growth', labelAr:'متوسط نمو الجمهور', order:2 },
+  { id:'st4', valueEn:'96%', valueAr:'96%', labelEn:'Satisfaction Rate', labelAr:'معدل الرضا', order:3 }
+];
+const SEED_FEATURES = [
+  { id:'f1', icon:'&#127919;', titleEn:'Smart Creator Matching', titleAr:'مطابقة ذكية للمبدعين', descEn:'Our algorithm pairs you with creators who share your niche, audience size, and collab style.', descAr:'خوارزميتنا تربطك بصناع محتوى يشاركونك المجال وحجم الجمهور وأسلوب التعاون.', order:0 },
+  { id:'f2', icon:'&#128736;', titleEn:'Collaboration Hub', titleAr:'مركز التعاون', descEn:'Manage every collab from brief to publish in one clean workspace.', descAr:'أدر كل تعاون من الملخص إلى النشر في مساحة عمل واحدة.', order:1 },
+  { id:'f3', icon:'&#128200;', titleEn:'Growth Analytics', titleAr:'تحليلات النمو', descEn:'See exactly how each collaboration is growing your audience in real time.', descAr:'شاهد بالضبط كيف ينمو جمهورك مع كل تعاون في الوقت الفعلي.', order:2 },
+  { id:'f4', icon:'&#129309;', titleEn:'Deal Management', titleAr:'إدارة الصفقات', descEn:'From rate cards to signed agreements, handle every brand deal professionally.', descAr:'من بطاقات الأسعار إلى الاتفاقيات الموقعة، أدر كل صفقة باحترافية.', order:3 },
+  { id:'f5', icon:'&#127760;', titleEn:'Creator Network', titleAr:'شبكة المبدعين', descEn:'Access a vetted network of ambitious creators from 45+ countries.', descAr:'استفد من شبكة مبدعين من أكثر من 45 دولة.', order:4 },
+  { id:'f6', icon:'&#128274;', titleEn:'Protected Collabs', titleAr:'تعاونات محمية', descEn:'Every collaboration is backed by a digital agreement to protect your work.', descAr:'كل تعاون مدعوم باتفاقية رقمية لحماية عملك.', order:5 }
+];
+const SEED_STEPS = [
+  { id:'stp1', number:'01', titleEn:'Build Your Creator Profile', titleAr:'أنشئ ملف المبدع', descEn:'Set up your profile in under 5 minutes. Add your platforms, niche, audience, and what you bring to a collab.', descAr:'أنشئ ملفك في أقل من 5 دقائق. أضف منصاتك ومجالك وجمهورك وما تقدمه للتعاون.', order:0 },
+  { id:'stp2', number:'02', titleEn:'Get Matched with Creators', titleAr:'تطابق مع مبدعين', descEn:'Our matching engine analyzes 12+ data points to find creators who complement your content and audience.', descAr:'محرك المطابقة لدينا يحلل أكثر من 12 نقطة بيانات لإيجاد مبدعين يكملون محتواك وجمهورك.', order:1 },
+  { id:'stp3', number:'03', titleEn:'Collaborate & Grow', titleAr:'تعاون وانمو', descEn:'Use our built-in tools to plan, create, and track your collaborations from start to finish.', descAr:'استخدم أدواتنا المدمجة لتخطيط وإنشاء وتتبع تعاوناتك من البداية للنهاية.', order:2 }
+];
+const SEED_TESTIMONIALS = [
+  { id:'tm1', textEn:'"I\'d been trying to find the right collab partners for months. 100CLAN matched me with 3 perfect creators in my first week."', textAr:'"كنت أحاول إيجاد شركاء التعاون المناسبين لأشهر. 100CLAN طابقتني مع 3 مبدعين مثاليين في أسبوعي الأول."', authorName:'Maya Kowalski', authorHandleEn:'@mayalife · 1.2M YouTube', authorHandleAr:'@mayalife · 1.2 مليون يوتيوب', avatarColor:'linear-gradient(135deg,#FF6B6B,#FF8E53)', order:0 },
+  { id:'tm2', textEn:'"Revenue went from $3K to $18K/month. The brand deal marketplace alone was worth the Pro subscription."', textAr:'"الإيرادات ارتفعت من 3 آلاف إلى 18 ألف دولار شهرياً. سوق صفقات العلامات التجارية وحده يستحق الاشتراك."', authorName:'Jake Santana', authorHandleEn:'@jakesantana · Tech YouTuber', authorHandleAr:'@jakesantana · يوتيوبر تقني', avatarColor:'linear-gradient(135deg,#4FC3F7,#0288D1)', order:1 },
+  { id:'tm3', textEn:'"From 48K to half a million subscribers in 8 months. 100CLAN connected me with travel creators worldwide."', textAr:'"من 48 ألف إلى نصف مليون مشترك في 8 أشهر. 100CLAN ربطتني بصناع محتوى السفر حول العالم."', authorName:'Nadia Petrova', authorHandleEn:'@nadiawanders · Travel Vlogger', authorHandleAr:'@nadiawanders · مدونة سفر', avatarColor:'linear-gradient(135deg,#66BB6A,#2E7D32)', order:2 }
+];
+const SEED_ABOUT_STATS = [
+  { id:'as1', valueEn:'2,400+', valueAr:'2,400+', labelEn:'Creators Joined', labelAr:'مبدع انضم', order:0 },
+  { id:'as2', valueEn:'45+', valueAr:'45+', labelEn:'Countries Represented', labelAr:'دولة ممثّلة', order:1 },
+  { id:'as3', valueEn:'12M+', valueAr:'12 مليون+', labelEn:'Combined Reach', labelAr:'وصول مشترك', order:2 },
+  { id:'as4', valueEn:'96%', valueAr:'96%', labelEn:'Satisfaction Rate', labelAr:'معدل الرضا', order:3 }
+];
+const SEED_TIMELINE = [
+  { id:'tl1', yearEn:'Early 2020', yearAr:'مطلع 2020', titleEn:'It Started in a Telegram Group', titleAr:'بدأت في مجموعة تيليغرام', descEn:'A small group of content creators in the Middle East started sharing tips, audiences, and collaboration opportunities.', descAr:'بدأت مجموعة صغيرة من صناع المحتوى في الشرق الأوسط بمشاركة النصائح والجماهير وفرص التعاون.', order:0 },
+  { id:'tl2', yearEn:'Late 2021', yearAr:'أواخر 2021', titleEn:'100 Creators, One Vision', titleAr:'100 مبدع، رؤية واحدة', descEn:'The group hit 100 members who were actively collaborating. The name "100CLAN" was born.', descAr:'وصلت المجموعة إلى 100 عضو يتعاونون بنشاط. ولد اسم "100CLAN".', order:1 },
+  { id:'tl3', yearEn:'2023', yearAr:'2023', titleEn:'From Group to Platform', titleAr:'من مجموعة إلى منصة', descEn:'We built the first version of the 100CLAN platform to scale what was working in the group.', descAr:'بنينا النسخة الأولى من منصة 100CLAN لتوسيع ما كان يعمل في المجموعة.', order:2 },
+  { id:'tl4', yearEn:'2026', yearAr:'2026', titleEn:'Scaling Globally', titleAr:'التوسع عالمياً', descEn:'Today, 100CLAN connects 2,400+ creators across 45+ countries with AI-powered matching.', descAr:'اليوم، 100CLAN تربط أكثر من 2,400 مبدع عبر أكثر من 45 دولة بمطابقة مدعومة بالذكاء الاصطناعي.', order:3 }
+];
+const SEED_VALUES = [
+  { id:'v1', icon:'&#129309;', titleEn:'Community First', titleAr:'المجتمع أولاً', descEn:'Every product decision starts with one question: does this help creators collaborate better?', descAr:'كل قرار منتج يبدأ بسؤال واحد: هل هذا يساعد المبدعين على التعاون بشكل أفضل؟', order:0 },
+  { id:'v2', icon:'&#128161;', titleEn:'Radical Transparency', titleAr:'الشفافية المطلقة', descEn:'No hidden algorithms, no pay-to-play. Every creator gets the same fair shot at visibility.', descAr:'لا خوارزميات مخفية، لا دفع للظهور. كل مبدع يحصل على نفس الفرصة العادلة.', order:1 },
+  { id:'v3', icon:'&#128640;', titleEn:'Ship Fast, Learn Faster', titleAr:'أطلق بسرعة، تعلم أسرع', descEn:'We release features weekly based on real creator feedback, not boardroom guesses.', descAr:'نطلق ميزات أسبوعياً بناءً على ملاحظات المبدعين الحقيقية.', order:2 },
+  { id:'v4', icon:'&#127758;', titleEn:'Think Global, Act Local', titleAr:'فكر عالمياً، اعمل محلياً', descEn:'Built in Dubai, designed for creators everywhere. Bilingual from day one.', descAr:'بُنيت في دبي، صُممت لصناع المحتوى في كل مكان. ثنائية اللغة من اليوم الأول.', order:3 }
+];
+const SEED_CULTURE = [
+  { id:'cu1', icon:'&#127758;', titleEn:'Remote First', titleAr:'العمل عن بعد أولاً', descEn:'Our team is fully distributed across 8 countries. We believe great work happens anywhere.', descAr:'فريقنا موزع بالكامل عبر 8 دول. نؤمن أن العمل الرائع يحدث في أي مكان.', order:0 },
+  { id:'cu2', icon:'&#127775;', titleEn:'Creator Obsessed', titleAr:'مهووسون بالمبدعين', descEn:'We are creators building for creators. Everyone ships content alongside code.', descAr:'نحن مبدعون نبني لمبدعين. الجميع ينشر محتوى بجانب الكود.', order:1 },
+  { id:'cu3', icon:'&#9889;', titleEn:'Move Fast', titleAr:'تحرك بسرعة', descEn:'We ship weekly, fail fast, and iterate based on real creator feedback.', descAr:'نطلق أسبوعياً، نفشل بسرعة، ونكرر بناءً على ملاحظات المبدعين.', order:2 }
+];
+const SEED_CAREER_BENEFITS = [
+  { id:'cb1', icon:'&#127758;', titleEn:'Remote Work', titleAr:'العمل عن بعد', descEn:'Work from anywhere in the world with flexible hours.', descAr:'اعمل من أي مكان في العالم بساعات مرنة.', order:0 },
+  { id:'cb2', icon:'&#128176;', titleEn:'Competitive Salary', titleAr:'راتب تنافسي', descEn:'Top-of-market compensation benchmarked quarterly.', descAr:'تعويضات في قمة السوق يتم قياسها كل ربع سنة.', order:1 },
+  { id:'cb3', icon:'&#128200;', titleEn:'Equity', titleAr:'أسهم', descEn:'Meaningful equity stake so you grow as we grow.', descAr:'حصة أسهم ذات معنى حتى تنمو معنا.', order:2 },
+  { id:'cb4', icon:'&#127973;', titleEn:'Health Coverage', titleAr:'تأمين صحي', descEn:'Full medical, dental, and vision coverage for you and your family.', descAr:'تغطية طبية وأسنان وبصر كاملة لك ولعائلتك.', order:3 },
+  { id:'cb5', icon:'&#127916;', titleEn:'Creator Budget', titleAr:'ميزانية المبدع', descEn:'$500/quarter to spend on content creation tools and courses.', descAr:'500 دولار/ربع سنة لأدوات ودورات صناعة المحتوى.', order:4 },
+  { id:'cb6', icon:'&#128218;', titleEn:'Learning Stipend', titleAr:'بدل تعلم', descEn:'Annual budget for conferences, books, and professional development.', descAr:'ميزانية سنوية للمؤتمرات والكتب والتطوير المهني.', order:5 }
+];
+const SEED_JOBS = [
+  { id:'j1', deptEn:'Engineering', deptAr:'الهندسة', titleEn:'Senior Full-Stack Engineer', titleAr:'مهندس فول ستاك أول', descEn:'Build the core platform features that power creator collaboration at scale.', descAr:'بناء ميزات المنصة الأساسية التي تشغل تعاون المبدعين على نطاق واسع.', tagsEn:'Remote, Full-time', tagsAr:'عن بعد، دوام كامل', isActive:true, order:0 },
+  { id:'j2', deptEn:'Design', deptAr:'التصميم', titleEn:'Product Designer', titleAr:'مصمم منتجات', descEn:'Shape the visual language of a platform used by thousands of creators daily.', descAr:'شكّل اللغة البصرية لمنصة يستخدمها آلاف المبدعين يومياً.', tagsEn:'Remote, Full-time', tagsAr:'عن بعد، دوام كامل', isActive:true, order:1 },
+  { id:'j3', deptEn:'Marketing', deptAr:'التسويق', titleEn:'Growth Marketing Lead', titleAr:'رئيس تسويق النمو', descEn:'Drive creator acquisition and engagement through data-driven campaigns.', descAr:'قيادة اكتساب المبدعين والمشاركة من خلال حملات مبنية على البيانات.', tagsEn:'Remote, Full-time', tagsAr:'عن بعد، دوام كامل', isActive:true, order:2 }
+];
+const SEED_CONTACT_INFO = {
+  emailValue:'hello@100clan.com', emailNoteEn:'For all general inquiries', emailNoteAr:'لجميع الاستفسارات العامة',
+  responseValueEn:'Within 24 hours', responseValueAr:'خلال 24 ساعة', responseNoteEn:'Sunday – Thursday, 9am – 6pm GST', responseNoteAr:'الأحد – الخميس، 9 صباحاً – 6 مساءً',
+  hqValueEn:'Dubai, UAE', hqValueAr:'دبي، الإمارات', hqNoteEn:'Gulf Standard Time (UTC+4)', hqNoteAr:'توقيت الخليج (UTC+4)'
+};
+const SEED_CONTACT_FAQS = [
+  { id:'cf1', questionEn:'How do I join 100CLAN as a creator?', questionAr:'كيف أنضم لـ100CLAN كصانع محتوى؟', answerEn:'Simply click "Join the Clan" on any page, fill in your creator profile, and you\'re in. It takes under 5 minutes.', answerAr:'ببساطة انقر "انضم للكلان" في أي صفحة، املأ ملف المبدع الخاص بك، وستكون جاهزاً. يستغرق أقل من 5 دقائق.', order:0 },
+  { id:'cf2', questionEn:'Is 100CLAN free to use?', questionAr:'هل 100CLAN مجانية الاستخدام؟', answerEn:'Yes! Core features are free forever. Pro features are available for $12/month.', answerAr:'نعم! الميزات الأساسية مجانية للأبد. الميزات الاحترافية متاحة مقابل 12 دولار/شهر.', order:1 },
+  { id:'cf3', questionEn:'How can brands partner with 100CLAN?', questionAr:'كيف يمكن للعلامات التجارية الشراكة مع 100CLAN؟', answerEn:'Visit our Partnerships page or email partnerships@100clan.com to discuss collaboration opportunities.', answerAr:'زر صفحة الشراكات أو أرسل بريداً إلى partnerships@100clan.com لمناقشة فرص التعاون.', order:2 },
+  { id:'cf4', questionEn:'What platforms are supported?', questionAr:'ما المنصات المدعومة؟', answerEn:'Instagram, TikTok, YouTube, X (Twitter), Facebook, Snapchat, Podcasts, and Blogs.', answerAr:'إنستغرام، تيك توك، يوتيوب، إكس (تويتر)، فيسبوك، سناب شات، البودكاست، والمدونات.', order:3 }
+];
+const SEED_PLANS_FAQS = [
+  { id:'pf1', questionEn:'Can I switch plans later?', questionAr:'هل يمكنني تغيير الخطة لاحقاً؟', answerEn:'Yes, you can upgrade or downgrade your plan at any time. Changes take effect immediately.', answerAr:'نعم، يمكنك ترقية أو تخفيض خطتك في أي وقت. التغييرات تسري فوراً.', order:0 },
+  { id:'pf2', questionEn:'Is there a free trial for Pro?', questionAr:'هل هناك فترة تجربة مجانية للخطة الاحترافية؟', answerEn:'Yes, all new users get a 14-day free trial of Pro Creator features.', answerAr:'نعم، جميع المستخدمين الجدد يحصلون على تجربة مجانية لمدة 14 يوماً لميزات المحترف.', order:1 },
+  { id:'pf3', questionEn:'What payment methods do you accept?', questionAr:'ما طرق الدفع التي تقبلونها؟', answerEn:'We accept all major credit cards, debit cards, and Apple Pay.', answerAr:'نقبل جميع بطاقات الائتمان والخصم الرئيسية وApple Pay.', order:2 }
+];
+const SEED_PRESS_STATS = [
+  { id:'ps1', valueEn:'2020', valueAr:'2020', labelEn:'Year Founded', labelAr:'سنة التأسيس', order:0 },
+  { id:'ps2', valueEn:'12,000+', valueAr:'12,000+', labelEn:'Creators on Platform', labelAr:'مبدع على المنصة', order:1 },
+  { id:'ps3', valueEn:'45+', valueAr:'45+', labelEn:'Countries', labelAr:'دولة', order:2 },
+  { id:'ps4', valueEn:'Series A', valueAr:'سلسلة A', labelEn:'Fundraising Round', labelAr:'جولة التمويل', order:3 }
+];
+const SEED_BRAND_ASSETS = [
+  { id:'ba1', icon:'&#127912;', titleEn:'Logo Pack', titleAr:'حزمة الشعارات', descEn:'Full logo suite in PNG and SVG formats for light and dark backgrounds.', descAr:'مجموعة شعارات كاملة بتنسيقات PNG وSVG للخلفيات الفاتحة والداكنة.', order:0 },
+  { id:'ba2', icon:'&#128214;', titleEn:'Brand Guidelines', titleAr:'إرشادات العلامة', descEn:'Colors, typography, tone of voice, and usage rules for 100CLAN brand.', descAr:'الألوان والخطوط ونبرة الصوت وقواعد استخدام علامة 100CLAN.', order:1 },
+  { id:'ba3', icon:'&#128247;', titleEn:'Founder Headshots', titleAr:'صور المؤسسين', descEn:'High-resolution photos of the founding team for press use.', descAr:'صور عالية الدقة لفريق التأسيس للاستخدام الصحفي.', order:2 },
+  { id:'ba4', icon:'&#128187;', titleEn:'Product Screenshots', titleAr:'لقطات المنتج', descEn:'UI screenshots of the platform dashboard, matching engine, and collab tools.', descAr:'لقطات واجهة المستخدم للوحة التحكم ومحرك المطابقة وأدوات التعاون.', order:3 }
+];
+const SEED_PRESS_MENTIONS = [
+  { id:'pm1', pubName:'TechCrunch', quoteEn:'"100CLAN is doing for creator collaboration what LinkedIn did for professional networking."', quoteAr:'"100CLAN تفعل لتعاون المبدعين ما فعله LinkedIn للتواصل المهني."', pubDateEn:'March 2025', pubDateAr:'مارس 2025', order:0 },
+  { id:'pm2', pubName:'Arabian Business', quoteEn:'"A Dubai-born platform that\'s quietly becoming the go-to for MENA creators."', quoteAr:'"منصة مولودة في دبي أصبحت بهدوء الوجهة الأولى لمبدعي المنطقة."', pubDateEn:'January 2026', pubDateAr:'يناير 2026', order:1 }
+];
+const SEED_PARTNER_TYPES = [
+  { id:'pt1', icon:'&#127915;', titleEn:'Brand Partnerships', titleAr:'شراكات العلامات التجارية', descEn:'Connect your brand directly with vetted content creators for authentic campaigns.', descAr:'اربط علامتك التجارية مباشرة بصناع محتوى موثقين لحملات أصيلة.', featuresEn:'Curated creator matching\nManaged campaign workflows\nReal-time performance analytics\nContent rights management', featuresAr:'مطابقة مبدعين منتقاة\nسير عمل حملات مُدارة\nتحليلات أداء فورية\nإدارة حقوق المحتوى', order:0 },
+  { id:'pt2', icon:'&#127970;', titleEn:'Agency Partnerships', titleAr:'شراكات الوكالات', descEn:'Manage multiple creator campaigns through a single powerful dashboard.', descAr:'أدر حملات مبدعين متعددة من خلال لوحة تحكم واحدة قوية.', featuresEn:'Multi-client management\nBulk creator outreach\nWhite-label reporting\nDedicated account manager', featuresAr:'إدارة عملاء متعددين\nتواصل جماعي مع المبدعين\nتقارير بعلامتك التجارية\nمدير حساب مخصص', order:1 },
+  { id:'pt3', icon:'&#128279;', titleEn:'Platform Integrations', titleAr:'تكاملات المنصات', descEn:'Build on top of 100CLAN with our API and integration tools.', descAr:'ابنِ على 100CLAN مع واجهة برمجة التطبيقات وأدوات التكامل.', featuresEn:'RESTful API access\nWebhook notifications\nOAuth 2.0 authentication\nCustom data exports', featuresAr:'وصول API\nإشعارات Webhook\nمصادقة OAuth 2.0\nتصدير بيانات مخصص', order:2 }
+];
+const SEED_PARTNER_BENEFITS = [
+  { id:'pb1', icon:'&#127758;', titleEn:'Global Creator Network', titleAr:'شبكة مبدعين عالمية', descEn:'Tap into 12,000+ verified creators across 45+ countries.', descAr:'استفد من أكثر من 12,000 مبدع موثق عبر أكثر من 45 دولة.', order:0 },
+  { id:'pb2', icon:'&#9889;', titleEn:'Fast Campaign Activation', titleAr:'تفعيل حملات سريع', descEn:'Go from brief to first content in under 72 hours.', descAr:'من الملخص إلى أول محتوى في أقل من 72 ساعة.', order:1 },
+  { id:'pb3', icon:'&#128200;', titleEn:'Real-Time Analytics', titleAr:'تحليلات فورية', descEn:'Track campaign performance with live dashboards and custom reports.', descAr:'تتبع أداء الحملات بلوحات بيانات مباشرة وتقارير مخصصة.', order:2 },
+  { id:'pb4', icon:'&#128274;', titleEn:'Brand Safety', titleAr:'سلامة العلامة', descEn:'All creators are vetted and all content is reviewed before going live.', descAr:'جميع المبدعين موثقون وكل المحتوى يُراجع قبل النشر.', order:3 }
+];
+const SEED_NL_BENEFITS = [
+  { id:'nb1', icon:'&#11088;', titleEn:'Creator Spotlights', titleAr:'أضواء على المبدعين', descEn:'Weekly featured creators and their success stories.', descAr:'مبدعون مميزون أسبوعياً وقصص نجاحهم.', order:0 },
+  { id:'nb2', icon:'&#128640;', titleEn:'Platform Updates', titleAr:'تحديثات المنصة', descEn:'Be the first to know about new features and tools.', descAr:'كن أول من يعرف عن الميزات والأدوات الجديدة.', order:1 },
+  { id:'nb3', icon:'&#129309;', titleEn:'Collab Opportunities', titleAr:'فرص التعاون', descEn:'Exclusive collaboration opportunities from top brands.', descAr:'فرص تعاون حصرية من أفضل العلامات التجارية.', order:2 },
+  { id:'nb4', icon:'&#128161;', titleEn:'Exclusive Tips', titleAr:'نصائح حصرية', descEn:'Growth strategies, algorithm insights, and monetization tips.', descAr:'استراتيجيات النمو، رؤى الخوارزميات، ونصائح تحقيق الدخل.', order:3 }
+];
+const SEED_NL_ISSUES = [
+  { id:'ni1', numberEn:'#042', dateEn:'Feb 18, 2026', dateAr:'18 فبراير 2026', titleEn:'The Collab Formula: How Top Creators Structure Partnerships', titleAr:'صيغة التعاون: كيف يبني كبار المبدعين الشراكات', previewEn:'This week we break down the exact framework that 100CLAN\'s top creators use to structure profitable collaborations.', previewAr:'هذا الأسبوع نحلل الإطار الدقيق الذي يستخدمه كبار المبدعين في 100CLAN لبناء تعاونات مربحة.', order:0 },
+  { id:'ni2', numberEn:'#041', dateEn:'Feb 11, 2026', dateAr:'11 فبراير 2026', titleEn:'Algorithm Changes: What They Mean for Your Content', titleAr:'تغييرات الخوارزميات: ماذا تعني لمحتواك', previewEn:'Instagram and TikTok both updated their algorithms this month. Here\'s what changed and how to adapt.', previewAr:'إنستغرام وتيك توك حدّثا خوارزمياتهما هذا الشهر. إليك ما تغير وكيف تتكيف.', order:1 }
+];
+const SEED_RES_CATEGORIES = [
+  { id:'rc1', icon:'&#128218;', titleEn:'Growth Guides', titleAr:'أدلة النمو', descEn:'Step-by-step guides to grow your audience.', descAr:'أدلة خطوة بخطوة لتنمية جمهورك.', order:0 },
+  { id:'rc2', icon:'&#128196;', titleEn:'Templates', titleAr:'قوالب', descEn:'Ready-to-use templates for pitches and media kits.', descAr:'قوالب جاهزة للعروض والملفات الإعلامية.', order:1 },
+  { id:'rc3', icon:'&#9989;', titleEn:'Checklists', titleAr:'قوائم تحقق', descEn:'Pre-launch and post-collab checklists.', descAr:'قوائم تحقق ما قبل الإطلاق وما بعد التعاون.', order:2 },
+  { id:'rc4', icon:'&#127891;', titleEn:'Courses', titleAr:'دورات', descEn:'Free courses on content creation and monetization.', descAr:'دورات مجانية عن صناعة المحتوى وتحقيق الدخل.', order:3 }
+];
+const SEED_RES_ITEMS = [
+  { id:'ri1', categoryId:'rc1', titleEn:'The Complete Collab Playbook', titleAr:'دليل التعاون الشامل', descEn:'A 40-page guide covering everything from finding partners to measuring ROI.', descAr:'دليل من 40 صفحة يغطي كل شيء من إيجاد الشركاء إلى قياس العائد.', typeEn:'Guide', typeAr:'دليل', order:0 },
+  { id:'ri2', categoryId:'rc2', titleEn:'Media Kit Template', titleAr:'قالب الملف الإعلامي', descEn:'Professional media kit template used by top 100CLAN creators.', descAr:'قالب ملف إعلامي احترافي يستخدمه كبار مبدعي 100CLAN.', typeEn:'Template', typeAr:'قالب', order:1 },
+  { id:'ri3', categoryId:'rc3', titleEn:'Brand Deal Checklist', titleAr:'قائمة تحقق صفقات العلامات', descEn:'15-point checklist to review before signing any brand deal.', descAr:'قائمة تحقق من 15 نقطة للمراجعة قبل توقيع أي صفقة.', typeEn:'Checklist', typeAr:'قائمة تحقق', order:2 }
+];
+const SEED_MATCH_STEPS = [
+  { id:'ms1', number:'01', titleEn:'Profile Analysis', titleAr:'تحليل الملف', descEn:'We analyze your content niche, audience demographics, and engagement patterns.', descAr:'نحلل مجال محتواك وخصائص جمهورك وأنماط التفاعل.', order:0 },
+  { id:'ms2', number:'02', titleEn:'Algorithm Matching', titleAr:'المطابقة الخوارزمية', descEn:'Our AI compares 12+ data points to find creators who complement your style.', descAr:'ذكاؤنا الاصطناعي يقارن أكثر من 12 نقطة بيانات لإيجاد مبدعين يكملون أسلوبك.', order:1 },
+  { id:'ms3', number:'03', titleEn:'Connect & Create', titleAr:'تواصل وأبدع', descEn:'Review your matches, send collaboration requests, and start creating together.', descAr:'راجع مطابقاتك، أرسل طلبات التعاون، وابدأ بالإبداع معاً.', order:2 }
+];
+const SEED_MATCH_CRITERIA = [
+  { id:'mc1', icon:'&#127919;', titleEn:'Niche Alignment', titleAr:'توافق المجال', order:0 },
+  { id:'mc2', icon:'&#128101;', titleEn:'Audience Overlap', titleAr:'تداخل الجمهور', order:1 },
+  { id:'mc3', icon:'&#128200;', titleEn:'Engagement Rate', titleAr:'معدل التفاعل', order:2 },
+  { id:'mc4', icon:'&#128640;', titleEn:'Growth Trajectory', titleAr:'مسار النمو', order:3 },
+  { id:'mc5', icon:'&#127916;', titleEn:'Content Style', titleAr:'أسلوب المحتوى', order:4 },
+  { id:'mc6', icon:'&#129309;', titleEn:'Collab History', titleAr:'تاريخ التعاون', order:5 }
+];
+const SEED_COLLAB_TOOLS = [
+  { id:'ct1', icon:'&#128203;', titleEn:'Project Briefs', titleAr:'ملخصات المشاريع', descEn:'Create structured collaboration briefs with goals, timelines, and deliverables.', descAr:'أنشئ ملخصات تعاون منظمة بأهداف وجداول زمنية ومخرجات.', order:0 },
+  { id:'ct2', icon:'&#128197;', titleEn:'Shared Calendar', titleAr:'تقويم مشترك', descEn:'Sync publishing schedules across collaborators and platforms.', descAr:'مزامنة جداول النشر عبر المتعاونين والمنصات.', order:1 },
+  { id:'ct3', icon:'&#128172;', titleEn:'Built-in Messaging', titleAr:'مراسلة مدمجة', descEn:'Chat with collaborators directly inside the platform without sharing personal contacts.', descAr:'تحدث مع المتعاونين مباشرة داخل المنصة دون مشاركة جهات اتصال شخصية.', order:2 },
+  { id:'ct4', icon:'&#128200;', titleEn:'Analytics Dashboard', titleAr:'لوحة التحليلات', descEn:'Track the performance of every collaboration in real-time.', descAr:'تتبع أداء كل تعاون في الوقت الفعلي.', order:3 },
+  { id:'ct5', icon:'&#128193;', titleEn:'File Sharing', titleAr:'مشاركة الملفات', descEn:'Share scripts, mood boards, and assets in a centralized workspace.', descAr:'شارك السكربتات ولوحات الإلهام والأصول في مساحة عمل مركزية.', order:4 },
+  { id:'ct6', icon:'&#128274;', titleEn:'Digital Agreements', titleAr:'اتفاقيات رقمية', descEn:'Create and sign collaboration agreements to protect everyone involved.', descAr:'أنشئ ووقع اتفاقيات التعاون لحماية جميع الأطراف.', order:5 }
+];
+const SEED_COLLAB_WORKFLOW = [
+  { id:'cw1', number:'01', titleEn:'Propose', titleAr:'اقتراح', descEn:'Send a collab proposal with your idea, goals, and timeline.', descAr:'أرسل اقتراح تعاون بفكرتك وأهدافك وجدولك الزمني.', order:0 },
+  { id:'cw2', number:'02', titleEn:'Accept', titleAr:'قبول', descEn:'Review incoming proposals and accept the ones that align with your brand.', descAr:'راجع الاقتراحات الواردة واقبل التي تتوافق مع علامتك.', order:1 },
+  { id:'cw3', number:'03', titleEn:'Plan', titleAr:'تخطيط', descEn:'Use shared tools to plan content, set deadlines, and assign tasks.', descAr:'استخدم الأدوات المشتركة لتخطيط المحتوى وتحديد المواعيد وتوزيع المهام.', order:2 },
+  { id:'cw4', number:'04', titleEn:'Create', titleAr:'إنشاء', descEn:'Produce content together using the collaboration workspace.', descAr:'أنتج محتوى معاً باستخدام مساحة عمل التعاون.', order:3 },
+  { id:'cw5', number:'05', titleEn:'Publish', titleAr:'نشر', descEn:'Coordinate cross-platform publishing for maximum reach.', descAr:'نسّق النشر عبر المنصات لأقصى وصول.', order:4 },
+  { id:'cw6', number:'06', titleEn:'Analyze', titleAr:'تحليل', descEn:'Review performance metrics and plan your next collaboration.', descAr:'راجع مقاييس الأداء وخطط لتعاونك التالي.', order:5 }
+];
+const SEED_COMPARISON = {
+  rows: [
+    { featureEn:'Creator profile & portfolio', featureAr:'ملف المبدع والمحفظة', starter:true, pro:true, agency:true },
+    { featureEn:'Browse & discover creators', featureAr:'تصفح واكتشف المبدعين', starter:true, pro:true, agency:true },
+    { featureEn:'Collab requests/month', featureAr:'طلبات التعاون/شهر', starter:'5', pro:'Unlimited', agency:'Unlimited' },
+    { featureEn:'AI-powered matching', featureAr:'مطابقة بالذكاء الاصطناعي', starter:false, pro:true, agency:true },
+    { featureEn:'Analytics dashboard', featureAr:'لوحة التحليلات', starter:false, pro:true, agency:true },
+    { featureEn:'Brand deal marketplace', featureAr:'سوق صفقات العلامات', starter:false, pro:true, agency:true },
+    { featureEn:'Team seats', featureAr:'مقاعد الفريق', starter:'1', pro:'1', agency:'Up to 10' },
+    { featureEn:'Dedicated account manager', featureAr:'مدير حساب مخصص', starter:false, pro:false, agency:true }
+  ]
+};
+
+// ══════════════════════════════════════════
+// ──── GENERIC CONTENT MANAGER SYSTEM ────
+// ══════════════════════════════════════════
+// Maps content type names to their localStorage key, seed data, render target, and field definitions
+const CONTENT_TYPES = {
+  stats:           { key:'clan-content-stats',           seed:SEED_STATS,           target:'psHomeStats',        label:'Stat' },
+  features:        { key:'clan-content-features',        seed:SEED_FEATURES,        target:'psHomeFeatures',     label:'Feature' },
+  steps:           { key:'clan-content-steps',           seed:SEED_STEPS,           target:'psHomeSteps',        label:'Step' },
+  testimonials:    { key:'clan-content-testimonials',    seed:SEED_TESTIMONIALS,    target:'psHomeTestimonials', label:'Testimonial' },
+  aboutStats:      { key:'clan-content-about-stats',     seed:SEED_ABOUT_STATS,     target:'psAboutStats',       label:'Stat' },
+  timeline:        { key:'clan-content-timeline',        seed:SEED_TIMELINE,        target:'psAboutTimeline',    label:'Timeline Entry' },
+  values:          { key:'clan-content-values',          seed:SEED_VALUES,          target:'psAboutValues',      label:'Value' },
+  culture:         { key:'clan-content-culture',         seed:SEED_CULTURE,         target:'psCulture',          label:'Principle' },
+  careerBenefits:  { key:'clan-content-career-benefits', seed:SEED_CAREER_BENEFITS, target:'psCareerBenefits',   label:'Benefit' },
+  jobs:            { key:'clan-content-jobs',            seed:SEED_JOBS,            target:'psJobs',             label:'Job' },
+  contactFaqs:     { key:'clan-content-contact-faqs',    seed:SEED_CONTACT_FAQS,    target:'psContactFaqs',      label:'FAQ' },
+  plansFaqs:       { key:'clan-content-plans-faqs',      seed:SEED_PLANS_FAQS,      target:'psPlansFaqs',        label:'FAQ' },
+  pressStats:      { key:'clan-content-press-stats',     seed:SEED_PRESS_STATS,     target:'psPressStats',       label:'Stat' },
+  brandAssets:     { key:'clan-content-brand-assets',    seed:SEED_BRAND_ASSETS,    target:'psBrandAssets',      label:'Asset' },
+  pressMentions:   { key:'clan-content-press-mentions',  seed:SEED_PRESS_MENTIONS,  target:'psPressMentions',    label:'Mention' },
+  partnerTypes:    { key:'clan-content-partner-types',   seed:SEED_PARTNER_TYPES,   target:'psPartnerTypes',     label:'Partnership Type' },
+  partnerBenefits: { key:'clan-content-partner-benefits',seed:SEED_PARTNER_BENEFITS,target:'psPartnerBenefits',  label:'Benefit' },
+  nlBenefits:      { key:'clan-content-nl-benefits',     seed:SEED_NL_BENEFITS,     target:'psNlBenefits',       label:'Benefit' },
+  nlIssues:        { key:'clan-content-nl-issues',       seed:SEED_NL_ISSUES,       target:'psNlIssues',         label:'Issue' },
+  resCategories:   { key:'clan-content-res-categories',  seed:SEED_RES_CATEGORIES,  target:'psResCategories',    label:'Category' },
+  resItems:        { key:'clan-content-res-items',       seed:SEED_RES_ITEMS,       target:'psResItems',         label:'Resource' },
+  matchSteps:      { key:'clan-content-match-steps',     seed:SEED_MATCH_STEPS,     target:'psMatchSteps',       label:'Step' },
+  matchCriteria:   { key:'clan-content-match-criteria',  seed:SEED_MATCH_CRITERIA,  target:'psMatchCriteria',    label:'Criterion' },
+  collabTools:     { key:'clan-content-collab-tools',    seed:SEED_COLLAB_TOOLS,    target:'psCollabTools',      label:'Tool' },
+  collabWorkflow:  { key:'clan-content-collab-workflow',  seed:SEED_COLLAB_WORKFLOW,  target:'psCollabWorkflow',   label:'Step' }
+};
+
+// Field definitions for each content type modal
+const CONTENT_FIELDS = {
+  stats:           [{ k:'valueEn',l:'Value (EN)'},{k:'valueAr',l:'Value (AR)',rtl:1},{k:'labelEn',l:'Label (EN)'},{k:'labelAr',l:'Label (AR)',rtl:1}],
+  features:        [{ k:'icon',l:'Icon (emoji/HTML)'},{k:'titleEn',l:'Title (EN)'},{k:'titleAr',l:'Title (AR)',rtl:1},{k:'descEn',l:'Description (EN)',t:'textarea'},{k:'descAr',l:'Description (AR)',t:'textarea',rtl:1}],
+  steps:           [{ k:'number',l:'Number'},{k:'titleEn',l:'Title (EN)'},{k:'titleAr',l:'Title (AR)',rtl:1},{k:'descEn',l:'Description (EN)',t:'textarea'},{k:'descAr',l:'Description (AR)',t:'textarea',rtl:1}],
+  testimonials:    [{ k:'textEn',l:'Quote (EN)',t:'textarea'},{k:'textAr',l:'Quote (AR)',t:'textarea',rtl:1},{k:'authorName',l:'Author Name'},{k:'authorHandleEn',l:'Author Handle (EN)'},{k:'authorHandleAr',l:'Author Handle (AR)',rtl:1},{k:'avatarColor',l:'Avatar Gradient CSS'}],
+  aboutStats:      [{ k:'valueEn',l:'Value (EN)'},{k:'valueAr',l:'Value (AR)',rtl:1},{k:'labelEn',l:'Label (EN)'},{k:'labelAr',l:'Label (AR)',rtl:1}],
+  timeline:        [{ k:'yearEn',l:'Year (EN)'},{k:'yearAr',l:'Year (AR)',rtl:1},{k:'titleEn',l:'Title (EN)'},{k:'titleAr',l:'Title (AR)',rtl:1},{k:'descEn',l:'Description (EN)',t:'textarea'},{k:'descAr',l:'Description (AR)',t:'textarea',rtl:1}],
+  values:          [{ k:'icon',l:'Icon (emoji)'},{k:'titleEn',l:'Title (EN)'},{k:'titleAr',l:'Title (AR)',rtl:1},{k:'descEn',l:'Description (EN)',t:'textarea'},{k:'descAr',l:'Description (AR)',t:'textarea',rtl:1}],
+  culture:         [{ k:'icon',l:'Icon (emoji)'},{k:'titleEn',l:'Title (EN)'},{k:'titleAr',l:'Title (AR)',rtl:1},{k:'descEn',l:'Description (EN)',t:'textarea'},{k:'descAr',l:'Description (AR)',t:'textarea',rtl:1}],
+  careerBenefits:  [{ k:'icon',l:'Icon (emoji)'},{k:'titleEn',l:'Title (EN)'},{k:'titleAr',l:'Title (AR)',rtl:1},{k:'descEn',l:'Description (EN)',t:'textarea'},{k:'descAr',l:'Description (AR)',t:'textarea',rtl:1}],
+  jobs:            [{ k:'deptEn',l:'Department (EN)'},{k:'deptAr',l:'Department (AR)',rtl:1},{k:'titleEn',l:'Job Title (EN)'},{k:'titleAr',l:'Job Title (AR)',rtl:1},{k:'descEn',l:'Description (EN)',t:'textarea'},{k:'descAr',l:'Description (AR)',t:'textarea',rtl:1},{k:'tagsEn',l:'Tags EN (comma sep)'},{k:'tagsAr',l:'Tags AR (comma sep)',rtl:1}],
+  contactFaqs:     [{ k:'questionEn',l:'Question (EN)'},{k:'questionAr',l:'Question (AR)',rtl:1},{k:'answerEn',l:'Answer (EN)',t:'textarea'},{k:'answerAr',l:'Answer (AR)',t:'textarea',rtl:1}],
+  plansFaqs:       [{ k:'questionEn',l:'Question (EN)'},{k:'questionAr',l:'Question (AR)',rtl:1},{k:'answerEn',l:'Answer (EN)',t:'textarea'},{k:'answerAr',l:'Answer (AR)',t:'textarea',rtl:1}],
+  pressStats:      [{ k:'valueEn',l:'Value (EN)'},{k:'valueAr',l:'Value (AR)',rtl:1},{k:'labelEn',l:'Label (EN)'},{k:'labelAr',l:'Label (AR)',rtl:1}],
+  brandAssets:     [{ k:'icon',l:'Icon (emoji)'},{k:'titleEn',l:'Title (EN)'},{k:'titleAr',l:'Title (AR)',rtl:1},{k:'descEn',l:'Description (EN)',t:'textarea'},{k:'descAr',l:'Description (AR)',t:'textarea',rtl:1}],
+  pressMentions:   [{ k:'pubName',l:'Publication Name'},{k:'quoteEn',l:'Quote (EN)',t:'textarea'},{k:'quoteAr',l:'Quote (AR)',t:'textarea',rtl:1},{k:'pubDateEn',l:'Date (EN)'},{k:'pubDateAr',l:'Date (AR)',rtl:1}],
+  partnerTypes:    [{ k:'icon',l:'Icon (emoji)'},{k:'titleEn',l:'Title (EN)'},{k:'titleAr',l:'Title (AR)',rtl:1},{k:'descEn',l:'Description (EN)',t:'textarea'},{k:'descAr',l:'Description (AR)',t:'textarea',rtl:1},{k:'featuresEn',l:'Features EN (one per line)',t:'textarea'},{k:'featuresAr',l:'Features AR (one per line)',t:'textarea',rtl:1}],
+  partnerBenefits: [{ k:'icon',l:'Icon (emoji)'},{k:'titleEn',l:'Title (EN)'},{k:'titleAr',l:'Title (AR)',rtl:1},{k:'descEn',l:'Description (EN)',t:'textarea'},{k:'descAr',l:'Description (AR)',t:'textarea',rtl:1}],
+  nlBenefits:      [{ k:'icon',l:'Icon (emoji)'},{k:'titleEn',l:'Title (EN)'},{k:'titleAr',l:'Title (AR)',rtl:1},{k:'descEn',l:'Description (EN)',t:'textarea'},{k:'descAr',l:'Description (AR)',t:'textarea',rtl:1}],
+  nlIssues:        [{ k:'numberEn',l:'Issue #'},{k:'dateEn',l:'Date (EN)'},{k:'dateAr',l:'Date (AR)',rtl:1},{k:'titleEn',l:'Title (EN)'},{k:'titleAr',l:'Title (AR)',rtl:1},{k:'previewEn',l:'Preview (EN)',t:'textarea'},{k:'previewAr',l:'Preview (AR)',t:'textarea',rtl:1}],
+  resCategories:   [{ k:'icon',l:'Icon (emoji)'},{k:'titleEn',l:'Title (EN)'},{k:'titleAr',l:'Title (AR)',rtl:1},{k:'descEn',l:'Description (EN)',t:'textarea'},{k:'descAr',l:'Description (AR)',t:'textarea',rtl:1}],
+  resItems:        [{ k:'categoryId',l:'Category ID'},{k:'typeEn',l:'Type EN (Guide/Template/...)'},{k:'typeAr',l:'Type AR',rtl:1},{k:'titleEn',l:'Title (EN)'},{k:'titleAr',l:'Title (AR)',rtl:1},{k:'descEn',l:'Description (EN)',t:'textarea'},{k:'descAr',l:'Description (AR)',t:'textarea',rtl:1}],
+  matchSteps:      [{ k:'number',l:'Number'},{k:'titleEn',l:'Title (EN)'},{k:'titleAr',l:'Title (AR)',rtl:1},{k:'descEn',l:'Description (EN)',t:'textarea'},{k:'descAr',l:'Description (AR)',t:'textarea',rtl:1}],
+  matchCriteria:   [{ k:'icon',l:'Icon (emoji)'},{k:'titleEn',l:'Title (EN)'},{k:'titleAr',l:'Title (AR)',rtl:1}],
+  collabTools:     [{ k:'icon',l:'Icon (emoji)'},{k:'titleEn',l:'Title (EN)'},{k:'titleAr',l:'Title (AR)',rtl:1},{k:'descEn',l:'Description (EN)',t:'textarea'},{k:'descAr',l:'Description (AR)',t:'textarea',rtl:1}],
+  collabWorkflow:  [{ k:'number',l:'Number'},{k:'titleEn',l:'Title (EN)'},{k:'titleAr',l:'Title (AR)',rtl:1},{k:'descEn',l:'Description (EN)',t:'textarea'},{k:'descAr',l:'Description (AR)',t:'textarea',rtl:1}]
+};
+
+function getCT(type) { var ct = CONTENT_TYPES[type]; return getJSON(ct.key, ct.seed); }
+function saveCT(type, data) { var ct = CONTENT_TYPES[type]; setJSON(ct.key, data); }
+
+function renderCT(type) {
+  var ct = CONTENT_TYPES[type];
+  var items = getCT(type).sort(function(a,b){ return (a.order||0)-(b.order||0); });
+  var el = document.getElementById(ct.target);
+  if (!el) return;
+  if (!items.length) { el.innerHTML = '<p style="font-size:13px;color:var(--gray);">No items yet.</p>'; return; }
+  el.innerHTML = items.map(function(item) {
+    var title = item.titleEn || item.questionEn || item.valueEn || item.pubName || item.featureEn || item.numberEn || item.name || '';
+    var sub = item.descEn || item.answerEn || item.labelEn || item.quoteEn || item.previewEn || item.deptEn || item.textEn || '';
+    if (sub.length > 80) sub = sub.substring(0, 80) + '...';
+    return '<div class="item-card"><div class="item-avatar" style="background:var(--dark-4);font-size:16px;">' + (item.icon || item.number || '&#128196;') + '</div>' +
+      '<div class="item-info"><div class="item-name">' + esc(title) + '</div><div class="item-meta">' + esc(sub) + '</div></div>' +
+      '<div class="item-actions"><button class="btn btn-b" onclick="openGenericModal(\'' + type + '\',\'' + item.id + '\')">Edit</button>' +
+      '<button class="btn btn-r" onclick="delCT(\'' + type + '\',\'' + item.id + '\')">Delete</button></div></div>';
+  }).join('');
+}
+
+var _editingCTType = null, _editingCTId = null;
+function openGenericModal(type, editId) {
+  _editingCTType = type;
+  _editingCTId = editId || null;
+  var ct = CONTENT_TYPES[type];
+  var fields = CONTENT_FIELDS[type] || [];
+  var item = editId ? getCT(type).find(function(x){ return x.id === editId; }) || {} : {};
+  document.getElementById('modalGenericTitle').textContent = (editId ? 'Edit ' : 'Add ') + ct.label;
+  var html = '';
+  fields.forEach(function(f) {
+    var val = item[f.k] || '';
+    var inp = f.t === 'textarea' ? 'textarea' : 'input';
+    var dir = f.rtl ? ' dir="rtl"' : '';
+    var tag = f.rtl ? ' <span class="bi-tag bi-tag-ar">AR</span>' : (f.k.endsWith('En') ? ' <span class="bi-tag bi-tag-en">EN</span>' : '');
+    html += '<div class="form-group"><label class="form-label">' + f.l + tag + '</label>';
+    if (inp === 'textarea') html += '<textarea class="form-textarea" data-gf="' + f.k + '"' + dir + '>' + esc(val) + '</textarea>';
+    else html += '<input class="form-input" data-gf="' + f.k + '" value="' + esc(val) + '"' + dir + ' />';
+    html += '</div>';
+  });
+  html += '<div class="modal-actions"><button class="btn btn-ghost" onclick="closeModal(\'modalGeneric\')">Cancel</button><button class="btn btn-y" onclick="saveGenericItem()">Save</button></div>';
+  document.getElementById('modalGenericBody').innerHTML = html;
+  openModal('modalGeneric');
+}
+
+function saveGenericItem() {
+  var type = _editingCTType;
+  var items = getCT(type);
+  var data = {};
+  document.querySelectorAll('#modalGenericBody [data-gf]').forEach(function(el) { data[el.dataset.gf] = el.value; });
+  if (_editingCTId) {
+    var idx = items.findIndex(function(x){ return x.id === _editingCTId; });
+    if (idx >= 0) items[idx] = Object.assign({}, items[idx], data);
+  } else {
+    data.id = uid();
+    data.order = items.length;
+    items.push(data);
+  }
+  saveCT(type, items);
+  closeModal('modalGeneric');
+  renderCT(type);
+  logActivity(_editingCTId ? 'edit' : 'create', type, data.titleEn || data.valueEn || data.questionEn || '', '');
+  toast('&#9989; ' + CONTENT_TYPES[type].label + ' saved!');
+}
+
+function delCT(type, id) {
+  var ct = CONTENT_TYPES[type];
+  var item = getCT(type).find(function(x){ return x.id === id; });
+  confirm_('Delete ' + ct.label, 'Remove this item?', function() {
+    saveCT(type, getCT(type).filter(function(x){ return x.id !== id; }));
+    renderCT(type);
+    logActivity('delete', type, item ? (item.titleEn || item.valueEn || '') : '', '');
+    toast('&#9989; ' + ct.label + ' deleted');
+  });
+}
+
+// ──── Contact Info (special: single object, not array) ────
+function getContactInfo() { return getJSON('clan-content-contact-info', SEED_CONTACT_INFO); }
+function renderContactInfo() {
+  var ci = getContactInfo();
+  var html = '<div class="bi-row"><div class="form-group"><label class="form-label">Email <span class="bi-tag bi-tag-en">EN</span></label><input class="form-input" id="ciEmail" value="' + esc(ci.emailValue||'') + '" /></div><div class="form-group"><label class="form-label">Email Note EN</label><input class="form-input" id="ciEmailNoteEn" value="' + esc(ci.emailNoteEn||'') + '" /></div></div>';
+  html += '<div class="bi-row"><div class="form-group"><label class="form-label">Email Note <span class="bi-tag bi-tag-ar">AR</span></label><input class="form-input" id="ciEmailNoteAr" dir="rtl" value="' + esc(ci.emailNoteAr||'') + '" /></div></div>';
+  html += '<div class="bi-row"><div class="form-group"><label class="form-label">Response Time <span class="bi-tag bi-tag-en">EN</span></label><input class="form-input" id="ciRespEn" value="' + esc(ci.responseValueEn||'') + '" /></div><div class="form-group"><label class="form-label">Response Note EN</label><input class="form-input" id="ciRespNoteEn" value="' + esc(ci.responseNoteEn||'') + '" /></div></div>';
+  html += '<div class="bi-row"><div class="form-group"><label class="form-label">Response Time <span class="bi-tag bi-tag-ar">AR</span></label><input class="form-input" id="ciRespAr" dir="rtl" value="' + esc(ci.responseValueAr||'') + '" /></div><div class="form-group"><label class="form-label">Response Note <span class="bi-tag bi-tag-ar">AR</span></label><input class="form-input" id="ciRespNoteAr" dir="rtl" value="' + esc(ci.responseNoteAr||'') + '" /></div></div>';
+  html += '<div class="bi-row"><div class="form-group"><label class="form-label">HQ Location <span class="bi-tag bi-tag-en">EN</span></label><input class="form-input" id="ciHqEn" value="' + esc(ci.hqValueEn||'') + '" /></div><div class="form-group"><label class="form-label">HQ Note EN</label><input class="form-input" id="ciHqNoteEn" value="' + esc(ci.hqNoteEn||'') + '" /></div></div>';
+  html += '<div class="bi-row"><div class="form-group"><label class="form-label">HQ Location <span class="bi-tag bi-tag-ar">AR</span></label><input class="form-input" id="ciHqAr" dir="rtl" value="' + esc(ci.hqValueAr||'') + '" /></div><div class="form-group"><label class="form-label">HQ Note <span class="bi-tag bi-tag-ar">AR</span></label><input class="form-input" id="ciHqNoteAr" dir="rtl" value="' + esc(ci.hqNoteAr||'') + '" /></div></div>';
+  document.getElementById('psContactInfo').innerHTML = html;
+}
+function saveContactInfo() {
+  var data = { emailValue:document.getElementById('ciEmail').value, emailNoteEn:document.getElementById('ciEmailNoteEn').value, emailNoteAr:document.getElementById('ciEmailNoteAr').value, responseValueEn:document.getElementById('ciRespEn').value, responseValueAr:document.getElementById('ciRespAr').value, responseNoteEn:document.getElementById('ciRespNoteEn').value, responseNoteAr:document.getElementById('ciRespNoteAr').value, hqValueEn:document.getElementById('ciHqEn').value, hqValueAr:document.getElementById('ciHqAr').value, hqNoteEn:document.getElementById('ciHqNoteEn').value, hqNoteAr:document.getElementById('ciHqNoteAr').value };
+  setJSON('clan-content-contact-info', data);
+  logActivity('edit', 'contactInfo', 'Contact Information', '');
+  toast('&#9989; Contact info saved!');
+}
+
+// ──── Comparison Table (special: object with rows array) ────
+function getComparison() { return getJSON('clan-content-plan-comparison', SEED_COMPARISON); }
+function renderComparison() {
+  var comp = getComparison();
+  var html = '<table class="tc"><thead><tr><th>Feature</th><th>Starter</th><th>Pro</th><th>Agency</th><th></th></tr></thead><tbody>';
+  (comp.rows || []).forEach(function(r, i) {
+    function cellVal(v) { return v === true ? '&#9989;' : v === false ? '&#10060;' : esc(v||''); }
+    html += '<tr><td><input class="form-input" data-comp-row="' + i + '" data-comp-col="featureEn" value="' + esc(r.featureEn||'') + '" style="font-size:12px;" /></td>';
+    html += '<td><input class="form-input" data-comp-row="' + i + '" data-comp-col="starter" value="' + (r.starter===true?'yes':r.starter===false?'no':esc(r.starter||'')) + '" style="font-size:12px;width:80px;" /></td>';
+    html += '<td><input class="form-input" data-comp-row="' + i + '" data-comp-col="pro" value="' + (r.pro===true?'yes':r.pro===false?'no':esc(r.pro||'')) + '" style="font-size:12px;width:80px;" /></td>';
+    html += '<td><input class="form-input" data-comp-row="' + i + '" data-comp-col="agency" value="' + (r.agency===true?'yes':r.agency===false?'no':esc(r.agency||'')) + '" style="font-size:12px;width:80px;" /></td>';
+    html += '<td><button class="btn btn-r" onclick="delCompRow(' + i + ')">&#10005;</button></td></tr>';
+  });
+  html += '</tbody></table>';
+  document.getElementById('psComparison').innerHTML = html;
+}
+function addCompRow() { var comp = getComparison(); comp.rows.push({ featureEn:'New Feature', featureAr:'', starter:false, pro:true, agency:true }); setJSON('clan-content-plan-comparison', comp); renderComparison(); }
+function delCompRow(i) { var comp = getComparison(); comp.rows.splice(i, 1); setJSON('clan-content-plan-comparison', comp); renderComparison(); }
+function saveComparison() {
+  var comp = getComparison();
+  document.querySelectorAll('[data-comp-row]').forEach(function(el) {
+    var r = parseInt(el.dataset.compRow); var c = el.dataset.compCol;
+    if (comp.rows[r]) {
+      var v = el.value.trim();
+      if (c !== 'featureEn' && c !== 'featureAr') { v = v === 'yes' ? true : v === 'no' ? false : v; }
+      comp.rows[r][c] = v;
+    }
+  });
+  setJSON('clan-content-plan-comparison', comp);
+  logActivity('edit', 'comparison', 'Plan Comparison Table', '');
+  toast('&#9989; Comparison table saved!');
+}
+
+// ──── Activity Log ────
+function logActivity(action, section, itemName, details) {
+  var log = getJSON('clan-activity-log', []);
+  log.unshift({ id:uid(), timestamp:new Date().toISOString(), user:'admin', action:action, section:section, itemName:itemName||'', details:details||'' });
+  if (log.length > 500) log = log.slice(0, 500);
+  setJSON('clan-activity-log', log);
+}
+function renderActivity() {
+  var log = getJSON('clan-activity-log', []);
+  var q = (document.getElementById('activitySearch')?.value || '').toLowerCase();
+  var f = document.getElementById('activityFilter')?.value || 'all';
+  var filtered = log.filter(function(l) {
+    if (f !== 'all' && l.action !== f && !(f === 'settings' && l.action === 'settings_change')) return false;
+    if (q && !(l.section.toLowerCase().includes(q) || l.itemName.toLowerCase().includes(q) || l.action.includes(q))) return false;
+    return true;
+  }).slice(0, 100);
+  if (!filtered.length) { document.getElementById('activityList').innerHTML = '<p style="font-size:13px;color:var(--gray);">No activity logged yet.</p>'; return; }
+  var actionColors = { create:'var(--green)', edit:'var(--blue)', delete:'var(--red)', login:'var(--yellow)', settings_change:'var(--orange)' };
+  document.getElementById('activityList').innerHTML = filtered.map(function(l) {
+    var d = new Date(l.timestamp);
+    var time = d.toLocaleDateString() + ' ' + d.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+    return '<div class="item-card"><div class="item-avatar" style="background:' + (actionColors[l.action]||'var(--gray)') + ';color:#000;font-size:11px;font-weight:800;">' + l.action.slice(0,3).toUpperCase() + '</div>' +
+      '<div class="item-info"><div class="item-name">' + esc(l.action) + ' — ' + esc(l.section) + (l.itemName ? ': ' + esc(l.itemName) : '') + '</div>' +
+      '<div class="item-meta">' + time + ' by ' + esc(l.user) + (l.details ? ' — ' + esc(l.details) : '') + '</div></div></div>';
+  }).join('');
+}
+
+// ══════════════════════════════════════════
 // ──── PAGE CONTENT EDITOR ────
 // ══════════════════════════════════════════
 const PAGE_FIELDS = {
@@ -1108,9 +1654,17 @@ const PAGE_FIELDS = {
     { key:'featLabel', labelEn:'Features Label', type:'input' },
     { key:'featTitle', labelEn:'Features Title', type:'input' },
     { key:'featSub', labelEn:'Features Subtitle', type:'textarea' },
+    { key:'howLabel', labelEn:'How It Works Label', type:'input' },
+    { key:'howTitle', labelEn:'How It Works Title', type:'input' },
+    { key:'howSub', labelEn:'How It Works Subtitle', type:'textarea' },
+    { key:'testimonialsLabel', labelEn:'Testimonials Label', type:'input' },
+    { key:'testimonialsTitle', labelEn:'Testimonials Title', type:'input' },
+    { key:'testimonialsSub', labelEn:'Testimonials Subtitle', type:'textarea' },
     { key:'ctaLabel', labelEn:'CTA Section Label', type:'input' },
     { key:'ctaTitle', labelEn:'CTA Title', type:'input' },
-    { key:'ctaSub', labelEn:'CTA Subtitle', type:'textarea' }
+    { key:'ctaSub', labelEn:'CTA Subtitle', type:'textarea' },
+    { key:'ctaBtn', labelEn:'CTA Button Text', type:'input' },
+    { key:'ctaNote', labelEn:'CTA Note', type:'input' }
   ],
   about: [
     { key:'bannerLabel', labelEn:'Banner Label', type:'input' },
@@ -1119,70 +1673,147 @@ const PAGE_FIELDS = {
     { key:'missionLabel', labelEn:'Mission Label', type:'input' },
     { key:'missionTitle', labelEn:'Mission Title', type:'input' },
     { key:'missionBody', labelEn:'Mission Body Text', type:'textarea' },
+    { key:'missionQuote', labelEn:'Mission Quote', type:'textarea' },
+    { key:'missionQuoteAttr', labelEn:'Quote Attribution', type:'input' },
+    { key:'storyLabel', labelEn:'Story Label', type:'input' },
+    { key:'storyTitle', labelEn:'Story Title', type:'input' },
     { key:'valuesLabel', labelEn:'Values Label', type:'input' },
     { key:'valuesTitle', labelEn:'Values Title', type:'input' },
+    { key:'valuesSub', labelEn:'Values Subtitle', type:'textarea' },
     { key:'teamLabel', labelEn:'Team Label', type:'input' },
-    { key:'teamTitle', labelEn:'Team Title', type:'input' }
+    { key:'teamTitle', labelEn:'Team Title', type:'input' },
+    { key:'teamSub', labelEn:'Team Subtitle', type:'textarea' },
+    { key:'ctaLabel', labelEn:'CTA Label', type:'input' },
+    { key:'ctaTitle', labelEn:'CTA Title', type:'input' },
+    { key:'ctaSub', labelEn:'CTA Subtitle', type:'textarea' },
+    { key:'ctaBtn', labelEn:'CTA Button', type:'input' }
   ],
   blog: [
     { key:'bannerLabel', labelEn:'Banner Label', type:'input' },
     { key:'bannerTitle', labelEn:'Banner Title', type:'input' },
-    { key:'bannerSub', labelEn:'Banner Subtitle', type:'textarea' }
+    { key:'bannerSub', labelEn:'Banner Subtitle', type:'textarea' },
+    { key:'filterAll', labelEn:'Filter All Label', type:'input' },
+    { key:'nlTitle', labelEn:'Newsletter Strip Title', type:'input' },
+    { key:'nlSub', labelEn:'Newsletter Strip Subtitle', type:'textarea' }
   ],
   careers: [
     { key:'bannerLabel', labelEn:'Banner Label', type:'input' },
     { key:'bannerTitle', labelEn:'Banner Title', type:'input' },
-    { key:'bannerSub', labelEn:'Banner Subtitle', type:'textarea' }
+    { key:'bannerSub', labelEn:'Banner Subtitle', type:'textarea' },
+    { key:'cultureLabel', labelEn:'Culture Label', type:'input' },
+    { key:'cultureTitle', labelEn:'Culture Title', type:'input' },
+    { key:'cultureSub', labelEn:'Culture Subtitle', type:'textarea' },
+    { key:'benefitsLabel', labelEn:'Benefits Label', type:'input' },
+    { key:'benefitsTitle', labelEn:'Benefits Title', type:'input' },
+    { key:'jobsLabel', labelEn:'Jobs Label', type:'input' },
+    { key:'jobsTitle', labelEn:'Jobs Title', type:'input' },
+    { key:'ctaLabel', labelEn:'CTA Label', type:'input' },
+    { key:'ctaTitle', labelEn:'CTA Title', type:'input' },
+    { key:'ctaSub', labelEn:'CTA Subtitle', type:'textarea' },
+    { key:'ctaBtn', labelEn:'CTA Button', type:'input' }
   ],
   contact: [
     { key:'bannerLabel', labelEn:'Banner Label', type:'input' },
     { key:'bannerTitle', labelEn:'Banner Title', type:'input' },
-    { key:'bannerSub', labelEn:'Banner Subtitle', type:'textarea' }
+    { key:'bannerSub', labelEn:'Banner Subtitle', type:'textarea' },
+    { key:'formTitle', labelEn:'Form Title', type:'input' },
+    { key:'formSub', labelEn:'Form Subtitle', type:'textarea' },
+    { key:'faqLabel', labelEn:'FAQ Section Label', type:'input' },
+    { key:'faqTitle', labelEn:'FAQ Section Title', type:'input' }
   ],
   events: [
     { key:'bannerLabel', labelEn:'Banner Label', type:'input' },
     { key:'bannerTitle', labelEn:'Banner Title', type:'input' },
-    { key:'bannerSub', labelEn:'Banner Subtitle', type:'textarea' }
+    { key:'bannerSub', labelEn:'Banner Subtitle', type:'textarea' },
+    { key:'upcomingTitle', labelEn:'Upcoming Section Title', type:'input' },
+    { key:'pastTitle', labelEn:'Past Events Title', type:'input' }
   ],
   plans: [
     { key:'bannerLabel', labelEn:'Banner Label', type:'input' },
     { key:'bannerTitle', labelEn:'Banner Title', type:'input' },
-    { key:'bannerSub', labelEn:'Banner Subtitle', type:'textarea' }
+    { key:'bannerSub', labelEn:'Banner Subtitle', type:'textarea' },
+    { key:'monthly', labelEn:'Monthly Label', type:'input' },
+    { key:'yearly', labelEn:'Yearly Label', type:'input' },
+    { key:'compTitle', labelEn:'Comparison Title', type:'input' },
+    { key:'faqTitle', labelEn:'FAQ Section Title', type:'input' }
   ],
   press: [
     { key:'bannerLabel', labelEn:'Banner Label', type:'input' },
     { key:'bannerTitle', labelEn:'Banner Title', type:'input' },
-    { key:'bannerSub', labelEn:'Banner Subtitle', type:'textarea' }
+    { key:'bannerSub', labelEn:'Banner Subtitle', type:'textarea' },
+    { key:'statsLabel', labelEn:'Stats Label', type:'input' },
+    { key:'assetsLabel', labelEn:'Assets Section Label', type:'input' },
+    { key:'assetsTitle', labelEn:'Assets Title', type:'input' },
+    { key:'mentionsLabel', labelEn:'Mentions Section Label', type:'input' },
+    { key:'mentionsTitle', labelEn:'Mentions Title', type:'input' },
+    { key:'factsLabel', labelEn:'Facts Section Label', type:'input' },
+    { key:'factsTitle', labelEn:'Facts Title', type:'input' }
   ],
   'creator-stories': [
     { key:'bannerLabel', labelEn:'Banner Label', type:'input' },
     { key:'bannerTitle', labelEn:'Banner Title', type:'input' },
-    { key:'bannerSub', labelEn:'Banner Subtitle', type:'textarea' }
+    { key:'bannerSub', labelEn:'Banner Subtitle', type:'textarea' },
+    { key:'ctaLabel', labelEn:'CTA Label', type:'input' },
+    { key:'ctaTitle', labelEn:'CTA Title', type:'input' },
+    { key:'ctaSub', labelEn:'CTA Subtitle', type:'textarea' },
+    { key:'ctaBtn', labelEn:'CTA Button', type:'input' }
   ],
   'creator-matching': [
     { key:'bannerLabel', labelEn:'Banner Label', type:'input' },
     { key:'bannerTitle', labelEn:'Banner Title', type:'input' },
-    { key:'bannerSub', labelEn:'Banner Subtitle', type:'textarea' }
+    { key:'bannerSub', labelEn:'Banner Subtitle', type:'textarea' },
+    { key:'stepsLabel', labelEn:'Steps Label', type:'input' },
+    { key:'stepsTitle', labelEn:'Steps Title', type:'input' },
+    { key:'criteriaLabel', labelEn:'Criteria Label', type:'input' },
+    { key:'criteriaTitle', labelEn:'Criteria Title', type:'input' },
+    { key:'ctaLabel', labelEn:'CTA Label', type:'input' },
+    { key:'ctaTitle', labelEn:'CTA Title', type:'input' },
+    { key:'ctaSub', labelEn:'CTA Subtitle', type:'textarea' },
+    { key:'ctaBtn', labelEn:'CTA Button', type:'input' }
   ],
   'collaboration-hub': [
     { key:'bannerLabel', labelEn:'Banner Label', type:'input' },
     { key:'bannerTitle', labelEn:'Banner Title', type:'input' },
-    { key:'bannerSub', labelEn:'Banner Subtitle', type:'textarea' }
+    { key:'bannerSub', labelEn:'Banner Subtitle', type:'textarea' },
+    { key:'toolsLabel', labelEn:'Tools Label', type:'input' },
+    { key:'toolsTitle', labelEn:'Tools Title', type:'input' },
+    { key:'workflowLabel', labelEn:'Workflow Label', type:'input' },
+    { key:'workflowTitle', labelEn:'Workflow Title', type:'input' },
+    { key:'ctaLabel', labelEn:'CTA Label', type:'input' },
+    { key:'ctaTitle', labelEn:'CTA Title', type:'input' },
+    { key:'ctaSub', labelEn:'CTA Subtitle', type:'textarea' },
+    { key:'ctaBtn', labelEn:'CTA Button', type:'input' }
   ],
   'creator-resources': [
     { key:'bannerLabel', labelEn:'Banner Label', type:'input' },
     { key:'bannerTitle', labelEn:'Banner Title', type:'input' },
-    { key:'bannerSub', labelEn:'Banner Subtitle', type:'textarea' }
+    { key:'bannerSub', labelEn:'Banner Subtitle', type:'textarea' },
+    { key:'categoriesTitle', labelEn:'Categories Title', type:'input' },
+    { key:'resourcesTitle', labelEn:'Resources Title', type:'input' },
+    { key:'ctaLabel', labelEn:'CTA Label', type:'input' },
+    { key:'ctaTitle', labelEn:'CTA Title', type:'input' },
+    { key:'ctaBtn', labelEn:'CTA Button', type:'input' }
   ],
   newsletter: [
     { key:'bannerLabel', labelEn:'Banner Label', type:'input' },
     { key:'bannerTitle', labelEn:'Banner Title', type:'input' },
-    { key:'bannerSub', labelEn:'Banner Subtitle', type:'textarea' }
+    { key:'bannerSub', labelEn:'Banner Subtitle', type:'textarea' },
+    { key:'formTitle', labelEn:'Form Title', type:'input' },
+    { key:'benefitsTitle', labelEn:'Benefits Title', type:'input' },
+    { key:'issuesTitle', labelEn:'Past Issues Title', type:'input' }
   ],
   partnerships: [
     { key:'bannerLabel', labelEn:'Banner Label', type:'input' },
     { key:'bannerTitle', labelEn:'Banner Title', type:'input' },
-    { key:'bannerSub', labelEn:'Banner Subtitle', type:'textarea' }
+    { key:'bannerSub', labelEn:'Banner Subtitle', type:'textarea' },
+    { key:'typesLabel', labelEn:'Types Section Label', type:'input' },
+    { key:'typesTitle', labelEn:'Types Title', type:'input' },
+    { key:'benefitsLabel', labelEn:'Benefits Label', type:'input' },
+    { key:'benefitsTitle', labelEn:'Benefits Title', type:'input' },
+    { key:'ctaLabel', labelEn:'CTA Label', type:'input' },
+    { key:'ctaTitle', labelEn:'CTA Title', type:'input' },
+    { key:'ctaSub', labelEn:'CTA Subtitle', type:'textarea' },
+    { key:'ctaBtn', labelEn:'CTA Button', type:'input' }
   ],
   privacy: [{ key:'bannerTitle', labelEn:'Banner Title', type:'input' }],
   terms: [{ key:'bannerTitle', labelEn:'Banner Title', type:'input' }],
@@ -1830,7 +2461,7 @@ function dangerAction(act) {
   const msgs = { clearCollabs:'Clear all collaboration requests?', resetContent:'Reset ALL content to defaults? This cannot be undone.', wipeUsers:'Delete ALL users? This cannot be undone.' };
   confirm_('Danger Zone', msgs[act], () => {
     if (act === 'clearCollabs') localStorage.removeItem('clan-requests');
-    if (act === 'resetContent') { ['clan-content-pages','clan-content-team','clan-content-stories','clan-content-blog','clan-content-events','clan-content-plans','clan-content-nav','clan-content-footer'].forEach(k => localStorage.removeItem(k)); }
+    if (act === 'resetContent') { ['clan-content-pages','clan-content-team','clan-content-stories','clan-content-blog','clan-content-events','clan-content-plans','clan-content-nav','clan-content-footer','clan-content-contact-info','clan-content-plan-comparison'].concat(Object.keys(CONTENT_TYPES).map(function(t){return CONTENT_TYPES[t].key;})).forEach(k => localStorage.removeItem(k)); }
     if (act === 'wipeUsers') localStorage.removeItem('clan-admin-users');
     toast('&#9989; Action completed');
     updateBadges();
@@ -1841,7 +2472,8 @@ function dangerAction(act) {
 // ──── EXPORT / IMPORT ────
 // ══════════════════════════════════════════
 function exportData() {
-  const keys = ['clan-content-pages','clan-content-team','clan-content-stories','clan-content-blog','clan-content-events','clan-content-plans','clan-content-nav','clan-content-footer','clan-media','clan-admin-users','clan-admin-reports','clan-admin-ann','clan-settings'];
+  var ctKeys = Object.keys(CONTENT_TYPES).map(function(t){ return CONTENT_TYPES[t].key; });
+  const keys = ['clan-content-pages','clan-content-team','clan-content-stories','clan-content-blog','clan-content-events','clan-content-plans','clan-content-nav','clan-content-footer','clan-media','clan-admin-users','clan-admin-reports','clan-admin-ann','clan-settings','clan-content-contact-info','clan-content-plan-comparison','clan-activity-log'].concat(ctKeys);
   const data = {};
   keys.forEach(k => { const v = localStorage.getItem(k); if (v) data[k] = JSON.parse(v); });
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });

@@ -1087,6 +1087,46 @@
         });
       }
     }
+    // ── Comparison table from admin ──
+    var comp = JSON.parse(localStorage.getItem('clan-content-plan-comparison') || 'null');
+    if (comp && comp.rows && comp.rows.length) {
+      var lang = localStorage.getItem('clan-lang') || 'en';
+      var tbody = document.querySelector('.compare-table tbody');
+      if (tbody) {
+        tbody.innerHTML = comp.rows.map(function(r) {
+          var feat = lang==='ar' ? (r.featureAr||r.featureEn) : r.featureEn;
+          function cell(v) { return v===true ? '<td class="check-icon">&#10003;</td>' : v===false ? '<td class="dash-icon">&mdash;</td>' : '<td>' + v + '</td>'; }
+          return '<tr><td>' + feat + '</td>' + cell(r.starter) + cell(r.pro) + cell(r.agency) + '</tr>';
+        }).join('');
+      }
+    }
+
+    // ── Plans FAQs from admin ──
+    var pfaqs = JSON.parse(localStorage.getItem('clan-content-plans-faqs') || 'null');
+    if (pfaqs && pfaqs.length) {
+      var lang = localStorage.getItem('clan-lang') || 'en';
+      var faqList = document.querySelector('.faq-list');
+      if (faqList) {
+        pfaqs.sort(function(a,b){ return (a.order||0)-(b.order||0); });
+        faqList.innerHTML = pfaqs.map(function(f, i) {
+          var q = lang==='ar' ? (f.questionAr||f.questionEn) : f.questionEn;
+          var a = lang==='ar' ? (f.answerAr||f.answerEn) : f.answerEn;
+          return '<div class="faq-item">' +
+            '<div class="faq-q"><span>' + q + '</span><span class="faq-icon">+</span></div>' +
+            '<div class="faq-a"><p>' + a + '</p></div></div>';
+        }).join('');
+        // Re-bind FAQ toggle
+        faqList.querySelectorAll('.faq-q').forEach(function(q) {
+          q.addEventListener('click', function() {
+            var item = this.parentElement;
+            var wasOpen = item.classList.contains('open');
+            faqList.querySelectorAll('.faq-item').forEach(function(fi){ fi.classList.remove('open'); });
+            if (!wasOpen) item.classList.add('open');
+          });
+        });
+      }
+    }
+
   } catch(e) { /* silent fail */ }
 })();
 </script>

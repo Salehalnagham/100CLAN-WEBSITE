@@ -957,6 +957,42 @@
         });
       }
     }
+    // ── Collab tools from admin ──
+    var ctools = JSON.parse(localStorage.getItem('clan-content-collab-tools') || 'null');
+    if (ctools && ctools.length) {
+      var lang = localStorage.getItem('clan-lang') || 'en';
+      var grid = document.querySelector('.features-grid-2');
+      if (grid) {
+        ctools.sort(function(a,b){ return (a.order||0)-(b.order||0); });
+        grid.innerHTML = ctools.map(function(t, i) {
+          var delay = i > 0 ? ' reveal-delay-' + ((i%3)+1) : '';
+          return '<div class="feature-item reveal' + delay + '">' +
+            '<div class="fi-icon">' + (t.icon||'') + '</div>' +
+            '<h3>' + (lang==='ar' ? (t.titleAr||t.titleEn) : t.titleEn) + '</h3>' +
+            '<p>' + (lang==='ar' ? (t.descAr||t.descEn) : t.descEn) + '</p></div>';
+        }).join('');
+      }
+    }
+
+    // ── Collab workflow from admin ──
+    var cwflow = JSON.parse(localStorage.getItem('clan-content-collab-workflow') || 'null');
+    if (cwflow && cwflow.length) {
+      var lang = localStorage.getItem('clan-lang') || 'en';
+      var track = document.querySelector('.workflow-track');
+      if (track) {
+        cwflow.sort(function(a,b){ return (a.order||0)-(b.order||0); });
+        track.innerHTML = cwflow.map(function(w, i) {
+          var isLast = i === cwflow.length - 1;
+          var activeClass = i < 3 ? ' active' : '';
+          return '<div class="workflow-step">' +
+            '<div class="ws-node' + activeClass + '">' + (w.number||'') + '</div>' +
+            '<div class="ws-label">' + (lang==='ar' ? (w.titleAr||w.titleEn) : w.titleEn) + '</div>' +
+            '<div class="ws-sub">' + (lang==='ar' ? (w.descAr||w.descEn) : w.descEn) + '</div>' +
+            (isLast ? '' : '<div class="ws-arrow">&rarr;</div>') + '</div>';
+        }).join('');
+      }
+    }
+
   } catch(e) { /* silent fail */ }
 })();
 </script>

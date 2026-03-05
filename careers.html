@@ -1363,6 +1363,66 @@
         });
       }
     }
+    // ── Culture cards from admin ──
+    var culture = JSON.parse(localStorage.getItem('clan-content-culture') || 'null');
+    if (culture && culture.length) {
+      var lang = localStorage.getItem('clan-lang') || 'en';
+      var grid = document.querySelector('.culture-grid');
+      if (grid) {
+        culture.sort(function(a,b){ return (a.order||0)-(b.order||0); });
+        grid.innerHTML = culture.map(function(c, i) {
+          var delay = i > 0 ? ' reveal-delay-' + i : '';
+          return '<div class="culture-card reveal' + delay + '">' +
+            '<span class="culture-icon">' + (c.icon||'') + '</span>' +
+            '<h3>' + (lang==='ar' ? (c.titleAr||c.titleEn) : c.titleEn) + '</h3>' +
+            '<p>' + (lang==='ar' ? (c.descAr||c.descEn) : c.descEn) + '</p>' +
+            '</div>';
+        }).join('');
+      }
+    }
+
+    // ── Benefits from admin ──
+    var benefits = JSON.parse(localStorage.getItem('clan-content-career-benefits') || 'null');
+    if (benefits && benefits.length) {
+      var lang = localStorage.getItem('clan-lang') || 'en';
+      var grid = document.querySelector('.benefits-grid');
+      if (grid) {
+        benefits.sort(function(a,b){ return (a.order||0)-(b.order||0); });
+        grid.innerHTML = benefits.map(function(b, i) {
+          var delay = i > 0 ? ' reveal-delay-' + ((i%3)+1) : '';
+          return '<div class="benefit-item reveal' + delay + '">' +
+            '<span class="benefit-emoji">' + (b.icon||'') + '</span>' +
+            '<div class="benefit-text">' +
+            '<h4>' + (lang==='ar' ? (b.titleAr||b.titleEn) : b.titleEn) + '</h4>' +
+            '<p>' + (lang==='ar' ? (b.descAr||b.descEn) : b.descEn) + '</p>' +
+            '</div></div>';
+        }).join('');
+      }
+    }
+
+    // ── Jobs from admin ──
+    var jobs = JSON.parse(localStorage.getItem('clan-content-jobs') || 'null');
+    if (jobs && jobs.length) {
+      var lang = localStorage.getItem('clan-lang') || 'en';
+      var list = document.querySelector('.jobs-list');
+      if (list) {
+        var activeJobs = jobs.filter(function(j){ return j.isActive !== false; });
+        activeJobs.sort(function(a,b){ return (a.order||0)-(b.order||0); });
+        list.innerHTML = activeJobs.map(function(j, i) {
+          var delay = i > 0 ? ' reveal-delay-' + i : '';
+          var dept = lang==='ar' ? (j.deptAr||j.deptEn) : j.deptEn;
+          var title = lang==='ar' ? (j.titleAr||j.titleEn) : j.titleEn;
+          var desc = lang==='ar' ? (j.descAr||j.descEn) : j.descEn;
+          var tags = (lang==='ar' ? (j.tagsAr||j.tagsEn) : j.tagsEn) || '';
+          var tagHtml = tags.split(',').map(function(t){ return '<span class="job-tag">' + t.trim() + '</span>'; }).join('');
+          return '<div class="job-card reveal' + delay + '">' +
+            '<div class="job-info"><div class="job-meta"><span class="job-dept">' + dept + '</span>' + tagHtml + '</div>' +
+            '<h3>' + title + '</h3><p>' + desc + '</p></div>' +
+            '<div class="job-apply"><a href="contact.html" class="btn-primary">' + (lang==='ar'?'قدّم الآن':'Apply Now') + '</a></div></div>';
+        }).join('');
+      }
+    }
+
   } catch(e) { /* silent fail */ }
 })();
 </script>

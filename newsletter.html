@@ -919,6 +919,42 @@
         });
       }
     }
+    // ── Newsletter benefits from admin ──
+    var nlben = JSON.parse(localStorage.getItem('clan-content-nl-benefits') || 'null');
+    if (nlben && nlben.length) {
+      var lang = localStorage.getItem('clan-lang') || 'en';
+      var grid = document.querySelector('.benefits-grid');
+      if (grid) {
+        nlben.sort(function(a,b){ return (a.order||0)-(b.order||0); });
+        grid.innerHTML = nlben.map(function(b, i) {
+          var delay = i > 0 ? ' reveal-delay-' + i : '';
+          return '<div class="benefit-card reveal' + delay + '">' +
+            '<div class="benefit-icon">' + (b.icon||'') + '</div>' +
+            '<div class="benefit-title">' + (lang==='ar' ? (b.titleAr||b.titleEn) : b.titleEn) + '</div>' +
+            '<p class="benefit-desc">' + (lang==='ar' ? (b.descAr||b.descEn) : b.descEn) + '</p></div>';
+        }).join('');
+      }
+    }
+
+    // ── Newsletter past issues from admin ──
+    var nliss = JSON.parse(localStorage.getItem('clan-content-nl-issues') || 'null');
+    if (nliss && nliss.length) {
+      var lang = localStorage.getItem('clan-lang') || 'en';
+      var grid = document.querySelector('.issues-grid');
+      if (grid) {
+        nliss.sort(function(a,b){ return (a.order||0)-(b.order||0); });
+        grid.innerHTML = nliss.map(function(iss, i) {
+          var delay = i > 0 ? ' reveal-delay-' + i : '';
+          return '<div class="issue-card reveal' + delay + '">' +
+            '<div class="issue-meta"><span class="issue-num">' + (iss.numberEn||'') + '</span>' +
+            '<span class="issue-date">' + (lang==='ar' ? (iss.dateAr||iss.dateEn) : iss.dateEn) + '</span></div>' +
+            '<div class="issue-title">' + (lang==='ar' ? (iss.titleAr||iss.titleEn) : iss.titleEn) + '</div>' +
+            '<p class="issue-preview">' + (lang==='ar' ? (iss.previewAr||iss.previewEn) : iss.previewEn) + '</p>' +
+            '<a href="#" class="issue-read">' + (lang==='ar'?'اقرأ العدد &larr;':'Read Issue &rarr;') + '</a></div>';
+        }).join('');
+      }
+    }
+
   } catch(e) { /* silent fail */ }
 })();
 </script>
